@@ -1,0 +1,11 @@
+# MSC for Aggregated status
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  Site, "Supervision system";
+
+  |||;
+  Site=>"Supervision system" [ label = "Aggregated status message" ];
+  |||;
+}

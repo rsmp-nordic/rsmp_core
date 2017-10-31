@@ -1,0 +1,13 @@
+# MSC for Command request/response
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  Site, "Supervision system";
+
+  |||;
+  Site<="Supervision system" [ label = "Command request message" ];
+  |||;
+  Site=>"Supervision system" [ label = "Command response message" ];
+  |||;
+}

@@ -1,0 +1,13 @@
+# MSC for Alarm system from system
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  Site, "Supervision system";
+
+  |||;
+  Site<="Supervision system" [ label = "Alarm suspend message (on/off)" ];
+  |||;
+  Site=>"Supervision system" [ label = "Alarm message" ];
+  |||;
+}
