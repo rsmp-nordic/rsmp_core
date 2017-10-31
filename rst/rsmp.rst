@@ -98,7 +98,7 @@ Road side equipment. Covers both field level and local level
  A component-id identifies components.
 
  The format used for the STA’s sites is specified in the STA
- publication 2007:54 ISSN 1401-9612, e.g. AA+BBCDD=EEEFFGGG.
+ publication TDOK 2012:1171, e.g. AA+BBCDD=EEEFFGGG.
 
 **XML**
  eXtensible Markup Language
@@ -236,36 +236,93 @@ Transport of data
 -----------------
 
 The message flow is different between different types of messages.
-Some messages are event driven and sent without a request (push),
-while others are interaction driven, ie. they sent in response to a
-request from a host system or other system ( client- server). To
-ensure that messages reach their destinations a message acknowledgment
+Some message types are event driven and are sent without a request (push),
+while others are interaction driven, i.e. they sent in response to a
+request from a host system or other system (client-server).
+
+To ensure that messages reach their destinations a message acknowledgment
 is sent for all messages. This gives the application a simple way to
 follow up on the message exchange. To communicate between equipments
 and supervisions systems a pure TCP connection is used (TCP/IP), and
 the data sent is based on the JSON format, ie formatted text.
 
-Communication establishment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Messages can be sent asynchronously, i.e. while the site or supervision
+system is waiting for an answer to a previously sent message it can
+can continue to send messages.
+
+Security
+^^^^^^^^
+
+Connections with RSMP must be protected with encryption if the purchaser
+requires it.
+Encryption settings needs to be configurable in both the supervision
+system as well as the site. For the encrypted communication,
+SSL 3.0/TLS 1.0 or later is used.
+Certificates should be used to verify the identities of equipments.
+Equipment which uses RSMP should contain a user interface for easy
+management of certificates.
+The issuing and renewal of certificates should should be made in
+cooperation with the purchaser unless other arrangement is agreed upon.
+
+Communication establishment between sites and supervision system
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When establishing communication, messages are sent in the following
 order.
 
-1. RSMP / SXL version (according to section rsmpsxl-version_)
+.. image:: img/establish-site-system.png
+   :align: center
+
+1. RSMP / SXL version (according to section rsmpsxl-version_).
+   Verification of RSMP version, SXL version and site id.
 
 2. Watchdog (according to section watchdog_)
 
 3. Aggregated status (according to section aggregatedstatus_)
 
 4. All active and blocked alarm are sent (according to section
-   alarmmessages_). The alarms that are not sent will be interpreted
-   as non-active and non-blocked by the supervision system.
+   alarmmessages_).
 
 5. Any remaining messages in the equipment's outgoing communication
    buffer are sent
 
-6. Any previous subscriptions to status messages are re-established;
-   because they automatically cease at communication disruption
+Since only one version of the signal exchange list is allowed to be used
+at the communication establishment (according to the version message),
+each connected site must either:
+
+* Use the same version of the signal exchange list via the same
+  RSMP connection
+* Use different signal exchange lists via separate RSMP connections. In
+  this case the supervision system must listen on separate port numbers
+  - one for each signal exchange list. This is required if there should
+  be a possibility to update a signal exchange list without affecting
+  the signal exchange lists for all the other connected sites.
+
+Communication establishment between sites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. RSMP / SXL version (according to section rsmpsxl-version_).
+   Verification of RSMP version, SXL version and site id.
+
+2. Watchdog (according to section watchdog_)
+
+3. Aggregated status (according to section aggregatedstatus_)
+
+.. image:: img/establish-site-site.png
+   :align: center
+
+For communication between sites the following applies:
+
+* The site id (siteId) which is sent in RSMP / SXL version is the
+  connecting site's own siteId
+* If the siteId does not match with the expected siteId at other site
+  the connection should be  terminated. The purpose is to reduce the risk
+  of establishing connection with the wrong site
+* The component id (componentId) which is used in all messages is the
+  connecting site's component id
+* Watchdog messages does not adjust the clock
+* Alarm messages are not sent
+* No communication buffer exist
 
 Communication disruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -282,7 +339,7 @@ communication buffer of equipment not empty, this does not apply
 watchdog messages.
 
 The internal communication buffer of the device must at a minimum be
-sized to be able to store 1000 messages. At full communication buffer
+sized to be able to store 10000 messages. At full communication buffer
 the FIFO principle applies.
 
 Transport between site and supervision system
@@ -508,9 +565,6 @@ Return values
 | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
 | not actually    |                    |                                               |
 | sent)*          |                    | | General definition:                         |
-|                 |                    | | **raw**: Value is expressed as raw value    |
-|                 |                    | | **scale** Value is expressed as scale value |
-|                 |                    | | **unit**: Value is expressed as units       |
 |                 |                    | | **string**: Text information                |
 |                 |                    | | **integer**: Numerical value                |
 |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -519,7 +573,6 @@ Return values
 |                 |                    | | **real**: Float                             |
 |                 |                    |   (64-bit double precision floating point)    |
 |                 |                    | | **boolean**: Boolean data type              |
-|                 |                    | | **ordinal**: Represents index               |
 |                 |                    | | **base64**: Binary data expressed in        |
 |                 |                    |   base64 format according to RFC-4648         |
 +-----------------+--------------------+-----------------------------------------------+
@@ -796,41 +849,10 @@ for NTS. Every bit can either be true or false
 
 The principle of aggregating of statuses for each bit is defined by the
 associated comments in the signal exchange list (SXL). A generic
-description of each bit is presented in the table below
+description of each bit is presented in the figure below
 
-
-+---------+--------+-------------------------------------+--------------------------+
-| Element | Bit    | Description                         | Status                   |
-|         | (name) |                                     |                          |
-+=========+========+=====================================+==========================+
-| state   | 1      | The site is out of operation by the | Light blue – local       |
-|         |        | local control system or maintenance | control                  |
-|         |        | personnel working.                  |                          |
-|         +--------+-------------------------------------+--------------------------+
-|         | 2      | Supervision system has no contact   | Purple – Communication   |
-|         |        | with the site                       | disruption               |
-|         +--------+-------------------------------------+--------------------------+
-|         | 3      | The site has an alarm that requires | Red – High priority      |
-|         |        | immediate action. (Priority 1)      | alarm                    |
-|         +--------+-------------------------------------+--------------------------+
-|         | 4      | The site has an alarm that does not | Yellow – Medium          |
-|         |        | require immediate action but is     | priority alarm           |
-|         |        | planned during the next work shift  |                          |
-|         |        | (Priority 2)                        |                          |
-|         +--------+-------------------------------------+--------------------------+
-|         | 5      | The site has an alarm that will     | Blue – Low priority      |
-|         |        | corrected at the next planned       | alarm                    |
-|         |        | maintenance shift (Priority 3)      |                          |
-|         +--------+-------------------------------------+--------------------------+
-|         | 6      | The site is connected and is        | Green - Normal operation |
-|         |        | currently in use.                   | – In use                 |
-|         +--------+-------------------------------------+--------------------------+
-|         | 7      | The site is connected but is        | Dark grey - rest         |
-|         |        | currently not is use                |                          |
-|         +--------+-------------------------------------+--------------------------+
-|         | 8      | The site is not connected to the    | Light grey – Not         |
-|         |        | supervision system.                 | Connected                |
-+---------+--------+-------------------------------------+--------------------------+
+.. image:: img/agg_status_bits.png
+   :align: center
 
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -867,7 +889,9 @@ Structure for a request of a status of one or several objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A status request message has the structure according to the example
-below.
+below. If the object is not known, then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-status-req
@@ -987,9 +1011,6 @@ Return values (returnvalue)
 | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
 | not actually    |                    |                                               |
 | sent)*          |                    | | General definition:                         |
-|                 |                    | | **raw**: Value is expressed as raw value    |
-|                 |                    | | **scale** Value is expressed as scale value |
-|                 |                    | | **unit**: Value is expressed as units       |
 |                 |                    | | **string**: Text information                |
 |                 |                    | | **integer**: Numerical value                |
 |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -998,7 +1019,6 @@ Return values (returnvalue)
 |                 |                    | | **real**: Float                             |
 |                 |                    |   (64-bit double precision floating point)    |
 |                 |                    | | **boolean**: Boolean data type              |
-|                 |                    | | **ordinal**: Represents index               |
 |                 |                    | | **base64**: Binary data expressed in        |
 |                 |                    |   base64 format according to RFC-4648         |
 +-----------------+--------------------+-----------------------------------------------+
@@ -1012,6 +1032,9 @@ Return values (returnvalue)
 | ageState        | recent             | The value is up to date                       |
 |                 +--------------------+-----------------------------------------------+
 |                 | old                | The value is not up to date                   |
+|                 +--------------------+-----------------------------------------------+
+|                 | undefined          | The component does not exist and no           |
+|                 |                    | subscription will be performed                |
 |                 +--------------------+-----------------------------------------------+
 |                 | unknown            | The value is unknown and no subscription will |
 |                 |                    | be performed.                                 |
@@ -1079,6 +1102,12 @@ subscription. The reason for sending the response immediately is
 because subscriptions usually are established shortly after RSMP
 connection establishment and the supervision system needs to update
 with the current statuses and events.
+If an subscription is already active then the site must not establish
+a new subscription but use the existing one. This message type should
+not be sent if the subscription already exist.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-status-update
@@ -1237,9 +1266,6 @@ Values to send with the command (arguments)
 | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
 | not actually    |                    |                                               |
 | sent)*          |                    | | General definition:                         |
-|                 |                    | | **raw**: Value is expressed as raw value    |
-|                 |                    | | **scale** Value is expressed as scale value |
-|                 |                    | | **unit**: Value is expressed as units       |
 |                 |                    | | **string**: Text information                |
 |                 |                    | | **integer**: Numerical value                |
 |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1248,7 +1274,6 @@ Values to send with the command (arguments)
 |                 |                    | | **real**: Float                             |
 |                 |                    |   (64-bit double precision floating point)    |
 |                 |                    | | **boolean**: Boolean data type              |
-|                 |                    | | **ordinal**: Represents index               |
 |                 |                    | | **base64**: Binary data expressed in        |
 |                 |                    |   base64 format according to RFC-4648         |
 +-----------------+--------------------+-----------------------------------------------+
@@ -1266,6 +1291,9 @@ Structure of command response message
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-command-response
@@ -1322,6 +1350,8 @@ Return values (returnvalue)
 |                 +--------------------+-----------------------------------------------+
 |                 | old                | The value is not up to date                   |
 |                 +--------------------+-----------------------------------------------+
+|                 | undefined          | The component does not exist                  |
+|                 +--------------------+-----------------------------------------------+
 |                 | unknown            | The value is unknown                          |
 +-----------------+--------------------+-----------------------------------------------+
 | name            | *(Defined in SXL)* | Unique reference of the value                 |
@@ -1330,9 +1360,6 @@ Return values (returnvalue)
 | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
 | not actually    |                    |                                               |
 | sent)*          |                    | | General definition:                         |
-|                 |                    | | **raw**: Value is expressed as raw value    |
-|                 |                    | | **scale** Value is expressed as scale value |
-|                 |                    | | **unit**: Value is expressed as units       |
 |                 |                    | | **string**: Text information                |
 |                 |                    | | **integer**: Numerical value                |
 |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1341,7 +1368,6 @@ Return values (returnvalue)
 |                 |                    | | **real**: Float                             |
 |                 |                    |   (64-bit double precision floating point)    |
 |                 |                    | | **boolean**: Boolean data type              |
-|                 |                    | | **ordinal**: Represents index               |
 |                 |                    | | **base64**: Binary data expressed in        |
 |                 |                    |   base64 format according to RFC-4648         |
 +-----------------+--------------------+-----------------------------------------------+
@@ -1536,12 +1562,12 @@ Basic (xsi:type = Version)
 |             |                    | site.                                                              |
 |             |                    |                                                                    |
 |             |                    | | At the STA, the following formats can be used:                   |
-|             |                    | - The site id from the STAs component id standard                  |
-|             |                    |   VV:publ 2007:54 ISSN 1401-9612. e.g. ”40100”.                    |
-|             |                    | - It is also possible to use the full component id                 |
-|             |                    |   (VV:publ 2007:54 ISSN 1401-9612) of the grouped object in the    |
-|             |                    |   site in case the site id part of the component id is             |
-|             |                    |   insufficient in order to uniquely identify a site.               |
+|             |                    | - The site id from the STAs component id standard TDOK 2012:1171   |
+|             |                    |   e.g. ”40100”.                                                    |
+|             |                    | - It is also possible to use the full component id (TDOK 2012:1171)|
+|             |                    |   of the grouped object in the site in case the site id part of    |
+|             |                    |   the component id is insufficient in order to uniquely identify a |
+|             |                    |   site.                                                            |
 |             |                    |                                                                    |
 |             |                    | All the site ids that are used in the RSMP connection are sent     |
 |             |                    | in the message                                                     |
@@ -1588,6 +1614,10 @@ establishment and then at least once every 24 hours.
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.
+
+The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.
 
 Message structure
 """""""""""""""""
@@ -1653,61 +1683,64 @@ Comparison of elements
 
 The following table present a comparison of the names used in XML
 verses JSON. Please note that the JSON elements are formatted as JSON
-string elements and not JSON number or JSON boolean.
+string elements and not as JSON number or as JSON boolean elements,
+with the exception of the message type "aggregated status" where
+JSON boolean elements are used.
 
 
-============================== ===============
-Element in XML                 Element in JSON
-============================== ===============
-acknowledgeState               ack
-ageState (status message)      age
-ageState (command message)     q
-aggregatedStatusSpecialisation aSS
-aggstatusTimeStamp             aSTS
-alarmCodeId                    aCId
-alarmSpecialisation            aSp
-alarmState                     aS
-timestamp                      ts
-arguments                      arg
-category                       cat
-command                        cO
-commandCodeId                  cCI
-commandTimeStamp               cTS
-componentId                    cId
-externalAlarmCodeId            xACId
-externalEventCodeId            xECId
-externalNtsAlarmCodeId         xNACId
-externalNtsId                  xNId
-functionalPosition             fP
-functionalState                fS
-message xsi:type               type
-messageId                      mId
-name                           n
-originalMessageId              oMId
-priority                       pri
-reason                         rea
-returnvalue                    rv
-returnvalues (alarm)           rvs
-returnvalues (statusresponse)  sS
-rsmpVersion                    vers
-rsmpVersions                   RSMP
-roadSideMessage mType:         rSMsg
-ntsObjectId                    ntsOId
-siteIds                        siteId
-siteId                         sId
-source                         source
-state                          se
-status                         s
-statuses                       sS
-statusCodeId                   sCI
-statusTimestamp                sTs
-suspendState                   sS
-sxlRevision                    SXL
-type                           t
-unit                           u
-updateRate                     uRt
-watchdogTimestamp              wTs
-============================== ===============
+================================ ======================
+Element in XML                   Element in JSON
+================================ ======================
+acknowledgeState                 ack
+ageState *(status message)*      age
+ageState *(command message)*     q
+aggregatedStatusSpecialisation   aSS
+aggstatusTimeStamp               aSTS
+alarmCodeId                      aCId
+alarmSpecialisation              aSp
+alarmState                       aS
+timestamp                        aTs
+arguments                        arg
+category                         cat
+command                          cO
+commandCodeId                    cCI
+commandTimeStamp                 cTS
+componentId                      cId
+externalAlarmCodeId              xACId
+externalEventCodeId              xECId
+externalNtsAlarmCodeId           xNACId
+externalNtsId                    xNId
+functionalPosition               fP
+functionalState                  fS
+message xsi:type                 type
+messageId                        mId
+name *(alarm, status, commands)* n
+name *(aggregated status)*       *(positional element)*
+originalMessageId                oMId
+priority                         pri
+reason                           rea
+returnvalue                      rv
+returnvalues (alarm)             rvs
+returnvalues (statusresponse)    sS
+rsmpVersion                      vers
+rsmpVersions                     RSMP
+roadSideMessage mType:           rSMsg
+ntsObjectId                      ntsOId
+siteIds                          siteId
+siteId                           sId
+source                           source
+state                            se
+status                           s
+statuses                         sS
+statusCodeId                     sCI
+statusTimestamp                  sTs
+suspendState                     sS
+sxlRevision                      SXL
+type                             t
+unit                             u
+updateRate                       uRt
+watchdogTimestamp                wTs
+================================ ======================
 
 Wrapping of packets
 ^^^^^^^^^^^^^^^^^^^
@@ -1877,27 +1910,12 @@ formats. Please note that some lines may be wrapped.
        "xACId": "Larmfel på lykta 1 (röd)",
        "xNACId": "3143",
        "aSp": "acknowledge",
-       "ack": "Acknowledged",
-       "aS": "active",
-       "sS": "notSuspended",
-       "aTs": "2009-10-01T11:59:31.571Z",
-       "cat": "b",
-       "pri": "2",
-       "rvs": [
-       {
-           "n": "signalgrupp",
-           "v": "1"
-       },
-       {
-           "n": "färg",
-           "v": "röd"
-       }]
    }
 
 XML/JSON code 2: Comparison of example of alarm acknowledgement XML/JSON
 
-Structure for alarm suspend message
-"""""""""""""""""""""""""""""""""""
+Structure for alarm suspend message (activation)
+""""""""""""""""""""""""""""""""""""""""""""""""
 
 The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
@@ -1941,6 +1959,52 @@ formats. Please note that some lines may be wrapped.
    }
 
 XML/JSON code 3: Comparison of example of alarm suspend message XML/JSON
+
+Structure for alarm suspend message (deactivation)
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.
+
+.. code-block:: xml
+   :caption: XML
+
+   <?xml version="1.0" encoding="utf-8"?>
+   <roadSideMessage modelBaseVersion="1.0"
+      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
+       <message xsi:type="Alarm">
+           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
+           <ntsObjectId>F+40100=416CG100</ntsObjectId>
+           <externalNtsId>23055</externalNtsId>
+           <componentId>AB+84001=860VA001</componentId>
+           <alarmCodeId>A001</alarmCodeId>
+           <externalAlarmCodeId>Larmfel på lykta 1 (röd)</externalAlarmCodeId>
+           <externalNtsAlarmCodeId>3143</externalNtsAlarmCodeId>
+           <alarmSpecialisation xsi:type="Suspend">
+           <suspendAction>resume</suspendAction>
+           </alarmSpecialisation>
+       </message>
+   </roadSideMessage>
+
+.. code-block:: json
+   :caption: JSON
+
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+        "ntsOId": "F+40100=416CG100",
+        "xNId": "23055",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A001",
+        "xACId": "Larmfel på lykta 1 (röd)",
+        "xNACId": "3143",
+        "aSp": "resume"
+   }
+
+XML/JSON code 4: Comparison of example of alarm suspend message XML/JSON (deactivation)
 
 .. _aggregatedstatus:
 
@@ -2019,18 +2083,18 @@ formats. Please note that some lines may be wrapped.
        "fP": "Trafikstyrning",
        "fS": "Automatiskt nedsatt hastighet",
        "se": [
-           "false",
-           "true",
-           "true",
-           "false",
-           "false",
-           "false",
-           "false",
-           "false"
+           false,
+           true,
+           true,
+           false,
+           false,
+           false,
+           false,
+           false
        ]
    }
 
-XML/JSON code 4: Comparison of example of aggregated status message XML/JSON
+XML/JSON code 5: Comparison of example of aggregated status message XML/JSON
 
 Status Message
 ^^^^^^^^^^^^^^
@@ -2086,7 +2150,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 5: Comparison of example of status request message XML/JSON
+XML/JSON code 6: Comparison of example of status request message XML/JSON
 
 Structure for a message with status of one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -2149,7 +2213,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 6: Comparison of example of status response message XML/JSON
+XML/JSON code 7: Comparison of example of status response message XML/JSON
 
 Structure for a status subscription request message on one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -2206,7 +2270,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 7: Comparison of example of status subscription message XML/JSON
+XML/JSON code 8: Comparison of example of status subscription message XML/JSON
 
 Structure for a response message with answer to a request for status subscription for one or several objects
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -2269,7 +2333,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 8: Comparison of example of answer of status subscription message XML/JSON
+XML/JSON code 9: Comparison of example of answer of status subscription message XML/JSON
 
 Structure for a status unsubscription message on one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -2322,7 +2386,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 9: Comparison of example of answer of status unsubscription message XML/JSON
+XML/JSON code 10: Comparison of example of answer of status unsubscription message XML/JSON
 
 Command messages
 ^^^^^^^^^^^^^^^^
@@ -2376,7 +2440,7 @@ formats. Please note that some lines may be wrapped.
        ]
    }
 
-XML/JSON code 10: Comparison of example of command request message XML/JSON
+XML/JSON code 11: Comparison of example of command request message XML/JSON
 
 Structure of command response message
 """""""""""""""""""""""""""""""""""""
@@ -2430,7 +2494,7 @@ formats. Please note that some lines may be wrapped.
        ]
    }
 
-XML/JSON code 11: Comparison of example of command response message XML/JSON
+XML/JSON code 12: Comparison of example of command response message XML/JSON
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -2463,7 +2527,7 @@ formats. Please note that some lines may be wrapped.
        "oMId": "F4FSD010-D587-7A3B-8BD5-5C80A72C7154"
    }
 
-XML/JSON code 12: Comparison of example of message acknowledgement XML/JSON
+XML/JSON code 13: Comparison of example of message acknowledgement XML/JSON
 
 Message structure – Message not acknowledged
 """"""""""""""""""""""""""""""""""""""""""""
@@ -2495,7 +2559,7 @@ formats. Please note that some lines may be wrapped.
        "rea": "alarmCode: A054 does not exist"
    }
 
-XML/JSON code 13: Comparison of example of message not acknowledged XML/JSON
+XML/JSON code 14: Comparison of example of message not acknowledged XML/JSON
 
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
@@ -2546,7 +2610,7 @@ formats. Please note that some lines may be wrapped.
        "SXL":"1.3"
    }
 
-XML/JSON code 14: Comparison of example of version message XML/JSON
+XML/JSON code 15: Comparison of example of version message XML/JSON
 
 Watchdog
 ^^^^^^^^
@@ -2595,6 +2659,7 @@ Version Date       Change                                  Name (initals)
 3.0     2011-11-04 The protocol is revised                 DO
 3.1.1   2011-12-23 Minor revision                          DO
 3.1.2   2012-02-29 Minor revision                          DO
+3.1.3   2014-11-24 Minor revision                          DO
 ======= ========== ======================================= ===============
 
 
@@ -2673,8 +2738,8 @@ An object can either be categorized as a **single object** or **grouped
 object**.
 
 An object is defined under the title **group object** if the object is a
-component group according to VV:publ 2007:54 ISSN 1401-9612. Other objects
-are defined under **single object**.
+component group according to TDOK 2012:1171. Other objects are defined
+under **single object**.
 
 If the **externalNtsId** field is used; it means that the object is adapted
 to be sent to NTS.
@@ -2729,16 +2794,16 @@ Site
 +---------------+---------------------------------------------------------------------+
 | Notion        | Description                                                         |
 +===============+=====================================================================+
-| siteId        | Site identity. Used ino order to refer to a "locical" identity of a |
+| siteId        | Site identity. Used in order to refer to a "locical" identity of a  |
 |               | site.                                                               |
 |               |                                                                     |
 |               | | At the STA, the following formats can be used:                    |
-|               | - The site id from the STAs component id standard                   |
-|               |   VV:publ 2007:52 ISSN 1401-9612, e.g. "40100".                     |
-|               | - It is also possible to use the full component id                  |
-|               |   (VV:publ 2017-52 ISSN 1401-9612) of the grouped object in the     |
-|               |   site in case the site id part of the component id is              |
-|               |   insufficient to uniquely identify a site.                         |
+|               | - The site id from the STAs component id standard TDOK 2012:1171    |
+|               |   e.g. "40100".                                                     |
+|               | - It is also possible to use the full component id (TDOK 2012:1171) |
+|               |   of the grouped object in the site in case the site id part of     |
+|               |   the component id is insufficient in order to uniquely identify a  |
+|               |   site.                                                             |
 |               |                                                                     |
 |               | All the site ids that are used in the RSMP connection are sent      |
 |               | in the message                                                      |
@@ -2771,7 +2836,7 @@ Alarm
  |                        | following requirements:                       |
  |                        |                                               |
  |                        | - The text should be defined in cooperation   |
- |                        |   with the client before use)                 | 
+ |                        |   with the purchaser before use)              | 
  +------------------------+-----------------------------------------------+
  | externalAlarmCodeId    | Manufacturer specific alarm code and alarm    |
  |                        | description. Manufacturer, model, alarm code  |
@@ -2825,7 +2890,7 @@ Aggregated status
  +========================+===============================================+
  | state                  | Status bits (See "State-Bit-nr")              |
  +------------------------+-----------------------------------------------+
- | functionalPosition     | Functional position. Shows status and command |
+ | funcationalPosition    | Functional position. Shows status and command |
  |                        | possibilities of NTS objects. Correlates to   |
  |                        | (ref: Function positions)                     |
  +------------------------+-----------------------------------------------+
@@ -2853,7 +2918,7 @@ Detailed status
  |                        | the following requirements:                   |
  |                        |                                               |
  |                        | - The text should be defined in cooperation   |
- |                        |   with the client before use)                 | 
+ |                        |   with the purchaser before use)              | 
  +------------------------+-----------------------------------------------+
 
 Commands
@@ -2926,7 +2991,7 @@ Message type       Argument  Return value
 Alarm              No        Yes
 Aggregated status  No        No
 Status             No        Yes
-Commands           Yes       Yes
+Commands           Yes       No
 =================  ========  ============
 Argument
 ~~~~~~~~
@@ -2942,9 +3007,6 @@ The following table defines the format of a argument.
 | *(not sent)*    | Defined in the SXL but is not actually sent   |
 |                 |                                               |
 |                 | | General definition:                         |
-|                 | | **raw**: Value is expressed as raw value    |
-|                 | | **scale** Value is expressed as scale value |
-|                 | | **unit**: Value is expressed as units       |
 |                 | | **string**: Text information                |
 |                 | | **integer**: Numerical value                |
 |                 |   (16-bit signed integer), [-32768 – 32767]   |
@@ -2953,7 +3015,6 @@ The following table defines the format of a argument.
 |                 | | **real**: Float                             |
 |                 |   (64-bit double precision floating point)    |
 |                 | | **boolean**: Boolean data type              |
-|                 | | **ordinal**: Represents index               |
 |                 | | **base64**: Binary data expressed in        |
 |                 |   base64 format according to RFC-4648         |
 +-----------------+-----------------------------------------------+
@@ -2979,9 +3040,6 @@ return values for status messages also add **statusCodeId** and
 | *(not sent)*    | Defined in the SXL but is not actually sent   |
 |                 |                                               |
 |                 | | General definition:                         |
-|                 | | **raw**: Value is expressed as raw value    |
-|                 | | **scale** Value is expressed as scale value |
-|                 | | **unit**: Value is expressed as units       |
 |                 | | **string**: Text information                |
 |                 | | **integer**: Numerical value                |
 |                 |   (16-bit signed integer), [-32768 – 32767]   |
@@ -2990,7 +3048,6 @@ return values for status messages also add **statusCodeId** and
 |                 | | **real**: Float                             |
 |                 |   (64-bit double precision floating point)    |
 |                 | | **boolean**: Boolean data type              |
-|                 | | **ordinal**: Represents index               |
 |                 | | **base64**: Binary data expressed in        |
 |                 |   base64 format according to RFC-4648         |
 +-----------------+-----------------------------------------------+
@@ -2999,48 +3056,6 @@ return values for status messages also add **statusCodeId** and
 +-----------------+-----------------------------------------------+
 | value           | Value                                         |
 +-----------------+-----------------------------------------------+
-
-Configurable data areas
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Basic series
-""""""""""""
-In order to provide the possibility to make the SXL as flexible as possible
-the SXL template contains predefined number series of alarms, statues and
-commands where data types in return values and priority are predetermined.
-The purpose is when there is no defined SXL and when each system is
-relatively freely programmable simplify the work to create an SXL establish
-a communication flow. The basic serie is primarily designed for small to
-mid size sites with moderate need for a large number series.
-
-
-+--------------+---------------+--------------------------------------------------+
-| Message type | Number series | Comment                                          |
-+==============+===============+==================================================+
-| Alarm        | A1000-A1299   | Reserved for alarm with highest priority (prio 1)|
-|              +---------------+--------------------------------------------------+
-|              | A2000-A2299   | Reserved for alarm with medium priority (prio 2) |
-|              +---------------+--------------------------------------------------+
-|              | A3000-A3299   | Reserved for alarm with low priority (prio 3)    |
-+--------------+---------------+--------------------------------------------------+
-| Status       | S1000-S1299   | Reserved for return values of the type "boolean" |
-|              +---------------+--------------------------------------------------+
-|              | S2000-S2299   | Reserved for return values of the type "integer" |
-|              +---------------+--------------------------------------------------+
-|              | S3000-S3299   | Reserved for return values of the type "real"    |
-+--------------+---------------+--------------------------------------------------+
-| Command      | M1000-M1299   | Reserved for arguments of type "boolean"         |
-|              +---------------+--------------------------------------------------+
-|              | M2000-M2299   | Reserved for arguments of type "integer"         |
-|              +---------------+--------------------------------------------------+
-|              | M3000-M3299   | Reserved for arguments of type "real"            |
-+--------------+---------------+--------------------------------------------------+
-
-Extended series
-"""""""""""""""
-In larger sites there may be a need to extend the serie to cover the need.
-That is why there is unused space for each message type, for instance,
-priority 1 alarms, A1300-A1999.
 
 Version mangement
 ^^^^^^^^^^^^^^^^^
@@ -3190,23 +3205,6 @@ Sequence for a write operation:
    with the new value from the site (actual value/process value) and can
    determine if the new value could be sent or or not.
 
-Management of communication interruptions
-"""""""""""""""""""""""""""""""""""""""""
-In order to efficiently handle communication interruptions, power outages,
-or initial startup sequences where alarm status, aggregated status and
-other status are unknown by the supervision system since earlier it is
-recommended that the following set of messages should be added to the
-signal exchange list:
-
-- A command message to request that the site sends alarm status for all
-  alarm status for all objects.
-- A command message to request that the site sends aggregated status for
-  all NTS objects
-- A command message to request that the site sends all relevant status
-  updates in one and the same status response message (with the help of
-  arguments)
-
-
 Help and references
 -------------------
 
@@ -3224,5 +3222,6 @@ Version Date       Change                                          Name (initals
 3.0     2011-11-04 Configurable data areas and version management  DO
 3.1.1   2011-12-23 Minor revision                                  DO
 3.1.2   2012-02-29 Minor revision                                  DO
+3.1.3   2014-11-24 Minor revision                                  DO
 ======= ========== ==============================================  ==============
 
