@@ -132,7 +132,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Structure for an alarm message
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -169,7 +169,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Structure for an alarm message
 
    {
        "mType": "rSMsg",
@@ -208,7 +208,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Structure for alarm acknowledgement message
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -228,7 +228,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Structure for alarm acknowledgement message
 
    {
        "mType": "rSMsg",
@@ -252,7 +252,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Structure for alarm suspend message
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -274,7 +274,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Structure for alarm suspend message
 
    {
         "mType": "rSMsg",
@@ -349,7 +349,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Aggregated status Message
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0" xmlns="http://roadsidemessage.vv.se/1_0_1_4"
@@ -401,7 +401,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Aggregated status Message
 
    {
        "mType": "rSMsg",
@@ -437,7 +437,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Status request
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -463,7 +463,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Status request
 
    {
        "mType": "rSMsg",
@@ -490,7 +490,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Status response
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -521,7 +521,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Status response
 
    {
        "mType": "rSMsg",
@@ -553,7 +553,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Status subscribe
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -581,7 +581,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Status subscribe
 
    {
        "mType": "rSMsg",
@@ -610,7 +610,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Status update
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -641,7 +641,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Status update
 
    {
        "mType": "rSMsg",
@@ -673,7 +673,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Status unsubscribe
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -699,7 +699,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Status unsubscribe
 
    {
        "mType": "rSMsg",
@@ -729,7 +729,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Command request
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -752,7 +752,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Command request
 
    {
        "mType": "rSMsg",
@@ -780,7 +780,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Command response
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -805,7 +805,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Command response
 
    {
        "mType": "rSMsg",
@@ -837,7 +837,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Message acknowledgement
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -850,7 +850,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Message acknowledgment
 
    {
        "mType": "rSMsg",
@@ -867,7 +867,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Message not acknowledged
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -881,7 +881,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Message not acknowledged
 
    {
        "mType": "rSMsg",
@@ -902,7 +902,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - RSMP/SXL Version
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -924,7 +924,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - RSMP/SXL Version
 
    {
        "mType": "rSMsg",
@@ -953,7 +953,7 @@ The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
 
 .. code-block:: xml
-   :caption: XML
+   :name: XML - Watchdog
 
    <?xml version="1.0" encoding="utf-8"?>
    <roadSideMessage modelBaseVersion="1.0"
@@ -967,7 +967,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :caption: JSON
+   :name: JSON - Watchdog
 
    {
        "mType": "rSMsg",
