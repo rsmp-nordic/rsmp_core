@@ -242,9 +242,6 @@ Return values
    | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
    | not actually    |                    |                                               |
    | sent)*          |                    | | General definition:                         |
-   |                 |                    | | **raw**: Value is expressed as raw value    |
-   |                 |                    | | **scale** Value is expressed as scale value |
-   |                 |                    | | **unit**: Value is expressed as units       |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -253,7 +250,6 @@ Return values
    |                 |                    | | **real**: Float                             |
    |                 |                    |   (64-bit double precision floating point)    |
    |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **ordinal**: Represents index               |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -581,49 +577,10 @@ for NTS. Every bit can either be true or false
 
 The principle of aggregating of statuses for each bit is defined by the
 associated comments in the signal exchange list (SXL). A generic
-description of each bit is presented in the table below
+description of each bit is presented in the figure below
 
-.. figtable::
-   :nofig:
-   :label: table-agg-status-bits
-   :caption: Status bits (state)
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.08\linewidth} p{0.40\linewidth} p{0.30\linewidth}
-
-   +---------+--------+-------------------------------------+--------------------------+
-   | Element | Bit    | Description                         | Status                   |
-   |         | (name) |                                     |                          |
-   +=========+========+=====================================+==========================+
-   | state   | 1      | The site is out of operation by the | Light blue – local       |
-   |         |        | local control system or maintenance | control                  |
-   |         |        | personnel working.                  |                          |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 2      | Supervision system has no contact   | Purple – Communication   |
-   |         |        | with the site                       | disruption               |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 3      | The site has an alarm that requires | Red – High priority      |
-   |         |        | immediate action. (Priority 1)      | alarm                    |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 4      | The site has an alarm that does not | Yellow – Medium          |
-   |         |        | require immediate action but is     | priority alarm           |
-   |         |        | planned during the next work shift  |                          |
-   |         |        | (Priority 2)                        |                          |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 5      | The site has an alarm that will     | Blue – Low priority      |
-   |         |        | corrected at the next planned       | alarm                    |
-   |         |        | maintenance shift (Priority 3)      |                          |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 6      | The site is connected and is        | Green - Normal operation |
-   |         |        | currently in use.                   | – In use                 |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 7      | The site is connected but is        | Dark grey - rest         |
-   |         |        | currently not is use                |                          |
-   |         +--------+-------------------------------------+--------------------------+
-   |         | 8      | The site is not connected to the    | Light grey – Not         |
-   |         |        | supervision system.                 | Connected                |
-   +---------+--------+-------------------------------------+--------------------------+
-
-..
+.. image:: /img/msc/agg_status_bits.png
+   :align: center
 
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -660,7 +617,9 @@ Structure for a request of a status of one or several objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A status request message has the structure according to the example
-below.
+below. If the object is not known, then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-status-req
@@ -802,9 +761,6 @@ Return values (returnvalue)
    | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
    | not actually    |                    |                                               |
    | sent)*          |                    | | General definition:                         |
-   |                 |                    | | **raw**: Value is expressed as raw value    |
-   |                 |                    | | **scale** Value is expressed as scale value |
-   |                 |                    | | **unit**: Value is expressed as units       |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -813,7 +769,6 @@ Return values (returnvalue)
    |                 |                    | | **real**: Float                             |
    |                 |                    |   (64-bit double precision floating point)    |
    |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **ordinal**: Represents index               |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -827,6 +782,9 @@ Return values (returnvalue)
    | ageState        | recent             | The value is up to date                       |
    |                 +--------------------+-----------------------------------------------+
    |                 | old                | The value is not up to date                   |
+   |                 +--------------------+-----------------------------------------------+
+   |                 | undefined          | The component does not exist and no           |
+   |                 |                    | subscription will be performed                |
    |                 +--------------------+-----------------------------------------------+
    |                 | unknown            | The value is unknown and no subscription will |
    |                 |                    | be performed.                                 |
@@ -904,6 +862,12 @@ subscription. The reason for sending the response immediately is
 because subscriptions usually are established shortly after RSMP
 connection establishment and the supervision system needs to update
 with the current statuses and events.
+If an subscription is already active then the site must not establish
+a new subscription but use the existing one. This message type should
+not be sent if the subscription already exist.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-status-update
@@ -1068,9 +1032,6 @@ Values to send with the command (arguments)
    | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
    | not actually    |                    |                                               |
    | sent)*          |                    | | General definition:                         |
-   |                 |                    | | **raw**: Value is expressed as raw value    |
-   |                 |                    | | **scale** Value is expressed as scale value |
-   |                 |                    | | **unit**: Value is expressed as units       |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1079,7 +1040,6 @@ Values to send with the command (arguments)
    |                 |                    | | **real**: Float                             |
    |                 |                    |   (64-bit double precision floating point)    |
    |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **ordinal**: Represents index               |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1099,6 +1059,9 @@ Structure of command response message
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where "ageState" contains
+"undefined".
 
 .. code-block:: xml
    :name: xml-command-response
@@ -1169,6 +1132,8 @@ Return values (returnvalue)
    |                 +--------------------+-----------------------------------------------+
    |                 | old                | The value is not up to date                   |
    |                 +--------------------+-----------------------------------------------+
+   |                 | undefined          | The component does not exist                  |
+   |                 +--------------------+-----------------------------------------------+
    |                 | unknown            | The value is unknown                          |
    +-----------------+--------------------+-----------------------------------------------+
    | name            | *(Defined in SXL)* | Unique reference of the value                 |
@@ -1177,9 +1142,6 @@ Return values (returnvalue)
    | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
    | not actually    |                    |                                               |
    | sent)*          |                    | | General definition:                         |
-   |                 |                    | | **raw**: Value is expressed as raw value    |
-   |                 |                    | | **scale** Value is expressed as scale value |
-   |                 |                    | | **unit**: Value is expressed as units       |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1188,7 +1150,6 @@ Return values (returnvalue)
    |                 |                    | | **real**: Float                             |
    |                 |                    |   (64-bit double precision floating point)    |
    |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **ordinal**: Represents index               |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1407,12 +1368,12 @@ Basic (xsi:type = Version)
    |             |                    | site.                                                              |
    |             |                    |                                                                    |
    |             |                    | | At the STA, the following formats can be used:                   |
-   |             |                    | - The site id from the STAs component id standard                  |
-   |             |                    |   VV:publ 2007:54 ISSN 1401-9612. e.g. ”40100”.                    |
-   |             |                    | - It is also possible to use the full component id                 |
-   |             |                    |   (VV:publ 2007:54 ISSN 1401-9612) of the grouped object in the    |
-   |             |                    |   site in case the site id part of the component id is             |
-   |             |                    |   insufficient in order to uniquely identify a site.               |
+   |             |                    | - The site id from the STAs component id standard TDOK 2012:1171   |
+   |             |                    |   e.g. ”40100”.                                                    |
+   |             |                    | - It is also possible to use the full component id (TDOK 2012:1171)|
+   |             |                    |   of the grouped object in the site in case the site id part of    |
+   |             |                    |   the component id is insufficient in order to uniquely identify a |
+   |             |                    |   site.                                                            |
    |             |                    |                                                                    |
    |             |                    | All the site ids that are used in the RSMP connection are sent     |
    |             |                    | in the message                                                     |
@@ -1461,6 +1422,10 @@ establishment and then at least once every 24 hours.
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.
+
+The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.
 
 Message structure
 """""""""""""""""

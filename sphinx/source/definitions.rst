@@ -80,7 +80,7 @@ Definitions
        A component-id identifies components.
 
        The format used for the STA’s sites is specified in the STA
-       publication 2007:54 ISSN 1401-9612, e.g. AA+BBCDD=EEEFFGGG.
+       publication TDOK 2012:1171, e.g. AA+BBCDD=EEEFFGGG.
 
    XML
        eXtensible Markup Language

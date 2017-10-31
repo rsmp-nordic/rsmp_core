@@ -1,0 +1,20 @@
+# MSC for Command request/response
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  a [label="Site"], b [label="Supervision system"];
+
+  a<=>b [ label = "RSMP/SXL version" ];
+  |||;
+  --- [ label = "Verify site id" ];
+  |||;
+  a<=>b [ label = "Watchdog" ];
+  |||;
+  a=>b [ label = "Aggregated status" ];
+  |||;
+  a=>b [ label = "Active and blocked alarms" ];
+  |||;
+  a=>b [ label = "Remaining messages in buffer" ];
+  |||;
+}

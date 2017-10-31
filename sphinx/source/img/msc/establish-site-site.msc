@@ -1,0 +1,16 @@
+# MSC for Command request/response
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  a [label="Site #1"], b [label="Site #2"];
+
+  a<=>b [ label = "RSMP/SXL version" ];
+  |||;
+  --- [ label = "Verify site id" ];
+  |||;
+  a<=>b [ label = "Watchdog" ];
+  |||;
+  a<=>b [ label = "Aggregated status" ];
+  |||;
+}

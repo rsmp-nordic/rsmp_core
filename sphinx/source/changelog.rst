@@ -15,6 +15,7 @@ Change log
    3.0     2011-11-04 The protocol is revised                 DO
    3.1.1   2011-12-23 Minor revision                          DO
    3.1.2   2012-02-29 Minor revision                          DO
+   3.1.3   2014-11-24 Minor revision                          DO
    ======= ========== ======================================= ===============
 
 ..

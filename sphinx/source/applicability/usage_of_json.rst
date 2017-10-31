@@ -8,7 +8,9 @@ Comparison of elements
 
 The following table present a comparison of the names used in XML
 verses JSON. Please note that the JSON elements are formatted as JSON
-string elements and not JSON number or JSON boolean.
+string elements and not as JSON number or as JSON boolean elements,
+with the exception of the message type "aggregated status" where
+JSON boolean elements are used.
 
 .. figtable::
    :nofig:
@@ -17,58 +19,59 @@ string elements and not JSON number or JSON boolean.
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.30\linewidth} p{0.20\linewidth}
 
-   ============================== ===============
-   Element in XML                 Element in JSON
-   ============================== ===============
-   acknowledgeState               ack
-   ageState (status message)      age
-   ageState (command message)     q
-   aggregatedStatusSpecialisation aSS
-   aggstatusTimeStamp             aSTS
-   alarmCodeId                    aCId
-   alarmSpecialisation            aSp
-   alarmState                     aS
-   timestamp                      ts
-   arguments                      arg
-   category                       cat
-   command                        cO
-   commandCodeId                  cCI
-   commandTimeStamp               cTS
-   componentId                    cId
-   externalAlarmCodeId            xACId
-   externalEventCodeId            xECId
-   externalNtsAlarmCodeId         xNACId
-   externalNtsId                  xNId
-   functionalPosition             fP
-   functionalState                fS
-   message xsi:type               type
-   messageId                      mId
-   name                           n
-   originalMessageId              oMId
-   priority                       pri
-   reason                         rea
-   returnvalue                    rv
-   returnvalues (alarm)           rvs
-   returnvalues (statusresponse)  sS
-   rsmpVersion                    vers
-   rsmpVersions                   RSMP
-   roadSideMessage mType:         rSMsg
-   ntsObjectId                    ntsOId
-   siteIds                        siteId
-   siteId                         sId
-   source                         source
-   state                          se
-   status                         s
-   statuses                       sS
-   statusCodeId                   sCI
-   statusTimestamp                sTs
-   suspendState                   sS
-   sxlRevision                    SXL
-   type                           t
-   unit                           u
-   updateRate                     uRt
-   watchdogTimestamp              wTs
-   ============================== ===============
+   ================================ ======================
+   Element in XML                   Element in JSON
+   ================================ ======================
+   acknowledgeState                 ack
+   ageState *(status message)*      age
+   ageState *(command message)*     q
+   aggregatedStatusSpecialisation   aSS
+   aggstatusTimeStamp               aSTS
+   alarmCodeId                      aCId
+   alarmSpecialisation              aSp
+   alarmState                       aS
+   timestamp                        aTs
+   arguments                        arg
+   category                         cat
+   command                          cO
+   commandCodeId                    cCI
+   commandTimeStamp                 cTS
+   componentId                      cId
+   externalAlarmCodeId              xACId
+   externalEventCodeId              xECId
+   externalNtsAlarmCodeId           xNACId
+   externalNtsId                    xNId
+   functionalPosition               fP
+   functionalState                  fS
+   message xsi:type                 type
+   messageId                        mId
+   name *(alarm, status, commands)* n
+   name *(aggregated status)*       *(positional element)*
+   originalMessageId                oMId
+   priority                         pri
+   reason                           rea
+   returnvalue                      rv
+   returnvalues (alarm)             rvs
+   returnvalues (statusresponse)    sS
+   rsmpVersion                      vers
+   rsmpVersions                     RSMP
+   roadSideMessage mType:           rSMsg
+   ntsObjectId                      ntsOId
+   siteIds                          siteId
+   siteId                           sId
+   source                           source
+   state                            se
+   status                           s
+   statuses                         sS
+   statusCodeId                     sCI
+   statusTimestamp                  sTs
+   suspendState                     sS
+   sxlRevision                      SXL
+   type                             t
+   unit                             u
+   updateRate                       uRt
+   watchdogTimestamp                wTs
+   ================================ ======================
 
 Wrapping of packets
 ^^^^^^^^^^^^^^^^^^^
@@ -238,27 +241,12 @@ formats. Please note that some lines may be wrapped.
        "xACId": "Larmfel på lykta 1 (röd)",
        "xNACId": "3143",
        "aSp": "acknowledge",
-       "ack": "Acknowledged",
-       "aS": "active",
-       "sS": "notSuspended",
-       "aTs": "2009-10-01T11:59:31.571Z",
-       "cat": "b",
-       "pri": "2",
-       "rvs": [
-       {
-           "n": "signalgrupp",
-           "v": "1"
-       },
-       {
-           "n": "färg",
-           "v": "röd"
-       }]
    }
 
 XML/JSON code 2: Comparison of example of alarm acknowledgement XML/JSON
 
-Structure for alarm suspend message
-"""""""""""""""""""""""""""""""""""
+Structure for alarm suspend message (activation)
+""""""""""""""""""""""""""""""""""""""""""""""""
 
 The example below compares the message structure between the XML and JSON
 formats. Please note that some lines may be wrapped.
@@ -302,6 +290,52 @@ formats. Please note that some lines may be wrapped.
    }
 
 XML/JSON code 3: Comparison of example of alarm suspend message XML/JSON
+
+Structure for alarm suspend message (deactivation)
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.
+
+.. code-block:: xml
+   :caption: XML
+
+   <?xml version="1.0" encoding="utf-8"?>
+   <roadSideMessage modelBaseVersion="1.0"
+      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
+       <message xsi:type="Alarm">
+           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
+           <ntsObjectId>F+40100=416CG100</ntsObjectId>
+           <externalNtsId>23055</externalNtsId>
+           <componentId>AB+84001=860VA001</componentId>
+           <alarmCodeId>A001</alarmCodeId>
+           <externalAlarmCodeId>Larmfel på lykta 1 (röd)</externalAlarmCodeId>
+           <externalNtsAlarmCodeId>3143</externalNtsAlarmCodeId>
+           <alarmSpecialisation xsi:type="Suspend">
+           <suspendAction>resume</suspendAction>
+           </alarmSpecialisation>
+       </message>
+   </roadSideMessage>
+
+.. code-block:: json
+   :caption: JSON
+
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+        "ntsOId": "F+40100=416CG100",
+        "xNId": "23055",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A001",
+        "xACId": "Larmfel på lykta 1 (röd)",
+        "xNACId": "3143",
+        "aSp": "resume"
+   }
+
+XML/JSON code 4: Comparison of example of alarm suspend message XML/JSON (deactivation)
 
 .. _aggregatedstatus:
 
@@ -380,18 +414,18 @@ formats. Please note that some lines may be wrapped.
        "fP": "Trafikstyrning",
        "fS": "Automatiskt nedsatt hastighet",
        "se": [
-           "false",
-           "true",
-           "true",
-           "false",
-           "false",
-           "false",
-           "false",
-           "false"
+           false,
+           true,
+           true,
+           false,
+           false,
+           false,
+           false,
+           false
        ]
    }
 
-XML/JSON code 4: Comparison of example of aggregated status message XML/JSON
+XML/JSON code 5: Comparison of example of aggregated status message XML/JSON
 
 Status Message
 ^^^^^^^^^^^^^^
@@ -447,7 +481,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 5: Comparison of example of status request message XML/JSON
+XML/JSON code 6: Comparison of example of status request message XML/JSON
 
 Structure for a message with status of one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -510,7 +544,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 6: Comparison of example of status response message XML/JSON
+XML/JSON code 7: Comparison of example of status response message XML/JSON
 
 Structure for a status subscription request message on one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -567,7 +601,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 7: Comparison of example of status subscription message XML/JSON
+XML/JSON code 8: Comparison of example of status subscription message XML/JSON
 
 Structure for a response message with answer to a request for status subscription for one or several objects
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -630,7 +664,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 8: Comparison of example of answer of status subscription message XML/JSON
+XML/JSON code 9: Comparison of example of answer of status subscription message XML/JSON
 
 Structure for a status unsubscription message on one or several objects
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -683,7 +717,7 @@ formats. Please note that some lines may be wrapped.
        }]
    }
 
-XML/JSON code 9: Comparison of example of answer of status unsubscription message XML/JSON
+XML/JSON code 10: Comparison of example of answer of status unsubscription message XML/JSON
 
 Command messages
 ^^^^^^^^^^^^^^^^
@@ -737,7 +771,7 @@ formats. Please note that some lines may be wrapped.
        ]
    }
 
-XML/JSON code 10: Comparison of example of command request message XML/JSON
+XML/JSON code 11: Comparison of example of command request message XML/JSON
 
 Structure of command response message
 """""""""""""""""""""""""""""""""""""
@@ -791,7 +825,7 @@ formats. Please note that some lines may be wrapped.
        ]
    }
 
-XML/JSON code 11: Comparison of example of command response message XML/JSON
+XML/JSON code 12: Comparison of example of command response message XML/JSON
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -824,7 +858,7 @@ formats. Please note that some lines may be wrapped.
        "oMId": "F4FSD010-D587-7A3B-8BD5-5C80A72C7154"
    }
 
-XML/JSON code 12: Comparison of example of message acknowledgement XML/JSON
+XML/JSON code 13: Comparison of example of message acknowledgement XML/JSON
 
 Message structure – Message not acknowledged
 """"""""""""""""""""""""""""""""""""""""""""
@@ -856,7 +890,7 @@ formats. Please note that some lines may be wrapped.
        "rea": "alarmCode: A054 does not exist"
    }
 
-XML/JSON code 13: Comparison of example of message not acknowledged XML/JSON
+XML/JSON code 14: Comparison of example of message not acknowledged XML/JSON
 
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
@@ -907,7 +941,7 @@ formats. Please note that some lines may be wrapped.
        "SXL":"1.3"
    }
 
-XML/JSON code 14: Comparison of example of version message XML/JSON
+XML/JSON code 15: Comparison of example of version message XML/JSON
 
 Watchdog
 ^^^^^^^^

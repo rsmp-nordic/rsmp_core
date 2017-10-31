@@ -78,8 +78,8 @@ An object can either be categorized as a **single object** or **grouped
 object**.
 
 An object is defined under the title **group object** if the object is a
-component group according to VV:publ 2007:54 ISSN 1401-9612. Other objects
-are defined under **single object**.
+component group according to TDOK 2012:1171. Other objects are defined
+under **single object**.
 
 If the **externalNtsId** field is used; it means that the object is adapted
 to be sent to NTS.
@@ -156,16 +156,16 @@ Site
    +---------------+---------------------------------------------------------------------+
    | Notion        | Description                                                         |
    +===============+=====================================================================+
-   | siteId        | Site identity. Used ino order to refer to a "locical" identity of a |
+   | siteId        | Site identity. Used in order to refer to a "locical" identity of a  |
    |               | site.                                                               |
    |               |                                                                     |
    |               | | At the STA, the following formats can be used:                    |
-   |               | - The site id from the STAs component id standard                   |
-   |               |   VV:publ 2007:52 ISSN 1401-9612, e.g. "40100".                     |
-   |               | - It is also possible to use the full component id                  |
-   |               |   (VV:publ 2017-52 ISSN 1401-9612) of the grouped object in the     |
-   |               |   site in case the site id part of the component id is              |
-   |               |   insufficient to uniquely identify a site.                         |
+   |               | - The site id from the STAs component id standard TDOK 2012:1171    |
+   |               |   e.g. "40100".                                                     |
+   |               | - It is also possible to use the full component id (TDOK 2012:1171) |
+   |               |   of the grouped object in the site in case the site id part of     |
+   |               |   the component id is insufficient in order to uniquely identify a  |
+   |               |   site.                                                             |
    |               |                                                                     |
    |               | All the site ids that are used in the RSMP connection are sent      |
    |               | in the message                                                      |
@@ -206,7 +206,7 @@ Alarm
     |                        | following requirements:                       |
     |                        |                                               |
     |                        | - The text should be defined in cooperation   |
-    |                        |   with the client before use)                 | 
+    |                        |   with the purchaser before use)              | 
     +------------------------+-----------------------------------------------+
     | externalAlarmCodeId    | Manufacturer specific alarm code and alarm    |
     |                        | description. Manufacturer, model, alarm code  |
@@ -268,7 +268,7 @@ Aggregated status
     +========================+===============================================+
     | state                  | Status bits (See "State-Bit-nr")              |
     +------------------------+-----------------------------------------------+
-    | functionalPosition     | Functional position. Shows status and command |
+    | funcationalPosition    | Functional position. Shows status and command |
     |                        | possibilities of NTS objects. Correlates to   |
     |                        | (ref: Function positions)                     |
     +------------------------+-----------------------------------------------+
@@ -304,7 +304,7 @@ Detailed status
     |                        | the following requirements:                   |
     |                        |                                               |
     |                        | - The text should be defined in cooperation   |
-    |                        |   with the client before use)                 | 
+    |                        |   with the purchaser before use)              | 
     +------------------------+-----------------------------------------------+
 
 ..
@@ -401,7 +401,7 @@ return values.
    Alarm              No        Yes
    Aggregated status  No        No
    Status             No        Yes
-   Commands           Yes       Yes
+   Commands           Yes       No
    =================  ========  ============
 ..
 
@@ -425,9 +425,6 @@ The following table defines the format of a argument.
    | *(not sent)*    | Defined in the SXL but is not actually sent   |
    |                 |                                               |
    |                 | | General definition:                         |
-   |                 | | **raw**: Value is expressed as raw value    |
-   |                 | | **scale** Value is expressed as scale value |
-   |                 | | **unit**: Value is expressed as units       |
    |                 | | **string**: Text information                |
    |                 | | **integer**: Numerical value                |
    |                 |   (16-bit signed integer), [-32768 – 32767]   |
@@ -436,7 +433,6 @@ The following table defines the format of a argument.
    |                 | | **real**: Float                             |
    |                 |   (64-bit double precision floating point)    |
    |                 | | **boolean**: Boolean data type              |
-   |                 | | **ordinal**: Represents index               |
    |                 | | **base64**: Binary data expressed in        |
    |                 |   base64 format according to RFC-4648         |
    +-----------------+-----------------------------------------------+
@@ -470,9 +466,6 @@ return values for status messages also add **statusCodeId** and
    | *(not sent)*    | Defined in the SXL but is not actually sent   |
    |                 |                                               |
    |                 | | General definition:                         |
-   |                 | | **raw**: Value is expressed as raw value    |
-   |                 | | **scale** Value is expressed as scale value |
-   |                 | | **unit**: Value is expressed as units       |
    |                 | | **string**: Text information                |
    |                 | | **integer**: Numerical value                |
    |                 |   (16-bit signed integer), [-32768 – 32767]   |
@@ -481,7 +474,6 @@ return values for status messages also add **statusCodeId** and
    |                 | | **real**: Float                             |
    |                 |   (64-bit double precision floating point)    |
    |                 | | **boolean**: Boolean data type              |
-   |                 | | **ordinal**: Represents index               |
    |                 | | **base64**: Binary data expressed in        |
    |                 |   base64 format according to RFC-4648         |
    +-----------------+-----------------------------------------------+
@@ -492,56 +484,6 @@ return values for status messages also add **statusCodeId** and
    +-----------------+-----------------------------------------------+
 
 ..
-
-
-Configurable data areas
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Basic series
-""""""""""""
-In order to provide the possibility to make the SXL as flexible as possible
-the SXL template contains predefined number series of alarms, statues and
-commands where data types in return values and priority are predetermined.
-The purpose is when there is no defined SXL and when each system is
-relatively freely programmable simplify the work to create an SXL establish
-a communication flow. The basic serie is primarily designed for small to
-mid size sites with moderate need for a large number series.
-
-.. figtable::
-   :nofig:
-   :label: table-configurable-data-areas
-   :caption: Configurable data areas
-   :loc: H
-
-   +--------------+---------------+--------------------------------------------------+
-   | Message type | Number series | Comment                                          |
-   +==============+===============+==================================================+
-   | Alarm        | A1000-A1299   | Reserved for alarm with highest priority (prio 1)|
-   |              +---------------+--------------------------------------------------+
-   |              | A2000-A2299   | Reserved for alarm with medium priority (prio 2) |
-   |              +---------------+--------------------------------------------------+
-   |              | A3000-A3299   | Reserved for alarm with low priority (prio 3)    |
-   +--------------+---------------+--------------------------------------------------+
-   | Status       | S1000-S1299   | Reserved for return values of the type "boolean" |
-   |              +---------------+--------------------------------------------------+
-   |              | S2000-S2299   | Reserved for return values of the type "integer" |
-   |              +---------------+--------------------------------------------------+
-   |              | S3000-S3299   | Reserved for return values of the type "real"    |
-   +--------------+---------------+--------------------------------------------------+
-   | Command      | M1000-M1299   | Reserved for arguments of type "boolean"         |
-   |              +---------------+--------------------------------------------------+
-   |              | M2000-M2299   | Reserved for arguments of type "integer"         |
-   |              +---------------+--------------------------------------------------+
-   |              | M3000-M3299   | Reserved for arguments of type "real"            |
-   +--------------+---------------+--------------------------------------------------+
-
-..
-
-Extended series
-"""""""""""""""
-In larger sites there may be a need to extend the serie to cover the need.
-That is why there is unused space for each message type, for instance,
-priority 1 alarms, A1300-A1999.
 
 Version mangement
 ^^^^^^^^^^^^^^^^^
@@ -707,23 +649,6 @@ Sequence for a write operation:
    with the new value from the site (actual value/process value) and can
    determine if the new value could be sent or or not.
 
-Management of communication interruptions
-"""""""""""""""""""""""""""""""""""""""""
-In order to efficiently handle communication interruptions, power outages,
-or initial startup sequences where alarm status, aggregated status and
-other status are unknown by the supervision system since earlier it is
-recommended that the following set of messages should be added to the
-signal exchange list:
-
-- A command message to request that the site sends alarm status for all
-  alarm status for all objects.
-- A command message to request that the site sends aggregated status for
-  all NTS objects
-- A command message to request that the site sends all relevant status
-  updates in one and the same status response message (with the help of
-  arguments)
-
-
 Help and references
 -------------------
 
@@ -747,6 +672,7 @@ Change log
    3.0     2011-11-04 Configurable data areas and version management  DO
    3.1.1   2011-12-23 Minor revision                                  DO
    3.1.2   2012-02-29 Minor revision                                  DO
+   3.1.3   2014-11-24 Minor revision                                  DO
    ======= ========== ==============================================  ==============
 
 ..
