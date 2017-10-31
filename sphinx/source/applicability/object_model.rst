@@ -1,3 +1,5 @@
+.. _object_model:
+
 Object model
 ------------
 

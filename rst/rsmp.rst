@@ -17,6 +17,8 @@ RSMP Specification
 ==================
 
 
+.. _definitions:
+
 Definitions
 ===========
 
@@ -191,6 +193,8 @@ Applicability
 =============
 
 
+.. _scope:
+
 Scope
 -----
 
@@ -207,6 +211,8 @@ The Swedish Transport Administration (STA) is providing this interface
 specification as information only. The STA is not responsible for any
 consequences that implementation of the specification can lead to for
 the supplier or any third party.
+
+.. _object_model:
 
 Object model
 ------------
@@ -231,6 +237,8 @@ Objects used for message exchange is **Alarm** with subclasses **Issue**,
 **CommandRequest**, **CommandResponse**, **Watchdog**, **MessageAck**,
 **MessageNotAck**. For detailed information about how these classes are
 used, see section basic-structure_.
+
+.. _transport_of_data:
 
 Transport of data
 -----------------
@@ -359,7 +367,7 @@ responsibility to reconnect.
 .. _basicstructure:
 
 
-.. _basic-structure:
+.. _basic_structure:
 
 Basic structure
 ---------------
