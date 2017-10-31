@@ -105,7 +105,7 @@ Example of wrapping of a packet:
         "aSp": "acknowledge",
         "ack": "Acknowledged",
         "aS": "active",
-        "sS", "notSuspended",
+        "sS": "notSuspended",
         "aTs": "2009-10-02T14:34:34.345Z",
         "cat": "b",
         "pri": "2",
