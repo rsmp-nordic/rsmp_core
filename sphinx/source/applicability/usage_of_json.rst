@@ -1,4 +1,4 @@
-.. _usage-of-json:
+.. _usage_of_json:
 
 Usage of JSON
 -------------

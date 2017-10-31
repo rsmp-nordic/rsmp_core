@@ -1,3 +1,5 @@
+.. _sxl:
+
 Guideline - Signal exchange list
 ================================
 
