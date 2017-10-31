@@ -5,11 +5,11 @@ Contens
 * `introduction`_
 * `purpose`_
 * `applicability`_
-* applicability/`scope.rst`_
-* applicability/`object_model.rst`_
-* applicability/`transport_of_data.rst`_
-* applicability/`basic_structure.rst`_
-* applicability/`usage_of_json.rst`_
+* applicability/`scope`_
+* applicability/`object_model`_
+* applicability/`transport_of_data`_
+* applicability/`basic_structure`_
+* applicability/`usage_of_json`_
 * `changelog`_
 * appendix/`sxl`_
 
