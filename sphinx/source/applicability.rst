@@ -4,9 +4,9 @@ Applicability
 .. toctree::
    :maxdepth: 2
     
-   applicability/scope.rst
-   applicability/object_model.rst
-   applicability/transport_of_data.rst
-   applicability/basic_structure.rst
-   applicability/usage_of_json.rst
+   applicability/scope
+   applicability/object_model
+   applicability/transport_of_data
+   applicability/basic_structure
+   applicability/usage_of_json
 
