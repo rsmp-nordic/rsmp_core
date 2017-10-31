@@ -130,6 +130,8 @@ between road side equipments. The aim is to offer a standardized protocol
 that works the same way regardless of supplier or type of road side
 equipment.
 
+.. _purpose:
+
 Purpose
 =======
 
@@ -1681,7 +1683,7 @@ Supervision system/other equipment sends watchdog message
 1. Watchdog message is sent from supervision system/other equipment
 
 
-.. _usage-of-json:
+.. _usage_of_json:
 
 Usage of JSON
 -------------
@@ -2656,6 +2658,8 @@ formats. Please note that some lines may be wrapped.
 XML/JSON code 16: Comparison of watchdog messages XML/JSON
 
 
+.. _changelog:
+
 Change log
 ==========
 
@@ -2670,6 +2674,8 @@ Version Date       Change                                  Name (initals)
 3.1.3   2014-11-24 Minor revision                          DO
 ======= ========== ======================================= ===============
 
+
+.. _sxl:
 
 Guideline - Signal exchange list
 ================================
