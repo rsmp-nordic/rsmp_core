@@ -45,3 +45,24 @@ The NACK message is sent when there is an error on a protocol level, e.g.
 incorrect JSon-format, command not found, etc. This message can be sent more or
 less immediately after receiving the CommandRequest.
 
+
+3, Version message and MessageAck
+----------------------------------
+
+Q: During integration test we saw some behavior which we found odd. We saw the
+next exchange of messages:
+```
+Site   -> System: Version message
+System -> Site:   Ack
+System -> Site:   Version message
+Site   -> System: Aggregated status
+```
+
+The system expected the site to send an acknowledgement on the version message
+before it sends an aggregated status message. Is it allowed to send the
+aggregated status message before all version messages including acknowledgements
+are sent?
+
+A: It is not allowed to send the aggregated status message before receiving
+version message from the system. The site needs to make sure that the RSMP
+version, site id and sxl revision matches in the version message from system.
