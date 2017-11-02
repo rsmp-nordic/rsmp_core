@@ -92,7 +92,7 @@ every packet.
 
 Example of wrapping of a packet:
 
-.. code-block:: json
+.. code::
    :name: json-wrapping
 
     {
