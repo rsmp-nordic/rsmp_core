@@ -1,20 +1,26 @@
-# MSC for Command request/response
+# MSC for establish site-system
 
 msc {
   hscale = "1.5", arcgradient = "0";
 
   a [label="Site"], b [label="Supervision system"];
 
-  a<=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "RSMP/SXL version" ];
   |||;
-  --- [ label = "Verify site id" ];
+  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
   |||;
-  a<=>b [ label = "Watchdog" ];
+  a<=b [ label = "RSMP/SXL version" ];
+  |||;
+  a abox a [ label = "Verify RSMP version, SXL version and site id" ];
+  |||;
+  a=>b [ label = "Watchdog" ];
+  |||;
+  a<=b [ label = "Watchdog" ];
   |||;
   a=>b [ label = "Aggregated status" ];
   |||;
-  a=>b [ label = "Active and blocked alarms" ];
+  a=>b [ label = "All alarms" ];
   |||;
-  a=>b [ label = "Remaining messages in buffer" ];
+  a=>b [ label = "Buffered messages" ];
   |||;
 }

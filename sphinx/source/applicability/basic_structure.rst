@@ -3,43 +3,127 @@
 Basic structure
 ---------------
 
-Unicode (ISO 10646) and UTF-8 are used for all messages. All messages
-are based on the structure presented below. In the following example the
-message type is an alarm message.
+Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
+the JSon elements are formatted as JSon string elements and not as JSon
+number elements or as JSon boolean elements, with the exception of the
+message type "aggregated status" where JSon boolean elements are used.
 
-.. code-block:: xml
-   :name: xml-basic
+The reason why JSon string elements are heavily used is to simplify
+deserialisation of values where the data type in unknown before casting is
+performed, for instance for the values in "return values". Parsing is
+recommended to be performed case insensitive.
 
-   <?xml version="1.0" encoding="UTF-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="Alarm">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-       </message>
-   </roadSideMessage>
+Empty values are sent as **""** for simple values and as **[]** for arrays.
+Optional values can be omitted, but can not be sent as **null** unless
+otherwise stated.
 
-The following table is describing the variable content of the message:
+In the following example the message type is an alarm message.
+
+.. code-block:: json
+   :name: json-basic
+
+   {
+       "mType": "rSMsg",
+       "type": "Alarm",
+       "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+       "ntsOId": "F+40100=416CG100",
+       "xNId": "23055",
+       "cId": "AB+84001=860SG001",
+       "aCId": "A001",
+       "xACId": "Serious lamp error",
+       "xNACId": "3143",
+       "aSp": "Issue",
+       "ack": "notAcknowledged",
+       "aS": "active",
+       "sS": "notSuspended",
+       "aTs": "2009-10-01T11:59:31.571Z",
+       "cat": "D",
+       "pri": "2",
+       "rvs": [
+           {
+               "n": "color",
+               "v": "red"
+           }
+       ]
+   }
+
+JSon code 2: An RSMP message
+
+The following table is describing the variable content of all message types.
 
 .. figtable::
    :nofig:
    :label: table-variable-content
    :caption: Variable content
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.55\linewidth}
 
-   ========================== ================== =====================================================================================================================================================================================================================
-   Element                    Value              Description
-   ========================== ================== =====================================================================================================================================================================================================================
-   messageId                  *(GUID)*           Message identity. Generated as a GUID (Globally unique identifier) in the equipment that sent the message. Only version 4 of Leach-Salz UUID is used.
-   ntsObjectId *(optional)*   *(Defined in SXL)* Component-id for the NTS object which the message is referring to.
-   externalNtsId *(optional)* *(Defined in SXL)* Identity for the NTS objects in communication between NTS and other systems. The format is 5 integers (Mentioned in SL31 Object-Identity). Defined in cooperation with representatives from NTS. Unique for the site.
-   componentId                *(Defined in SXL)* Component id for the object which the message is referring to
-   ========================== ================== =====================================================================================================================================================================================================================
+   +---------+-------------------+---------------------------------------+
+   | Element | Value             | Description                           |
+   +=========+===================+=======================================+
+   | mType   | rSMsg             | RSMP identifier                       |
+   +---------+-------------------+---------------------------------------+
+   | type    | Alarm             | Alarm message                         |
+   |         +-------------------+---------------------------------------+
+   |         | AggregatedStatus  | Aggregated status message             |
+   |         +-------------------+---------------------------------------+
+   |         | StatusRequest     | Status message. Request status        |
+   |         +-------------------+---------------------------------------+
+   |         | StatusResponse    | Status message. Status response       |
+   |         +-------------------+---------------------------------------+
+   |         | StatusSubscribe   | Status message. Start subscription    |
+   |         +-------------------+---------------------------------------+
+   |         | StatusUpdate      | Status message. Update of status      |
+   |         +-------------------+---------------------------------------+
+   |         | StatusUnsubscribe | Status message. End subscription      |
+   |         +-------------------+---------------------------------------+
+   |         | CommandRequest    | Command message. Request command      |
+   |         +-------------------+---------------------------------------+
+   |         | CommandResponse   | Command message. Response of command  |
+   |         +-------------------+---------------------------------------+
+   |         | MessageAck        | Message acknowledegment. Successful   |
+   |         +-------------------+---------------------------------------+
+   |         | MessageNotAck     | Message acknowledegment. Unsuccessful |
+   |         +-------------------+---------------------------------------+
+   |         | Version           | RSMP / SXL version message            |
+   |         +-------------------+---------------------------------------+
+   |         | Watchdog          | Watchdog message                      |
+   +---------+-------------------+---------------------------------------+
+   | mId     | *(GUID)*          | Message identity. Generated as a GUID |
+   | *(or)*  |                   | (Globally unique identifier) in the   |
+   | oMId    |                   | equipment that sent the message. Only |
+   |         |                   | version 4 of Leach-Salz UUID is used. |
+   |         |                   |                                       |
+   |         |                   | * **mId** is used i all messages as a |
+   |         |                   |   reference for the message ack       |
+   |         |                   | * **oMId** is used in the message ack |
+   |         |                   |   to refer to the message which is    |
+   |         |                   |   being acked                         |
+   +---------+-------------------+---------------------------------------+
+
+..
+
+The following table describes the variable content in all message types
+which is defined by the signal exchange list (SXL), except version
+messages, message acknowledgement messages and watchdog messages.
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the SXL.
+
+.. figtable::
+   :nofig:
+   :label: table-variable-content-sxl
+   :caption: Variable content defined by SXL
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
+
+   ============ ============== ===================
+   Element      SXL element    Description
+   ============ ============== ===================
+   ntsOId       NTSObjectId    Component id for the NTS object which the  message is referring to.
+   xNId         externalNtsId  Identity for the NTS object in communcation between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.
+   cId          componentId    Component id for the object which the message is referring to.
+   ============ ============== ===================
 
 ..
 
@@ -61,133 +145,178 @@ implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
 
 A suspend of an alarm causes all alarms from the specific object with
-the associated alarm code id to be suspended.
+the associated alarm code id to be suspended. This means that alarm messages
+stops being sent from the site as long as the suspension is active. As soon
+as the suspension is inactivated alarms can be sent again.
+
+Suspending alarms does not affect alarm acknowledgment. This means that
+when unsuspending an alarm an alarm can be inactive and not acknowledged.
 
 Alarm messages are event driven and sent to the supervision system
 when the alarm occurs. Acknowledgement of alarms and alarm suspend
 messages are interaction driven.
 
+Alarm events are referring to 'active' (aSp:Issue), 'suspended' (aSp:Suspend)
+and 'acknowledged' (aSp:Acknowledged).
+
+The timestamp (aTs) reflects the individual event according to the
+element 'aSp'.
+
 Message structure
 """""""""""""""""
 
+.. _alarmmessages-issue:
+
 Structure for an alarm message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An alarm message has the same structure when it’s sent regardless
-whether or not it is a new alarm, being acknowledged or being
-suspended, with the exception of “alarmSpecialisation”.
+An alarm message has the structure according to the example below.
 
-The following table describes the differences:
+.. code-block:: json
+   :name: json-alarm-issue
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-specialisation
-   :caption: alarm-specialisation
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.45\linewidth} p{0.45\linewidth}
+   {
+       "mType": "rSMsg",
+       "type": "Alarm",
+       "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+       "ntsOId": "F+40100=416CG100",
+       "xNId": "23055",
+       "cId": "AB+84001=860SG001",
+       "aCId": "A001",
+       "xACId": "Serious lamp error",
+       "xNACId": "3143",
+       "aSp": "Issue",
+       "ack": "notAcknowledged",
+       "aS": "active",
+       "sS": "notSuspended",
+       "aTs": "2009-10-01T11:59:31.571Z",
+       "cat": "D",
+       "pri": "2",
+       "rvs": [
+           {
+               "n": "color",
+               "v": "red"
+           }
+       ]
+   }
 
-   ================================================ =====================================================
-   Element and value                                Meaning
-   ================================================ =====================================================
-   <alarmSpecialisation xsi:type=”**Issue**”>       An alarm becomes active/in-active
-   <alarmSpecialisation xsi:type=”**Acknowledge**”> An alarm is acknowledged
-   <alarmSpecialisation xsi:type=”**Suspend**”>     Suspension of an alarm is being activated/deactivated
-   ================================================ =====================================================
+JSon code 3: An alarm message
 
-..
+The following table describes the variable content of the message which is
+defined by the SXL.
 
-An alarm message has the structure according to the example below. In the 
-following example the message contains an alarm for a lamp error at the
-site "AB+84001=860VA001".
-
-.. code-block:: xml
-   :name: xml-alarm-issue
-
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-   <message xsi:type="Alarm">
-   <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-   <ntsObjectId>F+40100=416CG100</ntsObjectId>
-   <externalNtsId>23055</externalNtsId>
-   <componentId>AB+84001=860VA001</componentId>
-   <alarmCodeId>A001</alarmCodeId>
-   <externalAlarmCodeId>Lampfel på lykta 1 (röd)</externalAlarmCodeId>
-   <externalNtsAlarmCodeId>3143</externalNtsAlarmCodeId>
-   <alarmSpecialisation xsi:type="Issue">
-      <acknowledgeState>notAcknowledged</acknowledgeState>
-      <alarmState>active</alarmState>
-      <suspendState>notSuspended</suspendState>
-      <timestamp>2009-10-01T11:59:31.571Z</timestamp>
-      <category>T</category>
-      <priority>2</priority>
-      <returnvalues>
-         <returnvalue>
-             <name>signalgrupp</name>
-             <value>1</value>
-         </returnvalue>
-         <returnvalue>
-            <name>färg</name>
-            <value>röd</value>
-         </returnvalue>
-      </returnvalues>
-   </alarmSpecialisation>
-   </message>
-   </roadSideMessage>
-
-The following table is describing the variable content of the message:
-
-Basic (xsi:type = Alarm)
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the signal exchange list (SXL).
 
 .. figtable::
    :nofig:
-   :label: table-alarm-basic
-   :caption: alarm-basic
+   :label: table-alarm
+   :caption: Alarm message
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.20\linewidth} p{0.45\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.25\linewidth} p{0.55\linewidth}
 
-   =================================== ========================= =============================================================================================================================================================================
-   Element                             Value                     Description
-   =================================== ========================= =============================================================================================================================================================================
-   alarmCodeId                         *(Defined in SXL)*        Alarm code id. Determined in the signal exchange list (SXL). The examples in this document are defined according to the following format: Ayyy, where yyy is a unique number.
-   externalAlarmCodeId *(optional)*    *(Manufacturer specific)* Manufacturer specific alarm code and alarm description Manufacturer, model, alarm code och additional alarm description.
-   externalNtsAlarmCodeId *(optional)* *(Defined in SXL)*        Alarm code in order to identify alarm type during communication with NTS and other system. *(See SL31 Alarm-Code)*
-   =================================== ========================= =============================================================================================================================================================================
+   ============ ====================== =============
+   Element      SXL element            Description
+   ============ ====================== =============
+   aCId         alarmCodeId            Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: *Ayyy*, where *yyy* is a unique number.
+   xACId        externalAlarmCodeId    Manufacturer specific alarm code and alarm description. Manufacturer, model, alarm code och additional alarm description.
+   xNACId       externalNtsAlarmCodeId Alarm code in order to identify alarm type during communication with NTS
+   ============ ====================== =============
 
 ..
+
+The following table describes additional variable content of the message.
+
+
+.. figtable::
+   :nofig:
+   :label: table-alarm-status-change
+   :caption: Alarm status change
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.12\linewidth} p{0.20\linewidth} p{0.40\linewidth}
+
+   +--------------+--------------------+--------------------+----------------------------------------------+
+   | Element      | Value              | Origin             | Description                                  |
+   +==============+====================+====================+==============================================+
+   | aSp          | Issue              | Site               | An alarm becomes active/inactive.            |
+   |              +--------------------+--------------------+----------------------------------------------+
+   |              | Acknowledge        | Supervision system | Acknowledge an alarm                         |
+   |              |                    +--------------------+----------------------------------------------+
+   |              |                    | Site               | An alarm becomes acknowledged.               |
+   |              +--------------------+--------------------+----------------------------------------------+
+   |              | Suspend            | Supervision system | Suspend an alarm                             |
+   |              |                    +--------------------+----------------------------------------------+
+   |              |                    | Site               | An alarm becomes suspended/unsuspended       |
+   |              +--------------------+--------------------+----------------------------------------------+
+   |              | Resume             | Supervision system | Unsuspend an alarm                           |
+   +--------------+--------------------+--------------------+----------------------------------------------+
+
+..
+
+
+.. _alarm-status:
 
 Alarm status
+~~~~~~~~~~~~
+
+Alarm status are only used by alarm messages (not by alarm acknowledgement
+or alarm suspend messages).
 
 .. figtable::
    :nofig:
    :label: table-alarm-status
-   :caption: alarm-status
+   :caption: Alarm status
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
 
    +-------------------+--------------------+------------------------------------------------------------------------------------+
    | Element           | Value              | Description                                                                        |
    +===================+====================+====================================================================================+
-   | acknowledegeState | acknowledged       | The alarm is acknowledged                                                          |
+   | ack               | Acknowledged       | The alarm is acknowledged                                                          |
    |                   +--------------------+------------------------------------------------------------------------------------+
    |                   | notAcknowledged    | The alarm is not acknowledged                                                      |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | alarmState        | inactive           | The alarm is inactive                                                              |
+   | aS                | inActive           | The alarm is inactive                                                              |
    |                   +--------------------+------------------------------------------------------------------------------------+
-   |                   | active             | The alarm is active                                                                |
+   |                   | Active             | The alarm is active                                                                |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | suspendState      | suspended          | The alarm is suspended                                                             |
+   | sS                | suspended          | The alarm is suspended                                                             |
    |                   +--------------------+------------------------------------------------------------------------------------+
    |                   | notSuspended       | The alarm is not suspended                                                         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | timestamp         | *(timestamp)*      | Timestamp for when the alarm either occurs, gets acknowledged or gets suspended.   |
-   |                   |                    | See the contents of **alarmSpecialisation** to determine which type timetamp is    |
-   |                   |                    | used. The timestamp uses the W3C XML **dateTime** definition with 3 decimal places |
+   | aTs               | *(timestamp)*      | Timestamp for when the alarm changes status.                                       |
+   |                   |                    | See the contents of aSp to determine which type of timetamp is used                |
+   |                   |                    |                                                                                    |
+   |                   |                    | | - aSp: Issue: Timestamp for when the alarm gets **active** or **inactive**       |
+   |                   |                    | | - aSp: Acknowledge: Timestamp for when the alarm gets **acknowledged** or        |
+   |                   |                    |   **not acknowledged**                                                             |
+   |                   |                    | | - aSp: Suspend: Timestamp for when the alarm gets **suspended** or               |
+   |                   |                    |   **not suspended**                                                                |
+   |                   |                    |                                                                                    |
+   |                   |                    | The timestamp uses the W3C XML **dateTime** definition with 3 decimal places.      |
    |                   |                    | All timestamps are set at the local level (and not in the supervision system) when |
    |                   |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | category          | T *or* D           | A character, either ”T” or ”D”.                                                    |
+
+..
+
+The following table describes the variable content of the message which is
+defined by the SXL.
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the signal exchange list (SXL).
+
+.. figtable::
+   :nofig:
+   :label: table-alarm-status-details-sxl
+   :caption: Alarm status details defined by SXL
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.12\linewidth} p{0.60\linewidth}
+
+   +-------------------+--------------------+------------------------------------------------------------------------------------+
+   | Element           | SXL element        | Description                                                                        |
+   +===================+====================+====================================================================================+
+   | cat               | category           | A character, either **T** or **D**.                                                |
    |                   |                    |                                                                                    |
    |                   |                    | | An alarm belongs to one of these categories:                                     |
    |                   |                    | | - T. Traffic alarm                                                               |
@@ -208,13 +337,15 @@ Alarm status
    |                   |                    | Technical alarms are alarms that do not directly affect the traffic. One example   |
    |                   |                    | of a technical alarm is when an impulse fan stops working.                         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | description       | *(Defined in SXL)* | Description of the alarm. Only defined in SXL and is never actually sent.          |
-   | *(only in SXL,    |                    | (The format of the description is free of choice but has the following             |
-   | never actually    |                    | requirements:                                                                      |
-   | sent)*            |                    | - The text is unique for the object type                                           |
-   |                   |                    | - The text is defined in cooperation with the Purchaser before use)                |
+   | *(not sent)*      | description        | Description of the alarm. Defined in SXL but is never actually sent.               |
+   |                   |                    | The format of the description is free of choice but has the following              |
+   |                   |                    | requirements:                                                                      |
+   |                   |                    |                                                                                    |
+   |                   |                    | - The text is unique for the object type                                           |
+   |                   |                    | - The text is defined in cooperation with the Purchaser before use                 |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | priority          | [0-9]              | The priority of the message. The following values are defined:                     |
+   | pri               | priority           | The priority of the alarm.                                                         |
+   |                   |                    | The following values are defined:                                                  |
    |                   |                    |                                                                                    |
    |                   |                    | 1. Alarm that requires immediate action.                                           |
    |                   |                    | 2. Alarm that does not require immediate action, but action is planned during      |
@@ -224,24 +355,51 @@ Alarm status
 
 ..
 
+.. _alarm-returnvalues:
+
 Return values
+~~~~~~~~~~~~~
+
+Return values ("rvs") are used by alarm messages (but not by alarm
+acknowledgment or alarm suspend messages) and is always sent but can
+be empty (i.e. **[]**) if no return values are defined.
+
+.. figtable::
+   :nofig:
+   :label: table-alarm-return
+   :caption: Alarm return values
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+
+   ======= ========== ===========
+   Element Value      Description
+   ======= ========== ===========
+   rvs     *(array)*  Return values. Contains the element **n** and **v** in an array
+   ======= ========== ===========
+..
+
+The following table describes the content for each return value which is
+defined by the signal exchange list (SXL).
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the SXL.
 
 .. figtable::
    :nofig:
    :label: table-alarm-return-values
-   :caption: alarm-return-values
+   :caption: Alarm return value defined by SXL
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.12\linewidth} p{0.12\linewidth} p{0.60\linewidth}
 
    +-----------------+--------------------+-----------------------------------------------+
-   | Element         | Value              | Description                                   |
+   | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | name            | *(Defined in SXL)* | Unique reference of the value                 |
+   | n               | name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | type            | *(Defined in SXL)* | The data type of the value.                   |
-   | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
-   | not actually    |                    |                                               |
-   | sent)*          |                    | | General definition:                         |
+   | *(not sent)*    | type               | The data type of the value.                   |
+   |                 |                    | Defined in the SXL but is not actually sent   |
+   |                 |                    |                                               |
+   |                 |                    | | General definition:                         |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -252,151 +410,185 @@ Return values
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
-   | unit            | *(Defined in SXL)* | The unit of the value. Defined in SXL but     |
-   | *(Only is SXL,  |                    | are not actually sent                         |
-   | not actually    |                    |                                               |
-   | sent)*          |                    |                                               |
-   +-----------------+--------------------+-----------------------------------------------+
-   | value           | *(Defined in SXL)* | Value                                         |
+   | v               | value              | Value from equipment                          |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
 
+.. _alarmmessages-ack:
+
 Structure for alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
 
-.. code-block:: xml
-   :name: xml-alarm-ack
+.. code-block:: json
+   :name: json-alarm-ack
+   
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "3d2a0097-f91c-4249-956b-dac702545b8f",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Acknowledge"
+   }
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-   <message xsi:type="Alarm">
-   <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-   <ntsObjectId>F+40100=416CG100</ntsObjectId>
-   <externalNtsId>23055</externalNtsId>
-   <componentId>AB+84001=860VA001</componentId>
-   <alarmCodeId>A001</alarmCodeId>
-   <externalAlarmCodeId>Larmfel på lykta 1 (röd)</externalAlarmCodeId>
-   <externalNtsAlarmCodeId>3143</externalNtsAlarmCodeId>
-   <alarmSpecialisation xsi:type="Acknowledge" />
-   </message>
-   </roadSideMessage>
+JSon code 4: An alarm acknowledgement message which acknowledges an alarm
 
-The following table is describing the variable content of the message:
+An alarm acknowledgement response message has the structure according to the
+example below.
 
-Basic (xsi:type = Alarm)
+.. code-block:: json
+   :name: json-alarm-ack-resp
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-ack-basic-values
-   :caption: alarm-ack-basic-values
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.20\linewidth} p{0.45\linewidth}
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "f6843ac0-40a0-424e-8ddf-d109f4cfe487",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Acknowledge",
+        "ack": "Acknowledged",
+        "aS": "Active",
+        "sS": "notSuspended",
+        "aTs": "2015-05-29T08:55:04.691Z",
+        "cat": "b",
+        "pri": "3",
+        "rvs": [
+            {
+                "n": "Temp",
+                "v": "-18.5"
+            }
+        ]
+   }
 
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | Element                | Value              | Description                                                        |
-   +========================+====================+====================================================================+
-   | alarmCodeId            | *(Defined in SXL)* | Alarm code id. Determined in the signal exchange list (SXL).       |
-   |                        |                    | The examples in this document are defined according to the         |
-   |                        |                    | following format: Ayyy, where yyy is a unique number.              |
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | externalAlarmCodeId    | *(Manufacturer     | Manufacturer specific alarm code and alarm description.            |
-   | *(optional)*           | specific)*         | Manufacturer, model, alarm code och additional alarm description   |
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | externalNtsAlarmCodeId | *(Defined in SXL)* | Alarm code in order to identify alarm type during communication    |
-   | *(optional)*           |                    | with NTS and other systems. *(See SL31 Alarm-Code)*                |
-   +------------------------+--------------------+--------------------------------------------------------------------+
+JSon code 5: Response of an alarm acknowledgement message
 
-..
-
-Alarm acknowledgement (xsi:type = Acknowledge)
-
-(no content)
+.. _alarmmessages-suspend:
 
 Structure for alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-An alarm suspend message has the structure according to the example
-below.
+An alarm suspend message has the structure according to the example below.
 
-.. code-block:: xml
-   :name: xml-alarm-suspend
+.. code-block:: json
+   :name: json-alarm-suspend
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-   <message xsi:type="Alarm">
-   <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-   <ntsObjectId>F+40100=416CG100</ntsObjectId>
-   <externalNtsId>23055</externalNtsId>
-   <componentId>AB+84001=860VA001</componentId>
-   <alarmCodeId>A001</alarmCodeId>
-   <externalAlarmCodeId>Larmfel på lykta 1 (röd)</externalAlarmCodeId>
-   <externalNtsAlarmCodeId>3143</externalNtsAlarmCodeId>
-   <alarmSpecialisation xsi:type="Suspend">
-   <suspendAction>suspend</suspendAction>
-   </alarmSpecialisation>
-   </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "b6579d6d-3a9d-4169-b777-f094946a863e",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Suspend"
+   }
 
-The following table is describing the variable content of the message:
+JSon code 6: Suspending an alarm using an alarm suspend message
 
-Basic (xsi:type = Alarm)
+.. code-block:: json
+   :name: json-alarm-suspend-response
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-block-basic
-   :caption: alarm-block-basic
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.20\linewidth} p{0.45\linewidth}
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "2ea7edfc-8e3a-4765-85e7-db844c4702a0",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Suspend",
+        "ack": "Acknowledged",
+        "aS": "Active",
+        "sS": "Suspended",
+        "aTs": "2015-05-29T08:56:25.390Z",
+        "cat": "b",
+        "pri": "3",
+        "rvs": [
+            {
+                "n": "Temp",
+                "v": "-18.5"
+            }
+        ]
+   }
 
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | Element                | Value              | Description                                                        |
-   +========================+====================+====================================================================+
-   | alarmCodeId            | *(Defined in SXL)* | Alarm code id. Determined in the signal exchange list (SXL).       |
-   |                        |                    | The examples in this document are defined according to the         |
-   |                        |                    | following format: Ayyy, where yyy is a unique number.              |
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | externalAlarmCodeId    | *(Manufacturer     | Manufacturer specific alarm code and alarm description.            |
-   | *(optional)*           | specific)*         | Manufacturer, model, alarm code och additional alarm description   |
-   +------------------------+--------------------+--------------------------------------------------------------------+
-   | externalNtsAlarmCodeId | *(Defined in SXL)* | Alarm code in order to identify alarm type during communication    |
-   | *(optional)*           |                    | with NTS and other system. *(See SL31 Alarm-Code)*                 |
-   +------------------------+--------------------+--------------------------------------------------------------------+
+JSon code 7: Response of alarm suspend message
 
-..
+.. code-block:: json
+   :name: json-alarm-resume
 
-Alarm suspend (xsi:type = Suspend)
+   {
+        "mType": "rSMsg",
+	"type": "Alarm",
+	"mId": "2a744145-403a-423f-ba80-f38e283a778e",
+	"ntsOId": "",
+	"xNId": "",
+	"cId": "AB+84001=860VA001",
+	"aCId": "A004",
+	"xACId": "",
+	"xNACId": "",
+	"aSp": "Resume"
+   }
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-suspend
-   :caption: alarm-suspend
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.10\linewidth} p{0.40\linewidth}
+JSon code 8: Resuming an alarm using an alarm suspend message
 
-   +------------------------+------------------+----------------------------------------------------------------------+
-   | Element                | Value            | Description                                                          |
-   +========================+==================+======================================================================+
-   | suspendAction          | suspend          | Activate suspend of an alarm                                         |
-   |                        +------------------+----------------------------------------------------------------------+
-   |                        | resume           | Deactivate a suspend of an alarm                                     |
-   +------------------------+------------------+----------------------------------------------------------------------+
+.. code-block:: json
+   :name: json-alarm-resume-response
 
-..
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "3313526e-b744-434a-b4dd-0cfa956512e0",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Suspend",
+        "ack": "Acknowledged",
+        "aS": "Active",
+        "sS": "notSuspended",
+        "aTs": "2015-05-29T08:58:28.166Z",
+        "cat": "b",
+        "pri": "3",
+        "rvs": [
+            {
+                "n": "Temp",
+                "v": "-18.5"
+            }
+        ]
+   }
+
+JSon code 9: Response of a resume message
+
+Allowed content in alarm suspend message is the same as for alarm messages
+(See :ref:`alarmmessages-issue`) with the exception for alarm status
+(See :ref:`alarm-status`) and (See :ref:`alarm-returnvalues`).
 
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+following figures.
 
 **An alarm is active/inactive**
 
@@ -435,11 +627,15 @@ following figure.
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
 
+.. _aggregatedstatus:
+
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site.
+status of the site. The aggregated status applies to the object which is
+defined by **ObjectType** in the signal exchange list. If no object is defined
+then no aggregated status message is sent.
 
 Aggregated status message are interaction driven and are sent if state
 bits, functional position or functional status are changed at the site.
@@ -450,74 +646,39 @@ Message structure
 An aggregated status message has the structure according to the example
 below.
 
-.. code-block:: xml
-   :name: xml-agg-status
+.. code-block:: json
+   :name: json-agg-status
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-   <message xsi:type="AggregatedStatus">
-   <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-   <ntsObjectId>F+40100=416CG100</ntsObjectId>
-   <externalNtsId>23055</externalNtsId>
-   <componentId>F+40100=416CG100</componentId>
-   <aggstatusTimeStamp>2009-10-02T14:34:34.345Z</aggstatusTimeStamp>
-   <aggregatedStatusSpecialisation>
-      <functionalPosition>Trafikstyrning</functionalPosition>
-      <functionalState>Automatiskt nedsatt hastighet</functionalState>
-      <state>
-         <name>1</name>
-         <state>false</state>
-      </state>
-      <state>
-         <name>2</name>
-         <state>true</state>
-      </state>
-      <state>
-         <name>3</name>
-         <state>true</state>
-      </state>
-      <state>
-         <name>4</name>
-         <state>false</state>
-      </state>
-      <state>
-         <name>5</name>
-         <state>false</state>
-      </state>
-      <state>
-         <name>6</name>
-         <state>false</state>
-      </state>
-      <state>
-         <name>7</name>
-         <state>false</state>
-      </state>
-      <state>
-         <name>8</name>
-         <state>false</state>
-      </state>
-   </aggregatedStatusSpecialisation>
-   </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+	"type": "AggregatedStatus",
+	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
+	"ntsOId": "O+14439=481WA001",
+	"xNId": "",
+	"cId": "O+14439=481WA001",
+	"aSTS": "2015-06-08T08:05:06.584Z",
+	"fP": null,
+	"fS": null,
+	"se": [
+                true,false,false,false,false,false,false,false
+              ]
+   }
+
+JSon code 10: An aggregated status message
 
 The following tables are describing the variable content of the message:
-
-Basic (aggregatedStatus)
 
 .. figtable::
    :nofig:
    :label: table-agg-basic
-   :caption: Basic (aggregatedStatus)
+   :caption: Aggregated status
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.15\linewidth} p{0.50\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
 
    ================== ============= ==========================================
    Element            Value         Description
    ================== ============= ==========================================
-   aggstatusTimeStamp *(timestamp)* The timestamp uses the W3C XML dateTime
+   aSTS               *(timestamp)* The timestamp uses the W3C XML dateTime
                                     definition with a 3 decimal places. All
                                     timestamps are set at the local level
                                     (and not in the supervision system) when
@@ -527,53 +688,34 @@ Basic (aggregatedStatus)
 
 ..
 
-Aggregated status (aggregatedStatusSpecialisation)
+The following table describes the variable content defined by the signal
+exchange list (SXL). The *SXL element* column describes the correlation
+between the JSon elements and the titles in the SXL.
 
 .. figtable::
    :nofig:
    :label: table-agg-specialisation
-   :caption: Aggregated status (aggregatedStatusSpecialisation)
+   :caption: Aggregated status SXL content
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.20\linewidth} p{0.30\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.50\linewidth}
 
-   +--------------------+--------------------+-------------------------+
-   | Element            | Value              | Description             |
-   +====================+====================+=========================+
-   | functionalPosition | *(Defined in SXL)* | Functional position     |
-   +--------------------+--------------------+-------------------------+
-   | functionalState    | *(Defined in SXL)* | Functional state        |
-   | *(optional)*       |                    |                         |
-   +--------------------+--------------------+-------------------------+
-   | state              | *(see below)*      | Status bits (see below) |
-   +--------------------+--------------------+-------------------------+
+   +--------------------+--------------------+----------------------------------------------------------------+
+   | Element            | SXL element        | Description                                                    |
+   +====================+====================+================================================================+
+   | fP                 | functionalPosition | Functional position. Is **null** if no value is defined in SXL.|
+   +--------------------+--------------------+----------------------------------------------------------------+
+   | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
+   +--------------------+--------------------+----------------------------------------------------------------+
+   | se                 | State              | Status bits. 8 bit status bit array, where each element is     |
+   |                    |                    | defined as either **true** or **false**.                       |
+   |                    |                    | This status bit array defines the status of the site to NTS    |
+   +--------------------+--------------------+----------------------------------------------------------------+
 
 ..
 
 
 Status bits (state)
-
-The status bits are a set of 8 bits that describes the state of the site
-for NTS. Every bit can either be true or false
-
-.. figtable::
-   :nofig:
-   :label: table-agg-status
-   :caption: Aggregated status
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.40\linewidth}
-
-   +--------------------+--------------------+---------------------------+
-   | Element            | Value              | Description               |
-   +====================+====================+===========================+
-   | state              | true               | State bit                 |
-   |                    +--------------------+                           |
-   |                    | false              |                           |
-   +--------------------+--------------------+---------------------------+
-   | name               | [1-8]              | Bit nr                    |
-   |                    |                    | (integer between 1 and 8) |
-   +--------------------+--------------------+---------------------------+
-
-..
+~~~~~~~~~~~~~~~~~~~
 
 The principle of aggregating of statuses for each bit is defined by the
 associated comments in the signal exchange list (SXL). A generic
@@ -614,153 +756,159 @@ Message structure
 """""""""""""""""
 
 Structure for a request of a status of one or several objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status request message has the structure according to the example
-below. If the object is not known, then the site must not disconnect
-but instead answer with this type of message where "ageState" contains
-"undefined".
+below.
 
-.. code-block:: xml
-   :name: xml-status-req
+.. code-block:: json
+   :name: json-status-req
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-   <message xsi:type="StatusRequest">
-   <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-   <ntsObjectId>F+40100=416CG100</ntsObjectId>
-   <externalNtsId>23055</externalNtsId>
-   <componentId>AB+84001=860VA001</componentId>
-   <statuses>
-      <status>
-         <statusCodeId>S003</statusCodeId>
-         <name>speed</name>
-      </status>
-      <status>
-         <statusCodeId>S003</statusCodeId>
-         <name>occupancy</name>
-      </status>
-   </statuses>
-   </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+	"type": "StatusRequest",
+	"mId": "f1a13213-b90a-4abc-8953-2b8142923c55",
+	"ntsOId": "O+14439=481WA001",
+	"xNId": "",
+	"cId": "O+14439=481WA001",
+	"sS": [
+            {
+                "sCI": "S0003",
+                "n": "inputstatus"
+            },{
+                "sCI": "S0003",
+	        "n": "extendedinputstatus"
+            }
+        ]
+   }
 
-The following tables are describing the variable content of the message:
+JSon code 11: A status request message
 
-Basic (xsi:type = StatusRequest)
+The status code id (**sCI**) and name (**n**) are placed in an array
+(**sS**) in order to enable support for requesting multiple status at once.
+The following table is describing the variable content of the message.
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the SXL.
 
 .. figtable::
    :nofig:
    :label: table-statusrequest
-   :caption: Basic (xsi:type = StatusRequest)
+   :caption: Status request
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.20\linewidth} p{0.50\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
 
-   +--------------+--------------------+----------------------------------------------------------------------+
-   | Element      | Value              | Description                                                          |
-   +==============+====================+======================================================================+
-   | statusCodeId | *(Defined in SXL)* | Status code id. Determined by the signal exchange list (SXL).        |
-   |              |                    | The examples in this document are defined according to the following |
-   |              |                    | format: syyy, where yyy is a unique number.                          |
-   +--------------+--------------------+----------------------------------------------------------------------+
-   | name         | *(Defined in SXL)* | Unique reference                                                     |
-   +--------------+--------------------+----------------------------------------------------------------------+
+   ============ ============ ===================
+   Element      SXL element  Description
+   ============ ============ ===================
+   sCI          statusCodeId The Status code id. The examples is this document are defined according to the following format: *Syyy*, where *yyy* is a unique number.
+   n            name         Unique reference of the value
+   ============ ============ ===================
 
 ..
 
 Structure for a message with status of one or several objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with status of one or several objects has the structure
 according to the example below.
 
-.. code-block:: xml
-   :name: xml-status-response
+If the component (**cId**) is not known, then the site must not disconnect but
+instead answer with this type of message where **q** is set to **undefined**.
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="StatusResponse">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-           <statusTimeStamp>2009-10-02T14:34:34.345Z</statusTimeStamp>
-           <returnvalues>
-               <returnvalue>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>speed</name>
-                   <status>70</status>
-                   <ageState>recent</ageState>
-               </returnvalue>
-               <returnvalue>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>occupancy</name>
-                   <status>14</status>
-                   <ageState>recent</ageState>
-               </returnvalue>
-           </returnvalues>
-       </message>
-   </roadSideMessage>
+.. code-block:: json
+   :name: json-status-response
+
+   {
+        "mType": "rSMsg",
+        "type": "StatusResponse",
+        "mId": "0a95e463-192a-4dd7-8b57-d2c2da636584",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sTs": "2015-06-08T09:15:18.266Z",
+        "sS": [
+            {
+                "sCI": "S0003",
+                "n": "inputstatus",
+                "s": "100101",
+                "q": "recent"
+            },{
+                "sCI": "S0003",
+                "n": "extendedinputstatus",
+                "s": "100100101",
+                "q": "recent"
+            }
+       ]
+   }
+
+JSon code 12: A status response message
+
 
 The following table is describing the variable content of the message:
-
-Basic (xsi:type = StatusResponse)
 
 .. figtable::
    :nofig:
    :label: table-statusresponse
-   :caption: Basic (xsi:type = StatusResponse)
+   :caption: Status response
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.20\linewidth} p{0.45\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.55\linewidth}
 
    +-----------------+--------------------+--------------------------------------------+
    | Element         | Value              | Description                                |
    +=================+====================+============================================+
-   | statusTimeStamp | *(timestamp)*      | The timestamp uses the W3C XML dateTime    |
+   | sTs             | *(timestamp)*      | Timestamp for the status. The timestamp    |
+   |                 |                    | uses the W3C XML dateTime                  |
    |                 |                    | definition with a 3 decimal places. All    |
-   |                 |                    | timestamps are set at the local level (and |
-   |                 |                    | not in the supervision system) when the    |
-   |                 |                    | alarm occurs (and not when the message     |
-   |                 |                    | message is sent). All timestamps uses UTC. |
-   +-----------------+--------------------+--------------------------------------------+
-   | description     | *(Defined in SXL)* | Description for the status request.        |
-   | *(Only in SXL,  |                    | Defined in the SXL but is not actually     |
-   | not actually    |                    | sent.                                      |
-   | sent)*          |                    |                                            |
+   |                 |                    | timestamps are set at the site (and not in |
+   |                 |                    | the supervision system) when the status is |
+   |                 |                    | fetched (and not when the message is sent) |
+   |                 |                    | All timestamps uses UTC.                   |
    +-----------------+--------------------+--------------------------------------------+
 
 ..
 
 Return values (returnvalue)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Return values ("sS") are always sent but can be empty if no return values exists.
+
+.. figtable::
+   :nofig:
+   :label: table-statusresponse-returnvalues-sS
+   :caption: Return values (returnvalue)
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+
+   ========== ========== ===================
+   Element    Value      Description
+   ========== ========== ===================
+   sS         *(array)*  Return values. Contains the elements "sCI", "s", "n" and "q" in an array.
+   ========== ========== ===================
+
+..
 
 .. figtable::
    :nofig:
    :label: table-statusresponse-returnvalues
    :caption: Return values (returnvalue)
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
 
    +-----------------+--------------------+-----------------------------------------------+
-   | Element         | Value              | Description                                   |
+   | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | statusCodeId    | *(Defined in SXL)* | Status code id. Determined by the signal      |
-   |                 |                    | exchange list (SXL). The examples in this     |
-   |                 |                    | document are defined according to the         |
-   |                 |                    | following format: Syyy, where yyy is a        |
-   |                 |                    | unique number.                                |
+   | sCI             | statusCodeId       | The Status code id.                           |
+   |                 |                    | The examples in this document are defined     |
+   |                 |                    | according to the following format: *Syyy*,    |
+   |                 |                    | where *yyy* is a unique number.               |
    +-----------------+--------------------+-----------------------------------------------+
-   | name            | *(Defined in SXL)* | Unique reference of the value                 |
+   | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | type            | *(Defined in SXL)* | The data type of the value.                   |
-   | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
-   | not actually    |                    |                                               |
-   | sent)*          |                    | | General definition:                         |
+   | *(not sent)*    | Type               | The data type of the value.                   |
+   |                 |                    | Defined in the SXL but is not actually sent   |
+   |                 |                    |                                               |
+   |                 |                    | | General definition:                         |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -772,28 +920,44 @@ Return values (returnvalue)
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
-   | unit            | *(Defined in SXL)* | The unit of the value. Defined in SXL but     |
-   | *(Only is SXL,  |                    | are not actually sent                         |
-   | not actually    |                    |                                               |
-   | sent)*          |                    |                                               |
+   | s               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
-   | status          | *(Defined in SXL)* | Value                                         |
+   | *(not sent)*    | Comment            | Description for the status request.           |
+   |                 |                    | Defined in the SXL but is not actually        |
+   |                 |                    | sent.                                         |
    +-----------------+--------------------+-----------------------------------------------+
-   | ageState        | recent             | The value is up to date                       |
+
+..
+
+The following table describes additional variable content of the message.
+
+.. figtable::
+   :nofig:
+   :label: table-statusresponse-returnvalues-qualtiy
+   :caption: Return value quality
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
+
+   +-----------------+--------------------+-----------------------------------------------+
+   | Element         | Value              | Description                                   |
+   +=================+====================+===============================================+
+   | q               | recent             | The value is up to date                       |
    |                 +--------------------+-----------------------------------------------+
    |                 | old                | The value is not up to date                   |
    |                 +--------------------+-----------------------------------------------+
    |                 | undefined          | The component does not exist and no           |
-   |                 |                    | subscription will be performed                |
+   |                 |                    | subscription will be performed.               |
+   |                 |                    | **s** should be set to **null**.              |
    |                 +--------------------+-----------------------------------------------+
    |                 | unknown            | The value is unknown and no subscription will |
    |                 |                    | be performed.                                 |
+   |                 |                    | **s** should be set to **null**.              |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
 
 Structure for a status subscription request message on one or several objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
@@ -801,50 +965,55 @@ constructing a list of subscriptions of statuses, digital and analogue
 values and events that are desirable to send to supervision system,
 e.g. temperature, wind speed, power consumption, manual control.
 
-.. code-block:: xml
-   :name: xml-status-subscribe
+.. code-block:: json
+   :name: json-status-subscribe
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="StatusSubscribe">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-           <statuses>
-               <status>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>speed</name>
-                   <updateRate>10</updateRate>
-               </status>
-               <status>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>occupancy</name>
-                   <updateRate>10</updateRate>
-               </status>
-           </statuses>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "StatusSubscribe",
+        "mId": "d6d97f8b-e9db-4572-8084-70b55e312584",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sS": [
+            {
+                "sCI": "S0001",
+                "n": "signalgroupstatus",
+                "uRt": "0"
+            },{
+                "sCI": "S0001",
+                "n": "cyclecounter",
+                "uRt": "0"
+            },{
+                "sCI": "S0001",
+                "n": "basecyclecounter",
+                "uRt": "0"
+            },{
+                "sCI": "S0001",
+                "n": "stage",
+                "uRt": "0"
+            }
+        ]
+   }
+
+JSon code 13: A status subscribe message
+
 
 The following table is describing the variable content of the message:
-
-Basic (xsi:type = StatusRequest)
 
 .. figtable::
    :nofig:
    :label: table-statusrequest-basic
-   :caption: Basic (xsi:type = StatusRequest)
+   :caption: Status Request
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.45\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
 
    +------------+------------+--------------------------------------------------------+
    | Element    | Value      | Description                                            |
    +============+============+========================================================+
-   | updateRate | *(string)* | Determines the interval of which the message should be |
-   |            |            | sent. Defined in seconds with decimals, e.g. ”2.5” for |
+   | uRt        | *(string)* | updateRate. Determines the interval of which the       |
+   |            |            | message should be sent.                                |
+   |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
    |            |            | 2.5 seconds. Dot (.) is used as decimal point. If “0”  |
    |            |            | means that the value should be sent when changed.      |
    +------------+------------+--------------------------------------------------------+
@@ -852,7 +1021,7 @@ Basic (xsi:type = StatusRequest)
 ..
 
 Structure for a response message with answer to a request for status subscription for one or several objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A response message with answer to a request for status subscription
 has the structure according to the example below. This response is
@@ -866,76 +1035,137 @@ If an subscription is already active then the site must not establish
 a new subscription but use the existing one. This message type should
 not be sent if the subscription already exist.
 If the object is not known then the site must not disconnect
-but instead answer with this type of message where "ageState" contains
-"undefined".
+but instead answer with this type of message where **q** is set to
+**undefined**.
 
-.. code-block:: xml
-   :name: xml-status-update
+.. code-block:: json
+   :name: json-status-update
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="StatusUpdate">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-           <statusTimeStamp>2009-10-02T14:34:34.345Z</statusTimeStamp>
-           <returnvalues>
-               <returnvalue>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>speed</name>
-                   <status>70</status>
-                   <ageState>recent</ageState>
-               </returnvalue>
-               <returnvalue>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>occupancy</name>
-                   <status>14</status>
-                   <ageState>recent</ageState>
-               </returnvalue>
-           </returnvalues>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "StatusUpdate",
+        "mId": "dabb67f9-2601-4db9-bb8a-c7c47f57e100",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sTs": "2015-06-08T09:33:04.735Z",
+        "sS": [
+            {
+                "sCI": "S0001",
+                "n": "signalgroupstatus",
+                "s": "A021BC01",
+                "q": "recent"
+            },{
+                "sCI": "S0001",
+                "n": "cyclecounter",
+                "s": "20",
+                "q": "recent"
+            },{
+                "sCI": "S0001",
+                "n": "basecyclecounter",
+                "s": "10",
+                "q": "recent"
+            },{
+                "sCI": "S0001",
+                "n": "stage",
+                "s": "1",
+                "q": "recent"
+            }
+        ]
+   }
+
+JSon code 14: A status update message
 
 The allowed content is described in Table :num:`table-statusresponse` and
 :num:`table-statusresponse-returnvalues`.
 
+Since different UpdateRate can be defined for different objects it means that partial StatusUpdates can be sent
+
+.. code-block:: json
+   :name: json-status-request-partial
+
+   {
+        "mType": "rSMsg",
+        "type": "StatusSubscribe",
+        "mId": "6bbcb26e-78fe-4517-9e3d-8bb4f972c076",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sS": [
+            {
+                "sCI": "S096",
+                "n": "hour",
+                "uRt": "120"
+            },{
+                "sCI": "S096",
+                "n": "minute",
+                "uRt": "60"
+            }
+        ]
+   }
+
+JSon code 15: A subscription request to subscribe to statues with different update rates
+
+.. code-block:: json
+   :name: json-status-request-partial-resp
+
+   {
+        "mType": "rSMsg",
+        "type": "StatusUpdate",
+        "mId": "b6bd7c96-f150-4756-9752-47a661e116db",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sTs": "2015-05-29T13:47:56.740Z",
+        "sS": [
+            {
+                "sCI": "S096",
+                "n": "minute",
+                "s": "47",
+                "q": "recent"
+            }
+        ]
+   }
+
+JSon code 16: A partial status update. Only a single status is updated
+
+
 Structure for a status unsubscription message on one or several objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
 objects. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
-.. code-block:: xml
-   :name: xml-status-unsubscribe
+.. code-block:: json
+   :name: json-status-unsubscribe
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="StatusUnSubscribe">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-           <statuses>
-               <status>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>speed</name>
-               </status>
-               <status>
-                   <statusCodeId>S003</statusCodeId>
-                   <name>occupancy</name>
-               </status>
-           </statuses>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "StatusUnsubscribe",
+        "mId": "5ff528c5-f2f0-4bc4-a335-280c52b6e6d8",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "sS": [
+            {
+                "sCI": "S0001",
+                "n": "signalgroupstatus"
+            },{
+                "sCI": "S0001",
+                "n": "cyclecounter"
+            },{
+                "sCI": "S0001",
+                "n": "basecyclecounter"
+            },{
+                "sCI": "S0001",
+                "n": "stage"
+            }
+        ]
+   }
+
+JSon code 17: A status unsubscribe message
 
 The allowed content is described in Table :num:`table-statusrequest`
 
@@ -960,7 +1190,7 @@ following figure.
 .. image:: /img/msc/status_update.png
    :align: center
 
-1. Update with status of an object
+Example of message exchange with subscription, status updates and unsubscription.
 
 Command messages
 ^^^^^^^^^^^^^^^^
@@ -980,29 +1210,43 @@ A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
 requested object
 
-.. code-block:: xml
-   :name: xml-command-req
+.. code-block:: json
+   :name: json-command-req
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="CommandRequest">
-       <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-       <ntsObjectId>F+40100=416CG100</ntsObjectId>
-       <externalNtsId>23055</externalNtsId>
-       <componentId>AB+84001=860VA001</componentId>
-       <arguments>
-           <argument>
-               <commandCodeId>M002</commandCodeId>
-               <name>1</name>
-               <command>setValue</command>
-               <value>Auto</value>
-           </argument>
-       </arguments>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "CommandRequest",
+        "mId": "cf76365e-9c7b-44a4-86bd-d107cdfc3fcf",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "arg": [
+            {
+                "cCI": "M0001",
+                "n": "status",
+                "cO": "setValue",
+                "v": "YellowFlash"
+            },{
+                "cCI": "M0001",
+                "n": "securityCode",
+                "cO": "setValue",
+                "v": "123"
+            },{
+                "cCI": "M0001",
+                "n": "timeout",
+                "cO": "setValue",
+                "v": "30"
+            },{
+                "cCI": "M0001",
+                "n": "intersection",
+                "cO": "setValue",
+                "v": "1"
+            }
+        ]
+   }
+
+JSon code 18: A command request message
+
 
 The following table is describing the variable content of the message:
 
@@ -1010,28 +1254,51 @@ Values to send with the command (arguments)
 
 .. figtable::
    :nofig:
-   :label: table-command-arguments
-   :caption: command-arguments
+   :label: table-commands-argument
+   :caption: Command argument
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+
+   ============ ============ =============
+   Element      Value        Description
+   ============ ============ =============
+   arg          *(array)*    Argument. Contains the element **cCI**, **n**, **cO**, **v** in an array
+   ============ ============ =============
+..
+
+The following table describes the variable content of the message which is
+defined by the SXL.
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the signal exchange list (SXL).
+
+.. figtable::
+   :nofig:
+   :label: table-command-arguments-sxl
+   :caption: Command arguments defined by SXL
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.18\linewidth} p{0.60\linewidth}
 
    +-----------------+--------------------+-----------------------------------------------+
-   | Element         | Value              | Description                                   |
+   | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | commandCodeId   | *(Defined in SXL)* | Command code id. Determined in the signal     |
-   |                 |                    | exchange list (SXL). The examples in this     |
-   |                 |                    | document are defined according to the         |
-   |                 |                    | following format: Myyy, where yyy is a unique |
-   |                 |                    | number.                                       |
+   | cCI             | commandCodeId      | The uniqe code of a command request.          |
+   |                 |                    | The examples in this document are defined     |
+   |                 |                    | according to the following format: *Myyy*,    |
+   |                 |                    | where *yyy* is a unique number.               |
    +-----------------+--------------------+-----------------------------------------------+
-   | name            | *(Defined in SXL)* | Unique reference of the value                 |
+   | *(not sent)*    | Description        | Description for the command request.          |
+   |                 |                    | Defined in the SXL but is not actually        |
+   |                 |                    | sent.                                         |
    +-----------------+--------------------+-----------------------------------------------+
-   | command         | *(Defined in SXL)* | Command                                       |
+   | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | type            | *(Defined in SXL)* | The data type of the value.                   |
-   | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
-   | not actually    |                    |                                               |
-   | sent)*          |                    | | General definition:                         |
+   | cO              | Command            | Command                                       |
+   +-----------------+--------------------+-----------------------------------------------+
+   | *(not sent)*    | Type               | The data type of the value.                   |
+   |                 |                    | Defined in the SXL but is not actually sent   |
+   |                 |                    |                                               |
+   |                 |                    | | General definition:                         |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1043,66 +1310,72 @@ Values to send with the command (arguments)
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
-   | unit            | *(Defined in SXL)* | The unit of the value. Defined in SXL but     |
-   | *(Only is SXL,  |                    | are not actually sent                         |
-   | not actually    |                    |                                               |
-   | sent)*          |                    |                                               |
-   +-----------------+--------------------+-----------------------------------------------+
-   | value           | *(Defined in SXL)* | Value                                         |
+   | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
 
 Structure of command response message
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
 If the object is not known then the site must not disconnect
-but instead answer with this type of message where "ageState" contains
-"undefined".
+but instead answer with this type of message where **age** is set to
+**undefined**.
 
-.. code-block:: xml
-   :name: xml-command-response
+.. code-block:: json
+   :name: json-command-response
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="CommandResponse">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <ntsObjectId>F+40100=416CG100</ntsObjectId>
-           <externalNtsId>23055</externalNtsId>
-           <componentId>AB+84001=860VA001</componentId>
-           <commandTimeStamp>2009-10-02T14:34:34.345Z</commandTimeStamp>
-           <returnvalues>
-               <returnvalue>
-                   <commandCodeId>M002</commandCodeId>
-                   <ageState>recent</ageState>
-                   <name>1</name>
-                   <value>Auto</value>
-               </returnvalue>
-           </returnvalues>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "CommandResponse",
+        "mId": "0fd63726-be19-4c09-8553-48451735cb0b",
+        "ntsOId": "O+14439=481WA001",
+        "xNId": "",
+        "cId": "O+14439=481WA001",
+        "cTS": "2015-06-08T11:49:03.293Z",
+        "rvs": [
+             {
+                "cCI": "M0001",
+                "n": "status",
+                "v": "YellowFlash",
+                "age": "recent"
+             },{
+                "cCI": "M0001",
+                "n": "securityCode",
+                "v": "123",
+                "age": "recent"
+             },{
+                "cCI": "M0001",
+                "n": "timeout",
+                "v": "30",
+                "age": "recent"
+             },{
+                "cCI": "M0001",
+                "n": "intersection",
+                "v": "1",
+                "age": "recent"
+             }
+        ]
+   }
+
+JSon code 19: A command response message
 
 The following table is describing the variable content of the message:
-
-Basic (xsi:type = CommandResponse)
 
 .. figtable::
    :nofig:
    :label: table-command-response
-   :caption: command-response
+   :caption: Command response
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.15\linewidth} p{0.45\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.65\linewidth}
 
    +------------------+--------------------+------------------------------------------------------------------------------------+
    | Element          | Value              | Description                                                                        |
    +==================+====================+====================================================================================+
-   | commandTimeStamp | *(timestamp)*      | The timestamp uses the W3C XML dateTime definition with a 3 decimal places.        |
+   | cTS              | *(timestamp)*      | The timestamp uses the W3C XML dateTime definition with a 3 decimal places.        |
    |                  |                    | All timestamps are set at the local level (and not in the supervision system) when |
    |                  |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
    +------------------+--------------------+------------------------------------------------------------------------------------+
@@ -1110,38 +1383,51 @@ Basic (xsi:type = CommandResponse)
 ..
 
 Return values (returnvalue)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Return values (**rvs**) is always sent but can
+be empty if not return values are defined.
 
 .. figtable::
    :nofig:
-   :label: table-command-returnvalue
-   :caption: command-returnvalue
+   :label: table-command-returnvalues-rvs
+   :caption: Command return values
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+
+   ========= ========= =============
+   Element   Value     Description
+   ========= ========= =============
+   rvs       *(array)* Return values. Contains the elements **cCI**, **v**, **n** and **q** in an array.
+   ========= ========= =============
+
+..
+
+The following table describes the variable content defined by the signal
+exchange list (SXL). The *SXL element* column describes the correlation
+between the JSon elements and the titles in the SXL.
+
+.. figtable::
+   :nofig:
+   :label: table-command-returnvalue-sxl
+   :caption: Command return value defined by SXL
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.60\linewidth}
 
    +-----------------+--------------------+-----------------------------------------------+
-   | Element         | Value              | Description                                   |
+   | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | commandCodeId   | *(Defined in SXL)* | Command code id. Determined in the signal     |
-   |                 |                    | exchange list (SXL). The examples in this     |
-   |                 |                    | document are defined according to the         |
-   |                 |                    | following format: Myyy, where yyy is a unique |
-   |                 |                    | number.                                       |
+   | cCI             | commandCodeId      | The uniqe code of a command.                  |
+   |                 |                    | The examples in this document are defined     |
+   |                 |                    | according to the following format: *Myyy*,    |
+   |                 |                    | where *yyy* is a unique number.               |
    +-----------------+--------------------+-----------------------------------------------+
-   | ageState        | recent             | The value is up to date                       |
-   |                 +--------------------+-----------------------------------------------+
-   |                 | old                | The value is not up to date                   |
-   |                 +--------------------+-----------------------------------------------+
-   |                 | undefined          | The component does not exist                  |
-   |                 +--------------------+-----------------------------------------------+
-   |                 | unknown            | The value is unknown                          |
+   | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | name            | *(Defined in SXL)* | Unique reference of the value                 |
-   +-----------------+--------------------+-----------------------------------------------+
-   | type            | *(Defined in SXL)* | The data type of the value.                   |
-   | *(Only in SXL,  |                    | Defined in the SXL but is not actually sent   |
-   | not actually    |                    |                                               |
-   | sent)*          |                    | | General definition:                         |
+   | *(not sent)*    | Type               | The data type of the value.                   |
+   |                 |                    | Defined in the SXL but is not actually sent   |
+   |                 |                    |                                               |
+   |                 |                    | | General definition:                         |
    |                 |                    | | **string**: Text information                |
    |                 |                    | | **integer**: Numerical value                |
    |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
@@ -1153,12 +1439,32 @@ Return values (returnvalue)
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
    +-----------------+--------------------+-----------------------------------------------+
-   | unit            | *(Defined in SXL)* | The unit of the value. Defined in SXL but     |
-   | *(Only is SXL,  |                    | are not actually sent                         |
-   | not actually    |                    |                                               |
-   | sent)*          |                    |                                               |
+   | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
-   | value           | *(Defined in SXL)* | Value                                         |
+
+..
+
+The following table describes additional variable content of the message.
+
+.. figtable::
+   :nofig:
+   :label: table-command-returnvalue
+   :caption: Command return value
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.30\linewidth}
+
+   +-----------------+--------------------+-----------------------------------------------+
+   | Element         | Value              | Description                                   |
+   +=================+====================+===============================================+
+   | age             | recent             | The value is up to date                       |
+   |                 +--------------------+-----------------------------------------------+
+   |                 | old                | The value is not up to date                   |
+   |                 +--------------------+-----------------------------------------------+
+   |                 | undefined          | The component does not exist.                 |
+   |                 |                    | **v** should be set to **null**.              |
+   |                 +--------------------+-----------------------------------------------+
+   |                 | unknown            | The value is unknown.                         |
+   |                 |                    | **v** should be set to **null**.              |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
@@ -1187,10 +1493,24 @@ message acknowledgement is to detect communication disruptions,
 function as an acknowledgment that the message has reached its
 destination and to verify that the message was understood.
 
-There are two types of message acknowledgement – Message
-acknowledgment which confirms that the message was understood and
-Message not acknowledged which indicates that the message was not
-understood.
+There are two types of message acknowledgement – **Message
+acknowledgment** (MessageAck) which confirms that the message was understood and
+**Message not acknowledged** (MessageNotAck) which indicates that the message
+was not understood.
+
+* If no message acknowledgement is received within a predefined time, then
+  each communicating party should treat it as a communication disruption.
+  (See :ref:`comm_disruption`)
+* The default timeout value should be 30 seconds.
+* If the version messages has not been exchanged according to communication
+  establishment sequence
+  (See :ref:`comm_establishment_s2i` and :ref:`comm_establishment_s2s`) then
+  message acknowledgement (MessageAck/MessageNotAck) should not be sent as a
+  response to any other messages other than the version message
+  (See :ref:`rsmpsxl-version`). The lack of acknowledgement forces the other
+  communicating party to treat it as communication disruption and disconnect
+  and reconnect, ensuring that the connection restarts with communication
+  establishment sequence.
 
 The acknowledgement messages are interaction driven and are sent when
 any other type message are received.
@@ -1201,83 +1521,49 @@ Message structure – Message acknowledgement
 An acknowledgement message has the structure according to the example
 below.
 
-.. code-block:: xml
-   :name: xml-ack
+.. code-block:: json
+   :name: json-ack
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="MessageAck">
-           <originalMessageId>{E4FSD010-C336-41ac-BD58-5C80A72C7092}</originalMessageId>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "MessageAck",
+        "oMId": "49c6c824-d593-4c16-b335-f04feda16986"
+   }
 
-The following table is describing the variable content of the message:
-
-Basic (xsi:type = MessageAck)
-
-.. figtable::
-   :nofig:
-   :label: table-messageack-basic
-   :caption: Basic (xsi:type = MessageAck)
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.10\linewidth} p{0.65\linewidth}
-
-   +-------------------+------------+--------------------------------------------------------------------+
-   | Element           | Value      | Description                                                        |
-   +===================+============+====================================================================+
-   | originalMessageId | *(GUID)*   | Message identity. Generated as a GUID (Globally unique identifier) |
-   |                   |            | in the equipment that sent the message. Only version 4 of          |
-   |                   |            | Leach-Salz UUID is used. This message identity is used in order to |
-   |                   |            | inform about which message is being acknowledged.                  |
-   +-------------------+------------+--------------------------------------------------------------------+
-
-..
+JSon code 20: An acknowledgement message
 
 Message structure – Message not acknowledged
 """"""""""""""""""""""""""""""""""""""""""""
 
-A not acknowledgement message has the structure according to the example
+A "not acknowledgement" message has the structure according to the example
 below.
 
-.. code-block:: xml
-   :name: xml-notack
+.. code-block:: json
+   :name: json-notack
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="MessageNotAck">
-           <originalMessageId>{E4FSD010-C336-41ac-BD58-5C80A72C7092}</originalMessageId>
-           <reason>alarmCode: A054 does not exist</reason>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "MessageNotAck",
+        "oMId": "554dff0-9cc5-4232-97a9-018d5796e86a",
+        "rea": "Unknown packet type: Watchdddog"
+   }
+
+JSon code 21: A not acknowledgement message
 
 The following table is describing the variable content of the message:
-
-Basic (xsi:type = MessageNotAck)
 
 .. figtable::
    :nofig:
    :label: table-messagenoteack-basic
-   :caption: Basic (xsi:type = MessageNotAck)
+   :caption: Message not ack
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.10\linewidth} p{0.65\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.70\linewidth}
 
-   +-------------------+--------------+--------------------------------------------------------------------+
-   | Element           | Value        | Description                                                        |
-   +===================+==============+====================================================================+
-   | originalMessageId | *(GUID)*     | Message identity. Generated as a GUID (Globally unique identifier) |
-   |                   |              | in the equipment that sent the message. Only version 4 of          |
-   |                   |              | Leach-Salz UUID is used. This message identity is used in order to |
-   |                   |              | inform about which message is being acknowledged.                  |
-   +-------------------+--------------+--------------------------------------------------------------------+
-   | reason            | *(optional)* | Error message where all relevant information about the nature of   |
-   |                   |              | the error can be provided.                                         |
-   +-------------------+--------------+--------------------------------------------------------------------+
+   ======== ============ ===============
+   Element  Value        Description
+   ======== ============ ===============
+   rea      *(optional)* Error message where all relevant information about the nature of the error can be provided.
+   ======== ============ ===============
 
 ..
 
@@ -1321,53 +1607,62 @@ activated in both communicating system. If both communicating systems
 support several RSMP versions it is always the latest version that
 should be used.
 
+The principle of the message exchange is defined by the communication
+establishment (See :ref:`comm_establishment_s2i` and
+:ref:`comm_establishment_s2s`).
+
 Message structure
 """""""""""""""""
 
 A version message has the structure according to the example below. In
-the example below the system has support for RSMP version 1.0, 1.2 and
-1.3 and SXL version 1.3 for site "F+40100=416".
+the example below the system has support for RSMP version **3.1.1**,
+**3.1.2** and SXL version **1.0.13** for site **O+14439=481WA001**.
 
-.. code-block:: xml
-   :name: xml-version
+.. code-block:: json
+   :name: json-version
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4/RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="Version">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <siteIds>
-               <siteId>F+40100=416</siteId>
-           </siteIds>
-           <rsmpVersions>
-               <rsmpVersion>1.0</rsmpVersion>
-               <rsmpVersion>1.2</rsmpVersion>
-               <rsmpVersion>1.3</rsmpVersion>
-           </rsmpVersions>
-           <sxlVersion>1.3</sxlVersion>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "Version",
+        "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+        "RSMP": [
+            {
+                "vers": "3.1.1"
+            },{
+                "vers": "3.1.2"
+            }
+        ],
+        "siteId": [
+            {
+                "sId": "O+14439=481WA001"
+            }
+        ],
+        "SXL": "1.0.13"
+   }
 
-The following table is describing the variable content of the message:
+JSon code 22: A RSMP / SXL message
 
-Basic (xsi:type = Version)
+The following table describes the variable content of the message which is
+defined by the SXL.
+
+The *SXL element* column describes the correlation between the JSon
+elements and the titles in the signal exchange list (SXL).
 
 .. figtable::
    :nofig:
-   :label: table-version-basic
-   :caption: Basic (xsi:type = Version)
+   :label: table-version-basic-sxl
+   :caption: Version information defined by SXL
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.12\linewidth} p{0.18\linewidth} p{0.65\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.18\linewidth} p{0.65\linewidth}
 
    +-------------+--------------------+--------------------------------------------------------------------+
-   | Element     | Value              | Description                                                        |
+   | Element     | SXL element        | Description                                                        |
    +=============+====================+====================================================================+
-   | siteId      | *(Defined in SXL)* | Site identity. Used in order to refer to a “logical” identity of a |
+   | sId         | SiteId             | Site identity. Used in order to refer to a “logical” identity of a |
    |             |                    | site.                                                              |
    |             |                    |                                                                    |
-   |             |                    | | At the STA, the following formats can be used:                   |
+   |             |                    | At the STA, the following formats can be used:                     |
+   |             |                    |                                                                    |
    |             |                    | - The site id from the STAs component id standard TDOK 2012:1171   |
    |             |                    |   e.g. ”40100”.                                                    |
    |             |                    | - It is also possible to use the full component id (TDOK 2012:1171)|
@@ -1376,33 +1671,29 @@ Basic (xsi:type = Version)
    |             |                    |   site.                                                            |
    |             |                    |                                                                    |
    |             |                    | All the site ids that are used in the RSMP connection are sent     |
-   |             |                    | in the message                                                     |
+   |             |                    | in the message using an array (**siteId**)                         |
    +-------------+--------------------+--------------------------------------------------------------------+
-   | rsmpVersion | *(Defined in the   | Version of RSMP. E.g. ”1.0”, ”1.1” or ”1.3”                        |
-   |             | guideline)*        |                                                                    |
-   +-------------+--------------------+--------------------------------------------------------------------+
-   | sxlRevision | *(Defined in SXL)* | Revision of SXL. E.g ”1.3”                                         |
+   | SXL         | SXL revision       | Revision of SXL. E.g ”1.3”                                         |
    +-------------+--------------------+--------------------------------------------------------------------+
 
 ..
 
-Message exchange between site and supervision system/other equipment
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+The following table describes additional variable content of the message.
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+.. figtable::
+   :nofig:
+   :label: table-version-basic
+   :caption: Version information
+   :loc: H
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.80\linewidth}
 
-The site sends a version message
+   ========= ===============
+   Element   Description
+   ========= ===============
+   vers      Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   ========= ===============
 
-.. image:: /img/msc/version_site.png
-
-1. Version message is sent from the site
-
-Supervision system/other equipment sends version message
-
-.. image:: /img/msc/version_system.png
-
-1. Version message is send from supervision system/other equipment
+..
 
 .. _watchdog:
 
@@ -1412,55 +1703,55 @@ Watchdog
 The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
-alarms are used instead. The secondary purpose of watchdog messages is
-to provide a timestamp that can be used for simple time
-synchronization. Unless other time synchronization method is used or
-other reasons apply, the site should synchronize its clock using the
-timestamp from watchdog messages – both at communication
-establishment and then at least once every 24 hours.
+alarms are used instead.
+
+The secondary purpose of watchdog messages is to provide a timestamp that can
+be used for simple time synchronization.
+
+* Time synchronization using the watchdog message should be configurable at the
+  site (enabled/disabled)
+* If time synchronization is enabled, the site should synchronize its clock
+  using the timestamp from watchdog messages – at communication establishment and
+  then at least once every 24 hours.
+* The interval duration for sending watchdog messages should be
+  configurable at both the site and the supervision system. The default
+  setting should be (1) once a minute.
 
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.
-
-The interval duration for sending watchdog messages should be
-configurable at both the site and the supervision system. The default
-setting should be (1) once a minute.
 
 Message structure
 """""""""""""""""
 
 A watchdog message has the structure according to the example below.
 
-.. code-block:: xml
-   :name: xml-watchdog
+.. code-block:: json
+   :name: json-watchdog
 
-   <?xml version="1.0" encoding="utf-8"?>
-   <roadSideMessage modelBaseVersion="1.0"
-      xmlns="http://roadsidemessage.vv.se/1_0_1_4"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://roadsidemessage.vv.se/1_0_1_4/RoadSideMessage_1_0_1_4.xsd">
-       <message xsi:type="Watchdog">
-           <messageId>{E68A0010-C336-41ac-BD58-5C80A72C7092}</messageId>
-           <watchdogTimestamp>2009-10-02T14:34:34.341Z</watchdogTimestamp>
-       </message>
-   </roadSideMessage>
+   {
+        "mType": "rSMsg",
+        "type": "Watchdog",
+        "mId": "f48900bc-e6fb-431a-8ca4-05070016f64a",
+        "wTs": "2015-06-08T12:01:39.654Z"
+   }
+
+JSon code 23: A watchdog message
 
 The following table is describing the variable content of the message:
-
-Basic (xsi:type = Watchdog)
 
 .. figtable::
    :nofig:
    :label: table-watchdog-basic
-   :caption: Basic (xsi:type = Watchdog)
+   :caption: Watchdog
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
 
    ================== ============= ==========================================
    Element            Value         Description
    ================== ============= ==========================================
-   watchdogtimestamp  *(timestamp)* The timestamp uses the W3C XML dateTime
+   wTs                *(timestamp)* Watchdog timestamp.
+                                    The timestamp uses the W3C XML dateTime
                                     definition with a 3 decimal places. All
                                     timestamps are set at the local level
                                     (and not in the supervision system) when

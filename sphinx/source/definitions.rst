@@ -35,12 +35,12 @@ Definitions
        Communication with the object is made using exchange of
        signals, e.g. commands, status and alarms.
 
-       An object may also be equivalent of a physical equipment. E.g.
-       camera, but could also be abstract such as an algorithm.
+       An object can represent physical equipment or abstract concepts
+       E.g. a camera, a control flow alorithm or a group of signs.
 
-       An object is identified using the objects component id. Please
+       An object is identified using the objects component id. *Please
        note that an object is not necessarily the same thing as an NTS
-       object.
+       object.*
 
    Aggregated object
        An aggregated object consists of one or many other objects.

@@ -8,6 +8,6 @@ msc {
   |||;
   Site<="Supervision system" [ label = "Status request message" ];
   |||;
-  Site=>"Supervision system" [ label = "Status response message" ];
+  Site>>"Supervision system" [ label = "Status response message" ];
   |||;
 }

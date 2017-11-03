@@ -3,11 +3,13 @@
 msc {
   hscale = "1.5", arcgradient = "0";
 
-  Site, "Supervision system";
+  site [label="Site"], system [label="Supervision system"];
 
   |||;
-  Site<="Supervision system" [ label = "Alarm acknowledgement message" ];
+  system abox system [ label = "An alarm is acknowledged" ];
   |||;
-  Site=>"Supervision system" [ label = "Alarm message" ];
+  site<=system [ label = "Alarm acknowledgement message" ];
+  |||;
+  site=>system [ label = "Alarm message" ];
   |||;
 }

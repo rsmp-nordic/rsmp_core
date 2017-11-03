@@ -6,6 +6,8 @@ msc {
   Site, "Supervision system";
 
   |||;
+  Site abox Site [ label = "An alarm is acknowledged" ];
+  |||;
   Site=>"Supervision system" [ label = "Alarm message" ];
   |||;
 }

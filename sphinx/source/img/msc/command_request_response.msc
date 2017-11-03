@@ -8,6 +8,8 @@ msc {
   |||;
   Site<="Supervision system" [ label = "Command request message" ];
   |||;
-  Site=>"Supervision system" [ label = "Command response message" ];
+  Site abox Site [ label = "Command is accepted" ];
+  |||;
+  Site=>>"Supervision system" [ label = "Command response message" ];
   |||;
 }

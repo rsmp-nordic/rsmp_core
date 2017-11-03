@@ -8,5 +8,4 @@ Applicability
    applicability/object_model
    applicability/transport_of_data
    applicability/basic_structure
-   applicability/usage_of_json
 

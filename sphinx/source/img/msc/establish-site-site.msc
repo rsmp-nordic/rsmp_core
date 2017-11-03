@@ -1,16 +1,22 @@
-# MSC for Command request/response
+# MSC for establish site-site
 
 msc {
   hscale = "1.5", arcgradient = "0";
 
-  a [label="Site #1"], b [label="Site #2"];
+  a [label="Site (follower)"], b [label="Site (leader)"];
 
-  a<=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "RSMP/SXL version" ];
   |||;
-  --- [ label = "Verify site id" ];
+  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
   |||;
-  a<=>b [ label = "Watchdog" ];
+  a<=b [ label = "RSMP/SXL version" ];
   |||;
-  a<=>b [ label = "Aggregated status" ];
+  a abox a [ label = "Verify RSMP version, SXL version and site id" ];
+  |||;
+  a=>b [ label = "Watchdog" ];
+  |||;
+  a<=b [ label = "Watchdog" ];
+  |||;
+  a=>b [ label = "Aggregated status" ];
   |||;
 }

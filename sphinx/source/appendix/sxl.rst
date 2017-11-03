@@ -10,13 +10,13 @@ Guideline - Signal exchange list
 
 Purpose
 -------
-The purpose with this guideline is to define the format and function of the
-signal exchange list. This guideline works as a 'best practice' and does not
+The purpose with this appendix is to define the format and function of the
+signal exchange list. This appendix works as a 'best practice' and does not
 define requirements.
 
 Scope
 -----
-The scope of this guideline is signal exchange list (SXL) which plays a
+The scope of this appendix is signal exchange list (SXL) which plays a
 central role for the function of RSMP. It is recommended to read this
 document to get a deeper understanding of for instance implementation
 of the RSMP and when designing a new SXL.
@@ -127,211 +127,6 @@ The following notions are used as titles from the columns in the SXL. All
 the notions corresponds to the element with the same name in the
 basic structure.
 
-Basic notions
-"""""""""""""
-
-.. figtable::
-   :nofig:
-   :label: label-basic
-   :caption: Basic
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.60\linewidth}
-
-   ===========  ========================================================
-   Notion       Description
-   ===========  ========================================================
-   componentId  Component-id for the object which the message relates to
-   ===========  ========================================================
-
-..
-
-Site
-""""
-
-.. figtable::
-   :nofig:
-   :label: label-site-def
-   :caption: Site
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.65\linewidth}
-
-   +---------------+---------------------------------------------------------------------+
-   | Notion        | Description                                                         |
-   +===============+=====================================================================+
-   | siteId        | Site identity. Used in order to refer to a "locical" identity of a  |
-   |               | site.                                                               |
-   |               |                                                                     |
-   |               | | At the STA, the following formats can be used:                    |
-   |               | - The site id from the STAs component id standard TDOK 2012:1171    |
-   |               |   e.g. "40100".                                                     |
-   |               | - It is also possible to use the full component id (TDOK 2012:1171) |
-   |               |   of the grouped object in the site in case the site id part of     |
-   |               |   the component id is insufficient in order to uniquely identify a  |
-   |               |   site.                                                             |
-   |               |                                                                     |
-   |               | All the site ids that are used in the RSMP connection are sent      |
-   |               | in the message                                                      |
-   +---------------+---------------------------------------------------------------------+
-   | ntsObjectId   | Component-id for the NTS object which the message                   |
-   |               | refers to.                                                          |
-   +---------------+---------------------------------------------------------------------+
-   | externalNtsId | Identity to identify corresponding NTS object in the                |
-   |               | communication between NTS and other systems.                        |
-   |               | The format is 5 digit integer.                                      |
-   |               | *(According to SL31 Object-Identity)*                               |
-   |               | externalNTsId is defined in cooperation with                        |
-   |               | representatives from NTS and is unique for the site.                |
-   +---------------+---------------------------------------------------------------------+
-
-..
-
-Alarm
-"""""
-
-.. figtable::
-   :nofig:
-   :label: table-alarm-def
-   :caption: Alarm
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
-
-    +------------------------+-----------------------------------------------+
-    | Notion                 | Description                                   |
-    +========================+===============================================+
-    | alarmCodeId            | The alarm type unique identity. The examples  |
-    |                        | in this document is formatted this way: Ayyy  |
-    |                        | where yyy is a uniqe number.                  |
-    +------------------------+-----------------------------------------------+
-    | description            | Description text for alarm. Not sent during   |
-    | *(not sent)*           | message exchange, but is defined in the SXL.  |
-    |                        | (The text content is variable, but has the    |
-    |                        | following requirements:                       |
-    |                        |                                               |
-    |                        | - The text should be defined in cooperation   |
-    |                        |   with the purchaser before use)              | 
-    +------------------------+-----------------------------------------------+
-    | externalAlarmCodeId    | Manufacturer specific alarm code and alarm    |
-    |                        | description. Manufacturer, model, alarm code  |
-    |                        | and additional alarm description              |
-    +------------------------+-----------------------------------------------+
-    | externalNtsAlarmCodeId | Alarm code in order to identify alarm type    |
-    |                        | during communication with NTS and other       |
-    |                        | systems *(See SL31 Alarm-Code)*               |
-    +------------------------+-----------------------------------------------+
-    | priority               | The priority of the message. The following    |
-    |                        | values are defined:                           |
-    |                        |                                               |
-    |                        | 1. Alarm that requires immediate action.      |
-    |                        | 2. Alarm that does not require immediate      |
-    |                        |    action, but action is planned during the   |
-    |                        |    next work shift.                           |
-    |                        | 3. Alarm that will be corrected during the    |
-    |                        |    next planned maintenance shift.            |
-    +------------------------+-----------------------------------------------+
-    | category               | A character, either "T" or "D".               |
-    |                        |                                               |
-    |                        | | An alarm belongs to one these categories:   |
-    |                        | | - T. Traffic alarm                          |
-    |                        | | - D. Technical alarm                        |
-    |                        |                                               |
-    |                        | **Traffic alarm:**                            |
-    |                        | Traffic alarms indicate events in the traffic |
-    |                        | related functions or the technical processes  |
-    |                        | that effects traffic.                         |
-    |                        |                                               |
-    |                        | | A couple of examples from a tunnel:         |
-    |                        | | - Stopped vehicle                           |
-    |                        | | - Fire alarm                                |
-    |                        | | - Error which affects message to motorists  |
-    |                        | | - High level of CO2 in traffic room         |
-    |                        | | - Etc.                                      |
-    |                        |                                               |
-    |                        | **Technical alarm:**                          |
-    |                        | Technical alarms are alarms that do not       |
-    |                        | directly affect the traffic. One example of a |
-    |                        | technical alarm is when an impulse fan stops  |
-    |                        | working.                                      |
-    +------------------------+-----------------------------------------------+
-
-..
-
-Aggregated status
-"""""""""""""""""
-
-.. figtable::
-   :nofig:
-   :label: table-agg
-   :caption: Aggregated status
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
-
-    +------------------------+-----------------------------------------------+
-    | Notion                 | Description                                   |
-    +========================+===============================================+
-    | state                  | Status bits (See "State-Bit-nr")              |
-    +------------------------+-----------------------------------------------+
-    | funcationalPosition    | Functional position. Shows status and command |
-    |                        | possibilities of NTS objects. Correlates to   |
-    |                        | (ref: Function positions)                     |
-    +------------------------+-----------------------------------------------+
-    | functionalState        | Functional status. Shows for some NTS object  |
-    | *(optional)*           | types the current status and command          |
-    |                        | possibilities of components.                  |
-    +------------------------+-----------------------------------------------+
-    | State-Bit-nr           | State bits is a 8 bit binary field which      |
-    |                        | defines the site status for NTS. Each bit     |
-    |                        | can either be true or false.                  |
-    +------------------------+-----------------------------------------------+
-
-..
-
-Detailed status
-"""""""""""""""
-
-.. figtable::
-   :nofig:
-   :label: table-detailed-status
-   :caption: Aggregated status
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
-
-    +------------------------+-----------------------------------------------+
-    | Notion                 | Description                                   |
-    +========================+===============================================+
-    | statusCodeId           | The id of the status code                     |
-    +------------------------+-----------------------------------------------+
-    | description            | Description for the status request. Not sent  |
-    | *(not sent)*           | during message exchange, but is defined in    |
-    |                        | SXL. (The text content is variable, but has   |
-    |                        | the following requirements:                   |
-    |                        |                                               |
-    |                        | - The text should be defined in cooperation   |
-    |                        |   with the purchaser before use)              | 
-    +------------------------+-----------------------------------------------+
-
-..
-
-Commands
-""""""""
-
-.. figtable::
-   :nofig:
-   :label: table-commands
-   :caption: Commands
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
-
-    +------------------------+-----------------------------------------------+
-    | Notion                 | Description                                   |
-    +========================+===============================================+
-    | commandCodeId          | The id of the command code. The examples in   |
-    |                        | this document are defined according to the    |
-    |                        | following format: Myyy, where yyy is a unique |
-    |                        | number.                                       |
-    +------------------------+-----------------------------------------------+
-
-..
-
 The following table defines the different versions of command messages.
 
 .. figtable::
@@ -341,24 +136,24 @@ The following table defines the different versions of command messages.
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
 
-    +------------------------+-----------------------------------------------+
-    | Notion                 | Description                                   |
-    +========================+===============================================+
-    | Functional position    | Designed for NTS. Provides command options    |
-    |                        | for an NTS object. In order to get the status |
-    |                        | the corresponding status functionalPosition   |
-    |                        | in Aggregated status is used.                 |
-    +------------------------+-----------------------------------------------+
-    | Functional state       | Not used                                      |
-    +------------------------+-----------------------------------------------+
-    | Manouver               | Possible command options for individual       |
-    |                        | objects for groups of objects from management |
-    |                        | system (not NTS). May also apply to automatic |
-    |                        | control. For instance, "start" or "stop"      |
-    +------------------------+-----------------------------------------------+
-    | Parameter              | Used for modification of technical or         |
-    |                        | autonomous traffic parameters of the equipment|
-    +------------------------+-----------------------------------------------+
+   +------------------------+-----------------------------------------------+
+   | Notion                 | Description                                   |
+   +========================+===============================================+
+   | Functional position    | Designed for NTS. Provides command options    |
+   |                        | for an NTS object. In order to get the status |
+   |                        | the corresponding status functionalPosition   |
+   |                        | in Aggregated status is used.                 |
+   +------------------------+-----------------------------------------------+
+   | Functional state       | Not used                                      |
+   +------------------------+-----------------------------------------------+
+   | Manouver               | Possible command options for individual       |
+   |                        | objects for groups of objects from management |
+   |                        | system (not NTS). May also apply to automatic |
+   |                        | control. For instance, "start" or "stop"      |
+   +------------------------+-----------------------------------------------+
+   | Parameter              | Used for modification of technical or         |
+   |                        | autonomous traffic parameters of the equipment|
+   +------------------------+-----------------------------------------------+
 
 ..
 
@@ -378,14 +173,14 @@ Argument and return values makes it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
 pictures or other data, both to a site and to supervision system. The
 signal exchange list must clarify exactly which data type which is used
-in each case. There is not limitation of the number of arguments and
-return values which can be defined for a give message. Argument and return
+in each case. There is no limitation of the number of arguments and
+return values which can be defined for a given message. Argument and return
 values is defined as extra columns for each row in the signal exchange
 list.
 
 - Arguments can be sent with command messages
 - Return values can be send with response on status requests or as extra
-  information with alarm messages.
+  information with alarm messages
 
 The following table defines the message types which supports arguments and
 return values. 
@@ -393,7 +188,7 @@ return values.
 .. figtable::
    :nofig:
    :label: table-support
-   :caption: Arguments/return values - support
+   :caption: Support for arguments and return values
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.20\linewidth} p{0.20\linewidth}
 
@@ -405,86 +200,6 @@ return values.
    Status             No        Yes
    Commands           Yes       No
    =================  ========  ============
-..
-
-Argument
-~~~~~~~~
-The following table defines the format of a argument.
-
-.. figtable::
-   :nofig:
-   :label: table-argument
-   :caption: Table - argument
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.60\linewidth}
-
-   +-----------------+-----------------------------------------------+
-   | Notion          | Description                                   |
-   +=================+===============================================+
-   | name            | Unique reference of the value                 |
-   +-----------------+-----------------------------------------------+
-   | type            | The data type of the value.                   |
-   | *(not sent)*    | Defined in the SXL but is not actually sent   |
-   |                 |                                               |
-   |                 | | General definition:                         |
-   |                 | | **string**: Text information                |
-   |                 | | **integer**: Numerical value                |
-   |                 |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 | | **long**: Numerical value                   |
-   |                 |   (32-bit signed long)                        |
-   |                 | | **real**: Float                             |
-   |                 |   (64-bit double precision floating point)    |
-   |                 | | **boolean**: Boolean data type              |
-   |                 | | **base64**: Binary data expressed in        |
-   |                 |   base64 format according to RFC-4648         |
-   +-----------------+-----------------------------------------------+
-   | unit            | The unit of the value. Defined in SXL but     |
-   | *(not sent)*    | are not actually sent                         |
-   +-----------------+-----------------------------------------------+
-   | value           | Value                                         |
-   +-----------------+-----------------------------------------------+
-
-..
-
-Return value
-~~~~~~~~~~~~
-The following table defines the format of a argument. Please note that
-return values for status messages also add **statusCodeId** and
-**ageState**, se the RSMP specification.
-
-.. figtable::
-   :nofig:
-   :label: table-returnvalue
-   :caption: Table - return value
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.60\linewidth}
-
-   +-----------------+-----------------------------------------------+
-   | Notion          | Description                                   |
-   +=================+===============================================+
-   | name            | Unique reference of the value                 |
-   +-----------------+-----------------------------------------------+
-   | type            | The data type of the value.                   |
-   | *(not sent)*    | Defined in the SXL but is not actually sent   |
-   |                 |                                               |
-   |                 | | General definition:                         |
-   |                 | | **string**: Text information                |
-   |                 | | **integer**: Numerical value                |
-   |                 |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 | | **long**: Numerical value                   |
-   |                 |   (32-bit signed long)                        |
-   |                 | | **real**: Float                             |
-   |                 |   (64-bit double precision floating point)    |
-   |                 | | **boolean**: Boolean data type              |
-   |                 | | **base64**: Binary data expressed in        |
-   |                 |   base64 format according to RFC-4648         |
-   +-----------------+-----------------------------------------------+
-   | unit            | The unit of the value. Defined in SXL but     |
-   | *(not sent)*    | are not actually sent                         |
-   +-----------------+-----------------------------------------------+
-   | value           | Value                                         |
-   +-----------------+-----------------------------------------------+
-
 ..
 
 Version mangement
@@ -508,14 +223,12 @@ document.
    Document                           Principles of versioning
    =================================  ========================
    RSMP specification                 Version of RSMP
-   SXL Best practice                  Version of RSMP
    Signal exchange list (SXL)         Own version *and* version of RSMP
    =================================  ========================
 
 ..
 
-The document "RSMP specification" and "SXL Best practice" uses the
-version of RSMP, for instance, "1.0".
+The document "RSMP specification" uses the version of RSMP, for instance, "1.0".
 
 The signal exchange list (SXL) has it's own version but which version RSMP
 that the SXL uses must de defined.
@@ -527,7 +240,7 @@ Revision of SXL
 """""""""""""""
 Revision of SXL is unique for a site. In order to uniquely identify a SXL
 for a supervision system the identity of the site (siteId) and it's
-version of SXL (sxlRevision) needs to be known. In each SXL there must
+version of SXL (SXL Revision) needs to be known. In each SXL there must
 defined which version of RSMP which it is conforms to.
 
 In order to support a common SXL for many sites where the alarms, status,
@@ -619,12 +332,11 @@ values.
 
 Reading and writing data
 """"""""""""""""""""""""
-In RSMP it is recommended to split read/write operations in two different
-message types
+Read and write operations uses different message types in RSMP.
 
 Read operation
 ~~~~~~~~~~~~~~
-Status messages are recommended for read operations. Read operations works
+Status messages are used for read operations. Read operations works
 as "Process value".
 
 Sequence for a read operation:
@@ -636,8 +348,8 @@ Sequence for a read operation:
 
 Write operation
 ~~~~~~~~~~~~~~~
-Commands messages are recommended for write operations. Write operations
-works as "Set point"/Desired value.
+Commands messages are used for write operations. Write operations works as
+"Set point"/Desired value.
 
 Sequence for a write operation:
 
@@ -654,7 +366,7 @@ Sequence for a write operation:
 Help and references
 -------------------
 
-- RSMP - Communication protocol road side equipment
+- RSMP Specification
 - RSMP - Template Signal Exchange list (SXL)
 
 Change log
@@ -665,16 +377,17 @@ Change log
    :label: table-changelog
    :caption: Changelog
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.35\linewidth} p{0.30\linewidth} p{0.15\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.15\linewidth} p{0.30\linewidth} p{0.15\linewidth}
 
-   ======= ========== ==============================================  ==============
-   Version Date       Change                                          Name (initals)
-   ======= ========== ==============================================  ==============
-   1.0     2011-05-20 Document established                            DO
-   3.0     2011-11-04 Configurable data areas and version management  DO
-   3.1.1   2011-12-23 Minor revision                                  DO
-   3.1.2   2012-02-29 Minor revision                                  DO
-   3.1.3   2014-11-24 Minor revision                                  DO
-   ======= ========== ==============================================  ==============
+   =========== ========== ============================================================= ==============
+   Version     Date       Change                                                        Name (initals)
+   =========== ========== ============================================================= ==============
+   1.0         2011-05-20 Protocol clarified and watchdog revised                       DO
+   3.0         2011-11-04 Protocol revised                                              DO
+   3.1.1       2011-12-23 Minor revision                                                DO
+   3.1.2       2012-02-29 Minor revision                                                DO
+   3.1.3       2014-11-24 Minor revision                                                DO
+   3.1.4       2017-11-03 Protocol revised                                              DO
+   =========== ========== ============================================================= ==============
 
 ..

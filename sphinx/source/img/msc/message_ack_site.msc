@@ -8,6 +8,6 @@ msc {
   |||;
   Site=>"Supervision system or other equipment" [ label = "Any RSMP message" ];
   |||;
-  Site<="Supervision system or other equipment" [ label = "MessageAck/MessageNotAck" ];
+  Site<<"Supervision system or other equipment" [ label = "MessageAck" ];
   |||;
 }
