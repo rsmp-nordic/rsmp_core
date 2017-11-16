@@ -330,7 +330,7 @@ elements and the titles in the signal exchange list (SXL).
    |                   |                    | | - Stopped vehicle                                                                |
    |                   |                    | | - Fire alarm                                                                     |
    |                   |                    | | - Error which affects message to motorists                                       |
-   |                   |                    | | - High level of CO2 in traffic room                                              |
+   |                   |                    | | - High level of :math:`CO_{2}` in traffic room                                   |
    |                   |                    | | - Etc.                                                                           |
    |                   |                    |                                                                                    |
    |                   |                    | **Technical alarm:**                                                               |
