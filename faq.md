@@ -66,3 +66,13 @@ are sent?
 A: It is not allowed to send the aggregated status message before receiving
 version message from the system. The site needs to make sure that the RSMP
 version, site id and sxl revision matches in the version message from system.
+
+4, Conditions for aggregated status bit 2 and bit 8
+---------------------------------------------------
+Q: Under which conditions would a TLC transmit an aggregated status where bit 2 is set to true *(No Communications)* or bit 8 *(The supervision system is not connected to the supervision system)*?
+
+A: The purpose of aggregated status is to give a basic overview of the status of a site from the perspective of the supervision system. The 8 status bits are generically designed to fit all technical areas for road side equipment and they are not unique to RSMP.
+
+It is true that the RSMP specification doesn't really explain this which bits are possible to send and which aren't, but it can theoretically differ depending of technical area and implementation of TLC.
+
+The 8 status bits doesn't really contain any unique data - all the information are available in alarms and statuses. The 8 status bits are only present to ease the integration work with the existing NTS system within Trafikverket. We use seperate requirement documents for our supervision systems to explain the integration work needed for interfacing with our existing NTS system.
