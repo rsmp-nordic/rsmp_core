@@ -146,8 +146,9 @@ The value of intersection='0' means it applies for all intersections.
 
 Please note that not all TLC supports any other value than intersection='0'.
 
-7, Case sensitivity
--------------------
+<a id="7"></a>
+Case sensitivity
+----------------
 Q: Is RSMP case sensitive?
 
 A: Short answer: Yes. It is important to use the same letter case as the
