@@ -26,6 +26,7 @@ help:
 clean:
 	rm -rf $(BUILDDIR)/*
 	rm -f source/extensions/*.pyc
+	rm -f source/extensions/__pycache__/*.pyc
 	rm -f $(MSC_DIR)/*.png
 
 $(MSC_DIR)/%.png: $(MSC_DIR)/%.msc
