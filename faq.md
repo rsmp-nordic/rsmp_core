@@ -10,6 +10,7 @@ Contens
 + [Statuses with 'intersection'](#5)
 + [Command with 'intersection'](#6)
 + [Case sensitivity](#7)
++ [Missing MessageAck] (#8)
 
 <a id="1"></a>
 CommandResponse and verifying executed commands
@@ -157,3 +158,18 @@ specification and SXL to avoid any unexpected issues.
 Please note that the specification usually use elements with lower case,
 e.g. "cat", "pri, "v,", q". However, the SXL may use upper case from time to
 time, such as "True" and "False".
+
+<a id="8"></a>
+Missing MessageAck
+------------------
+Q: What is the policy for when a client does not receive an message acknowledge?
+
+A: Starting with RSMP 3.1.4 is it specified in section 5.1.5 to treat a
+missing MessageAck as a communication disruption and force a disconnection and
+reconnection.
+
+However, the assumption of this requirement is the communication has been lost
+which is not necessarily true. For instance an equipment can be busy sending
+messages and therefore won't reply with message acknowledgement quickly enough.
+The recommendation is not to disconnect purely upon missing MessageAck, but
+instead disconnect and reconnect in case of TCP timeout.
