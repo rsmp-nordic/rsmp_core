@@ -10,7 +10,7 @@ Contens
 + [Statuses with 'intersection'](#5)
 + [Command with 'intersection'](#6)
 + [Case sensitivity](#7)
-+ [Missing MessageAck] (#8)
++ [Missing MessageAck](#8)
 
 <a id="1"></a>
 CommandResponse and verifying executed commands
