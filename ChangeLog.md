@@ -29,7 +29,7 @@ If the version message hasn’t been successfully exchanged, then the
 system/system must not respond with MessageAck/MessageNotAck to any RSMP
 messages other than the version message. If no Ack is received then the
 equipment and supervision system treats this a communication interruption and
-disconnects. The site then reconnections with proper handshake according to
+disconnects. The site then reconnects with proper handshake according to
 the connection establishment sequence.
 
 Watchdog
