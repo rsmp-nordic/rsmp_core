@@ -17,6 +17,8 @@ RSMP Specification
 ==================
 
 
+.. _definitions:
+
 Definitions
 ===========
 
@@ -128,6 +130,8 @@ between road side equipments. The aim is to offer a standardized protocol
 that works the same way regardless of supplier or type of road side
 equipment.
 
+.. _purpose:
+
 Purpose
 =======
 
@@ -191,6 +195,8 @@ Applicability
 =============
 
 
+.. _scope:
+
 Scope
 -----
 
@@ -207,6 +213,8 @@ The Swedish Transport Administration (STA) is providing this interface
 specification as information only. The STA is not responsible for any
 consequences that implementation of the specification can lead to for
 the supplier or any third party.
+
+.. _object_model:
 
 Object model
 ------------
@@ -231,6 +239,8 @@ Objects used for message exchange is **Alarm** with subclasses **Issue**,
 **CommandRequest**, **CommandResponse**, **Watchdog**, **MessageAck**,
 **MessageNotAck**. For detailed information about how these classes are
 used, see section basic-structure_.
+
+.. _transport_of_data:
 
 Transport of data
 -----------------
@@ -2584,6 +2594,8 @@ formats. Please note that some lines may be wrapped.
 XML/JSON code 16: Comparison of watchdog messages XML/JSON
 
 
+.. _changelog:
+
 Change log
 ==========
 
@@ -2597,6 +2609,8 @@ Version Date       Change                                  Name (initals)
 3.1.2   2012-02-29 Minor revision                          DO
 ======= ========== ======================================= ===============
 
+
+.. _sxl:
 
 Guideline - Signal exchange list
 ================================
