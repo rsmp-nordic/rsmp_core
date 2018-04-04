@@ -1,4 +1,4 @@
-.. _basic-structure:
+.. _basic_structure:
 
 Basic structure
 ---------------

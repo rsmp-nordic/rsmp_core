@@ -228,9 +228,9 @@ can later be included with the object model for Datex II. The object
 model is technology independent, ie can be implemented in various ways
 such as using **ASN.1**, **JSON** or **XML**.
 
-In section basic-structure_ all examples is provided in XML format
+In section basic_structure_ all examples is provided in XML format
 for clarity. But the communication between the facility and supervision
-systems / other facility uses JSON format. In section usage-of-json_
+systems / other facility uses JSON format. In section usage_of_json_
 all message types in both XML and JSON are provided side by side.
 
 Objects used for message exchange is **Alarm** with subclasses **Issue**,
@@ -238,7 +238,7 @@ Objects used for message exchange is **Alarm** with subclasses **Issue**,
 **AggregatedStatus**, **StatusRequest**, **StatusResponse**,
 **CommandRequest**, **CommandResponse**, **Watchdog**, **MessageAck**,
 **MessageNotAck**. For detailed information about how these classes are
-used, see section basic-structure_.
+used, see section basic_structure_.
 
 .. _transport_of_data:
 
@@ -312,7 +312,7 @@ responsibility to reconnect.
 .. _basicstructure:
 
 
-.. _basic-structure:
+.. _basic_structure:
 
 Basic structure
 ---------------
@@ -1653,7 +1653,7 @@ Supervision system/other equipment sends watchdog message
 1. Watchdog message is sent from supervision system/other equipment
 
 
-.. _usage-of-json:
+.. _usage_of_json:
 
 Usage of JSON
 -------------
