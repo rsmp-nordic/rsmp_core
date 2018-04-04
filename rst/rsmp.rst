@@ -414,6 +414,7 @@ In the event of an communication disruption the following principles applies:
 The following message types should be buffered in the equipment's outgoing
 communication buffer in the event of an communication disruption.
 
+.. _message-types-buffered:
 
 ================= ====================================
 Message type      Buffered during communication outage
@@ -570,6 +571,7 @@ JSon code 2: An RSMP message
 
 The following table is describing the variable content of all message types.
 
+.. _table-variable-content:
 
 +---------+-------------------+---------------------------------------+
 | Element | Value             | Description                           |
@@ -621,6 +623,7 @@ messages, message acknowledgement messages and watchdog messages.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
+.. _table-variable-content-sxl:
 
 ============ ============== ===================
 Element      SXL element    Description
@@ -711,6 +714,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
+.. _table-alarm:
 
 ============ ====================== =============
 Element      SXL element            Description
@@ -723,6 +727,7 @@ xNACId       externalNtsAlarmCodeId Alarm code in order to identify alarm type d
 The following table describes additional variable content of the message.
 
 
+.. _table-alarm-status-change:
 
 +--------------+--------------------+--------------------+----------------------------------------------+
 | Element      | Value              | Origin             | Description                                  |
@@ -748,6 +753,7 @@ Alarm status
 Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).
 
+.. _table-alarm-status:
 
 +-------------------+--------------------+------------------------------------------------------------------------------------+
 | Element           | Value              | Description                                                                        |
@@ -784,6 +790,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
+.. _table-alarm-status-details-sxl:
 
 +-------------------+--------------------+------------------------------------------------------------------------------------+
 | Element           | SXL element        | Description                                                                        |
@@ -834,6 +841,7 @@ Return values ("rvs") are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. **[]**) if no return values are defined.
 
+.. _table-alarm-return:
 
 ======= ========== ===========
 Element Value      Description
@@ -846,6 +854,7 @@ defined by the signal exchange list (SXL).
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
+.. _table-alarm-return-values:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | SXL element        | Description                                   |
@@ -1122,6 +1131,7 @@ JSon code 10: An aggregated status message
 
 The following tables are describing the variable content of the message:
 
+.. _table-agg-basic:
 
 ================== ============= ==========================================
 Element            Value         Description
@@ -1138,6 +1148,7 @@ The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
 between the JSon elements and the titles in the SXL.
 
+.. _table-agg-specialisation:
 
 +--------------------+--------------------+----------------------------------------------------------------+
 | Element            | SXL element        | Description                                                    |
@@ -1228,6 +1239,7 @@ The following table is describing the variable content of the message.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
+.. _table-statusrequest:
 
 ============ ============ ===================
 Element      SXL element  Description
@@ -1276,6 +1288,7 @@ JSon code 12: A status response message
 
 The following table is describing the variable content of the message:
 
+.. _table-statusresponse:
 
 +-----------------+--------------------+--------------------------------------------+
 | Element         | Value              | Description                                |
@@ -1294,6 +1307,7 @@ Return values (returnvalue)
 
 Return values ("sS") are always sent but can be empty if no return values exists.
 
+.. _table-statusresponse-returnvalues-sS:
 
 ========== ========== ===================
 Element    Value      Description
@@ -1301,6 +1315,7 @@ Element    Value      Description
 sS         *(array)*  Return values. Contains the elements "sCI", "s", "n" and "q" in an array.
 ========== ========== ===================
 
+.. _table-statusresponse-returnvalues:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | SXL element        | Description                                   |
@@ -1336,6 +1351,7 @@ sS         *(array)*  Return values. Contains the elements "sCI", "s", "n" and "
 
 The following table describes additional variable content of the message.
 
+.. _table-statusresponse-returnvalues-qualtiy:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -1398,6 +1414,7 @@ JSon code 13: A status subscribe message
 
 The following table is describing the variable content of the message:
 
+.. _table-statusrequest-basic:
 
 +------------+------------+--------------------------------------------------------+
 | Element    | Value      | Description                                            |
@@ -1465,8 +1482,8 @@ but instead answer with this type of message where **q** is set to
 
 JSon code 14: A status update message
 
-The allowed content is described in Table :num:_table-statusresponse_ and
-:num:_table-statusresponse-returnvalues_.
+The allowed content is described in Table table-statusresponse_ and
+table-statusresponse-returnvalues_.
 
 Since different UpdateRate can be defined for different objects it means that partial StatusUpdates can be sent
 
@@ -1556,7 +1573,7 @@ usual message acknowledgement.
 
 JSon code 17: A status unsubscribe message
 
-The allowed content is described in Table :num:_table-statusrequest_
+The allowed content is described in Table table-statusrequest_
 
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1641,6 +1658,7 @@ The following table is describing the variable content of the message:
 
 Values to send with the command (arguments)
 
+.. _table-commands-argument:
 
 ============ ============ =============
 Element      Value        Description
@@ -1653,6 +1671,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
+.. _table-command-arguments-sxl:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | SXL element        | Description                                   |
@@ -1738,6 +1757,7 @@ JSon code 19: A command response message
 
 The following table is describing the variable content of the message:
 
+.. _table-command-response:
 
 +------------------+--------------------+------------------------------------------------------------------------------------+
 | Element          | Value              | Description                                                                        |
@@ -1753,6 +1773,7 @@ Return values (returnvalue)
 Return values (**rvs**) is always sent but can
 be empty if not return values are defined.
 
+.. _table-command-returnvalues-rvs:
 
 ========= ========= =============
 Element   Value     Description
@@ -1764,6 +1785,7 @@ The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
 between the JSon elements and the titles in the SXL.
 
+.. _table-command-returnvalue-sxl:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | SXL element        | Description                                   |
@@ -1795,6 +1817,7 @@ between the JSon elements and the titles in the SXL.
 
 The following table describes additional variable content of the message.
 
+.. _table-command-returnvalue:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -1893,6 +1916,7 @@ JSon code 21: A not acknowledgement message
 
 The following table is describing the variable content of the message:
 
+.. _table-messagenoteack-basic:
 
 ======== ============ ===============
 Element  Value        Description
@@ -1981,6 +2005,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
+.. _table-version-basic-sxl:
 
 +-------------+--------------------+--------------------------------------------------------------------+
 | Element     | SXL element        | Description                                                        |
@@ -2005,6 +2030,7 @@ elements and the titles in the signal exchange list (SXL).
 
 The following table describes additional variable content of the message.
 
+.. _table-version-basic:
 
 ========= ===============
 Element   Description
@@ -2057,6 +2083,7 @@ JSon code 23: A watchdog message
 
 The following table is describing the variable content of the message:
 
+.. _table-watchdog-basic:
 
 ================== ============= ==========================================
 Element            Value         Description
@@ -2094,6 +2121,7 @@ Supervision system/other equipment sends watchdog message
 Change log
 ==========
 
+.. _table-changelog:
 
 =========== ========== ============================================================= ==============
 Version     Date       Change                                                        Name (initals)
@@ -2207,6 +2235,7 @@ Overview on functional differencies between different message types
 The following table defines the functional differences between
 different message types.
 
+.. _table-functional-differencies:
 
 =================  =========================================  ================================
 Message type       Sent when                                  Adapted to be transmitted to NTS
@@ -2225,6 +2254,7 @@ basic structure.
 
 The following table defines the different versions of command messages.
 
+.. _table-different-commands:
 
 +------------------------+-----------------------------------------------+
 | Notion                 | Description                                   |
@@ -2273,6 +2303,7 @@ list.
 The following table defines the message types which supports arguments and
 return values. 
 
+.. _table-support:
 
 =================  ========  ============
 Message type       Argument  Return value
@@ -2292,6 +2323,7 @@ which are part of the RSMP specification refers to version of RSMP. The
 following table defines the principles for version numbering for each
 document.
 
+.. _table-version-management:
 
 =================================  ========================
 Document                           Principles of versioning
@@ -2321,6 +2353,7 @@ differences can emerge; it is recommended that a table is added on the
 front page of each SXL the sites are using. The following table defines
 an example for the design of the table.
 
+.. _table-revision:
 
 ======  =============================
 Site    Revision of SXL which is used
@@ -2436,6 +2469,7 @@ Help and references
 Change log
 ----------
 
+.. _table-changelog:
 
 =========== ========== ============================================================= ==============
 Version     Date       Change                                                        Name (initals)
