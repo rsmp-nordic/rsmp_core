@@ -339,6 +339,7 @@ message type is an alarm message.
 
 The following table is describing the variable content of the message:
 
+.. _table-variable-content:
 
 ========================== ================== =====================================================================================================================================================================================================================
 Element                    Value              Description
@@ -384,6 +385,7 @@ suspended, with the exception of “alarmSpecialisation”.
 
 The following table describes the differences:
 
+.. _table-alarm-specialisation:
 
 ================================================ =====================================================
 Element and value                                Meaning
@@ -438,6 +440,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = Alarm)
 
+.. _table-alarm-basic:
 
 =================================== ========================= =============================================================================================================================================================================
 Element                             Value                     Description
@@ -449,6 +452,7 @@ externalNtsAlarmCodeId *(optional)* *(Defined in SXL)*        Alarm code in orde
 
 Alarm status
 
+.. _table-alarm-status:
 
 +-------------------+--------------------+------------------------------------------------------------------------------------+
 | Element           | Value              | Description                                                                        |
@@ -508,6 +512,7 @@ Alarm status
 
 Return values
 
+.. _table-alarm-return-values:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -570,6 +575,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = Alarm)
 
+.. _table-alarm-ack-basic-values:
 
 +------------------------+--------------------+--------------------------------------------------------------------+
 | Element                | Value              | Description                                                        |
@@ -620,6 +626,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = Alarm)
 
+.. _table-alarm-block-basic:
 
 +------------------------+--------------------+--------------------------------------------------------------------+
 | Element                | Value              | Description                                                        |
@@ -637,6 +644,7 @@ Basic (xsi:type = Alarm)
 
 Alarm suspend (xsi:type = Suspend)
 
+.. _table-alarm-suspend:
 
 +------------------------+------------------+----------------------------------------------------------------------+
 | Element                | Value            | Description                                                          |
@@ -761,6 +769,7 @@ The following tables are describing the variable content of the message:
 
 Basic (aggregatedStatus)
 
+.. _table-agg-basic:
 
 ================== ============= ==========================================
 Element            Value         Description
@@ -775,6 +784,7 @@ aggstatusTimeStamp *(timestamp)* The timestamp uses the W3C XML dateTime
 
 Aggregated status (aggregatedStatusSpecialisation)
 
+.. _table-agg-specialisation:
 
 +--------------------+--------------------+-------------------------+
 | Element            | Value              | Description             |
@@ -792,6 +802,7 @@ Status bits (state)
 The status bits are a set of 8 bits that describes the state of the site
 for NTS. Every bit can either be true or false
 
+.. _table-agg-status:
 
 +--------------------+--------------------+---------------------------+
 | Element            | Value              | Description               |
@@ -808,6 +819,7 @@ The principle of aggregating of statuses for each bit is defined by the
 associated comments in the signal exchange list (SXL). A generic
 description of each bit is presented in the table below
 
+.. _table-agg-status-bits:
 
 +---------+--------+-------------------------------------+--------------------------+
 | Element | Bit    | Description                         | Status                   |
@@ -909,6 +921,7 @@ The following tables are describing the variable content of the message:
 
 Basic (xsi:type = StatusRequest)
 
+.. _table-statusrequest:
 
 +--------------+--------------------+----------------------------------------------------------------------+
 | Element      | Value              | Description                                                          |
@@ -961,6 +974,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = StatusResponse)
 
+.. _table-statusresponse:
 
 +-----------------+--------------------+--------------------------------------------+
 | Element         | Value              | Description                                |
@@ -981,6 +995,7 @@ Basic (xsi:type = StatusResponse)
 Return values (returnvalue)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. _table-statusresponse-returnvalues:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -1068,6 +1083,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = StatusRequest)
 
+.. _table-statusrequest-basic:
 
 +------------+------------+--------------------------------------------------------+
 | Element    | Value      | Description                                            |
@@ -1121,8 +1137,8 @@ with the current statuses and events.
        </message>
    </roadSideMessage>
 
-The allowed content is described in Table :num:_table-statusresponse_ and
-:num:_table-statusresponse-returnvalues_.
+The allowed content is described in Table table-statusresponse_ and
+table-statusresponse-returnvalues_.
 
 Structure for a status unsubscription message on one or several objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1158,7 +1174,7 @@ usual message acknowledgement.
        </message>
    </roadSideMessage>
 
-The allowed content is described in Table :num:_table-statusrequest_
+The allowed content is described in Table table-statusrequest_
 
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1229,6 +1245,7 @@ The following table is describing the variable content of the message:
 
 Values to send with the command (arguments)
 
+.. _table-command-arguments:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -1306,6 +1323,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = CommandResponse)
 
+.. _table-command-response:
 
 +------------------+--------------------+------------------------------------------------------------------------------------+
 | Element          | Value              | Description                                                                        |
@@ -1318,6 +1336,7 @@ Basic (xsi:type = CommandResponse)
 Return values (returnvalue)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. _table-command-returnvalue:
 
 +-----------------+--------------------+-----------------------------------------------+
 | Element         | Value              | Description                                   |
@@ -1418,6 +1437,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = MessageAck)
 
+.. _table-messageack-basic:
 
 +-------------------+------------+--------------------------------------------------------------------+
 | Element           | Value      | Description                                                        |
@@ -1452,6 +1472,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = MessageNotAck)
 
+.. _table-messagenoteack-basic:
 
 +-------------------+--------------+--------------------------------------------------------------------+
 | Element           | Value        | Description                                                        |
@@ -1538,6 +1559,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = Version)
 
+.. _table-version-basic:
 
 +-------------+--------------------+--------------------------------------------------------------------+
 | Element     | Value              | Description                                                        |
@@ -1622,6 +1644,7 @@ The following table is describing the variable content of the message:
 
 Basic (xsi:type = Watchdog)
 
+.. _table-watchdog-basic:
 
 ================== ============= ==========================================
 Element            Value         Description
@@ -1665,6 +1688,7 @@ The following table present a comparison of the names used in XML
 verses JSON. Please note that the JSON elements are formatted as JSON
 string elements and not JSON number or JSON boolean.
 
+.. _table-compare-xml-json:
 
 ============================== ===============
 Element in XML                 Element in JSON
@@ -2599,6 +2623,7 @@ XML/JSON code 16: Comparison of watchdog messages XML/JSON
 Change log
 ==========
 
+.. _table-changelog:
 
 ======= ========== ======================================= ===============
 Version Date       Change                                  Name (initals)
@@ -2710,6 +2735,7 @@ Overview on functional differencies between different message types
 The following table defines the functional differences between
 different message types.
 
+.. _table-functional-differencies:
 
 =================  =========================================  ================================
 Message type       Sent when                                  Adapted to be transmitted to NTS
@@ -2729,6 +2755,7 @@ basic structure.
 Basic notions
 """""""""""""
 
+.. _label-basic:
 
 ===========  ========================================================
 Notion       Description
@@ -2739,6 +2766,7 @@ componentId  Component-id for the object which the message relates to
 Site
 """"
 
+.. _label-site-def:
 
 +---------------+---------------------------------------------------------------------+
 | Notion        | Description                                                         |
@@ -2771,6 +2799,7 @@ Site
 Alarm
 """""
 
+.. _table-alarm-def:
 
  +------------------------+-----------------------------------------------+
  | Notion                 | Description                                   |
@@ -2833,6 +2862,7 @@ Alarm
 Aggregated status
 """""""""""""""""
 
+.. _table-agg:
 
  +------------------------+-----------------------------------------------+
  | Notion                 | Description                                   |
@@ -2855,6 +2885,7 @@ Aggregated status
 Detailed status
 """""""""""""""
 
+.. _table-detailed-status:
 
  +------------------------+-----------------------------------------------+
  | Notion                 | Description                                   |
@@ -2873,6 +2904,7 @@ Detailed status
 Commands
 """"""""
 
+.. _table-commands:
 
  +------------------------+-----------------------------------------------+
  | Notion                 | Description                                   |
@@ -2885,6 +2917,7 @@ Commands
 
 The following table defines the different versions of command messages.
 
+.. _table-different-commands:
 
  +------------------------+-----------------------------------------------+
  | Notion                 | Description                                   |
@@ -2933,6 +2966,7 @@ list.
 The following table defines the message types which supports arguments and
 return values. 
 
+.. _table-support:
 
 =================  ========  ============
 Message type       Argument  Return value
@@ -2946,6 +2980,7 @@ Argument
 ~~~~~~~~
 The following table defines the format of a argument.
 
+.. _table-argument:
 
 +-----------------+-----------------------------------------------+
 | Notion          | Description                                   |
@@ -2983,6 +3018,7 @@ The following table defines the format of a argument. Please note that
 return values for status messages also add **statusCodeId** and
 **ageState**, se the RSMP specification.
 
+.. _table-returnvalue:
 
 +-----------------+-----------------------------------------------+
 | Notion          | Description                                   |
@@ -3027,6 +3063,7 @@ relatively freely programmable simplify the work to create an SXL establish
 a communication flow. The basic serie is primarily designed for small to
 mid size sites with moderate need for a large number series.
 
+.. _table-configurable-data-areas:
 
 +--------------+---------------+--------------------------------------------------+
 | Message type | Number series | Comment                                          |
@@ -3066,6 +3103,7 @@ which are part of the RSMP specification refers to version of RSMP. The
 following table defines the principles for version numbering for each
 document.
 
+.. _table-version-management:
 
 =================================  ========================
 Document                           Principles of versioning
@@ -3097,6 +3135,7 @@ differences can emerge; it is recommended that a table is added on the
 front page of each SXL the sites are using. The following table defines
 an example for the design of the table.
 
+.. _table-revision:
 
 ======  =============================
 Site    Revision of SXL which is used
@@ -3230,6 +3269,7 @@ Help and references
 Change log
 ----------
 
+.. _table-changelog:
 
 ======= ========== ==============================================  ==============
 Version Date       Change                                          Name (initals)
