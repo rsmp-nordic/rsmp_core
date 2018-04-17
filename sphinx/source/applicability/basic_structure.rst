@@ -1407,6 +1407,7 @@ Basic (xsi:type = Version)
    |             |                    | site.                                                              |
    |             |                    |                                                                    |
    |             |                    | | At the STA, the following formats can be used:                   |
+   |             |                    |                                                                    |
    |             |                    | - The site id from the STAs component id standard                  |
    |             |                    |   VV:publ 2007:54 ISSN 1401-9612. e.g. ”40100”.                    |
    |             |                    | - It is also possible to use the full component id                 |
