@@ -9,7 +9,7 @@ Requirements:
 
 On Ubuntu:
 
-# apt-get install python-sphinx texlive texlive-latex-extra texlive-humanities mscgen imagemagick librsvg2-bin
+# apt-get install python-sphinx texlive texlive-latex-extra texlive-humanities mscgen imagemagick librsvg2-bin latexmk
 
 On Arch:
 
