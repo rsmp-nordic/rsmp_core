@@ -3,7 +3,7 @@ Unofficial English translation
 
 Requirements:
 
-- Sphinx: https://sphinx-doc.org
+- Sphinx: https://www.sphinx-doc.org
 - LaTeX (and pdflatex, and various LaTeX packages)
 - Mscgen: http://www.mcternan.me.uk/mscgen/
 
