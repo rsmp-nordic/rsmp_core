@@ -1500,10 +1500,14 @@ was not understood.
 
 * Each communicating party should consider the communication to be lost
   (See :ref:`comm_disruption`) if the following criterias has been met:
+
   * Message is sent but no message acknowledgement is received within a
     predefined time
+
   * No other messages are received within a predefined time
+
 * The default timeout value should be 30 seconds.
+
 * If the version messages has not been exchanged according to communication
   establishment sequence
   (See :ref:`comm_establishment_s2i` and :ref:`comm_establishment_s2s`) then
