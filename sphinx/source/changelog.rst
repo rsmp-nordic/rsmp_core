@@ -11,7 +11,7 @@ Change log
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.30\linewidth} p{0.15\linewidth}
 
    ======= ========== ======================================= ===============
-   Version Date       Change                                  Name (initals)
+   Version Date       Change                                  Name (initials)
    ======= ========== ======================================= ===============
    1.0     2011-05-20 Protocol clarified and watchdog revised DO
    3.0     2011-11-04 The protocol is revised                 DO
