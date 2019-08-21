@@ -2112,7 +2112,7 @@ formats. Please note that some lines may be wrapped.
        "xNId": "23055",
        "cId": "AB+84001=860VA001",
        "sS":[{
-           "sCI": "S003"
+           "sCI": "S003",
            "n": "speed"
        },{
            "sCI": "S003",
@@ -2342,7 +2342,7 @@ formats. Please note that some lines may be wrapped.
 
    {
        "mType": "rSMsg",
-       "type": "StatusUnsubscribe"
+       "type": "StatusUnsubscribe",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
        "ntsOId": "F+40100=416CG100",
        "xNId": "23055",
