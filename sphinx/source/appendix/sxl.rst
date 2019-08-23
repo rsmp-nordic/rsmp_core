@@ -200,6 +200,7 @@ return values.
    Status             No        Yes
    Commands           Yes       No
    =================  ========  ============
+
 ..
 
 Version mangement
@@ -263,6 +264,7 @@ an example for the design of the table.
    Site 2  1.0
    Site 3  1.1
    ======  =============================
+
 ..
 
 The purpose is to be able to update the SXL with a new revision and at the
@@ -374,7 +376,7 @@ Change log
 
 .. figtable::
    :nofig:
-   :label: table-changelog
+   :label: table-changelog-sxl
    :caption: Changelog
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.15\linewidth} p{0.30\linewidth} p{0.15\linewidth}
