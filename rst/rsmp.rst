@@ -848,6 +848,7 @@ Element Value      Description
 ======= ========== ===========
 rvs     *(array)*  Return values. Contains the element **n** and **v** in an array
 ======= ========== ===========
+
 The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).
 
@@ -1864,10 +1865,14 @@ was not understood.
 
 * Each communicating party should consider the communication to be lost
   (See comm_disruption_) if the following criterias has been met:
+
   * Message is sent but no message acknowledgement is received within a
     predefined time
+
   * No other messages are received within a predefined time
+
 * The default timeout value should be 30 seconds.
+
 * If the version messages has not been exchanged according to communication
   establishment sequence
   (See comm_establishment_s2i_ and comm_establishment_s2s_) then
@@ -2125,16 +2130,16 @@ Change log
 
 .. _table-changelog:
 
-=========== ========== ============================================================= ==============
-Version     Date       Change                                                        Name (initals)
-=========== ========== ============================================================= ==============
+=========== ========== ============================================================= ===============
+Version     Date       Change                                                        Name (initials)
+=========== ========== ============================================================= ===============
 1.0         2011-05-20 Protocol clarified and watchdog revised                       DO
 3.0         2011-11-04 Protocol revised                                              DO
 3.1.1       2011-12-23 Minor revision                                                DO
 3.1.2       2012-02-29 Minor revision                                                DO
 3.1.3       2014-11-24 Minor revision                                                DO
 3.1.4       2017-11-03 Protocol revised                                              DO
-=========== ========== ============================================================= ==============
+=========== ========== ============================================================= ===============
 
 
 .. _sxl:
