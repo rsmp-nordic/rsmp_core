@@ -2314,6 +2314,7 @@ Aggregated status  No        No
 Status             No        Yes
 Commands           Yes       No
 =================  ========  ============
+
 Version mangement
 ^^^^^^^^^^^^^^^^^
 
@@ -2363,6 +2364,7 @@ Site 1  1.1
 Site 2  1.0
 Site 3  1.1
 ======  =============================
+
 The purpose is to be able to update the SXL with a new revision and at the
 samt time inform about which sites which the revision applies to.
 
@@ -2470,7 +2472,7 @@ Help and references
 Change log
 ----------
 
-.. _table-changelog:
+.. _table-changelog-sxl:
 
 =========== ========== ============================================================= ==============
 Version     Date       Change                                                        Name (initals)
