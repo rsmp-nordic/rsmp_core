@@ -1568,6 +1568,7 @@ Basic (xsi:type = Version)
 |             |                    | site.                                                              |
 |             |                    |                                                                    |
 |             |                    | | At the STA, the following formats can be used:                   |
+|             |                    |                                                                    |
 |             |                    | - The site id from the STAs component id standard                  |
 |             |                    |   VV:publ 2007:54 ISSN 1401-9612. e.g. ”40100”.                    |
 |             |                    | - It is also possible to use the full component id                 |
@@ -1762,7 +1763,7 @@ every packet.
 
 Example of wrapping of a packet:
 
-.. code-block:: json
+.. code::
    :name: json-wrapping
 
     {
@@ -2626,7 +2627,7 @@ Change log
 .. _table-changelog:
 
 ======= ========== ======================================= ===============
-Version Date       Change                                  Name (initals)
+Version Date       Change                                  Name (initials)
 ======= ========== ======================================= ===============
 1.0     2011-05-20 Protocol clarified and watchdog revised DO
 3.0     2011-11-04 The protocol is revised                 DO
@@ -2775,6 +2776,7 @@ Site
 |               | site.                                                               |
 |               |                                                                     |
 |               | | At the STA, the following formats can be used:                    |
+|               |                                                                     |
 |               | - The site id from the STAs component id standard                   |
 |               |   VV:publ 2007:52 ISSN 1401-9612, e.g. "40100".                     |
 |               | - It is also possible to use the full component id                  |
@@ -2976,6 +2978,7 @@ Aggregated status  No        No
 Status             No        Yes
 Commands           Yes       Yes
 =================  ========  ============
+
 Argument
 ~~~~~~~~
 The following table defines the format of a argument.
@@ -3144,6 +3147,7 @@ Site 1  1.1
 Site 2  1.0
 Site 3  1.1
 ======  =============================
+
 The purpose is to be able to update the SXL with a new revision and at the
 samt time inform about which sites which the revision applies to.
 
@@ -3269,7 +3273,7 @@ Help and references
 Change log
 ----------
 
-.. _table-changelog:
+.. _table-changelog-sxl:
 
 ======= ========== ==============================================  ==============
 Version Date       Change                                          Name (initals)
