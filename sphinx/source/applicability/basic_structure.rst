@@ -1,4 +1,4 @@
-.. _basic_structure:
+.. _basic-structure:
 
 Basic structure
 ---------------
@@ -127,7 +127,7 @@ elements and the titles in the SXL.
 
 ..
 
-.. _alarmmessages:
+.. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
@@ -165,7 +165,7 @@ element 'aSp'.
 Message structure
 """""""""""""""""
 
-.. _alarmmessages-issue:
+.. _structure-for-an-alarm-message:
 
 Structure for an alarm message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -355,7 +355,7 @@ elements and the titles in the signal exchange list (SXL).
 
 ..
 
-.. _alarm-returnvalues:
+.. _return-values:
 
 Return values
 ~~~~~~~~~~~~~
@@ -582,14 +582,14 @@ JSon code 8: Resuming an alarm using an alarm suspend message
 JSon code 9: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
-(See :ref:`alarmmessages-issue`) with the exception for alarm status
-(See :ref:`alarm-status`) and (See :ref:`alarm-returnvalues`).
+(See :ref:`structure-for-an-alarm-message`) with the exception for alarm status
+(See :ref:`alarm-status`) and (See :ref:`return-values`).
 
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figures.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 **An alarm is active/inactive**
 
@@ -628,7 +628,7 @@ following figures.
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
 
-.. _aggregatedstatus:
+.. _aggregated-status-message:
 
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -728,8 +728,8 @@ description of each bit is presented in the figure below
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 .. image:: /img/msc/aggregated_status.png
    :align: center
@@ -1173,8 +1173,8 @@ The allowed content is described in Table :num:`table-statusrequest`
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_request_response.png
    :align: center
@@ -1185,8 +1185,8 @@ following figure.
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_update.png
    :align: center
@@ -1473,8 +1473,8 @@ The following table describes additional variable content of the message.
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/command_request_response.png
    :align: center
@@ -1482,7 +1482,7 @@ following figure.
 1. Command request for an object
 2. Command response of an object
 
-.. _message-ack:
+.. _message-acknowledgement:
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1501,11 +1501,12 @@ was not understood.
 
 * If no message acknowledgement is received within a predefined time, then
   each communicating party should treat it as a communication disruption.
-  (See :ref:`comm_disruption`)
+  (See :ref:`communication-disruption`)
 * The default timeout value should be 30 seconds.
 * If the version messages has not been exchanged according to communication
   establishment sequence
-  (See :ref:`comm_establishment_s2i` and :ref:`comm_establishment_s2s`) then
+  (See :ref:`communication-establishment-between-sites-and-supervision-system`
+  and :ref:`communication-establishment-between-sites`) then
   message acknowledgement (MessageAck/MessageNotAck) should not be sent as a
   response to any other messages other than the version message
   (See :ref:`rsmpsxl-version`). The lack of acknowledgement forces the other
@@ -1609,8 +1610,9 @@ support several RSMP versions it is always the latest version that
 should be used.
 
 The principle of the message exchange is defined by the communication
-establishment (See :ref:`comm_establishment_s2i` and
-:ref:`comm_establishment_s2s`).
+establishment (See
+:ref:`communication-establishment-between-sites-and-supervision-system`
+and :ref:`communication-establishment-between-sites`).
 
 Message structure
 """""""""""""""""
@@ -1765,8 +1767,8 @@ The following table is describing the variable content of the message:
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 Site sends watchdog message
 

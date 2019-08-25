@@ -1,16 +1,16 @@
 Contens
 =======
 
-* `definitions`_
-* `introduction`_
-* `purpose`_
-* `applicability`_
-* applicability/`scope`_
-* applicability/`object_model`_
-* applicability/`transport_of_data`_
-* applicability/`basic_structure`_
-* `changelog`_
-* appendix/`sxl`_
+* `Definitions`_
+* `Introduction`_
+* `Purpose`_
+* `Applicability`_
+* Applicability/`Scope`_
+* Applicability/`Object-model`_
+* Applicability/`Transport-of-data`_
+* Applicability/`Basic-structure`_
+* `Change-log`_
+* Appendix/`Signal-exchange-list`_
 
 RSMP Specification
 ==================
@@ -120,6 +120,8 @@ Road side equipment. Covers both field level and local level
 **RSMP**
  Road Side Message Protocol
 
+.. _introduction:
+
 Introduction
 ============
 
@@ -190,6 +192,8 @@ facilities and equipment. The four message types are:
   facility to alter the equipment / object status or control
   principle.
 
+.. _applicability:
+
 Applicability
 =============
 
@@ -213,7 +217,7 @@ specification as information only. The STA is not responsible for any
 consequences that implementation of the specification can lead to for
 the supplier or any third party.
 
-.. _object_model:
+.. _object-model:
 
 Object model
 ------------
@@ -230,7 +234,7 @@ various ways such as using **ASN.1**, **JSON** or **XML**. However, the
 communication between the site and supervision systems / other sites
 uses **JSON** format.
 
-.. _transport_of_data:
+.. _transport-of-data:
 
 Transport of data
 -----------------
@@ -269,7 +273,7 @@ encryption is used than the following applies:
 * The issuing and renewal of certificates should should be made in cooperation
   with the purchaser unless other arrangement is agreed upon.
 
-.. _comm_establishment_s2i:
+.. _communication-establishment-between-sites-and-supervision-system:
 
 Communication establishment between sites and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -277,8 +281,8 @@ Communication establishment between sites and supervision system
 When establishing communication between sites and supervision system,
 messages are sent in the following order.
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/establish-site-system.png
    :align: center
@@ -288,7 +292,7 @@ following figure.
 2. The supervision system verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The system responds
    with a MessageNotAck and closes the connection
-   (see section message-ack_)
+   (see section message-acknowledgement_)
 
 3. The supervision system sends RSMP / SXL version (according to section
    rsmpsxl-version_).
@@ -296,18 +300,18 @@ following figure.
 4. The site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The site responds
    with a MessageNotAck and closes the connection.
-   (see section message-ack_)
+   (see section message-acknowledgement_)
 
 5. The site sends a Watchdog (according to section watchdog_)
 
 6. The system sends a Watchdog (according to section watchdog_)
 
-7. Aggregated status (according to section aggregatedstatus_).
+7. Aggregated status (according to section aggregated-status-message_).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 8. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
-   are sent. (according to section alarmmessages_).
+   are sent. (according to section alarm-messages_).
 
 9. Buffered messages in the equipment's outgoing communication buffer are sent,
    incl. alarms, aggregated status and status updates.
@@ -333,7 +337,7 @@ each connected site must either:
 * Connect to a supervision system that can handle separate signal exchange
   lists depending on the RSMP / SXL version message from the site
 
-.. _comm_establishment_s2s:
+.. _communication-establishment-between-sites:
 
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -347,8 +351,8 @@ One site acts as a leader and the other one as a follower.
 When establishing communication between sites, messages are sent in the
 following order.
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/establish-site-site.png
    :align: center
@@ -359,7 +363,7 @@ following figure.
 2. The leader site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The leader site
    responds with a MessageNotAck and closes the connection.
-   (see section message-ack_)
+   (see section message-acknowledgement_)
 
 3. The leader site sends RSMP / SXL version (according to section
    rsmpsxl-version_).
@@ -367,13 +371,13 @@ following figure.
 4. The follower site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The follower site
    responds with a MessageNotAck and closes the connection.
-   (see section message-ack_)
+   (see section message-acknowledgement_)
 
 5. The follower site sends Watchdog (according to section watchdog_)
 
 6. The leader site sends Watchdog (according to section watchdog_)
 
-7. Aggregated status (according to section aggregatedstatus_)
+7. Aggregated status (according to section aggregated-status-message_)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -391,7 +395,7 @@ For communication between sites the following applies:
 * Alarm messages are not sent
 * No communication buffer exist
 
-.. _comm_disruption:
+.. _communication-disruption:
 
 Communication disruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -491,9 +495,9 @@ ex <0x0c> is ASCII code 12, e.g. FF (formfeed).
 The following principles applies:
 
 * All packets must be ended with a FF (formeed). This includes message
-  acknowledgement (see section message-ack_). For example if NotAck is
-  used as a consequence for signal exchange list mismatch during communication
-  establishment
+  acknowledgement (see section message-acknowledgement_).
+  For example if NotAck is used as a consequence for signal exchange list
+  mismatch during communication establishment
 * Several consecutive FF (formeed) must not be sent, but must be handled
 * FF (formeed) in the beginning of the data exchange (after connection
   establishment) must not be sent, but must be handled
@@ -518,7 +522,7 @@ One site acts as leader and the other one as a follower.
   to reconnect.
 
 
-.. _basic_structure:
+.. _basic-structure:
 
 Basic structure
 ---------------
@@ -633,7 +637,7 @@ xNId         externalNtsId  Identity for the NTS object in communcation between 
 cId          componentId    Component id for the object which the message is referring to.
 ============ ============== ===================
 
-.. _alarmmessages:
+.. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
@@ -671,7 +675,7 @@ element 'aSp'.
 Message structure
 """""""""""""""""
 
-.. _alarmmessages-issue:
+.. _structure-for-an-alarm-message:
 
 Structure for an alarm message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -832,7 +836,7 @@ elements and the titles in the signal exchange list (SXL).
 |                   |                    | 3. Alarm that will be corrected during the next planned maintenance shift.         |
 +-------------------+--------------------+------------------------------------------------------------------------------------+
 
-.. _alarm-returnvalues:
+.. _return-values:
 
 Return values
 ~~~~~~~~~~~~~
@@ -1045,14 +1049,14 @@ JSon code 8: Resuming an alarm using an alarm suspend message
 JSon code 9: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
-(See alarmmessages-issue_) with the exception for alarm status
-(See alarm-status_) and (See alarm-returnvalues_).
+(See structure-for-an-alarm-message_) with the exception for alarm status
+(See alarm-status_) and (See return-values_).
 
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figures.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figures.
 
 **An alarm is active/inactive**
 
@@ -1091,7 +1095,7 @@ following figures.
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
 
-.. _aggregatedstatus:
+.. _aggregated-status-message:
 
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1176,8 +1180,8 @@ description of each bit is presented in the figure below
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figures.
 
 .. image:: img/aggregated_status.png
    :align: center
@@ -1579,8 +1583,8 @@ The allowed content is described in Table table-statusrequest_
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/status_request_response.png
    :align: center
@@ -1591,8 +1595,8 @@ following figure.
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/status_update.png
    :align: center
@@ -1837,8 +1841,8 @@ The following table describes additional variable content of the message.
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/command_request_response.png
    :align: center
@@ -1846,7 +1850,7 @@ following figure.
 1. Command request for an object
 2. Command response of an object
 
-.. _message-ack:
+.. _message-acknowledgement:
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1865,11 +1869,12 @@ was not understood.
 
 * If no message acknowledgement is received within a predefined time, then
   each communicating party should treat it as a communication disruption.
-  (See comm_disruption_)
+  (See communication-disruption_)
 * The default timeout value should be 30 seconds.
 * If the version messages has not been exchanged according to communication
   establishment sequence
-  (See comm_establishment_s2i_ and comm_establishment_s2s_) then
+  (See communication-establishment-between-sites-and-supervision-system_
+  and communication-establishment-between-sites_) then
   message acknowledgement (MessageAck/MessageNotAck) should not be sent as a
   response to any other messages other than the version message
   (See rsmpsxl-version_). The lack of acknowledgement forces the other
@@ -1966,8 +1971,9 @@ support several RSMP versions it is always the latest version that
 should be used.
 
 The principle of the message exchange is defined by the communication
-establishment (See comm_establishment_s2i_ and
-comm_establishment_s2s_).
+establishment (See
+communication-establishment-between-sites-and-supervision-system_
+and communication-establishment-between-sites_).
 
 Message structure
 """""""""""""""""
@@ -2101,8 +2107,8 @@ wTs                *(timestamp)* Watchdog timestamp.
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figures.
 
 Site sends watchdog message
 
@@ -2117,7 +2123,7 @@ Supervision system/other equipment sends watchdog message
 1. Watchdog message is sent from supervision system/other equipment
 
 
-.. _changelog:
+.. _change-log:
 
 Change log
 ==========
@@ -2136,10 +2142,10 @@ Version     Date       Change                                                   
 =========== ========== ============================================================= ===============
 
 
-.. _sxl:
+.. _signal-exchange-list:
 
-Guideline - Signal exchange list
-================================
+Signal Exchange List
+====================
 
 Purpose
 -------

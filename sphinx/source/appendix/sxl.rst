@@ -1,7 +1,7 @@
-.. _sxl:
+.. _signal-exchange-list:
 
-Guideline - Signal exchange list
-================================
+Signal Exchange List
+====================
 
 .. raw:: latex
 

@@ -1,4 +1,4 @@
-.. _transport_of_data:
+.. _transport-of-data:
 
 Transport of data
 -----------------
@@ -37,7 +37,7 @@ encryption is used than the following applies:
 * The issuing and renewal of certificates should should be made in cooperation
   with the purchaser unless other arrangement is agreed upon.
 
-.. _comm_establishment_s2i:
+.. _communication-establishment-between-sites-and-supervision-system:
 
 Communication establishment between sites and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -45,8 +45,8 @@ Communication establishment between sites and supervision system
 When establishing communication between sites and supervision system,
 messages are sent in the following order.
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/establish-site-system.png
    :align: center
@@ -56,7 +56,7 @@ following figure.
 2. The supervision system verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The system responds
    with a MessageNotAck and closes the connection
-   (see section :ref:`message-ack`)
+   (see section :ref:`message-acknowledgement`)
 
 3. The supervision system sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
@@ -64,18 +64,18 @@ following figure.
 4. The site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The site responds
    with a MessageNotAck and closes the connection.
-   (see section :ref:`message-ack`)
+   (see section :ref:`message-acknowledgement`)
 
 5. The site sends a Watchdog (according to section :ref:`watchdog`)
 
 6. The system sends a Watchdog (according to section :ref:`watchdog`)
 
-7. Aggregated status (according to section :ref:`aggregatedstatus`).
+7. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 8. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
-   are sent. (according to section :ref:`alarmmessages`).
+   are sent. (according to section :ref:`alarm-messages`).
 
 9. Buffered messages in the equipment's outgoing communication buffer are sent,
    incl. alarms, aggregated status and status updates.
@@ -101,7 +101,7 @@ each connected site must either:
 * Connect to a supervision system that can handle separate signal exchange
   lists depending on the RSMP / SXL version message from the site
 
-.. _comm_establishment_s2s:
+.. _communication-establishment-between-sites:
 
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -115,8 +115,8 @@ One site acts as a leader and the other one as a follower.
 When establishing communication between sites, messages are sent in the
 following order.
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/establish-site-site.png
    :align: center
@@ -127,7 +127,7 @@ following figure.
 2. The leader site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The leader site
    responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-ack`)
+   (see section :ref:`message-acknowledgement`)
 
 3. The leader site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
@@ -135,13 +135,13 @@ following figure.
 4. The follower site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed. The follower site
    responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-ack`)
+   (see section :ref:`message-acknowledgement`)
 
 5. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
 6. The leader site sends Watchdog (according to section :ref:`watchdog`)
 
-7. Aggregated status (according to section :ref:`aggregatedstatus`)
+7. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -159,7 +159,7 @@ For communication between sites the following applies:
 * Alarm messages are not sent
 * No communication buffer exist
 
-.. _comm_disruption:
+.. _communication-disruption:
 
 Communication disruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -266,9 +266,9 @@ ex <0x0c> is ASCII code 12, e.g. FF (formfeed).
 The following principles applies:
 
 * All packets must be ended with a FF (formeed). This includes message
-  acknowledgement (see section :ref:`message-ack`). For example if NotAck is
-  used as a consequence for signal exchange list mismatch during communication
-  establishment
+  acknowledgement (see section :ref:`message-acknowledgement`).
+  For example if NotAck is used as a consequence for signal exchange list
+  mismatch during communication establishment
 * Several consecutive FF (formeed) must not be sent, but must be handled
 * FF (formeed) in the beginning of the data exchange (after connection
   establishment) must not be sent, but must be handled
