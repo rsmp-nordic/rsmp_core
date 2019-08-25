@@ -1,4 +1,4 @@
-.. _changelog:
+.. _change-log:
 
 Change log
 ==========

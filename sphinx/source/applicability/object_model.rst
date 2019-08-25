@@ -1,4 +1,4 @@
-.. _object_model:
+.. _object-model:
 
 Object model
 ------------
