@@ -1,4 +1,4 @@
-.. _usage_of_json:
+.. _usage-of-json:
 
 Usage of JSON
 -------------
@@ -816,7 +816,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :name: JSON - Message acknowledgment
+   :name: JSON - Message acknowledgement
 
    {
        "mType": "rSMsg",

@@ -1,4 +1,4 @@
-.. _basic_structure:
+.. _basic-structure:
 
 Basic structure
 ---------------
@@ -43,7 +43,7 @@ The following table is describing the variable content of the message:
 
 ..
 
-.. _alarmmessages:
+.. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
@@ -54,7 +54,7 @@ An alarm message is sent to the supervision system when:
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
 
-An acknowledgment of an alarm does not cause a single alarm event to
+An acknowledgement of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific object with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
@@ -399,8 +399,8 @@ Alarm suspend (xsi:type = Suspend)
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 **An alarm is active/inactive**
 
@@ -438,6 +438,8 @@ following figure.
    :align: center
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
+
+.. _aggregated-status-message:
 
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -628,8 +630,8 @@ description of each bit is presented in the table below
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/aggregated_status.png
    :align: center
@@ -978,8 +980,8 @@ The allowed content is described in Table :num:`table-statusrequest`
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_request_response.png
    :align: center
@@ -990,8 +992,8 @@ following figure.
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_update.png
    :align: center
@@ -1205,8 +1207,8 @@ Return values (returnvalue)
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/command_request_response.png
    :align: center
@@ -1214,7 +1216,7 @@ following figure.
 1. Command request for an object
 2. Command response of an object
 
-.. _message-ack:
+.. _message-acknowledgement:
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1223,11 +1225,11 @@ Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
 acknowledgement, which has a different function. The purpose of
 message acknowledgement is to detect communication disruptions,
-function as an acknowledgment that the message has reached its
+function as an acknowledgement that the message has reached its
 destination and to verify that the message was understood.
 
 There are two types of message acknowledgement – Message
-acknowledgment which confirms that the message was understood and
+acknowledgement which confirms that the message was understood and
 Message not acknowledged which indicates that the message was not
 understood.
 
@@ -1429,8 +1431,8 @@ Basic (xsi:type = Version)
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 The site sends a version message
 
@@ -1509,8 +1511,8 @@ Basic (xsi:type = Watchdog)
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 Site sends watchdog message
 
