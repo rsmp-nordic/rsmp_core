@@ -174,6 +174,10 @@ In the event of an communication disruption the following principles applies:
 * Once communication is restored all the buffered messages are sent according to
   the communication establishment sequence.
 * The communication buffer is stored and sent using the FIFO principle.
+* The equipment must be able to prioritize and send MessageAck when needed
+  before sending buffered messages. This is needed in order to be sure
+  that the other communicating party doesn't treat the missing MessageAck
+  as a communication disruption. See section :ref:`message-acknowledgement`.
 * In the event of communications failure or power outage the contens of the
   outgoing communication buffer must not be lost.
 * The internal communication buffer of the device must at a minimum be
