@@ -1867,13 +1867,9 @@ acknowledgment** (MessageAck) which confirms that the message was understood and
 **Message not acknowledged** (MessageNotAck) which indicates that the message
 was not understood.
 
-* Each communicating party should consider the communication to be lost
-  (See communication-disruption_) if the following criterias has been met:
-
-  * Message is sent but no message acknowledgement is received within a
-    predefined time
-
-  * No other messages are received within a predefined time
+* If no message acknowledgement is received within a predefined time, then
+  each communicating party should treat it as a communication disruption.
+  (See communication-disruption_)
 
 * The default timeout value should be 30 seconds.
 
