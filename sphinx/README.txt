@@ -17,6 +17,13 @@ On Arch:
 $ git clone https://aur.archlinux.org/mscgen.git
 $ cd mscgen; makepkg -sri
 
+On MacOS using MacTex and Homebrew:
+
+Download MacTeX and install from http://www.tug.org/mactex
+
+$ pip install -U sphinx
+$ brew install mscgen
+
 Then:
 
 $ make latexpdf # For generating pdf
