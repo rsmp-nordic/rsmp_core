@@ -557,7 +557,7 @@ In the following example the message type is an alarm message.
        "ntsOId": "F+40100=416CG100",
        "xNId": "23055",
        "cId": "AB+84001=860SG001",
-       "aCId": "A001",
+       "aCId": "A0001",
        "xACId": "Serious lamp error",
        "xNACId": "3143",
        "aSp": "Issue",
@@ -696,7 +696,7 @@ An alarm message has the structure according to the example below.
        "ntsOId": "F+40100=416CG100",
        "xNId": "23055",
        "cId": "AB+84001=860SG001",
-       "aCId": "A001",
+       "aCId": "A0001",
        "xACId": "Serious lamp error",
        "xNACId": "3143",
        "aSp": "Issue",
@@ -727,7 +727,7 @@ elements and the titles in the signal exchange list (SXL).
 ============ ====================== =============
 Element      SXL element            Description
 ============ ====================== =============
-aCId         alarmCodeId            Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: *Ayyy*, where *yyy* is a unique number.
+aCId         alarmCodeId            Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: *Ayyyy*, where *yyyy* is a unique number.
 xACId        externalAlarmCodeId    Manufacturer specific alarm code and alarm description. Manufacturer, model, alarm code och additional alarm description.
 xNACId       externalNtsAlarmCodeId Alarm code in order to identify alarm type during communication with NTS
 ============ ====================== =============
@@ -908,7 +908,7 @@ below.
         "ntsOId": "",
         "xNId": "",
         "cId": "AB+84001=860VA001",
-        "aCId": "A004",
+        "aCId": "A0004",
         "xACId": "",
         "xNACId": "",
         "aSp": "Acknowledge"
@@ -929,7 +929,7 @@ example below.
         "ntsOId": "",
         "xNId": "",
         "cId": "AB+84001=860VA001",
-        "aCId": "A004",
+        "aCId": "A0004",
         "xACId": "",
         "xNACId": "",
         "aSp": "Acknowledge",
@@ -966,7 +966,7 @@ An alarm suspend message has the structure according to the example below.
         "ntsOId": "",
         "xNId": "",
         "cId": "AB+84001=860VA001",
-        "aCId": "A004",
+        "aCId": "A0004",
         "xACId": "",
         "xNACId": "",
         "aSp": "Suspend"
@@ -984,7 +984,7 @@ JSon code 6: Suspending an alarm using an alarm suspend message
         "ntsOId": "",
         "xNId": "",
         "cId": "AB+84001=860VA001",
-        "aCId": "A004",
+        "aCId": "A0004",
         "xACId": "",
         "xNACId": "",
         "aSp": "Suspend",
@@ -1014,7 +1014,7 @@ JSon code 7: Response of alarm suspend message
 	"ntsOId": "",
 	"xNId": "",
 	"cId": "AB+84001=860VA001",
-	"aCId": "A004",
+	"aCId": "A0004",
 	"xACId": "",
 	"xNACId": "",
 	"aSp": "Resume"
@@ -1032,7 +1032,7 @@ JSon code 8: Resuming an alarm using an alarm suspend message
         "ntsOId": "",
         "xNId": "",
         "cId": "AB+84001=860VA001",
-        "aCId": "A004",
+        "aCId": "A0004",
         "xACId": "",
         "xNACId": "",
         "aSp": "Suspend",
@@ -1253,7 +1253,7 @@ elements and the titles in the SXL.
 ============ ============ ===================
 Element      SXL element  Description
 ============ ============ ===================
-sCI          statusCodeId The Status code id. The examples is this document are defined according to the following format: *Syyy*, where *yyy* is a unique number.
+sCI          statusCodeId The Status code id. The examples is this document are defined according to the following format: *Syyyy*, where *yyyy* is a unique number.
 n            name         Unique reference of the value
 ============ ============ ===================
 
@@ -1331,8 +1331,8 @@ sS         *(array)*  Return values. Contains the elements "sCI", "s", "n" and "
 +=================+====================+===============================================+
 | sCI             | statusCodeId       | The Status code id.                           |
 |                 |                    | The examples in this document are defined     |
-|                 |                    | according to the following format: *Syyy*,    |
-|                 |                    | where *yyy* is a unique number.               |
+|                 |                    | according to the following format: *Syyyy*,   |
+|                 |                    | where *yyyy* is a unique number.              |
 +-----------------+--------------------+-----------------------------------------------+
 | n               | Name               | Unique reference of the value                 |
 +-----------------+--------------------+-----------------------------------------------+
@@ -1508,11 +1508,11 @@ Since different UpdateRate can be defined for different objects it means that pa
         "cId": "O+14439=481WA001",
         "sS": [
             {
-                "sCI": "S096",
+                "sCI": "S0096",
                 "n": "hour",
                 "uRt": "120"
             },{
-                "sCI": "S096",
+                "sCI": "S0096",
                 "n": "minute",
                 "uRt": "60"
             }
@@ -1534,7 +1534,7 @@ JSon code 15: A subscription request to subscribe to statues with different upda
         "sTs": "2015-05-29T13:47:56.740Z",
         "sS": [
             {
-                "sCI": "S096",
+                "sCI": "S0096",
                 "n": "minute",
                 "s": "47",
                 "q": "recent"
@@ -1687,8 +1687,8 @@ elements and the titles in the signal exchange list (SXL).
 +=================+====================+===============================================+
 | cCI             | commandCodeId      | The uniqe code of a command request.          |
 |                 |                    | The examples in this document are defined     |
-|                 |                    | according to the following format: *Myyy*,    |
-|                 |                    | where *yyy* is a unique number.               |
+|                 |                    | according to the following format: *Myyyy*,   |
+|                 |                    | where *yyyy* is a unique number.              |
 +-----------------+--------------------+-----------------------------------------------+
 | *(not sent)*    | Description        | Description for the command request.          |
 |                 |                    | Defined in the SXL but is not actually        |
@@ -1801,8 +1801,8 @@ between the JSon elements and the titles in the SXL.
 +=================+====================+===============================================+
 | cCI             | commandCodeId      | The uniqe code of a command.                  |
 |                 |                    | The examples in this document are defined     |
-|                 |                    | according to the following format: *Myyy*,    |
-|                 |                    | where *yyy* is a unique number.               |
+|                 |                    | according to the following format: *Myyyy*,   |
+|                 |                    | where *yyyy* is a unique number.              |
 +-----------------+--------------------+-----------------------------------------------+
 | n               | Name               | Unique reference of the value                 |
 +-----------------+--------------------+-----------------------------------------------+
