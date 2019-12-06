@@ -2068,6 +2068,8 @@ be used for simple time synchronization.
 * The interval duration for sending watchdog messages should be
   configurable at both the site and the supervision system. The default
   setting should be (1) once a minute.
+* Watchdog is not sent if something else is sent or received within the watchdog
+  interval.
 
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
