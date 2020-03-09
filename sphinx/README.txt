@@ -9,11 +9,14 @@ Requirements:
 
 On Ubuntu:
 
-# apt-get install python-sphinx texlive texlive-latex-extra texlive-humanities mscgen imagemagick librsvg2-bin latexmk
+# apt-get install python-sphinx texlive texlive-latex-extra \
+  texlive-humanities mscgen imagemagick librsvg2-bin latexmk sphinx \
+  python-sphinx-rtd-theme
 
 On Arch:
 
-# pacman -S python-sphinx texlive-most texlive-latexextra texlive-humanities imagemagick librsvg
+# pacman -S python-sphinx texlive-most texlive-latexextra texlive-humanities \
+  imagemagick librsvg python-sphinx_rtd_theme
 $ git clone https://aur.archlinux.org/mscgen.git
 $ cd mscgen; makepkg -sri
 
