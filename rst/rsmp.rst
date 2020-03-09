@@ -1,17 +1,17 @@
 Contens
 =======
 
-* `definitions`_
-* `introduction`_
-* `purpose`_
-* `applicability`_
-* applicability/`scope`_
-* applicability/`object_model`_
-* applicability/`transport_of_data`_
-* applicability/`basic_structure`_
-* applicability/`usage_of_json`_
-* `changelog`_
-* appendix/`sxl`_
+* `Definitions`_
+* `Introduction`_
+* `Purpose`_
+* `Applicability`_
+* Applicability/`Scope`_
+* Applicability/`Object-model`_
+* Applicability/`Transport-of-data`_
+* Applicability/`Basic-structure`_
+* Applicability/`Usage-of-json`_
+* `Change-log`_
+* Appendix/`Signal-exchange-list`_
 
 RSMP Specification
 ==================
@@ -121,6 +121,8 @@ Road side equipment. Covers both field level and local level
 **RSMP**
  Road Side Message Protocol
 
+.. _introduction:
+
 Introduction
 ============
 
@@ -191,6 +193,8 @@ facilities and equipment. The four message types are:
   facility to alter the equipment / object status or control
   principle.
 
+.. _applicability:
+
 Applicability
 =============
 
@@ -214,7 +218,7 @@ specification as information only. The STA is not responsible for any
 consequences that implementation of the specification can lead to for
 the supplier or any third party.
 
-.. _object_model:
+.. _object-model:
 
 Object model
 ------------
@@ -228,9 +232,9 @@ can later be included with the object model for Datex II. The object
 model is technology independent, ie can be implemented in various ways
 such as using **ASN.1**, **JSON** or **XML**.
 
-In section basic_structure_ all examples is provided in XML format
+In section basic-structure_ all examples is provided in XML format
 for clarity. But the communication between the facility and supervision
-systems / other facility uses JSON format. In section usage_of_json_
+systems / other facility uses JSON format. In section usage-of-json_
 all message types in both XML and JSON are provided side by side.
 
 Objects used for message exchange is **Alarm** with subclasses **Issue**,
@@ -238,9 +242,9 @@ Objects used for message exchange is **Alarm** with subclasses **Issue**,
 **AggregatedStatus**, **StatusRequest**, **StatusResponse**,
 **CommandRequest**, **CommandResponse**, **Watchdog**, **MessageAck**,
 **MessageNotAck**. For detailed information about how these classes are
-used, see section basic_structure_.
+used, see section basic-structure_.
 
-.. _transport_of_data:
+.. _transport-of-data:
 
 Transport of data
 -----------------
@@ -249,7 +253,7 @@ The message flow is different between different types of messages.
 Some messages are event driven and sent without a request (push),
 while others are interaction driven, ie. they sent in response to a
 request from a host system or other system ( client- server). To
-ensure that messages reach their destinations a message acknowledgment
+ensure that messages reach their destinations a message acknowledgement
 is sent for all messages. This gives the application a simple way to
 follow up on the message exchange. To communicate between equipments
 and supervisions systems a pure TCP connection is used (TCP/IP), and
@@ -265,10 +269,10 @@ order.
 
 2. Watchdog (according to section watchdog_)
 
-3. Aggregated status (according to section aggregatedstatus_)
+3. Aggregated status (according to section aggregated-status-message_)
 
 4. All active and blocked alarm are sent (according to section
-   alarmmessages_). The alarms that are not sent will be interpreted
+   alarm-messages_). The alarms that are not sent will be interpreted
    as non-active and non-blocked by the supervision system.
 
 5. Any remaining messages in the equipment's outgoing communication
@@ -309,10 +313,8 @@ One site acts as socket server and waits for the other site to
 connect. If the communication were to fail it is the connecting site’s
 responsibility to reconnect.
 
-.. _basicstructure:
 
-
-.. _basic_structure:
+.. _basic-structure:
 
 Basic structure
 ---------------
@@ -350,7 +352,7 @@ externalNtsId *(optional)* *(Defined in SXL)* Identity for the NTS objects in co
 componentId                *(Defined in SXL)* Component id for the object which the message is referring to
 ========================== ================== =====================================================================================================================================================================================================================
 
-.. _alarmmessages:
+.. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
@@ -361,7 +363,7 @@ An alarm message is sent to the supervision system when:
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
 
-An acknowledgment of an alarm does not cause a single alarm event to
+An acknowledgement of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific object with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
@@ -657,8 +659,8 @@ Alarm suspend (xsi:type = Suspend)
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figures.
 
 **An alarm is active/inactive**
 
@@ -696,6 +698,8 @@ following figure.
    :align: center
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
+
+.. _aggregated-status-message:
 
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -857,8 +861,8 @@ description of each bit is presented in the table below
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/aggregated_status.png
    :align: center
@@ -1179,8 +1183,8 @@ The allowed content is described in Table table-statusrequest_
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/status_request_response.png
    :align: center
@@ -1191,8 +1195,8 @@ following figure.
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/status_update.png
    :align: center
@@ -1385,8 +1389,8 @@ Return values (returnvalue)
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 .. image:: img/command_request_response.png
    :align: center
@@ -1394,7 +1398,7 @@ following figure.
 1. Command request for an object
 2. Command response of an object
 
-.. _message-ack:
+.. _message-acknowledgement:
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1403,11 +1407,11 @@ Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
 acknowledgement, which has a different function. The purpose of
 message acknowledgement is to detect communication disruptions,
-function as an acknowledgment that the message has reached its
+function as an acknowledgement that the message has reached its
 destination and to verify that the message was understood.
 
 There are two types of message acknowledgement – Message
-acknowledgment which confirms that the message was understood and
+acknowledgement which confirms that the message was understood and
 Message not acknowledged which indicates that the message was not
 understood.
 
@@ -1588,8 +1592,8 @@ Basic (xsi:type = Version)
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figure.
 
 The site sends a version message
 
@@ -1661,8 +1665,8 @@ watchdogtimestamp  *(timestamp)* The timestamp uses the W3C XML dateTime
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section message-ack_) is implicit in the
-following figure.
+Message acknowledgement (see section message-acknowledgement_) is
+implicit in the following figures.
 
 Site sends watchdog message
 
@@ -1677,7 +1681,7 @@ Supervision system/other equipment sends watchdog message
 1. Watchdog message is sent from supervision system/other equipment
 
 
-.. _usage_of_json:
+.. _usage-of-json:
 
 Usage of JSON
 -------------
@@ -2490,7 +2494,7 @@ formats. Please note that some lines may be wrapped.
    </roadSideMessage>
 
 .. code-block:: json
-   :name: JSON - Message acknowledgment
+   :name: JSON - Message acknowledgement
 
    {
        "mType": "rSMsg",
@@ -2619,7 +2623,7 @@ formats. Please note that some lines may be wrapped.
 XML/JSON code 16: Comparison of watchdog messages XML/JSON
 
 
-.. _changelog:
+.. _change-log:
 
 Change log
 ==========
@@ -2636,10 +2640,10 @@ Version Date       Change                                  Name (initials)
 ======= ========== ======================================= ===============
 
 
-.. _sxl:
+.. _signal-exchange-list:
 
-Guideline - Signal exchange list
-================================
+Signal exchange list
+====================
 
 Purpose
 -------
