@@ -1,23 +1,10 @@
 .. header::
 
-   GUIDELINE (UNOFFICIAL TRANSLATION)
+   GUIDELINE
 
 .. footer::
 
-   Created 2014-11-24, 3.1.3 (unofficial)
-
-.. warning::
-
-   This document contains a preliminary specification for various
-   aspects of RSMP's communication. It is important to note that
-   the information contained within is in a draft stage, and
-   has not yet been fully implemented. The specifications defined
-   herein are **unstable**, and may change incompatibly in future
-   versions of this document.
-
-   This document is an unofficial english translation of the
-   specification
-
+   Created 2014-11-24, 3.1.3
 
 RSMP Specification
 ==================
