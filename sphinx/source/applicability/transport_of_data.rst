@@ -1,4 +1,4 @@
-.. _transport_of_data:
+.. _transport-of-data:
 
 Transport of data
 -----------------
@@ -32,6 +32,8 @@ management of certificates.
 The issuing and renewal of certificates should should be made in
 cooperation with the purchaser unless other arrangement is agreed upon.
 
+.. _communication-establishment-between-sites-and-supervision-system:
+
 Communication establishment between sites and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -46,10 +48,10 @@ order.
 
 2. Watchdog (according to section :ref:`watchdog`)
 
-3. Aggregated status (according to section :ref:`aggregatedstatus`)
+3. Aggregated status (according to section :ref:`aggregated-status-message`)
 
 4. All active and blocked alarm are sent (according to section
-   :ref:`alarmmessages`).
+   :ref:`alarm-messages`).
 
 5. Any remaining messages in the equipment's outgoing communication
    buffer are sent
@@ -74,7 +76,7 @@ Communication establishment between sites
 
 2. Watchdog (according to section :ref:`watchdog`)
 
-3. Aggregated status (according to section :ref:`aggregatedstatus`)
+3. Aggregated status (according to section :ref:`aggregated-status-message`)
 
 .. image:: /img/msc/establish-site-site.png
    :align: center
@@ -91,6 +93,8 @@ For communication between sites the following applies:
 * Watchdog messages does not adjust the clock
 * Alarm messages are not sent
 * No communication buffer exist
+
+.. _communication-disruption:
 
 Communication disruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -123,6 +127,4 @@ Transport between sites
 One site acts as socket server and waits for the other site to
 connect. If the communication were to fail it is the connecting site’s
 responsibility to reconnect.
-
-.. _basicstructure:
 

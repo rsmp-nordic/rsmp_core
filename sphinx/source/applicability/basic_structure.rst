@@ -1,4 +1,4 @@
-.. _basic_structure:
+.. _basic-structure:
 
 Basic structure
 ---------------
@@ -43,7 +43,7 @@ The following table is describing the variable content of the message:
 
 ..
 
-.. _alarmmessages:
+.. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
@@ -69,6 +69,8 @@ messages are interaction driven.
 
 Message structure
 """""""""""""""""
+
+.. _structure-for-an-alarm-message:
 
 Structure for an alarm message
 
@@ -395,8 +397,8 @@ Alarm suspend (xsi:type = Suspend)
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 **An alarm is active/inactive**
 
@@ -434,6 +436,8 @@ following figure.
    :align: center
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
+
+.. _aggregated-status-message:
 
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -585,8 +589,8 @@ description of each bit is presented in the figure below
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/aggregated_status.png
    :align: center
@@ -942,8 +946,8 @@ The allowed content is described in Table :num:`table-statusrequest`
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_request_response.png
    :align: center
@@ -954,8 +958,8 @@ following figure.
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/status_update.png
    :align: center
@@ -1166,8 +1170,8 @@ Return values (returnvalue)
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figure.
 
 .. image:: /img/msc/command_request_response.png
    :align: center
@@ -1175,7 +1179,7 @@ following figure.
 1. Command request for an object
 2. Command response of an object
 
-.. _message-ack:
+.. _message-acknowledgement:
 
 Message acknowledgement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -1390,8 +1394,8 @@ Basic (xsi:type = Version)
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 The site sends a version message
 
@@ -1474,8 +1478,8 @@ Basic (xsi:type = Watchdog)
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Message acknowledgement (see section :ref:`message-ack`) is implicit in the
-following figure.
+Message acknowledgement (see section :ref:`message-acknowledgement`) is
+implicit in the following figures.
 
 Site sends watchdog message
 
