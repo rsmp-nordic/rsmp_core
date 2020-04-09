@@ -478,7 +478,7 @@ Example of wrapping of a packet:
         "aS": "active",
         "sS", "notSuspended",
         "aTs": "2009-10-02T14:34:34.345Z",
-        "cat": "b",
+        "cat": "D",
         "pri": "2",
         "rvs": [
          {
@@ -933,7 +933,7 @@ example below.
         "aS": "Active",
         "sS": "notSuspended",
         "aTs": "2015-05-29T08:55:04.691Z",
-        "cat": "b",
+        "cat": "D",
         "pri": "3",
         "rvs": [
             {
@@ -988,7 +988,7 @@ JSon code 6: Suspending an alarm using an alarm suspend message
         "aS": "Active",
         "sS": "Suspended",
         "aTs": "2015-05-29T08:56:25.390Z",
-        "cat": "b",
+        "cat": "D",
         "pri": "3",
         "rvs": [
             {
@@ -1036,7 +1036,7 @@ JSon code 8: Resuming an alarm using an alarm suspend message
         "aS": "Active",
         "sS": "notSuspended",
         "aTs": "2015-05-29T08:58:28.166Z",
-        "cat": "b",
+        "cat": "D",
         "pri": "3",
         "rvs": [
             {

@@ -249,7 +249,7 @@ Example of wrapping of a packet:
         "aS": "active",
         "sS", "notSuspended",
         "aTs": "2009-10-02T14:34:34.345Z",
-        "cat": "b",
+        "cat": "D",
         "pri": "2",
         "rvs": [
          {
