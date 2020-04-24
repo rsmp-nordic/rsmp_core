@@ -120,6 +120,9 @@ Road side equipment. Covers both field level and local level
 **RSMP**
  Road Side Message Protocol
 
+**STA**
+ Swedish Transport Administration
+
 .. _introduction:
 
 Introduction

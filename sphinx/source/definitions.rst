@@ -102,3 +102,6 @@ Definitions
 
    RSMP
        Road Side Message Protocol
+
+   STA
+       Swedish Transport Administration
