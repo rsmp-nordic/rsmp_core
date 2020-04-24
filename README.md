@@ -1,7 +1,7 @@
 RSMP core specification
 =======================
 The following branch defines RSMP version **3.1.5-draft**.
-The specification is also in available in English in the following formats.
+The specification is available the following formats:
 
 * <a href="rst/rsmp.rst">Online (reStructured text)</a>
 * <a href="sphinx">Sphinx format</a> (for output to PDF or html)
