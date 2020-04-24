@@ -1,5 +1,4 @@
 This is the RSMP core specification
-Unofficial English translation
 
 Requirements:
 
