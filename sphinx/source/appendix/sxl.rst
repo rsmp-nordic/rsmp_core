@@ -162,9 +162,9 @@ Functional relationships in the signal exchange list
 
 Functional states
 """""""""""""""""
-The functional which an object can have should also be possible to control.
-Therefore should the command codes which are defined in **"Functional
-states** in the **Commands** sheet also correlate the functional states
+The functional states which an object can enter should also be possible to
+control. The commands which are defined in **"Functional states**
+in the **Commands** sheet should correlate to the functional states
 which are defined in **functionalPosition** in "**Aggregated status**".
 
 Arguments and return values
