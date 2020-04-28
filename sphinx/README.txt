@@ -8,9 +8,9 @@ Requirements:
 
 On Ubuntu:
 
-# apt-get install python-sphinx texlive texlive-latex-extra \
+# apt-get install python3-sphinx texlive texlive-latex-extra \
   texlive-humanities mscgen imagemagick librsvg2-bin latexmk sphinx \
-  python-sphinx-rtd-theme
+  python3-sphinx-rtd-theme
 
 On Arch:
 
