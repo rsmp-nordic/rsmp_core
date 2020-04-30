@@ -37,7 +37,7 @@ In order to provide an information exchange that is not dependent of
 technology area or vendor specific information - four message types
 have been identified that cover all types of information that the
 Swedish Transport Administration needs. The information in each
-message is dynamic and is defined by technical are or specific
+message is dynamic and is defined by technical area or specific
 equipment using a specific signal exchange list (SXL). The SXL also
 represents the interface between the supervision system / other
 facilities and equipment. The four message types are:
