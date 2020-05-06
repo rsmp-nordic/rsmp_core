@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = python -msphinx
+SPHINXBUILD   = python3 -msphinx
 SPHINXPROJ    = rsmp-spec
 SOURCEDIR     = source
 BUILDDIR      = build
@@ -42,6 +42,7 @@ singlehtml: Makefile generated-images
 
 html: Makefile generated-images
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@cp -a build/html/. docs
 
 latexpdf: Makefile generated-images
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
