@@ -1,4 +1,13 @@
 # RSMP core specification
+
+RSMP is a open, modern and flexible communication protocol primarily suited
+for communication between road side equipment and supervision systems.
+
+RSMP uses signal exchange lists (SXL) to define the message exchange, e.g.
+alarms, status and commands to be used for a specific road side equipment.
+Please [see the specification](https://rsmp-nordic.github.io/rsmp_core/appendix/sxl.html)
+for more in-depth technical information
+
 The following branch defines RSMP version **3.1.5-draft**.
 
 The specification is available the following formats:
