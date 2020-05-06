@@ -1,4 +1,4 @@
-## RSMP core specification
+# RSMP core specification
 
 The RSMP specification is defined by Trafikverket publication TDOK 2011:256.
 
@@ -7,11 +7,11 @@ The following branch defines RSMP version **3.1.4**.
 * [View the core specification online](http://rsmp-nordic.github.io/rsmp_core)
 * [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.1.4/rsmp-spec-3.1.4.pdf)
 
-# FAQ
+## FAQ
 
 Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
 
-# Generating the specification from source
+## Generating the specification from source
 
 Requirements:
 
