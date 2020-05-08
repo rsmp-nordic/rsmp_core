@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'RSMP Specification'
-copyright = ''
+copyright = 'RSMP Nordic'
 author = 'David Otterdahl'
 
 # The version info for the project you're documenting, acts as replacement for
