@@ -102,33 +102,37 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#aggregated-status-message">4.4.2. Aggregated status message</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id7">4.4.2.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">4.4.2.2. Message exchange between site and supervision system</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#status-messages">4.4.3. Status Messages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id9">4.4.3.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-request">4.4.3.2. Message exchange between site and supervision system/other equipment - request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription">4.4.3.3. Message exchange between site and supervision system/other equipment - subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregated-status-request-message">4.4.3. Aggregated status request message</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">4.4.3.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">4.4.3.2. Message exchange between site and supervision system</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#command-messages">4.4.4. Command messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#status-messages">4.4.4. Status Messages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id10">4.4.4.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment">4.4.4.2. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-request">4.4.4.2. Message exchange between site and supervision system/other equipment - request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription">4.4.4.3. Message exchange between site and supervision system/other equipment - subscription</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#message-acknowledgement">4.4.5. Message acknowledgement</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-acknowledgement">4.4.5.1. Message structure – Message acknowledgement</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-not-acknowledged">4.4.5.2. Message structure – Message not acknowledged</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id13">4.4.5.3. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-messages">4.4.5. Command messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">4.4.5.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment">4.4.5.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.4.6. RSMP/SXL Version</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id14">4.4.6.1. Message structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#message-acknowledgement">4.4.6. Message acknowledgement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-acknowledgement">4.4.6.1. Message structure – Message acknowledgement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-not-acknowledged">4.4.6.2. Message structure – Message not acknowledged</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">4.4.6.3. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.7. Watchdog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id16">4.4.7.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.7.2. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.4.7. RSMP/SXL Version</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">4.4.7.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.8. Watchdog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.8.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">4.4.8.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 </ul>
@@ -365,6 +369,7 @@ elements and the titles in the SXL.</p>
 <p>An alarm message is sent to the supervision system when:</p>
 <ul class="simple">
 <li>An alarm becomes active / inactive</li>
+<li>An alarm is requested</li>
 <li>An alarm is acknowledged</li>
 <li>An alarm is being suspended / un-suspended</li>
 </ul>
@@ -373,6 +378,8 @@ be acknowledged but all alarm events for the specific object with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.</p>
+<p>The ability to request an alarms is used in case the supervision system
+looses track of the latest state of the alarms.</p>
 <p>A suspend of an alarm causes all alarms from the specific object with
 the associated alarm code id to be suspended. This means that alarm messages
 stops being sent from the site as long as the suspension is active. As soon
@@ -468,26 +475,30 @@ elements and the titles in the signal exchange list (SXL).</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td rowspan="6">aSp</td>
+<tr class="row-even"><td rowspan="7">aSp</td>
 <td>Issue</td>
 <td>Site</td>
 <td>An alarm becomes active/inactive.</td>
 </tr>
-<tr class="row-odd"><td rowspan="2">Acknowledge</td>
+<tr class="row-odd"><td>Request</td>
+<td>Supervision system</td>
+<td>Request the current state of an alarm</td>
+</tr>
+<tr class="row-even"><td rowspan="2">Acknowledge</td>
 <td>Supervision system</td>
 <td>Acknowledge an alarm</td>
 </tr>
-<tr class="row-even"><td>Site</td>
+<tr class="row-odd"><td>Site</td>
 <td>An alarm becomes acknowledged.</td>
 </tr>
-<tr class="row-odd"><td rowspan="2">Suspend</td>
+<tr class="row-even"><td rowspan="2">Suspend</td>
 <td>Supervision system</td>
 <td>Suspend an alarm</td>
 </tr>
-<tr class="row-even"><td>Site</td>
+<tr class="row-odd"><td>Site</td>
 <td>An alarm becomes suspended/unsuspended</td>
 </tr>
-<tr class="row-odd"><td>Resume</td>
+<tr class="row-even"><td>Resume</td>
 <td>Supervision system</td>
 <td>Unsuspend an alarm</td>
 </tr>
@@ -698,8 +709,27 @@ base64 format according to RFC-4648</div>
 </table>
 <p class="caption"><span class="caption-text"><strong>Figure 4.9:</strong> Alarm return value defined by SXL</span></p>
 <span class="target" id="table-alarm-return-values"></span></center></div></div>
+<div class="section" id="structure-for-alarm-request-message">
+<span id="alarmmessages-req"></span><h4>4.4.1.1.4. Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Permalink to this headline">¶</a></h4>
+<p>An alarm request message has the structure according to the example below.</p>
+<div class="highlight-json notranslate" id="json-alarm-req"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;3d2a0097-f91c-4249-956b-dac702545b8f&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;aCId&quot;</span><span class="p">:</span> <span class="s2">&quot;A0004&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xACId&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xNACId&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;aSp&quot;</span><span class="p">:</span> <span class="s2">&quot;Request&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSon code 4: An alarm request message</p>
+</div>
 <div class="section" id="structure-for-alarm-acknowledgement-message">
-<span id="alarmmessages-ack"></span><h4>4.4.1.1.4. Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Permalink to this headline">¶</a></h4>
+<span id="alarmmessages-ack"></span><h4>4.4.1.1.5. Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm acknowledgement message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-alarm-ack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -716,7 +746,7 @@ below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 4: An alarm acknowledgement message which acknowledges an alarm</p>
+<p>JSon code 5: An alarm acknowledgement message which acknowledges an alarm</p>
 <p>An alarm acknowledgement response message has the structure according to the
 example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-ack-resp"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -745,10 +775,10 @@ example below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 5: Response of an alarm acknowledgement message</p>
+<p>JSon code 6: Response of an alarm acknowledgement message</p>
 </div>
 <div class="section" id="structure-for-alarm-suspend-message">
-<span id="alarmmessages-suspend"></span><h4>4.4.1.1.5. Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Permalink to this headline">¶</a></h4>
+<span id="alarmmessages-suspend"></span><h4>4.4.1.1.6. Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm suspend message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-suspend"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -764,7 +794,7 @@ example below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 6: Suspending an alarm using an alarm suspend message</p>
+<p>JSon code 7: Suspending an alarm using an alarm suspend message</p>
 <div class="highlight-json notranslate" id="json-alarm-suspend-response"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
@@ -791,7 +821,7 @@ example below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 7: Response of alarm suspend message</p>
+<p>JSon code 8: Response of alarm suspend message</p>
 <div class="highlight-json notranslate" id="json-alarm-resume"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
@@ -806,7 +836,7 @@ example below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 8: Resuming an alarm using an alarm suspend message</p>
+<p>JSon code 9: Resuming an alarm using an alarm suspend message</p>
 <div class="highlight-json notranslate" id="json-alarm-resume-response"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
@@ -833,7 +863,7 @@ example below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 9: Response of a resume message</p>
+<p>JSon code 10: Response of a resume message</p>
 <p>Allowed content in alarm suspend message is the same as for alarm messages
 (See <a class="reference internal" href="#structure-for-an-alarm-message"><span class="std std-ref">Structure for an alarm message</span></a>) with the exception for alarm status
 (See <a class="reference internal" href="#alarm-status"><span class="std std-ref">Alarm status</span></a>) and (See <a class="reference internal" href="#return-values"><span class="std std-ref">Return values</span></a>).</p>
@@ -847,6 +877,12 @@ implicit in the following figures.</p>
 <img alt="../_images/alarm_active_inactive.png" class="align-center" src="../_images/alarm_active_inactive.png" />
 <ol class="arabic simple">
 <li>An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)</li>
+</ol>
+<p><strong>An alarm is requested</strong></p>
+<img alt="../_images/alarm_request.png" class="align-center" src="../_images/alarm_request.png" />
+<ol class="arabic simple">
+<li>An alarm is requested from the supervision system</li>
+<li>An alarm message is sent to supervision system with the status of the alarm</li>
 </ol>
 <p><strong>An alarm is acknowledged at the supervision system</strong></p>
 <img alt="../_images/alarm_ack_system.png" class="align-center" src="../_images/alarm_ack_system.png" />
@@ -900,7 +936,7 @@ below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 10: An aggregated status message</p>
+<p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
 <div class="figure align-center" id="table-agg-basic">
 <center><table border="1" class="docutils">
@@ -970,20 +1006,48 @@ description of each bit is presented in the figure below</p>
 <img alt="../_images/agg_status_bits.png" class="align-center" src="../_images/agg_status_bits.png" />
 </div>
 </div>
+</div>
+<div class="section" id="aggregated-status-request-message">
+<span id="aggregated-status-req"></span><h2>4.4.3. Aggregated status request message<a class="headerlink" href="#aggregated-status-request-message" title="Permalink to this headline">¶</a></h2>
+<p>This type of message is sent from the supervision system to request the
+latest aggregated status, in case the supervision system has lost track
+of the current status.</p>
 <div class="section" id="id8">
-<h3>4.4.2.2. Message exchange between site and supervision system<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.3.1. Message structure<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>An aggregated status request message has the structure according to the example
+below.</p>
+<div class="highlight-json notranslate" id="json-agg-req-status"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AggregatedStatusRequest&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;be12ab9a-800c-4c19-8c50-adf832f22425&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;O+14439=481WA001&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;O+14439=481WA001&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSon code 12: An aggregated status request message</p>
+</div>
+<div class="section" id="id9">
+<h3>4.4.3.2. Message exchange between site and supervision system<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
+<p><strong>Functional state, functional position or status bits changes at the
+site</strong></p>
 <img alt="../_images/aggregated_status.png" class="align-center" src="../_images/aggregated_status.png" />
-<p><strong>(Functional state, functional position or status bits changes at the
-site)</strong></p>
 <ol class="arabic simple">
+<li>An aggregated status message is sent to the supervision system.</li>
+</ol>
+<p><strong>The supervision system request aggregated status</strong></p>
+<img alt="../_images/aggregated_status_request.png" class="align-center" src="../_images/aggregated_status_request.png" />
+<ol class="arabic simple">
+<li>An aggregated status request message is sent to the site.</li>
 <li>An aggregated status message is sent to the supervision system.</li>
 </ol>
 </div>
 </div>
 <div class="section" id="status-messages">
-<h2>4.4.3. Status Messages<a class="headerlink" href="#status-messages" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.4. Status Messages<a class="headerlink" href="#status-messages" title="Permalink to this headline">¶</a></h2>
 <p>The status message is a type of message that is sent to the
 supervision system or other equipment with the status of one or more
 requested objects.</p>
@@ -994,10 +1058,10 @@ can be sent during the following prerequisites:</p>
 <li>According to subscription – either by using a fixed time interval or
 when the status changes.</li>
 </ul>
-<div class="section" id="id9">
-<h3>4.4.3.1. Message structure<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>4.4.4.1. Message structure<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="structure-for-a-request-of-a-status-of-one-or-several-objects">
-<h4>4.4.3.1.1. Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.1. Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A status request message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-status-req"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1019,7 +1083,7 @@ below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 11: A status request message</p>
+<p>JSon code 13: A status request message</p>
 <p>The status code id (<strong>sCI</strong>) and name (<strong>n</strong>) are placed in an array
 (<strong>sS</strong>) in order to enable support for requesting multiple status at once.
 The following table is describing the variable content of the message.</p>
@@ -1052,7 +1116,7 @@ elements and the titles in the SXL.</p>
 <p class="caption"><span class="caption-text"><strong>Figure 4.12:</strong> Status request</span></p>
 <span class="target" id="table-statusrequest"></span></center></div></div>
 <div class="section" id="structure-for-a-message-with-status-of-one-or-several-objects">
-<h4>4.4.3.1.2. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.2. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with status of one or several objects has the structure
 according to the example below.</p>
 <p>If the component (<strong>cId</strong>) is not known, then the site must not disconnect but
@@ -1081,7 +1145,7 @@ instead answer with this type of message where <strong>q</strong> is set to <str
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 12: A status response message</p>
+<p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-statusresponse">
 <center><table border="1" class="docutils">
@@ -1112,7 +1176,7 @@ All timestamps uses UTC.</td>
 <p class="caption"><span class="caption-text"><strong>Figure 4.13:</strong> Status response</span></p>
 <span class="target" id="table-statusresponse"></span></center></div></div>
 <div class="section" id="return-values-returnvalue">
-<h4>4.4.3.1.3. Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.3. Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
 <div class="figure align-center" id="table-statusresponse-returnvalues-sS">
 <center><table border="1" class="docutils">
@@ -1229,7 +1293,7 @@ be performed.
 <p class="caption"><span class="caption-text"><strong>Figure 4.16:</strong> Return value quality</span></p>
 <span class="target" id="table-statusresponse-returnvalues-qualtiy"></span></center></div></div>
 <div class="section" id="structure-for-a-status-subscription-request-message-on-one-or-several-objects">
-<h4>4.4.3.1.4. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.4. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
 constructing a list of subscriptions of statuses, digital and analogue
@@ -1268,7 +1332,7 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 13: A status subscribe message</p>
+<p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-statusrequest-basic">
 <center><table border="1" class="docutils">
@@ -1302,7 +1366,7 @@ when changed.</td>
 <p class="caption"><span class="caption-text"><strong>Figure 4.17:</strong> Status Request</span></p>
 <span class="target" id="table-statusrequest-basic"></span></center></div></div>
 <div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
-<h4>4.4.3.1.5. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.5. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A response message with answer to a request for status subscription
 has the structure according to the example below. This response is
 always sent immediately after request for subscription regardless if
@@ -1351,7 +1415,7 @@ but instead answer with this type of message where <strong>q</strong> is set to
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 14: A status update message</p>
+<p>JSon code 16: A status update message</p>
 <p>The allowed content is described in Table <a href="#table-statusresponse">4.13</a> and
 <a href="#table-statusresponse-returnvalues">4.15</a>.</p>
 <p>Since different UpdateRate can be defined for different objects it means that
@@ -1379,7 +1443,7 @@ partial StatusUpdates can be sent.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 15: A subscription request to subscribe to statues with different update rates</p>
+<p>JSon code 17: A subscription request to subscribe to statues with different update rates</p>
 <div class="highlight-json notranslate" id="json-status-request-partial-resp"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusUpdate&quot;</span><span class="p">,</span>
@@ -1399,10 +1463,10 @@ partial StatusUpdates can be sent.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 16: A partial status update. Only a single status is updated</p>
+<p>JSon code 18: A partial status update. Only a single status is updated</p>
 </div>
 <div class="section" id="structure-for-a-status-unsubscription-message-on-one-or-several-objects">
-<h4>4.4.3.1.6. Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.4.1.6. Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
 objects. No particular answer is sent for this request, other than the
@@ -1432,12 +1496,12 @@ usual message acknowledgement.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 17: A status unsubscribe message</p>
+<p>JSon code 19: A status unsubscribe message</p>
 <p>The allowed content is described in Table <a href="#table-statusrequest">4.12</a></p>
 </div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-request">
-<h3>4.4.3.2. Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.4.2. Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/status_request_response.png" class="align-center" src="../_images/status_request_response.png" />
@@ -1447,7 +1511,7 @@ implicit in the following figure.</p>
 </ol>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-subscription">
-<h3>4.4.3.3. Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.4.3. Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/status_update.png" class="align-center" src="../_images/status_update.png" />
@@ -1455,13 +1519,13 @@ implicit in the following figure.</p>
 </div>
 </div>
 <div class="section" id="command-messages">
-<h2>4.4.4. Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
+<h2>4.4.5. Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
 <p>Command messages are used to give order to do something at the site.
 The site responds with a command acknowledgement.</p>
 <p>Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment</p>
-<div class="section" id="id10">
-<h3>4.4.4.1. Message structure<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>4.4.5.1. Message structure<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>Structure of a command message request</p>
 <p>A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1499,7 +1563,7 @@ requested object</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 18: A command request message</p>
+<p>JSon code 20: A command request message</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
 <div class="figure align-center" id="table-commands-argument">
@@ -1589,7 +1653,7 @@ base64 format according to RFC-4648</div>
 </table>
 <p class="caption"><span class="caption-text"><strong>Figure 4.19:</strong> Command arguments defined by SXL</span></p>
 <span class="target" id="table-command-arguments-sxl"></span></center></div><div class="section" id="structure-of-command-response-message">
-<h4>4.4.4.1.1. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h4>
+<h4>4.4.5.1.1. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h4>
 <p>A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
@@ -1630,7 +1694,7 @@ but instead answer with this type of message where <strong>age</strong> is set t
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 19: A command response message</p>
+<p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-command-response">
 <center><table border="1" class="docutils">
@@ -1656,8 +1720,8 @@ the alarm occurs (and not when the message is sent). All timestamps uses UTC.</t
 </table>
 <p class="caption"><span class="caption-text"><strong>Figure 4.20:</strong> Command response</span></p>
 <span class="target" id="table-command-response"></span></center></div></div>
-<div class="section" id="id11">
-<h4>4.4.4.1.2. Return values (returnvalue)<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>4.4.5.1.2. Return values (returnvalue)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
 be empty if not return values are defined.</p>
 <div class="figure align-center" id="table-command-returnvalues-rvs">
@@ -1771,7 +1835,7 @@ base64 format according to RFC-4648</div>
 <span class="target" id="table-command-returnvalue"></span></center></div></div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment">
-<h3>4.4.4.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.5.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/command_request_response.png" class="align-center" src="../_images/command_request_response.png" />
@@ -1782,7 +1846,7 @@ implicit in the following figure.</p>
 </div>
 </div>
 <div class="section" id="message-acknowledgement">
-<span id="id12"></span><h2>4.4.5. Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
+<span id="id13"></span><h2>4.4.6. Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
 <p>Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
 acknowledgement, which has a different function. The purpose of
@@ -1812,7 +1876,7 @@ establishment sequence.</li>
 <p>The acknowledgement messages are interaction driven and are sent when
 any other type message are received.</p>
 <div class="section" id="message-structure-message-acknowledgement">
-<h3>4.4.5.1. Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.6.1. Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
 <p>An acknowledgement message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-ack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1822,10 +1886,10 @@ below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 20: An acknowledgement message</p>
+<p>JSon code 22: An acknowledgement message</p>
 </div>
 <div class="section" id="message-structure-message-not-acknowledged">
-<h3>4.4.5.2. Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
+<h3>4.4.6.2. Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
 <p>A “not acknowledgement” message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-notack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1836,7 +1900,7 @@ below.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 21: A not acknowledgement message</p>
+<p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-messagenoteack-basic">
 <center><table border="1" class="docutils">
@@ -1860,8 +1924,8 @@ below.</p>
 </table>
 <p class="caption"><span class="caption-text"><strong>Figure 4.24:</strong> Message not ack</span></p>
 <span class="target" id="table-messagenoteack-basic"></span></center></div></div>
-<div class="section" id="id13">
-<h3>4.4.5.3. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>4.4.6.3. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>Supervision system sends initial message</p>
 <img alt="../_images/message_ack_system.png" class="align-center" src="../_images/message_ack_system.png" />
 <ol class="arabic simple">
@@ -1877,7 +1941,7 @@ below.</p>
 </div>
 </div>
 <div class="section" id="rsmp-sxl-version">
-<span id="rsmpsxl-version"></span><h2>4.4.6. RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
+<span id="rsmpsxl-version"></span><h2>4.4.7. RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
 <p>Version of RSMP and revision of SXL are always sent directly after
 establishing communication. Both communicating systems send this as
 their first message and waits for message response until any other
@@ -1896,8 +1960,8 @@ should be used.</p>
 establishment (See
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>).</p>
-<div class="section" id="id14">
-<h3>4.4.6.1. Message structure<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>4.4.7.1. Message structure<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>A version message has the structure according to the example below. In
 the example below the system has support for RSMP version <strong>3.1.1</strong>,
 <strong>3.1.2</strong> and SXL version <strong>1.0.13</strong> for site <strong>O+14439=481WA001</strong>.</p>
@@ -1921,7 +1985,7 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 22: A RSMP / SXL message</p>
+<p>JSon code 24: A RSMP / SXL message</p>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
@@ -1986,7 +2050,7 @@ in the message using an array (<strong>siteId</strong>)</p>
 <span class="target" id="table-version-basic"></span></center></div></div>
 </div>
 <div class="section" id="watchdog">
-<span id="id15"></span><h2>4.4.7. Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
+<span id="id16"></span><h2>4.4.8. Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
 <p>The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
@@ -2006,8 +2070,8 @@ setting should be (1) once a minute.</li>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>
-<div class="section" id="id16">
-<h3>4.4.7.1. Message structure<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id17">
+<h3>4.4.8.1. Message structure<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>A watchdog message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -2017,7 +2081,7 @@ from the supervision system. At initial communication establishment
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 23: A watchdog message</p>
+<p>JSon code 25: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-watchdog-basic">
 <center><table border="1" class="docutils">
@@ -2047,8 +2111,8 @@ message is sent). All timestamps uses UTC.</td>
 </table>
 <p class="caption"><span class="caption-text"><strong>Figure 4.27:</strong> Watchdog</span></p>
 <span class="target" id="table-watchdog-basic"></span></center></div></div>
-<div class="section" id="id17">
-<h3>4.4.7.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h3>4.4.8.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>

@@ -136,6 +136,7 @@ Alarm messages
 An alarm message is sent to the supervision system when:
 
 - An alarm becomes active / inactive
+- An alarm is requested
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
 
@@ -144,6 +145,9 @@ be acknowledged but all alarm events for the specific object with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
+
+The ability to request an alarms is used in case the supervision system
+looses track of the latest state of the alarms.
 
 A suspend of an alarm causes all alarms from the specific object with
 the associated alarm code id to be suspended. This means that alarm messages
@@ -240,6 +244,8 @@ The following table describes additional variable content of the message.
    | Element      | Value              | Origin             | Description                                  |
    +==============+====================+====================+==============================================+
    | aSp          | Issue              | Site               | An alarm becomes active/inactive.            |
+   |              +--------------------+--------------------+----------------------------------------------+
+   |              | Request            | Supervision system | Request the current state of an alarm        |
    |              +--------------------+--------------------+----------------------------------------------+
    |              | Acknowledge        | Supervision system | Acknowledge an alarm                         |
    |              |                    +--------------------+----------------------------------------------+
@@ -420,6 +426,31 @@ elements and the titles in the SXL.
 
 ..
 
+.. _alarmmessages-req:
+
+Structure for alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An alarm request message has the structure according to the example below.
+
+.. code-block:: json
+   :name: json-alarm-req
+   
+   {
+        "mType": "rSMsg",
+        "type": "Alarm",
+        "mId": "3d2a0097-f91c-4249-956b-dac702545b8f",
+        "ntsOId": "",
+        "xNId": "",
+        "cId": "AB+84001=860VA001",
+        "aCId": "A0004",
+        "xACId": "",
+        "xNACId": "",
+        "aSp": "Request"
+   }
+
+JSon code 4: An alarm request message
+
 .. _alarmmessages-ack:
 
 Structure for alarm acknowledgement message
@@ -444,7 +475,7 @@ below.
         "aSp": "Acknowledge"
    }
 
-JSon code 4: An alarm acknowledgement message which acknowledges an alarm
+JSon code 5: An alarm acknowledgement message which acknowledges an alarm
 
 An alarm acknowledgement response message has the structure according to the
 example below.
@@ -477,7 +508,7 @@ example below.
         ]
    }
 
-JSon code 5: Response of an alarm acknowledgement message
+JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
@@ -502,7 +533,7 @@ An alarm suspend message has the structure according to the example below.
         "aSp": "Suspend"
    }
 
-JSon code 6: Suspending an alarm using an alarm suspend message
+JSon code 7: Suspending an alarm using an alarm suspend message
 
 .. code-block:: json
    :name: json-alarm-suspend-response
@@ -532,7 +563,7 @@ JSon code 6: Suspending an alarm using an alarm suspend message
         ]
    }
 
-JSon code 7: Response of alarm suspend message
+JSon code 8: Response of alarm suspend message
 
 .. code-block:: json
    :name: json-alarm-resume
@@ -550,7 +581,7 @@ JSon code 7: Response of alarm suspend message
 	"aSp": "Resume"
    }
 
-JSon code 8: Resuming an alarm using an alarm suspend message
+JSon code 9: Resuming an alarm using an alarm suspend message
 
 .. code-block:: json
    :name: json-alarm-resume-response
@@ -580,7 +611,7 @@ JSon code 8: Resuming an alarm using an alarm suspend message
         ]
    }
 
-JSon code 9: Response of a resume message
+JSon code 10: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
 (See :ref:`structure-for-an-alarm-message`) with the exception for alarm status
@@ -598,6 +629,14 @@ implicit in the following figures.
    :align: center
 
 1. An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)
+
+**An alarm is requested**
+
+.. image:: /img/msc/alarm_request.png
+   :align: center
+
+1. An alarm is requested from the supervision system
+2. An alarm message is sent to supervision system with the status of the alarm
 
 **An alarm is acknowledged at the supervision system**
 
@@ -666,7 +705,7 @@ below.
               ]
    }
 
-JSon code 10: An aggregated status message
+JSon code 11: An aggregated status message
 
 The following tables are describing the variable content of the message:
 
@@ -726,19 +765,58 @@ description of each bit is presented in the figure below
 .. image:: /img/msc/agg_status_bits.png
    :align: center
 
+.. _aggregated-status-req:
+
+Aggregated status request message
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This type of message is sent from the supervision system to request the
+latest aggregated status, in case the supervision system has lost track
+of the current status.
+
+Message structure
+"""""""""""""""""
+
+An aggregated status request message has the structure according to the example
+below.
+
+.. code-block:: json
+   :name: json-agg-req-status
+
+   {
+        "mType": "rSMsg",
+	"type": "AggregatedStatusRequest",
+	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
+	"ntsOId": "O+14439=481WA001",
+	"xNId": "",
+	"cId": "O+14439=481WA001",
+   }
+
+JSon code 12: An aggregated status request message
+
+
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
+**Functional state, functional position or status bits changes at the
+site**
+
+
 .. image:: /img/msc/aggregated_status.png
    :align: center
 
-**(Functional state, functional position or status bits changes at the
-site)**
-
 1. An aggregated status message is sent to the supervision system.
+
+**The supervision system request aggregated status**
+
+.. image:: /img/msc/aggregated_status_request.png
+   :align: center
+
+1. An aggregated status request message is sent to the site.
+2. An aggregated status message is sent to the supervision system.
 
 Status Messages
 ^^^^^^^^^^^^^^^
@@ -784,7 +862,7 @@ below.
         ]
    }
 
-JSon code 11: A status request message
+JSon code 13: A status request message
 
 The status code id (**sCI**) and name (**n**) are placed in an array
 (**sS**) in order to enable support for requesting multiple status at once.
@@ -844,7 +922,7 @@ instead answer with this type of message where **q** is set to **undefined**.
        ]
    }
 
-JSon code 12: A status response message
+JSon code 14: A status response message
 
 
 The following table is describing the variable content of the message:
@@ -1002,8 +1080,7 @@ e.g. temperature, wind speed, power consumption, manual control.
         ]
    }
 
-JSon code 13: A status subscribe message
-
+JSon code 15: A status subscribe message 
 
 The following table is describing the variable content of the message:
 
@@ -1083,7 +1160,7 @@ but instead answer with this type of message where **q** is set to
         ]
    }
 
-JSon code 14: A status update message
+JSon code 16: A status update message
 
 The allowed content is described in Table :num:`table-statusresponse` and
 :num:`table-statusresponse-returnvalues`.
@@ -1116,7 +1193,7 @@ partial StatusUpdates can be sent.
         ]
    }
 
-JSon code 15: A subscription request to subscribe to statues with different update rates
+JSon code 17: A subscription request to subscribe to statues with different update rates
 
 .. code-block:: json
    :name: json-status-request-partial-resp
@@ -1139,7 +1216,7 @@ JSon code 15: A subscription request to subscribe to statues with different upda
         ]
    }
 
-JSon code 16: A partial status update. Only a single status is updated
+JSon code 18: A partial status update. Only a single status is updated
 
 
 Structure for a status unsubscription message on one or several objects
@@ -1177,7 +1254,7 @@ usual message acknowledgement.
         ]
    }
 
-JSon code 17: A status unsubscribe message
+JSon code 19: A status unsubscribe message
 
 The allowed content is described in Table :num:`table-statusrequest`
 
@@ -1257,7 +1334,7 @@ requested object
         ]
    }
 
-JSon code 18: A command request message
+JSon code 20: A command request message
 
 
 The following table is describing the variable content of the message:
@@ -1373,7 +1450,7 @@ but instead answer with this type of message where **age** is set to
         ]
    }
 
-JSon code 19: A command response message
+JSon code 21: A command response message
 
 The following table is describing the variable content of the message:
 
@@ -1545,7 +1622,7 @@ below.
         "oMId": "49c6c824-d593-4c16-b335-f04feda16986"
    }
 
-JSon code 20: An acknowledgement message
+JSon code 22: An acknowledgement message
 
 Message structure – Message not acknowledged
 """"""""""""""""""""""""""""""""""""""""""""
@@ -1563,7 +1640,7 @@ below.
         "rea": "Unknown packet type: Watchdddog"
    }
 
-JSon code 21: A not acknowledgement message
+JSon code 23: A not acknowledgement message
 
 The following table is describing the variable content of the message:
 
@@ -1656,7 +1733,7 @@ the example below the system has support for RSMP version **3.1.1**,
         "SXL": "1.0.13"
    }
 
-JSon code 22: A RSMP / SXL message
+JSon code 24: A RSMP / SXL message
 
 The following table describes the variable content of the message which is
 defined by the SXL.
@@ -1752,7 +1829,7 @@ A watchdog message has the structure according to the example below.
         "wTs": "2015-06-08T12:01:39.654Z"
    }
 
-JSon code 23: A watchdog message
+JSon code 25: A watchdog message
 
 The following table is describing the variable content of the message:
 
