@@ -6,10 +6,10 @@ to be sent by the equipment. Sending any buffered messages is part of the
 communication sequence, but it may take a long time to empty the buffer
 in case of a slow network or long communication interruption. The equipment
 must prioritize to respond with MessageAck to any requests that the
-supervision system may send during this time. Discussed in [#4](https://github.com/rsmp-nordic/rsmp_core/issues/4)
+supervision system may send during this time. Discussed in [#4](https://github.com/rsmp-nordic/rsmp_core/issues/4).
 [View changes](https://github.com/rsmp-nordic/rsmp_core/commit/c6190f85e1bec18cce760040db922aef68eed7a3)
 
-## Don't new alarms if they're already active
+## Don't send new alarms if they're already active
 Clarify that new alarms shouldn't be sent if the alarm is already active.
 No changes to the protocol itself.
 Discussed in [#18](https://github.com/rsmp-nordic/rsmp_core/issues/18)
