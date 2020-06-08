@@ -1,3 +1,25 @@
+# Version 3.1.5-draft
+
+## MessageAck must be prioritized over buffered messages
+During communication establishment there may be buffered messages that needs
+to be sent by the equipment. Sending any buffered messages is part of the
+communication sequence, but it may take a long time to empty the buffer
+in case of a slow network or long communication interruption. The equipment
+must prioritize to respond with MessageAck to any requests that the
+supervision system may send during this time. Discussed in [#4](https://github.com/rsmp-nordic/rsmp_core/issues/4)
+[View changes](https://github.com/rsmp-nordic/rsmp_core/commit/c6190f85e1bec18cce760040db922aef68eed7a3)
+
+## Don't new alarms if they're already active
+Clarify that new alarms shouldn't be sent if the alarm is already active.
+No changes to the protocol itself.
+Discussed in [#18](https://github.com/rsmp-nordic/rsmp_core/issues/18)
+
+## Ability to request alarms and aggregated status
+Discussed in [#22](https://github.com/rsmp-nordic/rsmp_core/issues/22)
+
+## Status subscriptions and update on change+interval
+Discussed in [#21](https://github.com/rsmp-nordic/rsmp_core/issues/21)
+
 # Version 3.1.4
 
 ## Alarm timestamps
