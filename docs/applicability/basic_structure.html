@@ -210,7 +210,8 @@
 <p>Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
 the JSon elements are formatted as JSon string elements and not as JSon
 number elements or as JSon boolean elements, with the exception of the
-message type “aggregated status” where JSon boolean elements are used.</p>
+message type “aggregated status” and “status subscribe” where
+JSon boolean elements are used.</p>
 <p>The reason why JSon string elements are heavily used is to simplify
 deserialisation of values where the data type in unknown before casting is
 performed, for instance for the values in “return values”. Parsing is
@@ -1245,19 +1246,23 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
          <span class="p">{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0001&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;signalgroupstatus&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">},{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0001&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;cyclecounter&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">},{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0001&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;basecyclecounter&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">},{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0001&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;stage&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">}</span>
      <span class="p">]</span>
 <span class="p">}</span>
@@ -1286,6 +1291,11 @@ message should be sent.
 Defined in seconds with decimals, e.g. ”2.5” for
 2.5 seconds. Dot (.) is used as decimal point. If “0”
 means that the value should be sent when changed.</td>
+</tr>
+<tr class="row-odd"><td>sOc</td>
+<td>boolean</td>
+<td>sendOnChange. Determines if the value should be sent
+when changed.</td>
 </tr>
 </tbody>
 </table>
@@ -1344,7 +1354,8 @@ but instead answer with this type of message where <strong>q</strong> is set to
 <p>JSon code 14: A status update message</p>
 <p>The allowed content is described in Table <a href="#table-statusresponse">4.13</a> and
 <a href="#table-statusresponse-returnvalues">4.15</a>.</p>
-<p>Since different UpdateRate can be defined for different objects it means that partial StatusUpdates can be sent</p>
+<p>Since different UpdateRate can be defined for different objects it means that
+partial StatusUpdates can be sent.</p>
 <div class="highlight-json notranslate" id="json-status-request-partial"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusSubscribe&quot;</span><span class="p">,</span>
@@ -1356,11 +1367,13 @@ but instead answer with this type of message where <strong>q</strong> is set to
          <span class="p">{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0096&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;hour&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;120&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;120&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">},{</span>
              <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S0096&quot;</span><span class="p">,</span>
              <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;minute&quot;</span><span class="p">,</span>
-             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;60&quot;</span>
+             <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;60&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;sOc&quot;</span><span class="p">:</span> <span class="kc">false</span>
          <span class="p">}</span>
      <span class="p">]</span>
 <span class="p">}</span>
@@ -2072,7 +2085,7 @@ implicit in the following figures.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 
+        &copy; Copyright RSMP Nordic
 
     </p>
   </div>

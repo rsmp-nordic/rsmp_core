@@ -6,7 +6,8 @@ Basic structure
 Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
 the JSon elements are formatted as JSon string elements and not as JSon
 number elements or as JSon boolean elements, with the exception of the
-message type "aggregated status" where JSon boolean elements are used.
+message type "aggregated status" and "status subscribe" where
+JSon boolean elements are used.
 
 The reason why JSon string elements are heavily used is to simplify
 deserialisation of values where the data type in unknown before casting is
@@ -980,19 +981,23 @@ e.g. temperature, wind speed, power consumption, manual control.
             {
                 "sCI": "S0001",
                 "n": "signalgroupstatus",
-                "uRt": "0"
+                "uRt": "5",
+                "sOc": false
             },{
                 "sCI": "S0001",
                 "n": "cyclecounter",
-                "uRt": "0"
+                "uRt": "5",
+                "sOc": false
             },{
                 "sCI": "S0001",
                 "n": "basecyclecounter",
-                "uRt": "0"
+                "uRt": "5",
+                "sOc": false
             },{
                 "sCI": "S0001",
                 "n": "stage",
-                "uRt": "0"
+                "uRt": "5",
+                "sOc": false
             }
         ]
    }
@@ -1017,6 +1022,9 @@ The following table is describing the variable content of the message:
    |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
    |            |            | 2.5 seconds. Dot (.) is used as decimal point. If “0”  |
    |            |            | means that the value should be sent when changed.      |
+   +------------+------------+--------------------------------------------------------+
+   | sOc        | boolean    | sendOnChange. Determines if the value should be sent   |
+   |            |            | when changed.                                          |
    +------------+------------+--------------------------------------------------------+
 
 ..
@@ -1080,7 +1088,8 @@ JSon code 14: A status update message
 The allowed content is described in Table :num:`table-statusresponse` and
 :num:`table-statusresponse-returnvalues`.
 
-Since different UpdateRate can be defined for different objects it means that partial StatusUpdates can be sent
+Since different UpdateRate can be defined for different objects it means that
+partial StatusUpdates can be sent.
 
 .. code-block:: json
    :name: json-status-request-partial
@@ -1096,11 +1105,13 @@ Since different UpdateRate can be defined for different objects it means that pa
             {
                 "sCI": "S0096",
                 "n": "hour",
-                "uRt": "120"
+                "uRt": "120",
+                "sOc": false
             },{
                 "sCI": "S0096",
                 "n": "minute",
-                "uRt": "60"
+                "uRt": "60",
+                "sOc": false
             }
         ]
    }
