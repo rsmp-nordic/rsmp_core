@@ -1,0 +1,15 @@
+# MSC for Alarm request from system
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  site [label="Site"], system [label="Supervision system"];
+
+  |||;
+  system abox system [ label = "An alarm is requested" ];
+  |||;
+  site<=system [ label = "Alarm request message" ];
+  |||;
+  site=>system [ label = "Alarm message" ];
+  |||;
+}
