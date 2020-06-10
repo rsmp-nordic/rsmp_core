@@ -27,13 +27,14 @@ Requirements:
 - Sphinx: https://www.sphinx-doc.org
 - LaTeX (and pdflatex, and various LaTeX packages)
 - Mscgen: http://www.mcternan.me.uk/mscgen/
+- Graphviz: https://graphviz.org
 
 On Ubuntu:
 
 ```
-# apt-get install python-sphinx texlive texlive-latex-extra \
-  texlive-humanities mscgen imagemagick librsvg2-bin latexmk sphinx \
-  python-sphinx-rtd-theme
+# apt-get install python3-sphinx texlive texlive-latex-extra \
+  texlive-humanities mscgen imagemagick librsvg2-bin latexmk \
+  graphviz python3-sphinx-rtd-theme
 ```
 
 On Arch:
