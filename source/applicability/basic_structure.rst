@@ -307,6 +307,26 @@ or alarm suspend messages).
 
 ..
 
+:numref:`alarm-transitions` show possible transitions between
+different alarm states.
+
+Continuous lines defines possible alarm status changes controlled by logic
+and dashed lines defines possible changes controlled by user.
+
+.. figure:: /img/dot/alarm_transitions.png
+   :name: alarm-transitions
+   :alt: Alarm transitions
+   :align: center
+
+   Alarm transitions
+
+Alarms should not be sent unless:
+
+* Alarms are unblocked and it's state changes
+* Alarms are sent as part of
+  :ref:`communication-establishment-between-sites-and-supervision-system`
+* Alarms are explicitly requested using :ref:`alarmmessages-req`
+
 The following table describes the variable content of the message which is
 defined by the SXL.
 
@@ -871,9 +891,10 @@ The following table is describing the variable content of the message.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
+.. _table-statusrequest:
+
 .. figtable::
    :nofig:
-   :label: table-statusrequest
    :caption: Status request
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
@@ -927,9 +948,10 @@ JSon code 14: A status response message
 
 The following table is describing the variable content of the message:
 
+.. _table-statusresponse:
+
 .. figtable::
    :nofig:
-   :label: table-statusresponse
    :caption: Status response
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.55\linewidth}
@@ -968,9 +990,10 @@ Return values ("sS") are always sent but can be empty if no return values exists
 
 ..
 
+.. _table-statusresponse-returnvalues:
+
 .. figtable::
    :nofig:
-   :label: table-statusresponse-returnvalues
    :caption: Return values (returnvalue)
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
@@ -1162,8 +1185,9 @@ but instead answer with this type of message where **q** is set to
 
 JSon code 16: A status update message
 
-The allowed content is described in Table :num:`table-statusresponse` and
-:num:`table-statusresponse-returnvalues`.
+The allowed content is described in Table
+:ref:`Status response<table-statusresponse>` and
+:ref:`Return values<table-statusresponse-returnvalues>`.
 
 Since different UpdateRate can be defined for different objects it means that
 partial StatusUpdates can be sent.
@@ -1256,7 +1280,8 @@ usual message acknowledgement.
 
 JSon code 19: A status unsubscribe message
 
-The allowed content is described in Table :num:`table-statusrequest`
+The allowed content is described in Table
+:ref:`Status Request <table-statusrequest>`
 
 Message exchange between site and supervision system/other equipment - request
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

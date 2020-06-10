@@ -329,7 +329,7 @@ being acked</li>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.2:</strong> Variable content</span></p>
+<p class="caption"><span class="caption-text">Variable content</span></p>
 <span class="target" id="table-variable-content"></span></center></div><p>The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.</p>
@@ -363,7 +363,7 @@ elements and the titles in the SXL.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.3:</strong> Variable content defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Variable content defined by SXL</span></p>
 <span class="target" id="table-variable-content-sxl"></span></center></div><div class="section" id="alarm-messages">
 <span id="id2"></span><h2>4.4.1. Alarm messages<a class="headerlink" href="#alarm-messages" title="Permalink to this headline">¶</a></h2>
 <p>An alarm message is sent to the supervision system when:</p>
@@ -457,7 +457,7 @@ elements and the titles in the signal exchange list (SXL).</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.4:</strong> Alarm message</span></p>
+<p class="caption"><span class="caption-text">Alarm message</span></p>
 <span class="target" id="table-alarm"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-alarm-status-change">
 <center><table border="1" class="docutils">
@@ -504,7 +504,7 @@ elements and the titles in the signal exchange list (SXL).</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.5:</strong> Alarm status change</span></p>
+<p class="caption"><span class="caption-text">Alarm status change</span></p>
 <span class="target" id="table-alarm-status-change"></span></center></div></div>
 <div class="section" id="alarm-status">
 <span id="id4"></span><h4>4.4.1.1.2. Alarm status<a class="headerlink" href="#alarm-status" title="Permalink to this headline">¶</a></h4>
@@ -563,8 +563,23 @@ the alarm occurs (and not when the message is sent). All timestamps uses UTC.</p
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.6:</strong> Alarm status</span></p>
-<span class="target" id="table-alarm-status"></span></center></div><p>The following table describes the variable content of the message which is
+<p class="caption"><span class="caption-text">Alarm status</span></p>
+<span class="target" id="table-alarm-status"></span></center></div><p><a class="reference internal" href="#alarm-transitions"><span class="std std-numref">Fig. 4.1</span></a> show possible transitions between
+different alarm states.</p>
+<p>Continuous lines defines possible alarm status changes controlled by logic
+and dashed lines defines possible changes controlled by user.</p>
+<div class="figure align-center" id="alarm-transitions">
+<img alt="Alarm transitions" src="../_images/alarm_transitions.png" />
+<p class="caption"><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Alarm transitions</span></p>
+</div>
+<p>Alarms should not be sent unless:</p>
+<ul class="simple">
+<li>Alarms are unblocked and it’s state changes</li>
+<li>Alarms are sent as part of
+<a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a></li>
+<li>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for alarm request message</span></a></li>
+</ul>
+<p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).</p>
@@ -631,7 +646,7 @@ the next work shift.</li>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.7:</strong> Alarm status details defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Alarm status details defined by SXL</span></p>
 <span class="target" id="table-alarm-status-details-sxl"></span></center></div></div>
 <div class="section" id="return-values">
 <span id="id5"></span><h4>4.4.1.1.3. Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h4>
@@ -658,7 +673,7 @@ be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.8:</strong> Alarm return values</span></p>
+<p class="caption"><span class="caption-text">Alarm return values</span></p>
 <span class="target" id="table-alarm-return"></span></center></div><p>The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
@@ -707,7 +722,7 @@ base64 format according to RFC-4648</div>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.9:</strong> Alarm return value defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Alarm return value defined by SXL</span></p>
 <span class="target" id="table-alarm-return-values"></span></center></div></div>
 <div class="section" id="structure-for-alarm-request-message">
 <span id="alarmmessages-req"></span><h4>4.4.1.1.4. Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Permalink to this headline">¶</a></h4>
@@ -963,7 +978,7 @@ message is sent). All timestamps uses UTC.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.10:</strong> Aggregated status</span></p>
+<p class="caption"><span class="caption-text">Aggregated status</span></p>
 <span class="target" id="table-agg-basic"></span></center></div><p>The following table describes the variable content defined by the signal
 exchange list (SXL). The <em>SXL element</em> column describes the correlation
 between the JSon elements and the titles in the SXL.</p>
@@ -997,7 +1012,7 @@ This status bit array defines the status of the site to NTS</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.11:</strong> Aggregated status SXL content</span></p>
+<p class="caption"><span class="caption-text">Aggregated status SXL content</span></p>
 <span class="target" id="table-agg-specialisation"></span></center></div><div class="section" id="status-bits-state">
 <h4>4.4.2.1.1. Status bits (state)<a class="headerlink" href="#status-bits-state" title="Permalink to this headline">¶</a></h4>
 <p>The principle of aggregating of statuses for each bit is defined by the
@@ -1113,8 +1128,8 @@ elements and the titles in the SXL.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.12:</strong> Status request</span></p>
-<span class="target" id="table-statusrequest"></span></center></div></div>
+<p class="caption"><span class="caption-text">Status request</span></p>
+</center></div></div>
 <div class="section" id="structure-for-a-message-with-status-of-one-or-several-objects">
 <h4>4.4.4.1.2. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with status of one or several objects has the structure
@@ -1173,8 +1188,8 @@ All timestamps uses UTC.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.13:</strong> Status response</span></p>
-<span class="target" id="table-statusresponse"></span></center></div></div>
+<p class="caption"><span class="caption-text">Status response</span></p>
+</center></div></div>
 <div class="section" id="return-values-returnvalue">
 <h4>4.4.4.1.3. Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
@@ -1198,7 +1213,7 @@ All timestamps uses UTC.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.14:</strong> Return values (returnvalue)</span></p>
+<p class="caption"><span class="caption-text">Return values (returnvalue)</span></p>
 <span class="target" id="table-statusresponse-returnvalues-sS"></span></center></div><div class="figure align-center" id="table-statusresponse-returnvalues">
 <center><table border="1" class="docutils">
 <colgroup>
@@ -1255,8 +1270,8 @@ sent.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.15:</strong> Return values (returnvalue)</span></p>
-<span class="target" id="table-statusresponse-returnvalues"></span></center></div><p>The following table describes additional variable content of the message.</p>
+<p class="caption"><span class="caption-text">Return values (returnvalue)</span></p>
+</center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-statusresponse-returnvalues-qualtiy">
 <center><table border="1" class="docutils">
 <colgroup>
@@ -1290,7 +1305,7 @@ be performed.
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.16:</strong> Return value quality</span></p>
+<p class="caption"><span class="caption-text">Return value quality</span></p>
 <span class="target" id="table-statusresponse-returnvalues-qualtiy"></span></center></div></div>
 <div class="section" id="structure-for-a-status-subscription-request-message-on-one-or-several-objects">
 <h4>4.4.4.1.4. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
@@ -1363,7 +1378,7 @@ when changed.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.17:</strong> Status Request</span></p>
+<p class="caption"><span class="caption-text">Status Request</span></p>
 <span class="target" id="table-statusrequest-basic"></span></center></div></div>
 <div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
 <h4>4.4.4.1.5. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
@@ -1416,8 +1431,9 @@ but instead answer with this type of message where <strong>q</strong> is set to
 </pre></div>
 </div>
 <p>JSon code 16: A status update message</p>
-<p>The allowed content is described in Table <a href="#table-statusresponse">4.13</a> and
-<a href="#table-statusresponse-returnvalues">4.15</a>.</p>
+<p>The allowed content is described in Table
+<a class="reference internal" href="#table-statusresponse"><span class="std std-ref">Status response</span></a> and
+<a class="reference internal" href="#table-statusresponse-returnvalues"><span class="std std-ref">Return values</span></a>.</p>
 <p>Since different UpdateRate can be defined for different objects it means that
 partial StatusUpdates can be sent.</p>
 <div class="highlight-json notranslate" id="json-status-request-partial"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1497,7 +1513,8 @@ usual message acknowledgement.</p>
 </pre></div>
 </div>
 <p>JSon code 19: A status unsubscribe message</p>
-<p>The allowed content is described in Table <a href="#table-statusrequest">4.12</a></p>
+<p>The allowed content is described in Table
+<a class="reference internal" href="#table-statusrequest"><span class="std std-ref">Status Request</span></a></p>
 </div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-request">
@@ -1586,7 +1603,7 @@ requested object</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.18:</strong> Command argument</span></p>
+<p class="caption"><span class="caption-text">Command argument</span></p>
 <span class="target" id="table-commands-argument"></span></center></div><p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
@@ -1651,7 +1668,7 @@ base64 format according to RFC-4648</div>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.19:</strong> Command arguments defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Command arguments defined by SXL</span></p>
 <span class="target" id="table-command-arguments-sxl"></span></center></div><div class="section" id="structure-of-command-response-message">
 <h4>4.4.5.1.1. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h4>
 <p>A command response message has the structure according to the example
@@ -1718,7 +1735,7 @@ the alarm occurs (and not when the message is sent). All timestamps uses UTC.</t
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.20:</strong> Command response</span></p>
+<p class="caption"><span class="caption-text">Command response</span></p>
 <span class="target" id="table-command-response"></span></center></div></div>
 <div class="section" id="id12">
 <h4>4.4.5.1.2. Return values (returnvalue)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
@@ -1744,7 +1761,7 @@ be empty if not return values are defined.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.21:</strong> Command return values</span></p>
+<p class="caption"><span class="caption-text">Command return values</span></p>
 <span class="target" id="table-command-returnvalues-rvs"></span></center></div><p>The following table describes the variable content defined by the signal
 exchange list (SXL). The <em>SXL element</em> column describes the correlation
 between the JSon elements and the titles in the SXL.</p>
@@ -1798,7 +1815,7 @@ base64 format according to RFC-4648</div>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.22:</strong> Command return value defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Command return value defined by SXL</span></p>
 <span class="target" id="table-command-returnvalue-sxl"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-command-returnvalue">
 <center><table border="1" class="docutils">
@@ -1831,7 +1848,7 @@ base64 format according to RFC-4648</div>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.23:</strong> Command return value</span></p>
+<p class="caption"><span class="caption-text">Command return value</span></p>
 <span class="target" id="table-command-returnvalue"></span></center></div></div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment">
@@ -1922,7 +1939,7 @@ below.</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.24:</strong> Message not ack</span></p>
+<p class="caption"><span class="caption-text">Message not ack</span></p>
 <span class="target" id="table-messagenoteack-basic"></span></center></div></div>
 <div class="section" id="id14">
 <h3>4.4.6.3. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
@@ -2027,7 +2044,7 @@ in the message using an array (<strong>siteId</strong>)</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.25:</strong> Version information defined by SXL</span></p>
+<p class="caption"><span class="caption-text">Version information defined by SXL</span></p>
 <span class="target" id="table-version-basic-sxl"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-version-basic">
 <center><table border="1" class="docutils">
@@ -2046,7 +2063,7 @@ in the message using an array (<strong>siteId</strong>)</p>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.26:</strong> Version information</span></p>
+<p class="caption"><span class="caption-text">Version information</span></p>
 <span class="target" id="table-version-basic"></span></center></div></div>
 </div>
 <div class="section" id="watchdog">
@@ -2109,7 +2126,7 @@ message is sent). All timestamps uses UTC.</td>
 </tr>
 </tbody>
 </table>
-<p class="caption"><span class="caption-text"><strong>Figure 4.27:</strong> Watchdog</span></p>
+<p class="caption"><span class="caption-text">Watchdog</span></p>
 <span class="target" id="table-watchdog-basic"></span></center></div></div>
 <div class="section" id="id18">
 <h3>4.4.8.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>

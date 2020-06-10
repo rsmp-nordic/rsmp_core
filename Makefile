@@ -9,6 +9,10 @@ SOURCEDIR     = source
 BUILDDIR      = build
 
 # Internal variables
+# Directed graphs converted from .dot to .png
+DOT_GRAPH_DIR    = source/img/dot
+DOT_GRAPHS       = $(wildcard $(DOT_GRAPH_DIR)/*.dot)
+GEN_PNG_GRAPHS   = $(DOT_GRAPHS:.dot=.png)
 # Message sequence charts converted from .msc to .png
 MSC_DIR          = source/img/msc
 MSC_DIAGRAMS     = $(wildcard $(MSC_DIR)/*.msc)
@@ -27,13 +31,18 @@ clean:
 	rm -rf $(BUILDDIR)/*
 	rm -f source/extensions/*.pyc
 	rm -f source/extensions/__pycache__/*.pyc
+	rm -f $(DOT_GRAPH_DIR)/*.png
 	rm -f $(MSC_DIR)/*.png
+
+$(DOT_GRAPH_DIR)/%.png: $(DOT_GRAPH_DIR)/%.dot
+	@dot -Tpng $< -o $@
+	@echo DOT: $<
 
 $(MSC_DIR)/%.png: $(MSC_DIR)/%.msc
 	@mscgen -T png $<
 	@echo MSCGEN: $<
 
-generated-images: $(GEN_MSC_DIAGRAMS)
+generated-images: $(GEN_PNG_GRAPHS) $(GEN_MSC_DIAGRAMS)
 
 all:	html latexpdf singlehtml
 
