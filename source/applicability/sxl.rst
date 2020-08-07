@@ -3,11 +3,6 @@
 Signal Exchange List
 ====================
 
-.. raw:: latex
-
-   % Skip the contents chapter
-   \refstepcounter{section}
-
 Purpose
 -------
 The purpose with this appendix is to define the format and function of the
