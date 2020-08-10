@@ -3,14 +3,12 @@
 Signal Exchange List
 ====================
 
-The signal exchange list an important functional part of RSMP. The
-specification of RSMP is defined in the main document. A template
-of the signal exchange list is available on request.
+The signal exchange list an important functional part of RSMP.
+Since the contens of every message using RSMP is dynamic, a predefined
+signal exchange list (:term:`SXL`) is prerequisite in order to be able to
+establish communication.
 
-Since the information in every message which is sent with the
-communication protocol is dynamic is a predefined signal exchange list
-is prerequisite to be able to establish communication. The signal
-exchange list defines which message types (signals) which is possible
+The signal exchange list defines which message types (signals) which is possible
 to send to a specific equipment or object. It is formatted according to
 predefined principles which is defined below.
 
@@ -68,8 +66,8 @@ specification.
   how many return values and arguments which can be used for a single
   message.
 
-Overview on functional differencies between different message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Overview on functional differences between different message types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following table defines the functional differences between
 different message types.
 

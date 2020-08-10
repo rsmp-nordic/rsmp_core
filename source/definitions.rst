@@ -6,7 +6,9 @@ Definitions
 .. glossary::
 
    SXL
-      Signal exchange list
+      Signal exchange list. Defines which messages types (signals)
+      which is possible to send to a specific equipment or object.
+      E.g. alarms, statuses and commands
 
    NTS
       National Traffic management system. Replaces CTS
