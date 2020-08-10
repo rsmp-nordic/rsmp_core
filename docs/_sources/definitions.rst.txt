@@ -107,3 +107,8 @@ Definitions
 
    STA
        Swedish Transport Administration
+
+   RSMP Nordic
+       Organization for maintaining and develop the RSMP protocol.
+       Collaboration between the Swedish Transport Administration,
+       Vejdirektoratet, Stockholms Stad and Københavns Kommune
