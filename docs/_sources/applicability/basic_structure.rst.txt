@@ -1120,14 +1120,26 @@ The following table is describing the variable content of the message:
    | uRt        | *(string)* | updateRate. Determines the interval of which the       |
    |            |            | message should be sent.                                |
    |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
-   |            |            | 2.5 seconds. Dot (.) is used as decimal point. If “0”  |
-   |            |            | means that the value should be sent when changed.      |
+   |            |            | 2.5 seconds. Dot (.) is used as decimal point.         |
+   |            |            | If “0” it means that the value should not be sent      |
+   |            |            | according to an interval                               |
    +------------+------------+--------------------------------------------------------+
-   | sOc        | boolean    | sendOnChange. Determines if the value should be sent   |
-   |            |            | when changed.                                          |
+   | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
+   |            |            | when the value changes.                                |
    +------------+------------+--------------------------------------------------------+
 
 ..
+
+The **updateRate** (uRt) and **sendOnChange** (sOc) determines when a
+status update should be sent. **updateRate** defines a specific interval
+when to send updates. If **updateRate** is set to "0" it means that no
+update is sent using an interval. **sendOnChange** defines if an status
+update should be sent as soon as the value changes.
+
+It is possible to combine **updateRate** and **sendOnChange** to send an
+update when the value changes and at the same time using a specific
+interval.
+
 
 Structure for a response message with answer to a request for status subscription for one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

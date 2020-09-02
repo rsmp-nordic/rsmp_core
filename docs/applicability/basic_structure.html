@@ -1366,18 +1366,27 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
 <td>updateRate. Determines the interval of which the
 message should be sent.
 Defined in seconds with decimals, e.g. ”2.5” for
-2.5 seconds. Dot (.) is used as decimal point. If “0”
-means that the value should be sent when changed.</td>
+2.5 seconds. Dot (.) is used as decimal point.
+If “0” it means that the value should not be sent
+according to an interval</td>
 </tr>
 <tr class="row-odd"><td>sOc</td>
 <td>boolean</td>
-<td>sendOnChange. Determines if the value should be sent
-when changed.</td>
+<td>sendOnChange. Determines if the message should be sent
+when the value changes.</td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Status Request</span></p>
-<span class="target" id="table-statusrequest-basic"></span></center></div></div>
+<span class="target" id="table-statusrequest-basic"></span></center></div><p>The <strong>updateRate</strong> (uRt) and <strong>sendOnChange</strong> (sOc) determines when a
+status update should be sent. <strong>updateRate</strong> defines a specific interval
+when to send updates. If <strong>updateRate</strong> is set to “0” it means that no
+update is sent using an interval. <strong>sendOnChange</strong> defines if an status
+update should be sent as soon as the value changes.</p>
+<p>It is possible to combine <strong>updateRate</strong> and <strong>sendOnChange</strong> to send an
+update when the value changes and at the same time using a specific
+interval.</p>
+</div>
 <div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
 <h4>4.4.4.1.5. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A response message with answer to a request for status subscription
