@@ -15,8 +15,6 @@ The specification is available the following formats:
 * [View the core specification online](http://rsmp-nordic.github.io/rsmp_core)
 * [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.1.4/rsmp-spec-3.1.4.pdf)
 
-The RSMP specification is also defined by Trafikverket publication TDOK 2019:0325 and TDOK 2019:0326. Please see http://trvdokument.trafikverket.se
-
 ## FAQ
 Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
 
