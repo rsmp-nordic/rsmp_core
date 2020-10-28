@@ -1,4 +1,4 @@
-# Version 3.1.5-draft
+# Version 3.1.5
 
 ## MessageAck must be prioritized over buffered messages
 During communication establishment there may be buffered messages that needs
