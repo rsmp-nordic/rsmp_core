@@ -49,8 +49,22 @@ On MacOS using MacTex and Homebrew:
 Download MacTeX and install from http://www.tug.org/mactex
 
 ```
-$ pip install -U sphinx sphinx_rtd_theme
-$ brew install mscgen
+$ pip3 install -U sphinx sphinx_rtd_theme
+$ brew install gts
+$ brew install graphwiz
+# wget http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+```
+
+Install mscgen
+
+```
+curl -O http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+tar xfz mscgen-src-0.20.tar.gz 
+cd mscgen-0.20/
+./configure
+make
+make check
+sudo make install
 ```
 
 Then:
