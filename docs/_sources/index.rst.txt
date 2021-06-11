@@ -4,7 +4,7 @@
 
 .. footer::
 
-   Created 2017-11-03, 3.1.4
+   Created 2020-10-30, 3.1.5
 
 RSMP Specification
 ==================
