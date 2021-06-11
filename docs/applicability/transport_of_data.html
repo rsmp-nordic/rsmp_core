@@ -1,39 +1,38 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4.3. Transport of data &mdash; RSMP Specification 3.1.5-draft documentation</title>
+  <title>4.3. Transport of data &mdash; RSMP Specification 3.1.6-draft documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.4. Basic structure" href="basic_structure.html" />
@@ -61,7 +60,7 @@
             
             
               <div class="version">
-                3.1.5
+                3.1.6
               </div>
             
           
@@ -78,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -113,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,20 +148,22 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../applicability.html">4. Applicability</a> &raquo;</li>
+          <li><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a> &raquo;</li>
         
-      <li>4.3. Transport of data</li>
+      <li><span class="section-number">4.3. </span>Transport of data</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/applicability/transport_of_data.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -175,7 +178,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="transport-of-data">
-<span id="id1"></span><h1>4.3. Transport of data<a class="headerlink" href="#transport-of-data" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">4.3. </span>Transport of data<a class="headerlink" href="#transport-of-data" title="Permalink to this headline">¶</a></h1>
 <p>The message flow is different between different types of messages.
 Some message types are event driven and are sent without a request (push),
 while others are interaction driven, i.e. they sent in response to a
@@ -191,48 +194,48 @@ system is waiting for an answer to a previously sent message it can
 can continue to send messages. The exception in the RSMP / SXL version message
 (see section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p>
 <div class="section" id="security">
-<h2>4.3.1. Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.1. </span>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
 <p>Implementing encryption is not required unless otherwise stated. However, if
 encryption is used than the following applies:</p>
 <ul class="simple">
-<li>Encryption settings needs to be configurable in both the supervision system as
-well as the site.</li>
-<li>For the encrypted communication, SSL 3.0/TLS 1.0 or later is used.</li>
-<li>Certificates should be used to verify the identities of equipments.</li>
-<li>Equipment which uses RSMP should contain a user interface for easy management
-of certificates.</li>
-<li>The issuing and renewal of certificates should should be made in cooperation
-with the purchaser unless other arrangement is agreed upon.</li>
+<li><p>Encryption settings needs to be configurable in both the supervision system as
+well as the site.</p></li>
+<li><p>For the encrypted communication, SSL 3.0/TLS 1.0 or later is used.</p></li>
+<li><p>Certificates should be used to verify the identities of equipments.</p></li>
+<li><p>Equipment which uses RSMP should contain a user interface for easy management
+of certificates.</p></li>
+<li><p>The issuing and renewal of certificates should should be made in cooperation
+with the purchaser unless other arrangement is agreed upon.</p></li>
 </ul>
 </div>
 <div class="section" id="communication-establishment-between-sites-and-supervision-system">
-<span id="id2"></span><h2>4.3.2. Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><span class="section-number">4.3.2. </span>Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Permalink to this headline">¶</a></h2>
 <p>When establishing communication between sites and supervision system,
 messages are sent in the following order.</p>
 <p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/establish-site-system.png" class="align-center" src="../_images/establish-site-system.png" />
 <ol class="arabic simple">
-<li>Site sends RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</li>
-<li>The supervision system verifies the RSMP version, SXL version and site id.
+<li><p>Site sends RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The supervision system verifies the RSMP version, SXL version and site id.
 If there is a mismatch the sequence does not proceed. The system responds
 with a MessageNotAck and closes the connection
-(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</li>
-<li>The supervision system sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</li>
-<li>The site verifies the RSMP version, SXL version and site id.
+(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</p></li>
+<li><p>The supervision system sends RSMP / SXL version (according to section
+<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The site verifies the RSMP version, SXL version and site id.
 If there is a mismatch the sequence does not proceed. The site responds
 with a MessageNotAck and closes the connection.
-(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</li>
-<li>The site sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
-<li>The system sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
-<li>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>).
+(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</p></li>
+<li><p>The site sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
+<li><p>The system sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
+<li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>).
 If no object for aggregated status is defined in the signal exchange list
-then no aggregated status message is sent.</li>
-<li>All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
-are sent. (according to section <a class="reference internal" href="basic_structure.html#alarm-messages"><span class="std std-ref">Alarm messages</span></a>).</li>
-<li>Buffered messages in the equipment’s outgoing communication buffer are sent,
-incl. alarms, aggregated status and status updates.</li>
+then no aggregated status message is sent.</p></li>
+<li><p>All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
+are sent. (according to section <a class="reference internal" href="basic_structure.html#alarm-messages"><span class="std std-ref">Alarm messages</span></a>).</p></li>
+<li><p>Buffered messages in the equipment’s outgoing communication buffer are sent,
+incl. alarms, aggregated status and status updates.</p></li>
 </ol>
 <p>The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -247,15 +250,15 @@ alarms should not be sent again.</p>
 at the communication establishment (according to the version message),
 each connected site must either:</p>
 <ul class="simple">
-<li>Use the same version of the signal exchange list via the same
-RSMP connection</li>
-<li>Connect to separate supervision systems (e.g. using separate ports)</li>
-<li>Connect to a supervision system that can handle separate signal exchange
-lists depending on the RSMP / SXL version message from the site</li>
+<li><p>Use the same version of the signal exchange list via the same
+RSMP connection</p></li>
+<li><p>Connect to separate supervision systems (e.g. using separate ports)</p></li>
+<li><p>Connect to a supervision system that can handle separate signal exchange
+lists depending on the RSMP / SXL version message from the site</p></li>
 </ul>
 </div>
 <div class="section" id="communication-establishment-between-sites">
-<span id="id3"></span><h2>4.3.3. Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2><span class="section-number">4.3.3. </span>Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Permalink to this headline">¶</a></h2>
 <p>Implementing support for communication between sites is not required unless
 otherwise stated. However, if communication between sites is used than the
 following applies.</p>
@@ -266,107 +269,107 @@ following order.</p>
 implicit in the following figure.</p>
 <img alt="../_images/establish-site-site.png" class="align-center" src="../_images/establish-site-site.png" />
 <ol class="arabic simple">
-<li>The follower site sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</li>
-<li>The leader site verifies the RSMP version, SXL version and site id.
+<li><p>The follower site sends RSMP / SXL version (according to section
+<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The leader site verifies the RSMP version, SXL version and site id.
 If there is a mismatch the sequence does not proceed. The leader site
 responds with a MessageNotAck and closes the connection.
-(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</li>
-<li>The leader site sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</li>
-<li>The follower site verifies the RSMP version, SXL version and site id.
+(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</p></li>
+<li><p>The leader site sends RSMP / SXL version (according to section
+<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The follower site verifies the RSMP version, SXL version and site id.
 If there is a mismatch the sequence does not proceed. The follower site
 responds with a MessageNotAck and closes the connection.
-(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</li>
-<li>The follower site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
-<li>The leader site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
-<li>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)
+(see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>)</p></li>
+<li><p>The follower site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
+<li><p>The leader site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
+<li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)
 If no object for aggregated status is defined in the signal exchange list
-then no aggregated status message is sent.</li>
+then no aggregated status message is sent.</p></li>
 </ol>
 <p>For communication between sites the following applies:</p>
 <ul class="simple">
-<li>The SXL used is the SXL of the follower site</li>
-<li>The site id (siteId) which is sent in RSMP / SXL version is the
-follower site’s site id</li>
-<li>If the site id does not match with the expected site id the connection
+<li><p>The SXL used is the SXL of the follower site</p></li>
+<li><p>The site id (siteId) which is sent in RSMP / SXL version is the
+follower site’s site id</p></li>
+<li><p>If the site id does not match with the expected site id the connection
 should be terminated. The purpose is to reduce the risk of establishing
-connection with the wrong site</li>
-<li>The component id which is used in all messages is the follower site’s
-component id</li>
-<li>Watchdog messages does not adjust the clock</li>
-<li>Alarm messages are not sent</li>
-<li>No communication buffer exist</li>
+connection with the wrong site</p></li>
+<li><p>The component id which is used in all messages is the follower site’s
+component id</p></li>
+<li><p>Watchdog messages does not adjust the clock</p></li>
+<li><p>Alarm messages are not sent</p></li>
+<li><p>No communication buffer exist</p></li>
 </ul>
 </div>
 <div class="section" id="communication-disruption">
-<span id="id4"></span><h2>4.3.4. Communication disruption<a class="headerlink" href="#communication-disruption" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2><span class="section-number">4.3.4. </span>Communication disruption<a class="headerlink" href="#communication-disruption" title="Permalink to this headline">¶</a></h2>
 <p>In the event of an communication disruption the following principles applies:</p>
 <ul class="simple">
-<li>If the equipment supports buffering of status messages, the status
+<li><p>If the equipment supports buffering of status messages, the status
 subscriptions remains active regardless of communication disruption and the
-status updates are stored in the equipment’s outgoing communication buffer.</li>
-<li>Active subscriptions to status messages which does does not support buffering
-ceases if the communication disruption occurs.</li>
-<li>Once communication is restored all the buffered messages are sent according to
-the communication establishment sequence.</li>
-<li>The communication buffer is stored and sent using the FIFO principle.</li>
-<li>In the event of communications failure or power outage the contens of the
-outgoing communication buffer must not be lost.</li>
-<li>The internal communication buffer of the device must at a minimum be
-sized to be able to store 10000 messages.</li>
+status updates are stored in the equipment’s outgoing communication buffer.</p></li>
+<li><p>Active subscriptions to status messages which does does not support buffering
+ceases if the communication disruption occurs.</p></li>
+<li><p>Once communication is restored all the buffered messages are sent according to
+the communication establishment sequence.</p></li>
+<li><p>The communication buffer is stored and sent using the FIFO principle.</p></li>
+<li><p>In the event of communications failure or power outage the contens of the
+outgoing communication buffer must not be lost.</p></li>
+<li><p>The internal communication buffer of the device must at a minimum be
+sized to be able to store 10000 messages.</p></li>
 </ul>
 <p>The following message types should be buffered in the equipment’s outgoing
 communication buffer in the event of an communication disruption.</p>
 <div class="figure align-center" id="message-types-buffered">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="32%" />
-<col width="68%" />
+<col style="width: 32%" />
+<col style="width: 68%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Message type</th>
-<th class="head">Buffered during communication outage</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Message type</p></th>
+<th class="head"><p>Buffered during communication outage</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Alarm messages</td>
-<td>Yes</td>
+<tbody>
+<tr class="row-even"><td><p>Alarm messages</p></td>
+<td><p>Yes</p></td>
 </tr>
-<tr class="row-odd"><td>Aggregated status</td>
-<td>Yes</td>
+<tr class="row-odd"><td><p>Aggregated status</p></td>
+<td><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td>Status messages</td>
-<td>Configurable</td>
+<tr class="row-even"><td><p>Status messages</p></td>
+<td><p>Configurable</p></td>
 </tr>
-<tr class="row-odd"><td>Command messages</td>
-<td>No</td>
+<tr class="row-odd"><td><p>Command messages</p></td>
+<td><p>No</p></td>
 </tr>
-<tr class="row-even"><td>Version messages</td>
-<td>No</td>
+<tr class="row-even"><td><p>Version messages</p></td>
+<td><p>No</p></td>
 </tr>
-<tr class="row-odd"><td>Watchdog messages</td>
-<td>No</td>
+<tr class="row-odd"><td><p>Watchdog messages</p></td>
+<td><p>No</p></td>
 </tr>
-<tr class="row-even"><td>MessageAck</td>
-<td>No</td>
+<tr class="row-even"><td><p>MessageAck</p></td>
+<td><p>No</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Message types that should be buffered</span></p>
 <span class="target" id="message-types-buffered"></span></center></div><p>The following configuration options should exist at the site:</p>
 <ul class="simple">
-<li>It should be possible configure which status messages that will be buffered
-during communication outage</li>
-<li>The site should try to reconnect to the supervision system/other site
+<li><p>It should be possible configure which status messages that will be buffered
+during communication outage</p></li>
+<li><p>The site should try to reconnect to the supervision system/other site
 during communications failure (yes/no). This configuration option should
-be activated by default unless anything else is agreed upon.</li>
-<li>The reconnect interval should be configurable. The default value should
-be 10 seconds.</li>
+be activated by default unless anything else is agreed upon.</p></li>
+<li><p>The reconnect interval should be configurable. The default value should
+be 10 seconds.</p></li>
 </ul>
 </div>
 <div class="section" id="wrapping-of-packets">
-<h2>4.3.5. Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.5. </span>Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Permalink to this headline">¶</a></h2>
 <p>Both Json and XML packets can be tricky to decode unless one always know that
 the packet is complete. Json lacks an end tag and an XML end tag may be
 embedded in the text source. In order to reliably detect the end of a packet
@@ -378,7 +381,7 @@ exist. Therefore it is a good practice to use formfeed (0x0c), e.g. ’f’
 in C/C++/C#. Formfeed won’t be embedded in in the packets so the parser only
 needs to search the incoming buffer for 0x0c and deal with every packet.</p>
 <p>Example of wrapping of a packet:</p>
-<div class="code highlight-default notranslate" id="json-wrapping"><div class="highlight"><pre><span></span> <span class="p">{</span>
+<div class="highlight-default notranslate" id="json-wrapping"><div class="highlight"><pre><span></span> <span class="p">{</span>
      <span class="s2">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
      <span class="s2">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;d2e9a9a1-a082-44f5-b4e0-6c9233-a204c&quot;</span><span class="p">,</span>
@@ -408,30 +411,30 @@ needs to search the incoming buffer for 0x0c and deal with every packet.</p>
 ex &lt;0x0c&gt; is ASCII code 12, e.g. FF (formfeed).</p>
 <p>The following principles applies:</p>
 <ul class="simple">
-<li>All packets must be ended with a FF (formeed). This includes message
+<li><p>All packets must be ended with a FF (formeed). This includes message
 acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>).
 For example if NotAck is used as a consequence for signal exchange list
-mismatch during communication establishment</li>
-<li>Several consecutive FF (formeed) must not be sent, but must be handled</li>
-<li>FF (formeed) in the beginning of the data exchange (after connection
-establishment) must not be sent, but must be handled</li>
+mismatch during communication establishment</p></li>
+<li><p>Several consecutive FF (formeed) must not be sent, but must be handled</p></li>
+<li><p>FF (formeed) in the beginning of the data exchange (after connection
+establishment) must not be sent, but must be handled</p></li>
 </ul>
 </div>
 <div class="section" id="transport-between-site-and-supervision-system">
-<h2>4.3.6. Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.6. </span>Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h2>
 <p>Supervision system acts a socket server and waits for the site to
 connect. If the communication were to fail it is the site’s
 responsibility to reconnect.</p>
 </div>
 <div class="section" id="transport-between-sites">
-<h2>4.3.7. Transport between sites<a class="headerlink" href="#transport-between-sites" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3.7. </span>Transport between sites<a class="headerlink" href="#transport-between-sites" title="Permalink to this headline">¶</a></h2>
 <p>One site acts as leader and the other one as a follower.</p>
 <ul class="simple">
-<li>The leader site initiates the connection to the following site.</li>
-<li>The follower sites implements a socket server and waits for the leader site
-to connect.</li>
-<li>If the communication were to fail it is the follower site’s responsibility
-to reconnect.</li>
+<li><p>The leader site initiates the connection to the following site.</p></li>
+<li><p>The follower sites implements a socket server and waits for the leader site
+to connect.</p></li>
+<li><p>If the communication were to fail it is the follower site’s responsibility
+to reconnect.</p></li>
 </ul>
 </div>
 </div>
@@ -441,29 +444,29 @@ to reconnect.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="basic_structure.html" class="btn btn-neutral float-right" title="4.4. Basic structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="object_model.html" class="btn btn-neutral float-left" title="4.2. Object model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="basic_structure.html" class="btn btn-neutral float-right" title="4.4. Basic structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="object_model.html" class="btn btn-neutral float-left" title="4.2. Object model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright RSMP Nordic
+        &#169; Copyright RSMP Nordic.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -471,7 +474,6 @@ to reconnect.</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

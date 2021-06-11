@@ -1,39 +1,38 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>3. Purpose &mdash; RSMP Specification 3.1.5-draft documentation</title>
+  <title>3. Purpose &mdash; RSMP Specification 3.1.6-draft documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="4. Applicability" href="applicability.html" />
@@ -61,7 +60,7 @@
             
             
               <div class="version">
-                3.1.5
+                3.1.6
               </div>
             
           
@@ -78,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -100,6 +100,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,18 +135,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>3. Purpose</li>
+      <li><span class="section-number">3. </span>Purpose</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/purpose.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -160,7 +163,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="purpose">
-<span id="id1"></span><h1>3. Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">3. </span>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h1>
 <p>The purpose of this protocol is to create a standardized way to
 communicate between systems at the local level and systems at the
 regional level regardless of supplier and technology. The goal is to
@@ -187,7 +190,7 @@ correct the error. Additional detailed information about an alarm
 etc.) can read on site via vendor-specific web interface or operator
 panel.</p>
 <div class="section" id="identified-requirements">
-<h2>3.1. Identified requirements<a class="headerlink" href="#identified-requirements" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.1. </span>Identified requirements<a class="headerlink" href="#identified-requirements" title="Permalink to this headline">¶</a></h2>
 <p>In order to provide an information exchange that is not dependent of
 technology area or vendor specific information - four message types
 have been identified that cover all types of information that the
@@ -197,19 +200,19 @@ equipment using a specific signal exchange list (SXL). The SXL also
 represents the interface between the supervision system / other
 facilities and equipment. The four message types are:</p>
 <ul class="simple">
-<li><strong>Alarm</strong>. System, traffic- or monitoring alarms that require action
+<li><p><strong>Alarm</strong>. System, traffic- or monitoring alarms that require action
 by the traffic operator or traffic engineer. Usually sent from the
-equipment to the monitoring system when they occur.</li>
-<li><strong>Aggregated status</strong>. An aggregated status that gives an overview
+equipment to the monitoring system when they occur.</p></li>
+<li><p><strong>Aggregated status</strong>. An aggregated status that gives an overview
 glance of the status of the road side equipment. Usually sent from
-the equipment as soon as it changes to the monitoring system.</li>
-<li><strong>Status</strong>. Status changes, indications and detailed information
+the equipment as soon as it changes to the monitoring system.</p></li>
+<li><p><strong>Status</strong>. Status changes, indications and detailed information
 should be logged or made visible at the monitoring system. Sent upon
 request from the supervision system / other facility or using
-subscription (either at status change or at set time interval).</li>
-<li><strong>Command</strong>. Commands sent from a supervision system or other
+subscription (either at status change or at set time interval).</p></li>
+<li><p><strong>Command</strong>. Commands sent from a supervision system or other
 facility to alter the equipment / object status or control
-principle.</li>
+principle.</p></li>
 </ul>
 </div>
 </div>
@@ -219,29 +222,29 @@ principle.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="applicability.html" class="btn btn-neutral float-right" title="4. Applicability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="introduction.html" class="btn btn-neutral float-left" title="2. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="applicability.html" class="btn btn-neutral float-right" title="4. Applicability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="introduction.html" class="btn btn-neutral float-left" title="2. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright RSMP Nordic
+        &#169; Copyright RSMP Nordic.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -249,7 +252,6 @@ principle.</li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

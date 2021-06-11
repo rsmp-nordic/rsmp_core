@@ -1,39 +1,39 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4.4. Basic structure &mdash; RSMP Specification 3.1.5-draft documentation</title>
+  <title>4.4. Basic structure &mdash; RSMP Specification 3.1.6-draft documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.5. Signal Exchange List" href="sxl.html" />
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.1.5
+                3.1.6
               </div>
             
           
@@ -78,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -146,6 +147,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -180,20 +182,22 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../applicability.html">4. Applicability</a> &raquo;</li>
+          <li><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a> &raquo;</li>
         
-      <li>4.4. Basic structure</li>
+      <li><span class="section-number">4.4. </span>Basic structure</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/applicability/basic_structure.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -208,7 +212,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="basic-structure">
-<span id="id1"></span><h1>4.4. Basic structure<a class="headerlink" href="#basic-structure" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">4.4. </span>Basic structure<a class="headerlink" href="#basic-structure" title="Permalink to this headline">¶</a></h1>
 <p>Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
 the JSon elements are formatted as JSon string elements and not as JSon
 number elements or as JSon boolean elements, with the exception of the
@@ -251,77 +255,77 @@ otherwise stated.</p>
 <p>JSon code 2: An RSMP message</p>
 <p>The following table is describing the variable content of all message types.</p>
 <div class="figure align-center" id="table-variable-content">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="28%" />
-<col width="58%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+<col style="width: 58%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>mType</td>
-<td>rSMsg</td>
-<td>RSMP identifier</td>
+<tbody>
+<tr class="row-even"><td><p>mType</p></td>
+<td><p>rSMsg</p></td>
+<td><p>RSMP identifier</p></td>
 </tr>
-<tr class="row-odd"><td rowspan="13">type</td>
-<td>Alarm</td>
-<td>Alarm message</td>
+<tr class="row-odd"><td rowspan="13"><p>type</p></td>
+<td><p>Alarm</p></td>
+<td><p>Alarm message</p></td>
 </tr>
-<tr class="row-even"><td>AggregatedStatus</td>
-<td>Aggregated status message</td>
+<tr class="row-even"><td><p>AggregatedStatus</p></td>
+<td><p>Aggregated status message</p></td>
 </tr>
-<tr class="row-odd"><td>StatusRequest</td>
-<td>Status message. Request status</td>
+<tr class="row-odd"><td><p>StatusRequest</p></td>
+<td><p>Status message. Request status</p></td>
 </tr>
-<tr class="row-even"><td>StatusResponse</td>
-<td>Status message. Status response</td>
+<tr class="row-even"><td><p>StatusResponse</p></td>
+<td><p>Status message. Status response</p></td>
 </tr>
-<tr class="row-odd"><td>StatusSubscribe</td>
-<td>Status message. Start subscription</td>
+<tr class="row-odd"><td><p>StatusSubscribe</p></td>
+<td><p>Status message. Start subscription</p></td>
 </tr>
-<tr class="row-even"><td>StatusUpdate</td>
-<td>Status message. Update of status</td>
+<tr class="row-even"><td><p>StatusUpdate</p></td>
+<td><p>Status message. Update of status</p></td>
 </tr>
-<tr class="row-odd"><td>StatusUnsubscribe</td>
-<td>Status message. End subscription</td>
+<tr class="row-odd"><td><p>StatusUnsubscribe</p></td>
+<td><p>Status message. End subscription</p></td>
 </tr>
-<tr class="row-even"><td>CommandRequest</td>
-<td>Command message. Request command</td>
+<tr class="row-even"><td><p>CommandRequest</p></td>
+<td><p>Command message. Request command</p></td>
 </tr>
-<tr class="row-odd"><td>CommandResponse</td>
-<td>Command message. Response of command</td>
+<tr class="row-odd"><td><p>CommandResponse</p></td>
+<td><p>Command message. Response of command</p></td>
 </tr>
-<tr class="row-even"><td>MessageAck</td>
-<td>Message acknowledegment. Successful</td>
+<tr class="row-even"><td><p>MessageAck</p></td>
+<td><p>Message acknowledegment. Successful</p></td>
 </tr>
-<tr class="row-odd"><td>MessageNotAck</td>
-<td>Message acknowledegment. Unsuccessful</td>
+<tr class="row-odd"><td><p>MessageNotAck</p></td>
+<td><p>Message acknowledegment. Unsuccessful</p></td>
 </tr>
-<tr class="row-even"><td>Version</td>
-<td>RSMP / SXL version message</td>
+<tr class="row-even"><td><p>Version</p></td>
+<td><p>RSMP / SXL version message</p></td>
 </tr>
-<tr class="row-odd"><td>Watchdog</td>
-<td>Watchdog message</td>
+<tr class="row-odd"><td><p>Watchdog</p></td>
+<td><p>Watchdog message</p></td>
 </tr>
-<tr class="row-even"><td>mId
+<tr class="row-even"><td><p>mId
 <em>(or)</em>
-oMId</td>
-<td><em>(GUID)</em></td>
-<td><p class="first">Message identity. Generated as a GUID
+oMId</p></td>
+<td><p><em>(GUID)</em></p></td>
+<td><p>Message identity. Generated as a GUID
 (Globally unique identifier) in the
 equipment that sent the message. Only
 version 4 of Leach-Salz UUID is used.</p>
-<ul class="last simple">
-<li><strong>mId</strong> is used i all messages as a
-reference for the message ack</li>
-<li><strong>oMId</strong> is used in the message ack
+<ul class="simple">
+<li><p><strong>mId</strong> is used i all messages as a
+reference for the message ack</p></li>
+<li><p><strong>oMId</strong> is used in the message ack
 to refer to the message which is
-being acked</li>
+being acked</p></li>
 </ul>
 </td>
 </tr>
@@ -334,42 +338,42 @@ messages, message acknowledgement messages and watchdog messages.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the SXL.</p>
 <div class="figure align-center" id="table-variable-content-sxl">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="6%" />
-<col width="7%" />
-<col width="87%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 87%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>ntsOId</td>
-<td>NTSObjectId</td>
-<td>Component id for the NTS object which the  message is referring to.</td>
+<tbody>
+<tr class="row-even"><td><p>ntsOId</p></td>
+<td><p>NTSObjectId</p></td>
+<td><p>Component id for the NTS object which the  message is referring to.</p></td>
 </tr>
-<tr class="row-odd"><td>xNId</td>
-<td>externalNtsId</td>
-<td>Identity for the NTS object in communcation between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.</td>
+<tr class="row-odd"><td><p>xNId</p></td>
+<td><p>externalNtsId</p></td>
+<td><p>Identity for the NTS object in communcation between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.</p></td>
 </tr>
-<tr class="row-even"><td>cId</td>
-<td>componentId</td>
-<td>Component id for the object which the message is referring to.</td>
+<tr class="row-even"><td><p>cId</p></td>
+<td><p>componentId</p></td>
+<td><p>Component id for the object which the message is referring to.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Variable content defined by SXL</span></p>
 <span class="target" id="table-variable-content-sxl"></span></center></div><div class="section" id="alarm-messages">
-<span id="id2"></span><h2>4.4.1. Alarm messages<a class="headerlink" href="#alarm-messages" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><span class="section-number">4.4.1. </span>Alarm messages<a class="headerlink" href="#alarm-messages" title="Permalink to this headline">¶</a></h2>
 <p>An alarm message is sent to the supervision system when:</p>
 <ul class="simple">
-<li>An alarm becomes active / inactive</li>
-<li>An alarm is requested</li>
-<li>An alarm is acknowledged</li>
-<li>An alarm is being suspended / un-suspended</li>
+<li><p>An alarm becomes active / inactive</p></li>
+<li><p>An alarm is requested</p></li>
+<li><p>An alarm is acknowledged</p></li>
+<li><p>An alarm is being suspended / un-suspended</p></li>
 </ul>
 <p>An acknowledgment of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific object with the
@@ -392,9 +396,9 @@ and ‘acknowledged’ (aSp:Acknowledged).</p>
 <p>The timestamp (aTs) reflects the individual event according to the
 element ‘aSp’.</p>
 <div class="section" id="message-structure">
-<h3>4.4.1.1. Message structure<a class="headerlink" href="#message-structure" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.1.1. </span>Message structure<a class="headerlink" href="#message-structure" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="structure-for-an-alarm-message">
-<span id="id3"></span><h4>4.4.1.1.1. Structure for an alarm message<a class="headerlink" href="#structure-for-an-alarm-message" title="Permalink to this headline">¶</a></h4>
+<span id="id3"></span><h4><span class="section-number">4.4.1.1.1. </span>Structure for an alarm message<a class="headerlink" href="#structure-for-an-alarm-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-issue"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -428,124 +432,124 @@ defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).</p>
 <div class="figure align-center" id="table-alarm">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="5%" />
-<col width="10%" />
-<col width="85%" />
+<col style="width: 5%" />
+<col style="width: 10%" />
+<col style="width: 85%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>aCId</td>
-<td>alarmCodeId</td>
-<td>Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: <em>Ayyyy</em>, where <em>yyyy</em> is a unique number.</td>
+<tbody>
+<tr class="row-even"><td><p>aCId</p></td>
+<td><p>alarmCodeId</p></td>
+<td><p>Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: <em>Ayyyy</em>, where <em>yyyy</em> is a unique number.</p></td>
 </tr>
-<tr class="row-odd"><td>xACId</td>
-<td>externalAlarmCodeId</td>
-<td>Manufacturer specific alarm code and alarm description. Manufacturer, model, alarm code och additional alarm description.</td>
+<tr class="row-odd"><td><p>xACId</p></td>
+<td><p>externalAlarmCodeId</p></td>
+<td><p>Manufacturer specific alarm code and alarm description. Manufacturer, model, alarm code och additional alarm description.</p></td>
 </tr>
-<tr class="row-even"><td>xNACId</td>
-<td>externalNtsAlarmCodeId</td>
-<td>Alarm code in order to identify alarm type during communication with NTS</td>
+<tr class="row-even"><td><p>xNACId</p></td>
+<td><p>externalNtsAlarmCodeId</p></td>
+<td><p>Alarm code in order to identify alarm type during communication with NTS</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Alarm message</span></p>
 <span class="target" id="table-alarm"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-alarm-status-change">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="20%" />
-<col width="20%" />
-<col width="46%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 46%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Origin</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Origin</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td rowspan="7">aSp</td>
-<td>Issue</td>
-<td>Site</td>
-<td>An alarm becomes active/inactive.</td>
+<tbody>
+<tr class="row-even"><td rowspan="7"><p>aSp</p></td>
+<td><p>Issue</p></td>
+<td><p>Site</p></td>
+<td><p>An alarm becomes active/inactive.</p></td>
 </tr>
-<tr class="row-odd"><td>Request</td>
-<td>Supervision system</td>
-<td>Request the current state of an alarm</td>
+<tr class="row-odd"><td><p>Request</p></td>
+<td><p>Supervision system</p></td>
+<td><p>Request the current state of an alarm</p></td>
 </tr>
-<tr class="row-even"><td rowspan="2">Acknowledge</td>
-<td>Supervision system</td>
-<td>Acknowledge an alarm</td>
+<tr class="row-even"><td rowspan="2"><p>Acknowledge</p></td>
+<td><p>Supervision system</p></td>
+<td><p>Acknowledge an alarm</p></td>
 </tr>
-<tr class="row-odd"><td>Site</td>
-<td>An alarm becomes acknowledged.</td>
+<tr class="row-odd"><td><p>Site</p></td>
+<td><p>An alarm becomes acknowledged.</p></td>
 </tr>
-<tr class="row-even"><td rowspan="2">Suspend</td>
-<td>Supervision system</td>
-<td>Suspend an alarm</td>
+<tr class="row-even"><td rowspan="2"><p>Suspend</p></td>
+<td><p>Supervision system</p></td>
+<td><p>Suspend an alarm</p></td>
 </tr>
-<tr class="row-odd"><td>Site</td>
-<td>An alarm becomes suspended/unsuspended</td>
+<tr class="row-odd"><td><p>Site</p></td>
+<td><p>An alarm becomes suspended/unsuspended</p></td>
 </tr>
-<tr class="row-even"><td>Resume</td>
-<td>Supervision system</td>
-<td>Unsuspend an alarm</td>
+<tr class="row-even"><td><p>Resume</p></td>
+<td><p>Supervision system</p></td>
+<td><p>Unsuspend an alarm</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Alarm status change</span></p>
 <span class="target" id="table-alarm-status-change"></span></center></div></div>
 <div class="section" id="alarm-status">
-<span id="id4"></span><h4>4.4.1.1.2. Alarm status<a class="headerlink" href="#alarm-status" title="Permalink to this headline">¶</a></h4>
+<span id="id4"></span><h4><span class="section-number">4.4.1.1.2. </span>Alarm status<a class="headerlink" href="#alarm-status" title="Permalink to this headline">¶</a></h4>
 <p>Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).</p>
 <div class="figure align-center" id="table-alarm-status">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="16%" />
-<col width="68%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 68%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td rowspan="2">ack</td>
-<td>Acknowledged</td>
-<td>The alarm is acknowledged</td>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>ack</p></td>
+<td><p>Acknowledged</p></td>
+<td><p>The alarm is acknowledged</p></td>
 </tr>
-<tr class="row-odd"><td>notAcknowledged</td>
-<td>The alarm is not acknowledged</td>
+<tr class="row-odd"><td><p>notAcknowledged</p></td>
+<td><p>The alarm is not acknowledged</p></td>
 </tr>
-<tr class="row-even"><td rowspan="2">aS</td>
-<td>inActive</td>
-<td>The alarm is inactive</td>
+<tr class="row-even"><td rowspan="2"><p>aS</p></td>
+<td><p>inActive</p></td>
+<td><p>The alarm is inactive</p></td>
 </tr>
-<tr class="row-odd"><td>Active</td>
-<td>The alarm is active</td>
+<tr class="row-odd"><td><p>Active</p></td>
+<td><p>The alarm is active</p></td>
 </tr>
-<tr class="row-even"><td rowspan="2">sS</td>
-<td>suspended</td>
-<td>The alarm is suspended</td>
+<tr class="row-even"><td rowspan="2"><p>sS</p></td>
+<td><p>suspended</p></td>
+<td><p>The alarm is suspended</p></td>
 </tr>
-<tr class="row-odd"><td>notSuspended</td>
-<td>The alarm is not suspended</td>
+<tr class="row-odd"><td><p>notSuspended</p></td>
+<td><p>The alarm is not suspended</p></td>
 </tr>
-<tr class="row-even"><td>aTs</td>
-<td><em>(timestamp)</em></td>
-<td><p class="first">Timestamp for when the alarm changes status.
+<tr class="row-even"><td><p>aTs</p></td>
+<td><p><em>(timestamp)</em></p></td>
+<td><p>Timestamp for when the alarm changes status.
 See the contents of aSp to determine which type of timetamp is used</p>
 <div class="line-block">
 <div class="line">- aSp: Issue: Timestamp for when the alarm gets <strong>active</strong> or <strong>inactive</strong></div>
@@ -554,7 +558,7 @@ See the contents of aSp to determine which type of timetamp is used</p>
 <div class="line">- aSp: Suspend: Timestamp for when the alarm gets <strong>suspended</strong> or
 <strong>not suspended</strong></div>
 </div>
-<p class="last">The timestamp uses the W3C XML <strong>dateTime</strong> definition with 3 decimal places.
+<p>The timestamp uses the W3C XML <strong>dateTime</strong> definition with 3 decimal places.
 All timestamps are set at the local level (and not in the supervision system) when
 the alarm occurs (and not when the message is sent). All timestamps uses UTC.</p>
 </td>
@@ -568,40 +572,40 @@ different alarm states.</p>
 and dashed lines defines possible changes controlled by user.</p>
 <div class="figure align-center" id="alarm-transitions">
 <img alt="Alarm transitions" src="../_images/alarm_transitions.png" />
-<p class="caption"><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Alarm transitions</span></p>
+<p class="caption"><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Alarm transitions</span><a class="headerlink" href="#alarm-transitions" title="Permalink to this image">¶</a></p>
 </div>
 <p>Alarms should not be sent unless:</p>
 <ul class="simple">
-<li>Alarms are unblocked and it’s state changes</li>
-<li>Alarms are sent as part of
-<a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a></li>
-<li>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for alarm request message</span></a></li>
+<li><p>Alarms are unblocked and it’s state changes</p></li>
+<li><p>Alarms are sent as part of
+<a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a></p></li>
+<li><p>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for alarm request message</span></a></p></li>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).</p>
 <div class="figure align-center" id="table-alarm-status-details-sxl">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="16%" />
-<col width="68%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 68%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cat</td>
-<td>category</td>
-<td><p class="first">A character, either <strong>T</strong> or <strong>D</strong>.</p>
+<tbody>
+<tr class="row-even"><td><p>cat</p></td>
+<td><p>category</p></td>
+<td><p>A character, either <strong>T</strong> or <strong>D</strong>.</p>
 <div class="line-block">
 <div class="line">An alarm belongs to one of these categories:</div>
-<div class="line">- T.&nbsp;Traffic alarm</div>
-<div class="line">- D.&nbsp;Technical alarm</div>
+<div class="line">- T. Traffic alarm</div>
+<div class="line">- D. Technical alarm</div>
 </div>
 <p><strong>Traffic alarm:</strong>
 Traffic alarms indicate events in the traffic related functions or the technical
@@ -614,31 +618,31 @@ processes that effects traffic.</p>
 <div class="line">- High level of <span class="math notranslate nohighlight">\(CO_{2}\)</span> in traffic room</div>
 <div class="line">- Etc.</div>
 </div>
-<p class="last"><strong>Technical alarm:</strong>
+<p><strong>Technical alarm:</strong>
 Technical alarms are alarms that do not directly affect the traffic. One example
 of a technical alarm is when an impulse fan stops working.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><em>(not sent)</em></td>
-<td>description</td>
-<td><p class="first">Description of the alarm. Defined in SXL but is never actually sent.
+<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
+<td><p>description</p></td>
+<td><p>Description of the alarm. Defined in SXL but is never actually sent.
 The format of the description is free of choice but has the following
 requirements:</p>
-<ul class="last simple">
-<li>The text is unique for the object type</li>
-<li>The text is defined in cooperation with the Purchaser before use</li>
+<ul class="simple">
+<li><p>The text is unique for the object type</p></li>
+<li><p>The text is defined in cooperation with the Purchaser before use</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-even"><td>pri</td>
-<td>priority</td>
-<td><p class="first">The priority of the alarm.
+<tr class="row-even"><td><p>pri</p></td>
+<td><p>priority</p></td>
+<td><p>The priority of the alarm.
 The following values are defined:</p>
-<ol class="last arabic simple">
-<li>Alarm that requires immediate action.</li>
-<li>Alarm that does not require immediate action, but action is planned during
-the next work shift.</li>
-<li>Alarm that will be corrected during the next planned maintenance shift.</li>
+<ol class="arabic simple">
+<li><p>Alarm that requires immediate action.</p></li>
+<li><p>Alarm that does not require immediate action, but action is planned during
+the next work shift.</p></li>
+<li><p>Alarm that will be corrected during the next planned maintenance shift.</p></li>
 </ol>
 </td>
 </tr>
@@ -647,27 +651,27 @@ the next work shift.</li>
 <p class="caption"><span class="caption-text">Alarm status details defined by SXL</span></p>
 <span class="target" id="table-alarm-status-details-sxl"></span></center></div></div>
 <div class="section" id="return-values">
-<span id="id5"></span><h4>4.4.1.1.3. Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h4>
+<span id="id5"></span><h4><span class="section-number">4.4.1.1.3. </span>Return values<a class="headerlink" href="#return-values" title="Permalink to this headline">¶</a></h4>
 <p>Return values (“rvs”) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 <div class="figure align-center" id="table-alarm-return">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="9%" />
-<col width="13%" />
-<col width="79%" />
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 79%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>rvs</td>
-<td><em>(array)</em></td>
-<td>Return values. Contains the element <strong>n</strong> and <strong>v</strong> in an array</td>
+<tbody>
+<tr class="row-even"><td><p>rvs</p></td>
+<td><p><em>(array)</em></p></td>
+<td><p>Return values. Contains the element <strong>n</strong> and <strong>v</strong> in an array</p></td>
 </tr>
 </tbody>
 </table>
@@ -677,26 +681,26 @@ defined by the signal exchange list (SXL).</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the SXL.</p>
 <div class="figure align-center" id="table-alarm-return-values">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>n</td>
-<td>name</td>
-<td>Unique reference of the value</td>
+<tbody>
+<tr class="row-even"><td><p>n</p></td>
+<td><p>name</p></td>
+<td><p>Unique reference of the value</p></td>
 </tr>
-<tr class="row-odd"><td><em>(not sent)</em></td>
-<td>type</td>
-<td><p class="first">The data type of the value.
+<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
+<td><p>type</p></td>
+<td><p>The data type of the value.
 Defined in the SXL but is not actually sent</p>
 <div class="line-block">
 <div class="line">General definition:</div>
@@ -711,19 +715,19 @@ Defined in the SXL but is not actually sent</p>
 <div class="line"><strong>base64</strong>: Binary data expressed in
 base64 format according to RFC-4648</div>
 </div>
-<p class="last">Point (“.”) is always used as decimal mark</p>
+<p>Point (“.”) is always used as decimal mark</p>
 </td>
 </tr>
-<tr class="row-even"><td>v</td>
-<td>value</td>
-<td>Value from equipment</td>
+<tr class="row-even"><td><p>v</p></td>
+<td><p>value</p></td>
+<td><p>Value from equipment</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Alarm return value defined by SXL</span></p>
 <span class="target" id="table-alarm-return-values"></span></center></div></div>
 <div class="section" id="structure-for-alarm-request-message">
-<span id="alarmmessages-req"></span><h4>4.4.1.1.4. Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Permalink to this headline">¶</a></h4>
+<span id="alarmmessages-req"></span><h4><span class="section-number">4.4.1.1.4. </span>Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm request message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-req"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -742,7 +746,7 @@ base64 format according to RFC-4648</div>
 <p>JSon code 4: An alarm request message</p>
 </div>
 <div class="section" id="structure-for-alarm-acknowledgement-message">
-<span id="alarmmessages-ack"></span><h4>4.4.1.1.5. Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Permalink to this headline">¶</a></h4>
+<span id="alarmmessages-ack"></span><h4><span class="section-number">4.4.1.1.5. </span>Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm acknowledgement message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-alarm-ack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -791,7 +795,7 @@ example below.</p>
 <p>JSon code 6: Response of an alarm acknowledgement message</p>
 </div>
 <div class="section" id="structure-for-alarm-suspend-message">
-<span id="alarmmessages-suspend"></span><h4>4.4.1.1.6. Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Permalink to this headline">¶</a></h4>
+<span id="alarmmessages-suspend"></span><h4><span class="section-number">4.4.1.1.6. </span>Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Permalink to this headline">¶</a></h4>
 <p>An alarm suspend message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-suspend"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -883,46 +887,46 @@ example below.</p>
 </div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system">
-<h3>4.4.1.2. Message exchange between site and supervision system<a class="headerlink" href="#message-exchange-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.1.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#message-exchange-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p><strong>An alarm is active/inactive</strong></p>
 <img alt="../_images/alarm_active_inactive.png" class="align-center" src="../_images/alarm_active_inactive.png" />
 <ol class="arabic simple">
-<li>An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)</li>
+<li><p>An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)</p></li>
 </ol>
 <p><strong>An alarm is requested</strong></p>
 <img alt="../_images/alarm_request.png" class="align-center" src="../_images/alarm_request.png" />
 <ol class="arabic simple">
-<li>An alarm is requested from the supervision system</li>
-<li>An alarm message is sent to supervision system with the status of the alarm</li>
+<li><p>An alarm is requested from the supervision system</p></li>
+<li><p>An alarm message is sent to supervision system with the status of the alarm</p></li>
 </ol>
 <p><strong>An alarm is acknowledged at the supervision system</strong></p>
 <img alt="../_images/alarm_ack_system.png" class="align-center" src="../_images/alarm_ack_system.png" />
 <ol class="arabic simple">
-<li>An alarm acknowledgement message is sent to the site</li>
-<li>An alarm message is sent to the supervision system (that the alarm is acknowledged)</li>
+<li><p>An alarm acknowledgement message is sent to the site</p></li>
+<li><p>An alarm message is sent to the supervision system (that the alarm is acknowledged)</p></li>
 </ol>
 <p><strong>An alarm is acknowledged at the site</strong></p>
 <img alt="../_images/alarm_ack_site.png" class="align-center" src="../_images/alarm_ack_site.png" />
 <ol class="arabic simple">
-<li>An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)</li>
+<li><p>An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)</p></li>
 </ol>
 <p><strong>An alarm is suspended/unsuspended from the supervision system</strong></p>
 <img alt="../_images/alarm_suspend_system.png" class="align-center" src="../_images/alarm_suspend_system.png" />
 <ol class="arabic simple">
-<li>An alarm suspend message is being sent to the site</li>
-<li>An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)</li>
+<li><p>An alarm suspend message is being sent to the site</p></li>
+<li><p>An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)</p></li>
 </ol>
 <p><strong>An alarm is suspended/unsuspended from the site</strong></p>
 <img alt="../_images/alarm_suspend_site.png" class="align-center" src="../_images/alarm_suspend_site.png" />
 <ol class="arabic simple">
-<li>An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)</li>
+<li><p>An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="aggregated-status-message">
-<span id="id6"></span><h2>4.4.2. Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2><span class="section-number">4.4.2. </span>Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline">¶</a></h2>
 <p>This type of message is sent to the supervision system to inform about the
 status of the site. The aggregated status applies to the object which is
 defined by <strong>ObjectType</strong> in the signal exchange list. If no object is defined
@@ -930,7 +934,7 @@ then no aggregated status message is sent.</p>
 <p>Aggregated status message are interaction driven and are sent if state
 bits, functional position or functional status are changed at the site.</p>
 <div class="section" id="id7">
-<h3>4.4.2.1. Message structure<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.2.1. </span>Message structure<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>An aggregated status message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-agg-status"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -952,27 +956,27 @@ below.</p>
 <p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
 <div class="figure align-center" id="table-agg-basic">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="18%" />
-<col width="58%" />
+<col style="width: 25%" />
+<col style="width: 18%" />
+<col style="width: 58%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>aSTS</td>
-<td><em>(timestamp)</em></td>
-<td>The timestamp uses the W3C XML dateTime
+<tbody>
+<tr class="row-even"><td><p>aSTS</p></td>
+<td><p><em>(timestamp)</em></p></td>
+<td><p>The timestamp uses the W3C XML dateTime
 definition with a 3 decimal places. All
 timestamps are set at the local level
 (and not in the supervision system) when
 the event occurs (and not when the
-message is sent). All timestamps uses UTC.</td>
+message is sent). All timestamps uses UTC.</p></td>
 </tr>
 </tbody>
 </table>
@@ -981,38 +985,38 @@ message is sent). All timestamps uses UTC.</td>
 exchange list (SXL). The <em>SXL element</em> column describes the correlation
 between the JSon elements and the titles in the SXL.</p>
 <div class="figure align-center" id="table-agg-specialisation">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="19%" />
-<col width="19%" />
-<col width="62%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 62%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>fP</td>
-<td>functionalPosition</td>
-<td>Functional position. Is <strong>null</strong> if no value is defined in SXL.</td>
+<tbody>
+<tr class="row-even"><td><p>fP</p></td>
+<td><p>functionalPosition</p></td>
+<td><p>Functional position. Is <strong>null</strong> if no value is defined in SXL.</p></td>
 </tr>
-<tr class="row-odd"><td>fS</td>
-<td>functionalState</td>
-<td>Functional state. Is <strong>null</strong> if no value is defined in SXL.</td>
+<tr class="row-odd"><td><p>fS</p></td>
+<td><p>functionalState</p></td>
+<td><p>Functional state. Is <strong>null</strong> if no value is defined in SXL.</p></td>
 </tr>
-<tr class="row-even"><td>se</td>
-<td>State</td>
-<td>Status bits. 8 bit status bit array, where each element is
+<tr class="row-even"><td><p>se</p></td>
+<td><p>State</p></td>
+<td><p>Status bits. 8 bit status bit array, where each element is
 defined as either <strong>true</strong> or <strong>false</strong>.
-This status bit array defines the status of the site to NTS</td>
+This status bit array defines the status of the site to NTS</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Aggregated status SXL content</span></p>
 <span class="target" id="table-agg-specialisation"></span></center></div><div class="section" id="status-bits-state">
-<h4>4.4.2.1.1. Status bits (state)<a class="headerlink" href="#status-bits-state" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.2.1.1. </span>Status bits (state)<a class="headerlink" href="#status-bits-state" title="Permalink to this headline">¶</a></h4>
 <p>The principle of aggregating of statuses for each bit is defined by the
 associated comments in the signal exchange list (SXL). A generic
 description of each bit is presented in the figure below</p>
@@ -1021,12 +1025,12 @@ description of each bit is presented in the figure below</p>
 </div>
 </div>
 <div class="section" id="aggregated-status-request-message">
-<span id="aggregated-status-req"></span><h2>4.4.3. Aggregated status request message<a class="headerlink" href="#aggregated-status-request-message" title="Permalink to this headline">¶</a></h2>
+<span id="aggregated-status-req"></span><h2><span class="section-number">4.4.3. </span>Aggregated status request message<a class="headerlink" href="#aggregated-status-request-message" title="Permalink to this headline">¶</a></h2>
 <p>This type of message is sent from the supervision system to request the
 latest aggregated status, in case the supervision system has lost track
 of the current status.</p>
 <div class="section" id="id8">
-<h3>4.4.3.1. Message structure<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.3.1. </span>Message structure<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>An aggregated status request message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-agg-req-status"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1042,39 +1046,39 @@ below.</p>
 <p>JSon code 12: An aggregated status request message</p>
 </div>
 <div class="section" id="id9">
-<h3>4.4.3.2. Message exchange between site and supervision system<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.3.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p><strong>Functional state, functional position or status bits changes at the
 site</strong></p>
 <img alt="../_images/aggregated_status.png" class="align-center" src="../_images/aggregated_status.png" />
 <ol class="arabic simple">
-<li>An aggregated status message is sent to the supervision system.</li>
+<li><p>An aggregated status message is sent to the supervision system.</p></li>
 </ol>
 <p><strong>The supervision system request aggregated status</strong></p>
 <img alt="../_images/aggregated_status_request.png" class="align-center" src="../_images/aggregated_status_request.png" />
 <ol class="arabic simple">
-<li>An aggregated status request message is sent to the site.</li>
-<li>An aggregated status message is sent to the supervision system.</li>
+<li><p>An aggregated status request message is sent to the site.</p></li>
+<li><p>An aggregated status message is sent to the supervision system.</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="status-messages">
-<h2>4.4.4. Status Messages<a class="headerlink" href="#status-messages" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.4.4. </span>Status Messages<a class="headerlink" href="#status-messages" title="Permalink to this headline">¶</a></h2>
 <p>The status message is a type of message that is sent to the
 supervision system or other equipment with the status of one or more
 requested objects.</p>
 <p>The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:</p>
 <ul class="simple">
-<li>When status is requested from the supervision system or other equipment.</li>
-<li>According to subscription – either by using a fixed time interval or
-when the status changes.</li>
+<li><p>When status is requested from the supervision system or other equipment.</p></li>
+<li><p>According to subscription – either by using a fixed time interval or
+when the status changes.</p></li>
 </ul>
 <div class="section" id="id10">
-<h3>4.4.4.1. Message structure<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.4.1. </span>Message structure<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="structure-for-a-request-of-a-status-of-one-or-several-objects">
-<h4>4.4.4.1.1. Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.1. </span>Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A status request message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-status-req"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1103,33 +1107,33 @@ The following table is describing the variable content of the message.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the SXL.</p>
 <div class="figure align-center" id="table-statusrequest">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="7%" />
-<col width="7%" />
-<col width="85%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 85%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>sCI</td>
-<td>statusCodeId</td>
-<td>The Status code id. The examples is this document are defined according to the following format: <em>Syyyy</em>, where <em>yyyy</em> is a unique number.</td>
+<tbody>
+<tr class="row-even"><td><p>sCI</p></td>
+<td><p>statusCodeId</p></td>
+<td><p>The Status code id. The examples is this document are defined according to the following format: <em>Syyyy</em>, where <em>yyyy</em> is a unique number.</p></td>
 </tr>
-<tr class="row-odd"><td>n</td>
-<td>name</td>
-<td>Unique reference of the value</td>
+<tr class="row-odd"><td><p>n</p></td>
+<td><p>name</p></td>
+<td><p>Unique reference of the value</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Status request</span></p>
 </center></div></div>
 <div class="section" id="structure-for-a-message-with-status-of-one-or-several-objects">
-<h4>4.4.4.1.2. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.2. </span>Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with status of one or several objects has the structure
 according to the example below.</p>
 <p>If the component (<strong>cId</strong>) is not known, then the site must not disconnect but
@@ -1161,87 +1165,87 @@ instead answer with this type of message where <strong>q</strong> is set to <str
 <p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-statusresponse">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="21%" />
-<col width="25%" />
-<col width="54%" />
+<col style="width: 21%" />
+<col style="width: 25%" />
+<col style="width: 54%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>sTs</td>
-<td><em>(timestamp)</em></td>
-<td>Timestamp for the status. The timestamp
+<tbody>
+<tr class="row-even"><td><p>sTs</p></td>
+<td><p><em>(timestamp)</em></p></td>
+<td><p>Timestamp for the status. The timestamp
 uses the W3C XML dateTime
 definition with a 3 decimal places. All
 timestamps are set at the site (and not in
 the supervision system) when the status is
 fetched (and not when the message is sent)
-All timestamps uses UTC.</td>
+All timestamps uses UTC.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Status response</span></p>
 </center></div></div>
 <div class="section" id="return-values-returnvalue">
-<h4>4.4.4.1.3. Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
 <div class="figure align-center" id="table-statusresponse-returnvalues-sS">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="11%" />
-<col width="11%" />
-<col width="78%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 78%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>sS</td>
-<td><em>(array)</em></td>
-<td>Return values. Contains the elements “sCI”, “s”, “n” and “q” in an array.</td>
+<tbody>
+<tr class="row-even"><td><p>sS</p></td>
+<td><p><em>(array)</em></p></td>
+<td><p>Return values. Contains the elements “sCI”, “s”, “n” and “q” in an array.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Return values (returnvalue)</span></p>
 <span class="target" id="table-statusresponse-returnvalues-sS"></span></center></div><div class="figure align-center" id="table-statusresponse-returnvalues">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>sCI</td>
-<td>statusCodeId</td>
-<td>The Status code id.
+<tbody>
+<tr class="row-even"><td><p>sCI</p></td>
+<td><p>statusCodeId</p></td>
+<td><p>The Status code id.
 The examples in this document are defined
 according to the following format: <em>Syyyy</em>,
-where <em>yyyy</em> is a unique number.</td>
+where <em>yyyy</em> is a unique number.</p></td>
 </tr>
-<tr class="row-odd"><td>n</td>
-<td>Name</td>
-<td>Unique reference of the value</td>
+<tr class="row-odd"><td><p>n</p></td>
+<td><p>Name</p></td>
+<td><p>Unique reference of the value</p></td>
 </tr>
-<tr class="row-even"><td><em>(not sent)</em></td>
-<td>Type</td>
-<td><p class="first">The data type of the value.
+<tr class="row-even"><td><p><em>(not sent)</em></p></td>
+<td><p>Type</p></td>
+<td><p>The data type of the value.
 Defined in the SXL but is not actually sent</p>
-<div class="last line-block">
+<div class="line-block">
 <div class="line">General definition:</div>
 <div class="line"><strong>string</strong>: Text information</div>
 <div class="line"><strong>integer</strong>: Numerical value
@@ -1256,57 +1260,57 @@ base64 format according to RFC-4648</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>s</td>
-<td>Value</td>
-<td>Value</td>
+<tr class="row-odd"><td><p>s</p></td>
+<td><p>Value</p></td>
+<td><p>Value</p></td>
 </tr>
-<tr class="row-even"><td><em>(not sent)</em></td>
-<td>Comment</td>
-<td>Description for the status request.
+<tr class="row-even"><td><p><em>(not sent)</em></p></td>
+<td><p>Comment</p></td>
+<td><p>Description for the status request.
 Defined in the SXL but is not actually
-sent.</td>
+sent.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Return values (returnvalue)</span></p>
 </center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-statusresponse-returnvalues-qualtiy">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td rowspan="4">q</td>
-<td>recent</td>
-<td>The value is up to date</td>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>q</p></td>
+<td><p>recent</p></td>
+<td><p>The value is up to date</p></td>
 </tr>
-<tr class="row-odd"><td>old</td>
-<td>The value is not up to date</td>
+<tr class="row-odd"><td><p>old</p></td>
+<td><p>The value is not up to date</p></td>
 </tr>
-<tr class="row-even"><td>undefined</td>
-<td>The component does not exist and no
+<tr class="row-even"><td><p>undefined</p></td>
+<td><p>The component does not exist and no
 subscription will be performed.
-<strong>s</strong> should be set to <strong>null</strong>.</td>
+<strong>s</strong> should be set to <strong>null</strong>.</p></td>
 </tr>
-<tr class="row-odd"><td>unknown</td>
-<td>The value is unknown and no subscription will
+<tr class="row-odd"><td><p>unknown</p></td>
+<td><p>The value is unknown and no subscription will
 be performed.
-<strong>s</strong> should be set to <strong>null</strong>.</td>
+<strong>s</strong> should be set to <strong>null</strong>.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Return value quality</span></p>
 <span class="target" id="table-statusresponse-returnvalues-qualtiy"></span></center></div></div>
 <div class="section" id="structure-for-a-status-subscription-request-message-on-one-or-several-objects">
-<h4>4.4.4.1.4. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.4. </span>Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
 constructing a list of subscriptions of statuses, digital and analogue
@@ -1348,32 +1352,32 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
 <p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-statusrequest-basic">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="15%" />
-<col width="70%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 70%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>uRt</td>
-<td><em>(string)</em></td>
-<td>updateRate. Determines the interval of which the
+<tbody>
+<tr class="row-even"><td><p>uRt</p></td>
+<td><p><em>(string)</em></p></td>
+<td><p>updateRate. Determines the interval of which the
 message should be sent.
 Defined in seconds with decimals, e.g. ”2.5” for
 2.5 seconds. Dot (.) is used as decimal point.
 If “0” it means that the value should not be sent
-according to an interval</td>
+according to an interval</p></td>
 </tr>
-<tr class="row-odd"><td>sOc</td>
-<td>boolean</td>
-<td>sendOnChange. Determines if the message should be sent
-when the value changes.</td>
+<tr class="row-odd"><td><p>sOc</p></td>
+<td><p>boolean</p></td>
+<td><p>sendOnChange. Determines if the message should be sent
+when the value changes.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1388,7 +1392,7 @@ update when the value changes and at the same time using a specific
 interval.</p>
 </div>
 <div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
-<h4>4.4.4.1.5. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.5. </span>Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A response message with answer to a request for status subscription
 has the structure according to the example below. This response is
 always sent immediately after request for subscription regardless if
@@ -1489,7 +1493,7 @@ partial StatusUpdates can be sent.</p>
 <p>JSon code 18: A partial status update. Only a single status is updated</p>
 </div>
 <div class="section" id="structure-for-a-status-unsubscription-message-on-one-or-several-objects">
-<h4>4.4.4.1.6. Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.4.1.6. </span>Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h4>
 <p>A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
 objects. No particular answer is sent for this request, other than the
@@ -1525,17 +1529,17 @@ usual message acknowledgement.</p>
 </div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-request">
-<h3>4.4.4.2. Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.4.2. </span>Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/status_request_response.png" class="align-center" src="../_images/status_request_response.png" />
 <ol class="arabic simple">
-<li>Request of status for an object</li>
-<li>Response with status of an object</li>
+<li><p>Request of status for an object</p></li>
+<li><p>Response with status of an object</p></li>
 </ol>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-subscription">
-<h3>4.4.4.3. Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.4.3. </span>Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/status_update.png" class="align-center" src="../_images/status_update.png" />
@@ -1543,13 +1547,13 @@ implicit in the following figure.</p>
 </div>
 </div>
 <div class="section" id="command-messages">
-<h2>4.4.5. Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.4.5. </span>Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
 <p>Command messages are used to give order to do something at the site.
 The site responds with a command acknowledgement.</p>
 <p>Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment</p>
 <div class="section" id="id11">
-<h3>4.4.5.1. Message structure<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.5.1. </span>Message structure<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>Structure of a command message request</p>
 <p>A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1591,22 +1595,22 @@ requested object</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
 <div class="figure align-center" id="table-commands-argument">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="13%" />
-<col width="75%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 75%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>arg</td>
-<td><em>(array)</em></td>
-<td>Argument. Contains the element <strong>cCI</strong>, <strong>n</strong>, <strong>cO</strong>, <strong>v</strong> in an array</td>
+<tbody>
+<tr class="row-even"><td><p>arg</p></td>
+<td><p><em>(array)</em></p></td>
+<td><p>Argument. Contains the element <strong>cCI</strong>, <strong>n</strong>, <strong>cO</strong>, <strong>v</strong> in an array</p></td>
 </tr>
 </tbody>
 </table>
@@ -1616,45 +1620,45 @@ defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).</p>
 <div class="figure align-center" id="table-command-arguments-sxl">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cCI</td>
-<td>commandCodeId</td>
-<td>The uniqe code of a command request.
+<tbody>
+<tr class="row-even"><td><p>cCI</p></td>
+<td><p>commandCodeId</p></td>
+<td><p>The uniqe code of a command request.
 The examples in this document are defined
 according to the following format: <em>Myyyy</em>,
-where <em>yyyy</em> is a unique number.</td>
+where <em>yyyy</em> is a unique number.</p></td>
 </tr>
-<tr class="row-odd"><td><em>(not sent)</em></td>
-<td>Description</td>
-<td>Description for the command request.
+<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
+<td><p>Description</p></td>
+<td><p>Description for the command request.
 Defined in the SXL but is not actually
-sent.</td>
+sent.</p></td>
 </tr>
-<tr class="row-even"><td>n</td>
-<td>Name</td>
-<td>Unique reference of the value</td>
+<tr class="row-even"><td><p>n</p></td>
+<td><p>Name</p></td>
+<td><p>Unique reference of the value</p></td>
 </tr>
-<tr class="row-odd"><td>cO</td>
-<td>Command</td>
-<td>Command</td>
+<tr class="row-odd"><td><p>cO</p></td>
+<td><p>Command</p></td>
+<td><p>Command</p></td>
 </tr>
-<tr class="row-even"><td><em>(not sent)</em></td>
-<td>Type</td>
-<td><p class="first">The data type of the value.
+<tr class="row-even"><td><p><em>(not sent)</em></p></td>
+<td><p>Type</p></td>
+<td><p>The data type of the value.
 Defined in the SXL but is not actually sent</p>
-<div class="last line-block">
+<div class="line-block">
 <div class="line">General definition:</div>
 <div class="line"><strong>string</strong>: Text information</div>
 <div class="line"><strong>integer</strong>: Numerical value
@@ -1669,15 +1673,15 @@ base64 format according to RFC-4648</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>v</td>
-<td>Value</td>
-<td>Value</td>
+<tr class="row-odd"><td><p>v</p></td>
+<td><p>Value</p></td>
+<td><p>Value</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Command arguments defined by SXL</span></p>
 <span class="target" id="table-command-arguments-sxl"></span></center></div><div class="section" id="structure-of-command-response-message">
-<h4>4.4.5.1.1. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.5.1.1. </span>Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h4>
 <p>A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
@@ -1721,50 +1725,50 @@ but instead answer with this type of message where <strong>age</strong> is set t
 <p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-command-response">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="16%" />
-<col width="69%" />
+<col style="width: 15%" />
+<col style="width: 16%" />
+<col style="width: 69%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cTS</td>
-<td><em>(timestamp)</em></td>
-<td>The timestamp uses the W3C XML dateTime definition with a 3 decimal places.
+<tbody>
+<tr class="row-even"><td><p>cTS</p></td>
+<td><p><em>(timestamp)</em></p></td>
+<td><p>The timestamp uses the W3C XML dateTime definition with a 3 decimal places.
 All timestamps are set at the local level (and not in the supervision system) when
-the alarm occurs (and not when the message is sent). All timestamps uses UTC.</td>
+the alarm occurs (and not when the message is sent). All timestamps uses UTC.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Command response</span></p>
 <span class="target" id="table-command-response"></span></center></div></div>
 <div class="section" id="id12">
-<h4>4.4.5.1.2. Return values (returnvalue)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">4.4.5.1.2. </span>Return values (returnvalue)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
 be empty if not return values are defined.</p>
 <div class="figure align-center" id="table-command-returnvalues-rvs">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="9%" />
-<col width="9%" />
-<col width="82%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 82%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>rvs</td>
-<td><em>(array)</em></td>
-<td>Return values. Contains the elements <strong>cCI</strong>, <strong>v</strong>, <strong>n</strong> and <strong>q</strong> in an array.</td>
+<tbody>
+<tr class="row-even"><td><p>rvs</p></td>
+<td><p><em>(array)</em></p></td>
+<td><p>Return values. Contains the elements <strong>cCI</strong>, <strong>v</strong>, <strong>n</strong> and <strong>q</strong> in an array.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1773,35 +1777,35 @@ be empty if not return values are defined.</p>
 exchange list (SXL). The <em>SXL element</em> column describes the correlation
 between the JSon elements and the titles in the SXL.</p>
 <div class="figure align-center" id="table-command-returnvalue-sxl">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>cCI</td>
-<td>commandCodeId</td>
-<td>The uniqe code of a command.
+<tbody>
+<tr class="row-even"><td><p>cCI</p></td>
+<td><p>commandCodeId</p></td>
+<td><p>The uniqe code of a command.
 The examples in this document are defined
 according to the following format: <em>Myyyy</em>,
-where <em>yyyy</em> is a unique number.</td>
+where <em>yyyy</em> is a unique number.</p></td>
 </tr>
-<tr class="row-odd"><td>n</td>
-<td>Name</td>
-<td>Unique reference of the value</td>
+<tr class="row-odd"><td><p>n</p></td>
+<td><p>Name</p></td>
+<td><p>Unique reference of the value</p></td>
 </tr>
-<tr class="row-even"><td><em>(not sent)</em></td>
-<td>Type</td>
-<td><p class="first">The data type of the value.
+<tr class="row-even"><td><p><em>(not sent)</em></p></td>
+<td><p>Type</p></td>
+<td><p>The data type of the value.
 Defined in the SXL but is not actually sent</p>
-<div class="last line-block">
+<div class="line-block">
 <div class="line">General definition:</div>
 <div class="line"><strong>string</strong>: Text information</div>
 <div class="line"><strong>integer</strong>: Numerical value
@@ -1816,42 +1820,42 @@ base64 format according to RFC-4648</div>
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td>v</td>
-<td>Value</td>
-<td>Value</td>
+<tr class="row-odd"><td><p>v</p></td>
+<td><p>Value</p></td>
+<td><p>Value</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Command return value defined by SXL</span></p>
 <span class="target" id="table-command-returnvalue-sxl"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-command-returnvalue">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="20%" />
-<col width="24%" />
-<col width="56%" />
+<col style="width: 20%" />
+<col style="width: 24%" />
+<col style="width: 56%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td rowspan="4">age</td>
-<td>recent</td>
-<td>The value is up to date</td>
+<tbody>
+<tr class="row-even"><td rowspan="4"><p>age</p></td>
+<td><p>recent</p></td>
+<td><p>The value is up to date</p></td>
 </tr>
-<tr class="row-odd"><td>old</td>
-<td>The value is not up to date</td>
+<tr class="row-odd"><td><p>old</p></td>
+<td><p>The value is not up to date</p></td>
 </tr>
-<tr class="row-even"><td>undefined</td>
-<td>The component does not exist.
-<strong>v</strong> should be set to <strong>null</strong>.</td>
+<tr class="row-even"><td><p>undefined</p></td>
+<td><p>The component does not exist.
+<strong>v</strong> should be set to <strong>null</strong>.</p></td>
 </tr>
-<tr class="row-odd"><td>unknown</td>
-<td>The value is unknown.
-<strong>v</strong> should be set to <strong>null</strong>.</td>
+<tr class="row-odd"><td><p>unknown</p></td>
+<td><p>The value is unknown.
+<strong>v</strong> should be set to <strong>null</strong>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1859,18 +1863,18 @@ base64 format according to RFC-4648</div>
 <span class="target" id="table-command-returnvalue"></span></center></div></div>
 </div>
 <div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment">
-<h3>4.4.5.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.5.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
 <img alt="../_images/command_request_response.png" class="align-center" src="../_images/command_request_response.png" />
 <ol class="arabic simple">
-<li>Command request for an object</li>
-<li>Command response of an object</li>
+<li><p>Command request for an object</p></li>
+<li><p>Command response of an object</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="message-acknowledgement">
-<span id="id13"></span><h2>4.4.6. Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
+<span id="id13"></span><h2><span class="section-number">4.4.6. </span>Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
 <p>Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
 acknowledgement, which has a different function. The purpose of
@@ -1882,11 +1886,11 @@ acknowledgment</strong> (MessageAck) which confirms that the message was underst
 <strong>Message not acknowledged</strong> (MessageNotAck) which indicates that the message
 was not understood.</p>
 <ul class="simple">
-<li>If no message acknowledgement is received within a predefined time, then
+<li><p>If no message acknowledgement is received within a predefined time, then
 each communicating party should treat it as a communication disruption.
-(See <a class="reference internal" href="transport_of_data.html#communication-disruption"><span class="std std-ref">Communication disruption</span></a>)</li>
-<li>The default timeout value should be 30 seconds.</li>
-<li>If the version messages has not been exchanged according to communication
+(See <a class="reference internal" href="transport_of_data.html#communication-disruption"><span class="std std-ref">Communication disruption</span></a>)</p></li>
+<li><p>The default timeout value should be 30 seconds.</p></li>
+<li><p>If the version messages has not been exchanged according to communication
 establishment sequence
 (See <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>) then
@@ -1895,12 +1899,12 @@ response to any other messages other than the version message
 (See <a class="reference internal" href="#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>). The lack of acknowledgement forces the other
 communicating party to treat it as communication disruption and disconnect
 and reconnect, ensuring that the connection restarts with communication
-establishment sequence.</li>
+establishment sequence.</p></li>
 </ul>
 <p>The acknowledgement messages are interaction driven and are sent when
 any other type message are received.</p>
 <div class="section" id="message-structure-message-acknowledgement">
-<h3>4.4.6.1. Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.6.1. </span>Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
 <p>An acknowledgement message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-ack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1913,7 +1917,7 @@ below.</p>
 <p>JSon code 22: An acknowledgement message</p>
 </div>
 <div class="section" id="message-structure-message-not-acknowledged">
-<h3>4.4.6.2. Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.6.2. </span>Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
 <p>A “not acknowledgement” message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-notack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -1927,45 +1931,45 @@ below.</p>
 <p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-messagenoteack-basic">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="7%" />
-<col width="11%" />
-<col width="82%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 82%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>rea</td>
-<td><em>(optional)</em></td>
-<td>Error message where all relevant information about the nature of the error can be provided.</td>
+<tbody>
+<tr class="row-even"><td><p>rea</p></td>
+<td><p><em>(optional)</em></p></td>
+<td><p>Error message where all relevant information about the nature of the error can be provided.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Message not ack</span></p>
 <span class="target" id="table-messagenoteack-basic"></span></center></div></div>
 <div class="section" id="id14">
-<h3>4.4.6.3. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.6.3. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>Supervision system sends initial message</p>
 <img alt="../_images/message_ack_system.png" class="align-center" src="../_images/message_ack_system.png" />
 <ol class="arabic simple">
-<li>A message is sent from supervision system or other equipment</li>
-<li>The site responds with an message acknowledgement</li>
+<li><p>A message is sent from supervision system or other equipment</p></li>
+<li><p>The site responds with an message acknowledgement</p></li>
 </ol>
 <p>Site sends initial message</p>
 <img alt="../_images/message_ack_site.png" class="align-center" src="../_images/message_ack_site.png" />
 <ol class="arabic simple">
-<li>A message is sent from the site</li>
-<li>The supervision system or other equipment responds with an message acknowledgement</li>
+<li><p>A message is sent from the site</p></li>
+<li><p>The supervision system or other equipment responds with an message acknowledgement</p></li>
 </ol>
 </div>
 </div>
 <div class="section" id="rsmp-sxl-version">
-<span id="rsmpsxl-version"></span><h2>4.4.7. RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
+<span id="rsmpsxl-version"></span><h2><span class="section-number">4.4.7. </span>RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
 <p>Version of RSMP and revision of SXL are always sent directly after
 establishing communication. Both communicating systems send this as
 their first message and waits for message response until any other
@@ -1985,7 +1989,7 @@ establishment (See
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>).</p>
 <div class="section" id="id15">
-<h3>4.4.7.1. Message structure<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.7.1. </span>Message structure<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>A version message has the structure according to the example below. In
 the example below the system has support for RSMP version <strong>3.1.1</strong>,
 <strong>3.1.2</strong> and SXL version <strong>1.0.13</strong> for site <strong>O+14439=481WA001</strong>.</p>
@@ -2015,58 +2019,58 @@ defined by the SXL.</p>
 <p>The <em>SXL element</em> column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).</p>
 <div class="figure align-center" id="table-version-basic-sxl">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="13%" />
-<col width="20%" />
-<col width="67%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 67%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">SXL element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>SXL element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>sId</td>
-<td>SiteId</td>
-<td><p class="first">Site identity. Used in order to refer to a “logical” identity of a
+<tbody>
+<tr class="row-even"><td><p>sId</p></td>
+<td><p>SiteId</p></td>
+<td><p>Site identity. Used in order to refer to a “logical” identity of a
 site.</p>
 <p>At the STA, the following formats can be used:</p>
 <ul class="simple">
-<li>The site id from the STAs component id standard TDOK 2012:1171
-e.g. ”40100”.</li>
-<li>It is also possible to use the full component id (TDOK 2012:1171)
+<li><p>The site id from the STAs component id standard TDOK 2012:1171
+e.g. ”40100”.</p></li>
+<li><p>It is also possible to use the full component id (TDOK 2012:1171)
 of the grouped object in the site in case the site id part of
 the component id is insufficient in order to uniquely identify a
-site.</li>
+site.</p></li>
 </ul>
-<p class="last">All the site ids that are used in the RSMP connection are sent
+<p>All the site ids that are used in the RSMP connection are sent
 in the message using an array (<strong>siteId</strong>)</p>
 </td>
 </tr>
-<tr class="row-odd"><td>SXL</td>
-<td>SXL revision</td>
-<td>Revision of SXL. E.g ”1.3”</td>
+<tr class="row-odd"><td><p>SXL</p></td>
+<td><p>SXL revision</p></td>
+<td><p>Revision of SXL. E.g ”1.3”</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Version information defined by SXL</span></p>
 <span class="target" id="table-version-basic-sxl"></span></center></div><p>The following table describes additional variable content of the message.</p>
 <div class="figure align-center" id="table-version-basic">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="6%" />
-<col width="94%" />
+<col style="width: 6%" />
+<col style="width: 94%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>vers</td>
-<td>Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (<strong>RSMP</strong>).</td>
+<tbody>
+<tr class="row-even"><td><p>vers</p></td>
+<td><p>Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (<strong>RSMP</strong>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -2074,7 +2078,7 @@ in the message using an array (<strong>siteId</strong>)</p>
 <span class="target" id="table-version-basic"></span></center></div></div>
 </div>
 <div class="section" id="watchdog">
-<span id="id16"></span><h2>4.4.8. Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
+<span id="id16"></span><h2><span class="section-number">4.4.8. </span>Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
 <p>The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
@@ -2082,20 +2086,20 @@ alarms are used instead.</p>
 <p>The secondary purpose of watchdog messages is to provide a timestamp that can
 be used for simple time synchronization.</p>
 <ul class="simple">
-<li>Time synchronization using the watchdog message should be configurable at the
-site (enabled/disabled)</li>
-<li>If time synchronization is enabled, the site should synchronize its clock
+<li><p>Time synchronization using the watchdog message should be configurable at the
+site (enabled/disabled)</p></li>
+<li><p>If time synchronization is enabled, the site should synchronize its clock
 using the timestamp from watchdog messages – at communication establishment and
-then at least once every 24 hours.</li>
-<li>The interval duration for sending watchdog messages should be
+then at least once every 24 hours.</p></li>
+<li><p>The interval duration for sending watchdog messages should be
 configurable at both the site and the supervision system. The default
-setting should be (1) once a minute.</li>
+setting should be (1) once a minute.</p></li>
 </ul>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>
 <div class="section" id="id17">
-<h3>4.4.8.1. Message structure<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>A watchdog message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span>
      <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -2108,46 +2112,46 @@ from the supervision system. At initial communication establishment
 <p>JSon code 25: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
 <div class="figure align-center" id="table-watchdog-basic">
-<center><table border="1" class="docutils">
+<center><table class="docutils align-default">
 <colgroup>
-<col width="25%" />
-<col width="18%" />
-<col width="58%" />
+<col style="width: 25%" />
+<col style="width: 18%" />
+<col style="width: 58%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Element</th>
-<th class="head">Value</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>wTs</td>
-<td><em>(timestamp)</em></td>
-<td>Watchdog timestamp.
+<tbody>
+<tr class="row-even"><td><p>wTs</p></td>
+<td><p><em>(timestamp)</em></p></td>
+<td><p>Watchdog timestamp.
 The timestamp uses the W3C XML dateTime
 definition with a 3 decimal places. All
 timestamps are set at the local level
 (and not in the supervision system) when
 the event occurs (and not when the
-message is sent). All timestamps uses UTC.</td>
+message is sent). All timestamps uses UTC.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="caption"><span class="caption-text">Watchdog</span></p>
 <span class="target" id="table-watchdog-basic"></span></center></div></div>
 <div class="section" id="id18">
-<h3>4.4.8.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">4.4.8.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>
 <img alt="../_images/watchdog_site.png" src="../_images/watchdog_site.png" />
 <ol class="arabic simple">
-<li>Watchdog message is sent from site</li>
+<li><p>Watchdog message is sent from site</p></li>
 </ol>
 <p>Supervision system/other equipment sends watchdog message</p>
 <img alt="../_images/watchdog_system.png" src="../_images/watchdog_system.png" />
 <ol class="arabic simple">
-<li>Watchdog message is sent from supervision system/other equipment</li>
+<li><p>Watchdog message is sent from supervision system/other equipment</p></li>
 </ol>
 </div>
 </div>
@@ -2158,29 +2162,29 @@ implicit in the following figures.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="sxl.html" class="btn btn-neutral float-right" title="4.5. Signal Exchange List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="transport_of_data.html" class="btn btn-neutral float-left" title="4.3. Transport of data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="sxl.html" class="btn btn-neutral float-right" title="4.5. Signal Exchange List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="transport_of_data.html" class="btn btn-neutral float-left" title="4.3. Transport of data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright RSMP Nordic
+        &#169; Copyright RSMP Nordic.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -2188,7 +2192,6 @@ implicit in the following figures.</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
