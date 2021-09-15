@@ -8,7 +8,7 @@ alarms, status and commands to be used for a specific road side equipment.
 Please [see the specification](https://rsmp-nordic.github.io/rsmp_core/applicability/sxl.html)
 for more in-depth technical information
 
-The following branch defines RSMP version **3.1.6-draft**.
+The following branch defines RSMP version **3.2-draft**.
 
 The specification is available the following formats:
 
