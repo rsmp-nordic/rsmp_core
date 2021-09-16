@@ -79,7 +79,7 @@ A: It is not allowed to send the aggregated status message before receiving
 version message from the system. The site needs to make sure that the RSMP
 version, site id and sxl revision matches in the version message from system.
 
-<a id="7"></a>
+<a id="4"></a>
 Case sensitivity
 ----------------
 Q: Is RSMP case sensitive?
@@ -91,7 +91,7 @@ Please note that the specification usually use elements with lower case,
 e.g. "cat", "pri, "v,", q". However, the SXL may use upper case from time to
 time, such as "True" and "False".
 
-<a id="8"></a>
+<a id="5"></a>
 Missing MessageAck
 ------------------
 Q: What is the policy for when a client does not receive an message acknowledge?
