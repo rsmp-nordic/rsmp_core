@@ -1036,7 +1036,7 @@ The following table describes additional variable content of the message.
 
 .. figtable::
    :nofig:
-   :label: table-statusresponse-returnvalues-qualtiy
+   :label: table-statusresponse-returnvalues-quality
    :caption: Return value quality
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
