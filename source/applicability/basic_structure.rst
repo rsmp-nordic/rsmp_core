@@ -1046,7 +1046,8 @@ The following table describes additional variable content of the message.
    +=================+====================+===============================================+
    | q               | recent             | The value is up to date                       |
    |                 +--------------------+-----------------------------------------------+
-   |                 | old                | The value is not up to date                   |
+   |                 | old                | The value is not up to date.                  |
+   |                 |                    | Used when sending buffered values             |
    |                 +--------------------+-----------------------------------------------+
    |                 | undefined          | The component does not exist and no           |
    |                 |                    | subscription will be performed.               |
