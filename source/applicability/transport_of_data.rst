@@ -175,7 +175,7 @@ In the event of an communication disruption the following principles applies:
   the communication establishment sequence.
 * When sending buffered status messages, the ``q`` field should be set to ``old``
 * The communication buffer is stored and sent using the FIFO principle.
-* In the event of communications failure or power outage the contens of the
+* In the event of communications failure or power outage the contents of the
   outgoing communication buffer must not be lost.
 * The internal communication buffer of the device must at a minimum be
   sized to be able to store 10000 messages.
