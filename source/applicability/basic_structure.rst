@@ -11,8 +11,9 @@ JSon boolean elements are used.
 
 The reason why JSon string elements are heavily used is to simplify
 deserialisation of values where the data type in unknown before casting is
-performed, for instance for the values in "return values". Parsing is
-recommended to be performed case insensitive.
+performed, for instance for the values in "return values".
+
+Parsing needs to be performed case insensitive.
 
 Empty values are sent as **""** for simple values and as **[]** for arrays.
 Optional values can be omitted, but can not be sent as **null** unless
