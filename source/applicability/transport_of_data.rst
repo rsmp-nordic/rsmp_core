@@ -53,9 +53,16 @@ Each site needs to support the following:
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
 
-* It must be possible to configure supervisors as read-only. A read-only
-  supervisor is not allowed to send commands, but can only request or
-  subscribe to status.
+* It must be possible to configure supervisors as read-only.
+
+* A read-only supervisor is not allowed to send commands and does not
+  receive alarms.
+
+* A read-only supervisor receives aggregated status and can request,
+  subscribe and receive statuses.
+
+* Watchdog messages from a read-only supervisor does not adjust the clock.
+  See section :ref:`watchdog`.
 
 * A command request from a read-only supervisor must be rejected with a
   NotAcknowledge message with reason set to ``Command request rejected
@@ -203,7 +210,7 @@ For communication between sites the following applies:
   connection with the wrong site
 * The component id which is used in all messages is the follower site's
   component id
-* Watchdog messages does not adjust the clock
+* Watchdog messages does not adjust the clock. See section :ref:`watchdog`.
 * Alarm messages are not sent
 * No communication buffer exist
 
