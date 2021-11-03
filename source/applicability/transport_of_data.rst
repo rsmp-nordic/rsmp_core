@@ -21,6 +21,55 @@ system is waiting for an answer to a previously sent message it can
 can continue to send messages. The exception in the RSMP / SXL version message
 (see section :ref:`rsmpsxl-version`).
 
+RSMP connections can be established:
+
+* Between site and supervision system.
+  See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
+  The site needs to support at multiple RSMP connections to different
+  supervisors. See :ref:`Multiple supervisors <multiple-supervisors>`.
+
+* Directly between sites.
+  See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
+
+.. note::
+   Implementing support for communication between sites is not required unless
+   otherwise stated.
+
+.. _multiple-supervisors:
+
+Multiple supervisors
+^^^^^^^^^^^^^^^^^^^^
+
+Each site needs to support the following:
+
+* At least three (3) RSMP connections to different supervision systems
+  simultaneously and handle concurrent communication with all of them.
+
+  For example, a traffic light controller might connect to both a traffic
+  management system and a bus priority system. Or it might connect to both a
+  traffic management system and a secondary monitoring system.
+
+* It must be possible to configure the list of supervisors as part of the
+  RSMP configuration in the site. In the configuration, supervisors are
+  identified by their IP addresses.
+
+* It must be possible to configure supervisors as read-only. A read-only
+  supervisor is not allowed to send commands, but can only request or
+  subscribe to status.
+
+* A command request from a read-only supervisor must be rejected with a
+  NotAcknowledge message with reason set to ``Command request rejected
+  because supervisor is configured as read-only``.
+
+* Except from not handling commands from read-only supervisors, a site must
+  handle all types of message from all supervisors, including command requests,
+  status requests and status subscriptions. Commands from multiple supervisors
+  are served on a first-come basis, without any concept of priority.
+
+* Supervisor connections are handled separately. When a supervisor sends a
+  command or status request, the response is send only to that particular
+  supervisor.
+
 
 Security
 ^^^^^^^^
@@ -106,9 +155,8 @@ each connected site must either:
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Implementing support for communication between sites is not required unless
-otherwise stated. However, if communication between sites is used than the
-following applies.
+When establishing communication directly between sites, messages are sent in
+the following order.
 
 One site acts as a leader and the other one as a follower.
 
