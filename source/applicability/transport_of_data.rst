@@ -25,7 +25,7 @@ RSMP connections can be established:
 
 * Between site and supervision system.
   See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
-  The site needs to support at multiple RSMP connections to different
+  The site needs to support multiple RSMP connections to different
   supervisors. See :ref:`Multiple supervisors <multiple-supervisors>`.
 
 * Directly between sites.
