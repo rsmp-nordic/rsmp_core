@@ -18,8 +18,9 @@ formatted text.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
-can continue to send messages. The exception in the RSMP / SXL version message
-(see section :ref:`rsmpsxl-version`).
+can continue to send messages. The exception is during the first part of
+communication establishment (see section :ref:`communication-establishment-between-sites-and-supervision-system`
+and :ref:`communication-establishment-between-sites`).
 
 RSMP connections can be established:
 
@@ -126,15 +127,18 @@ implicit in the following figure.
 
 6. The system sends a Watchdog (according to section :ref:`watchdog`)
 
-7. Aggregated status (according to section :ref:`aggregated-status-message`).
+7. Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent
+
+8. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-8. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
+9. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
    are sent. (according to section :ref:`alarm-messages`).
 
-9. Buffered messages in the equipment's outgoing communication buffer are sent,
-   incl. alarms, aggregated status and status updates.
+10. Buffered messages in the equipment's outgoing communication buffer are sent,
+    incl. alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -196,7 +200,10 @@ implicit in the following figure.
 
 6. The leader site sends Watchdog (according to section :ref:`watchdog`)
 
-7. Aggregated status (according to section :ref:`aggregated-status-message`)
+7. Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent
+
+8. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 

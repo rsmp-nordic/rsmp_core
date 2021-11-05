@@ -17,6 +17,8 @@ msc {
   |||;
   a<=b [ label = "Watchdog" ];
   |||;
+  --- [ label = "Asynchronous message exchange can begin" ];
+  |||;
   a=>b [ label = "Aggregated status" ];
   |||;
 }
