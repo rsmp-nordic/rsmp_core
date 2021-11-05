@@ -111,33 +111,36 @@ implicit in the following figure.
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
 2. The supervision system verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The system responds
-   with a MessageNotAck and closes the connection
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
 3. The supervision system sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
 4. The site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The site responds
-   with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
-5. The site sends a Watchdog (according to section :ref:`watchdog`)
 
-6. The system sends a Watchdog (according to section :ref:`watchdog`)
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
-7. Asynchronous message exchange can begin. This means that commands and
+6. The site sends a Watchdog (according to section :ref:`watchdog`)
+
+7. The system sends a Watchdog (according to section :ref:`watchdog`)
+
+8. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-8. Aggregated status (according to section :ref:`aggregated-status-message`).
+9. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-9. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
-   are sent. (according to section :ref:`alarm-messages`).
+10. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
+    are sent. (according to section :ref:`alarm-messages`).
 
-10. Buffered messages in the equipment's outgoing communication buffer are sent,
+11. Buffered messages in the equipment's outgoing communication buffer are sent,
     incl. alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
@@ -184,26 +187,28 @@ implicit in the following figure.
    :ref:`rsmpsxl-version`).
 
 2. The leader site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The leader site
-   responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
 3. The leader site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
 4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The follower site
-   responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
-5. The follower site sends Watchdog (according to section :ref:`watchdog`)
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
-6. The leader site sends Watchdog (according to section :ref:`watchdog`)
+6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
-7. Asynchronous message exchange can begin. This means that commands and
+7. The leader site sends Watchdog (according to section :ref:`watchdog`)
+
+8. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-8. Aggregated status (according to section :ref:`aggregated-status-message`)
+9. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -220,6 +225,28 @@ For communication between sites the following applies:
 * Watchdog messages does not adjust the clock. See section :ref:`watchdog`.
 * Alarm messages are not sent
 * No communication buffer exist
+
+.. _communication-rejection:
+
+Communication rejection
+^^^^^^^^^^^^^^^^^^^^^^^
+
+During RSMP/SXL Version exchange each communicating party needs to verify:
+
+* RSMP version(s)
+* SXL version
+* Site id
+
+If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+
+1. The communication establishment sequence does not proceed
+2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
+   reason (`rea`) set to the cause of rejection. For instance,
+   ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
+3. The connection is closed
+
+.. image:: /img/msc/communication-rejection.png
+   :align: center
 
 .. _communication-disruption:
 

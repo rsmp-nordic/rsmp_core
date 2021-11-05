@@ -1722,21 +1722,21 @@ Site sends initial message
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
 
-Version of RSMP and revision of SXL are always sent directly after
-establishing communication. Both communicating systems send this as
-their first message and waits for message response until any other
-messages are sent. Information regarding all supported RSMP versions
-should be included in the version message. The version message should
-be implemented in such a way that is should be possible to add
-additional tags/variables (e.g. date) without affecting existing
-implementations.
+RSMP/SXL Version is the initial message when establishing communication.
 
-If any discrepancies with the version numbers are detected between the
-two communicating systems this should be set using a MessageNotAck.
-The communication is terminated after that and an internal alarm is
-activated in both communicating system. If both communicating systems
-support several RSMP versions it is always the latest version that
-should be used.
+It contains:
+Site Id
+* SXL revision
+* All supported RSMP versions
+
+The Site Id and SXL revision must match between the communicating parties.
+
+If there is a mismatch or if there are no RSMP version that both
+communicating parties support, see :ref:`communication-rejection`.
+
+The version message should be implemented in such a way that is should be
+possible to add additional tags/variables (e.g. date) without affecting
+existing implementations.
 
 The principle of the message exchange is defined by the communication
 establishment (See
