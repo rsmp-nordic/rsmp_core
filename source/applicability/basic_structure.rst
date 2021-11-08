@@ -1053,16 +1053,18 @@ The following table describes additional variable content of the message.
    |                 | old                | The value is not up to date.                  |
    |                 |                    | Used when sending buffered values             |
    |                 +--------------------+-----------------------------------------------+
-   |                 | undefined          | The component does not exist and no           |
-   |                 |                    | subscription will be performed.               |
-   |                 |                    | **s** should be set to **null**.              |
+   |                 | undefined          | The component does not exist                  |
    |                 +--------------------+-----------------------------------------------+
-   |                 | unknown            | The value is unknown and no subscription will |
-   |                 |                    | be performed.                                 |
-   |                 |                    | **s** should be set to **null**.              |
+   |                 | unknown            | The value is unknown                          |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
+
+If the component does not exist or the value ``s`` is unknown then:
+* Subscription will not be performed
+* ``q`` is set according to the table above
+* ``s`` must be set to ``null``
+
 
 Structure for a status subscription request message on one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
