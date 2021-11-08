@@ -699,8 +699,8 @@ status of the site. The aggregated status applies to the object which is
 defined by **ObjectType** in the signal exchange list. If no object is defined
 then no aggregated status message is sent.
 
-Aggregated status message are interaction driven and are sent if state
-bits, functional position or functional status are changed at the site.
+Aggregated status message are interaction driven and are sent if state,
+functional position or functional status are changed at the site.
 
 Message structure
 """""""""""""""""
@@ -768,7 +768,7 @@ between the JSon elements and the titles in the SXL.
    +--------------------+--------------------+----------------------------------------------------------------+
    | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
    +--------------------+--------------------+----------------------------------------------------------------+
-   | se                 | State              | Status bits. Array of eight booleans                           |
+   | se                 | State              | Array of eight booleans.                                       |
    +--------------------+--------------------+----------------------------------------------------------------+
 
 ..
@@ -786,7 +786,7 @@ State
 A definition of each boolean element (1-8) is presented in the figure below.
 The signal exchange list (SXL) may define a more detailed definition.
 
-.. image:: /img/msc/agg_status_bits.png
+.. image:: /img/msc/agg_state_array.png
    :align: center
 
 .. _aggregated-status-req:
@@ -825,7 +825,7 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or status bits changes at the
+**Functional state, functional position or state booleans changes at the
 site**
 
 
