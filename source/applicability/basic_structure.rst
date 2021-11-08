@@ -768,12 +768,16 @@ between the JSon elements and the titles in the SXL.
    +--------------------+--------------------+----------------------------------------------------------------+
    | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
    +--------------------+--------------------+----------------------------------------------------------------+
-   | se                 | State              | Status bits. 8 bit status bit array, where each element is     |
-   |                    |                    | defined as either **true** or **false**.                       |
-   |                    |                    | This status bit array defines the status of the site to NTS    |
+   | se                 | State              | Status bits. 8 bit boolean array.                              |
    +--------------------+--------------------+----------------------------------------------------------------+
 
 ..
+
+* **Status bits** ``se`` is an 8 bit boolean array. The status bits defines
+  the status of the site to :term:`NTS`.
+
+* It is technically valid in RSMP to set the status bits to a nonsensical value,
+  e.g. all bits to ``false``, but it not defined how to interpret it.
 
 
 Status bits (state)
