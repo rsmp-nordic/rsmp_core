@@ -1132,34 +1132,47 @@ The following table is describing the variable content of the message:
 
 ..
 
-The **updateRate** (uRt) and **sendOnChange** (sOc) determines when a
-status update should be sent. **updateRate** defines a specific interval
-when to send updates. If **updateRate** is set to "0" it means that no
-update is sent using an interval. **sendOnChange** defines if an status
-update should be sent as soon as the value changes.
+The following applies:
 
-It is possible to combine **updateRate** and **sendOnChange** to send an
-update when the value changes and at the same time using a specific
-interval.
+* The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
+  status update should be sent. **updateRate** defines a specific interval
+  when to send updates.
+
+* If **updateRate** is set to "0" it means that no update is sent using an
+  interval.
+
+* **sendOnChange** defines if an status update should be sent as soon as the
+  value changes.
+
+* It is possible to combine **updateRate** and **sendOnChange** to send an
+  update when the value changes and at the same time using a specific
+  interval.
+
+* It allowed to change **updateRate** and **sendOnChange** by sending a new
+  StatusSubscribe during an active subscription.
 
 
 Structure for a response message with answer to a request for status subscription for one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A response message with answer to a request for status subscription
-has the structure according to the example below. This response is
-always sent immediately after request for subscription regardless if
-the value recently changed or as an effect of the interval for the
-subscription. The reason for sending the response immediately is
-because subscriptions usually are established shortly after RSMP
-connection establishment and the supervision system needs to update
-with the current statuses and events.
-If an subscription is already active then the site must not establish
-a new subscription but use the existing one. This message type should
-not be sent if the subscription already exist.
-If the object is not known then the site must not disconnect
-but instead answer with this type of message where **q** is set to
-**undefined**.
+has the structure according to the example below.
+
+The following applies:
+
+* A StatusUpdate is always sent immediately after subscription request,
+  unless the subscription is already active. The reason for sending the
+  response immediately is because subscriptions usually are established
+  shortly after RSMP connection establishment and the supervision system
+  needs to update with the current statuses.
+
+* If an subscription is already active then the site must not establish
+  a new subscription but use the existing one. It allowed to change
+  **updateRate** and **sendOnChange**.
+
+* If the object is not known then the site must not disconnect
+  but instead answer with this type of message where **q** is set to
+  **undefined**.
 
 .. code-block:: json
    :name: json-status-update
