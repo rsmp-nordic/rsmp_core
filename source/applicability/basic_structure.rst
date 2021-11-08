@@ -1171,7 +1171,7 @@ The following applies:
   needs to update with the current statuses.
 
 * If an subscription is already active then the site must not establish
-  a new subscription but use the existing one. It allowed to change
+  a new subscription but use the existing one. It's allowed to change
   **updateRate** and **sendOnChange**.
 
 * If the object is not known then the site must not disconnect
