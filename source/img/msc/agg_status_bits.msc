@@ -1,9 +1,9 @@
-# Aggregated status bits
+# Aggregated status boolean array
 
 msc {
         hscale = "1.3";
 
-	A [label="Bit (name)"], B [label="Description"], C [label="Status"];
+	A [label="Boolean element (1-8)"], B [label="Description"], C [label="Status"];
 
         A box A [label="1"],
 	B box B [label="\nThe site is out of operation by the local control system or maintenance personel\n"],
