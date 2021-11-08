@@ -1127,8 +1127,6 @@ The following table is describing the variable content of the message:
    |            |            | message should be sent.                                |
    |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
    |            |            | 2.5 seconds. Dot (.) is used as decimal point.         |
-   |            |            | If “0” it means that the value should not be sent      |
-   |            |            | according to an interval                               |
    +------------+------------+--------------------------------------------------------+
    | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
    |            |            | when the value changes.                                |
@@ -1151,6 +1149,9 @@ The following applies:
 * It is possible to combine **updateRate** and **sendOnChange** to send an
   update when the value changes and at the same time using a specific
   interval.
+
+* It is not valid to set **updateRate=0** and **sendOnChange=false** since
+  it means that no subscription updates will be sent.
 
 * It allowed to change **updateRate** and **sendOnChange** by sending a new
   StatusSubscribe during an active subscription.
