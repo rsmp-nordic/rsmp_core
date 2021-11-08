@@ -768,24 +768,23 @@ between the JSon elements and the titles in the SXL.
    +--------------------+--------------------+----------------------------------------------------------------+
    | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
    +--------------------+--------------------+----------------------------------------------------------------+
-   | se                 | State              | Status bits. 8 bit boolean array.                              |
+   | se                 | State              | Status bits. Array of eight booleans                           |
    +--------------------+--------------------+----------------------------------------------------------------+
 
 ..
 
-* **Status bits** ``se`` is an 8 bit boolean array. The status bits defines
+State
+~~~~~
+
+* **State** ``se`` is an array of eight booleans. The boolean elements defines
   the status of the site to :term:`NTS`.
 
-* It is technically valid in RSMP to set the status bits to a nonsensical value,
-  e.g. all bits to ``false``, but it not defined how to interpret it.
+* It is technically valid in RSMP to set the boolean elements to a nonsensical
+  values, e.g. all boolean elements to ``false``, but it is not defined how to
+  interpret it at the receiving end
 
-
-Status bits (state)
-~~~~~~~~~~~~~~~~~~~
-
-The principle of aggregating of statuses for each bit is defined by the
-associated comments in the signal exchange list (SXL). A generic
-description of each bit is presented in the figure below
+A definition of each boolean element (1-8) is presented in the figure below.
+The signal exchange list (SXL) may define a more detailed definition.
 
 .. image:: /img/msc/agg_status_bits.png
    :align: center
