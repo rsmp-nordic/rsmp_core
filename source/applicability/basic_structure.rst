@@ -1061,6 +1061,7 @@ The following table describes additional variable content of the message.
 ..
 
 If the component does not exist or the value ``s`` is unknown then:
+
 * Subscription will not be performed
 * ``q`` is set according to the table above
 * ``s`` must be set to ``null``
