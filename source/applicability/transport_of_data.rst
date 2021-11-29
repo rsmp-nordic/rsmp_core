@@ -258,8 +258,8 @@ In the event of an communication disruption the following principles applies:
 * If the equipment supports buffering of status messages, the status
   subscriptions remains active regardless of communication disruption and the
   status updates are stored in the equipment's outgoing communication buffer.
-* Active subscriptions to status messages which does does not support buffering
-  ceases if the communication disruption occurs.
+* Active subscriptions to status messages which does not support buffering
+  ceases if communication disruption occurs.
 * Once communication is restored all the buffered messages are sent according to
   the communication establishment sequence.
 * When sending buffered status messages, the ``q`` field should be set to ``old``
