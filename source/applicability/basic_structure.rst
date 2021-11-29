@@ -1155,8 +1155,8 @@ The following applies:
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
 
-* It allowed to change **updateRate** and **sendOnChange** by sending a new
-  StatusSubscribe during an active subscription.
+* It is allowed to change **updateRate** and **sendOnChange** by sending a
+  new StatusSubscribe during an active subscription.
 
 
 Structure for a response message with answer to a request for status subscription for one or several objects
