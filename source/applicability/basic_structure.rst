@@ -888,8 +888,10 @@ below.
 
 JSon code 13: A status request message
 
-The status code id (**sCI**) and name (**n**) are placed in an array
-(**sS**) in order to enable support for requesting multiple status at once.
+The status code id (``sCI``) and name (``n``) are placed in an array
+(``sS``) in order to enable support for requesting multiple status at
+once.
+
 The following table is describing the variable content of the message.
 
 The *SXL element* column describes the correlation between the JSon
@@ -918,8 +920,12 @@ Structure for a message with status of one or several objects
 A message with status of one or several objects has the structure
 according to the example below.
 
-If the component (**cId**) is not known, then the site must not disconnect but
-instead answer with this type of message where **q** is set to **undefined**.
+The status code id (``sCI``) and name (``n``) are placed in an array
+(``sS``) in order to enable support for responding to multiple statuses at once.
+The following table is describing the variable content of the message.
+
+If the component (``cId``) is not known, then the site must not disconnect but
+instead answer with this type of message where ``q`` is set to ``undefined``.
 
 .. code-block:: json
    :name: json-status-response
@@ -948,7 +954,6 @@ instead answer with this type of message where **q** is set to **undefined**.
    }
 
 JSon code 14: A status response message
-
 
 The following table is describing the variable content of the message:
 
@@ -1343,7 +1348,7 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to do something at the site.
+Command messages are used to give order to one or more requested objects.
 The site responds with a command acknowledgement.
 
 Command messages are interaction driven and are sent when command are
@@ -1352,7 +1357,8 @@ requested on any given object by the supervision system or other equipment
 Message structure
 """""""""""""""""
 
-Structure of a command message request
+Structure of a command for one or more objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1395,6 +1401,9 @@ requested object
 
 JSon code 20: A command request message
 
+The command code (``cCI``) and name (``n``) are placed in an array
+(``arg``) in order to enable support for requesting multiple commands at
+once.
 
 The following table is describing the variable content of the message:
 
@@ -1469,9 +1478,14 @@ Structure of command response message
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
+
+The command code (``cCI``) and name (``n``) are placed in an array
+(``rvs``) in order to enable support for responding to multiple commands at
+once.
+
 If the object is not known then the site must not disconnect
-but instead answer with this type of message where **age** is set to
-**undefined**.
+but instead answer with this type of message where ``age`` is set to
+``undefined``.
 
 .. code-block:: json
    :name: json-command-response
