@@ -54,22 +54,19 @@ Each site needs to support the following:
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
 
-* It must be possible to configure supervisors as read-only.
+* It must be possible to configure supervisors as primary or secondary.
 
-* A read-only supervisor is not allowed to send commands and does not
-  receive alarms.
+* There can be multiple secondary supervisors, but only one primary.
 
-* A read-only supervisor receives aggregated status and can request,
+* A secondary supervisor does not recieve alarms.
+
+* A secondary supervisor receives aggregated status and can request,
   subscribe and receive statuses.
 
-* Watchdog messages from a read-only supervisor does not adjust the clock.
+* Watchdog messages from a secondary supervisor does not adjust the clock.
   See section :ref:`watchdog`.
 
-* A command request from a read-only supervisor must be rejected with a
-  NotAcknowledge message with reason set to ``Command request rejected
-  because supervisor is configured as read-only``.
-
-* Except from not handling commands from read-only supervisors, a site must
+* Except from not sending alarms to secondary supervisors, a site must
   handle all types of message from all supervisors, including command requests,
   status requests and status subscriptions. Commands from multiple supervisors
   are served on a first-come basis, without any concept of priority.
