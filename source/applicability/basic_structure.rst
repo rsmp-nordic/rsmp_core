@@ -761,15 +761,15 @@ between the JSon elements and the titles in the SXL.
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.50\linewidth}
 
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | Element            | SXL element        | Description                                                    |
-   +====================+====================+================================================================+
-   | fP                 | functionalPosition | Functional position. Is **null** if no value is defined in SXL.|
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | se                 | State              | Array of eight booleans.                                       |
-   +--------------------+--------------------+----------------------------------------------------------------+
+   ======= =================== =============================================================
+   Element SXL element         Description
+   ======= =================== =============================================================
+   fP      functionalPosition  Functional position. |br|
+                               Is ``null`` or empty string if no value is defined in SXL.
+   fS      functionalState     Functional state. |br|
+                               Is ``null`` or empty string if no value is defined in SXL.
+   se      State               Array of eight booleans.
+   ======= =================== =============================================================
 
 ..
 
@@ -1944,4 +1944,14 @@ Supervision system/other equipment sends watchdog message
 .. image:: /img/msc/watchdog_system.png
 
 1. Watchdog message is sent from supervision system/other equipment
+
+.. |br| replace:: |br_html| |br_latex|
+
+.. |br_html| raw:: html
+
+   <br>
+
+.. |br_latex| raw:: latex
+
+   \newline
 
