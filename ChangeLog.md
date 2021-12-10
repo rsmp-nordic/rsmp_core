@@ -1,3 +1,28 @@
+# Version 3.2
+
+## Buffered messages
+The 'q' field in StatusUpdate should be changed when sending buffered messages #73
+
+## Case sensitive
+RSMP is now case sensitive #35
+
+## Connect to multiple supervisors
+Each site needs to support multiple RSMP connections #19
+
+## Minor clarifications
+- Clarify when commands/requests can be sent #34
+- Table in chapter 4.5.1.6 updated #55
+- The list of participants in the RSMP Nordic collaboration updated #67
+- Fix in changelog for 3.1.3 "ageState" #69
+- How to reject a RSMP connection #43
+- How to determine RSMP version during handshake #43
+- Allow update of subscription interval time by sending new subscription request #52
+- Aggregated status without any bits set #57
+- Subscriptions should not persist across restarts/power outage #74
+- CommandRequest and CommandResponse can contain multiple requests/responses #58
+- null or empty string is allowed in functionalPostion/state #45
+- Respond with MessageNotAck if security code is incorrect #79
+
 # Version 3.1.5
 
 ## MessageAck must be prioritized over buffered messages
