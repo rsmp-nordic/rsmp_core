@@ -6,8 +6,7 @@ Contens
 + [CommandResponse and verifying executed commands](#1)
 + [CommandResponse and MessageAck](#2)
 + [Version message and MessageAck](#3)
-+ [Case sensitivity](#4)
-+ [Missing MessageAck](#5)
++ [Missing MessageAck](#4)
 
 <a id="1"></a>
 CommandResponse and verifying executed commands
@@ -80,18 +79,6 @@ version message from the system. The site needs to make sure that the RSMP
 version, site id and sxl revision matches in the version message from system.
 
 <a id="4"></a>
-Case sensitivity
-----------------
-Q: Is RSMP case sensitive?
-
-A: Short answer: Yes. It is important to use the same letter case as the
-specification and SXL to avoid any unexpected issues.
-
-Please note that the specification usually use elements with lower case,
-e.g. "cat", "pri, "v,", q". However, the SXL may use upper case from time to
-time, such as "True" and "False".
-
-<a id="5"></a>
 Missing MessageAck
 ------------------
 Q: What is the policy for when a client does not receive an message acknowledge?
