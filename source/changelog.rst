@@ -20,6 +20,7 @@ Change log
    3.1.3       2014-11-24 Minor revision                                                DO
    3.1.4       2017-11-03 Protocol revised                                              DO
    3.1.5       2020-10-30 Protocol revised                                              DO
+   3.2         2021-12-13 Protocol revised                                              DO
    =========== ========== ============================================================= ===============
 
 ..
