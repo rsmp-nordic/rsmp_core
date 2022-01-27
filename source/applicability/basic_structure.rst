@@ -58,50 +58,52 @@ The following table is describing the variable content of all message types.
    :label: table-variable-content
    :caption: Variable content
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.55\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.25\linewidth} p{0.50\linewidth}
 
-   +---------+-------------------+---------------------------------------+
-   | Element | Value             | Description                           |
-   +=========+===================+=======================================+
-   | mType   | rSMsg             | RSMP identifier                       |
-   +---------+-------------------+---------------------------------------+
-   | type    | Alarm             | Alarm message                         |
-   |         +-------------------+---------------------------------------+
-   |         | AggregatedStatus  | Aggregated status message             |
-   |         +-------------------+---------------------------------------+
-   |         | StatusRequest     | Status message. Request status        |
-   |         +-------------------+---------------------------------------+
-   |         | StatusResponse    | Status message. Status response       |
-   |         +-------------------+---------------------------------------+
-   |         | StatusSubscribe   | Status message. Start subscription    |
-   |         +-------------------+---------------------------------------+
-   |         | StatusUpdate      | Status message. Update of status      |
-   |         +-------------------+---------------------------------------+
-   |         | StatusUnsubscribe | Status message. End subscription      |
-   |         +-------------------+---------------------------------------+
-   |         | CommandRequest    | Command message. Request command      |
-   |         +-------------------+---------------------------------------+
-   |         | CommandResponse   | Command message. Response of command  |
-   |         +-------------------+---------------------------------------+
-   |         | MessageAck        | Message acknowledegment. Successful   |
-   |         +-------------------+---------------------------------------+
-   |         | MessageNotAck     | Message acknowledegment. Unsuccessful |
-   |         +-------------------+---------------------------------------+
-   |         | Version           | RSMP / SXL version message            |
-   |         +-------------------+---------------------------------------+
-   |         | Watchdog          | Watchdog message                      |
-   +---------+-------------------+---------------------------------------+
-   | mId     | *(GUID)*          | Message identity. Generated as a GUID |
-   | *(or)*  |                   | (Globally unique identifier) in the   |
-   | oMId    |                   | equipment that sent the message. Only |
-   |         |                   | version 4 of Leach-Salz UUID is used. |
-   |         |                   |                                       |
-   |         |                   | * **mId** is used i all messages as a |
-   |         |                   |   reference for the message ack       |
-   |         |                   | * **oMId** is used in the message ack |
-   |         |                   |   to refer to the message which is    |
-   |         |                   |   being acked                         |
-   +---------+-------------------+---------------------------------------+
+   +---------+-------------------------+---------------------------------------+
+   | Element | Value                   | Description                           |
+   +=========+=========================+=======================================+
+   | mType   | rSMsg                   | RSMP identifier                       |
+   +---------+-------------------------+---------------------------------------+
+   | type    | Alarm                   | Alarm message                         |
+   |         +-------------------------+---------------------------------------+
+   |         | AggregatedStatus        | Aggregated status message             |
+   |         +-------------------------+---------------------------------------+
+   |         | AggregatedStatusRequest | Aggregated status request message     |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusRequest           | Status message. Request status        |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusResponse          | Status message. Status response       |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusSubscribe         | Status message. Start subscription    |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusUpdate            | Status message. Update of status      |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusUnsubscribe       | Status message. End subscription      |
+   |         +-------------------------+---------------------------------------+
+   |         | CommandRequest          | Command message. Request command      |
+   |         +-------------------------+---------------------------------------+
+   |         | CommandResponse         | Command message. Response of command  |
+   |         +-------------------------+---------------------------------------+
+   |         | MessageAck              | Message acknowledegment. Successful   |
+   |         +-------------------------+---------------------------------------+
+   |         | MessageNotAck           | Message acknowledegment. Unsuccessful |
+   |         +-------------------------+---------------------------------------+
+   |         | Version                 | RSMP / SXL version message            |
+   |         +-------------------------+---------------------------------------+
+   |         | Watchdog                | Watchdog message                      |
+   +---------+-------------------------+---------------------------------------+
+   | mId     | *(GUID)*                | Message identity. Generated as a GUID |
+   | *(or)*  |                         | (Globally unique identifier) in the   |
+   | oMId    |                         | equipment that sent the message. Only |
+   |         |                         | version 4 of Leach-Salz UUID is used. |
+   |         |                         |                                       |
+   |         |                         | * **mId** is used i all messages as a |
+   |         |                         |   reference for the message ack       |
+   |         |                         | * **oMId** is used in the message ack |
+   |         |                         |   to refer to the message which is    |
+   |         |                         |   being acked                         |
+   +---------+-------------------------+---------------------------------------+
 
 ..
 
