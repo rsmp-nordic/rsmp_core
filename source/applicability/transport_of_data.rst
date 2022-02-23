@@ -41,6 +41,10 @@ RSMP connections can be established:
 Multiple supervisors
 ^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+   Implementing support for multiple supervisors is not required unless
+   otherwise stated.
+
 Each site needs to support the following:
 
 * At least three (3) RSMP connections to different supervision systems
@@ -79,8 +83,10 @@ Each site needs to support the following:
 Security
 ^^^^^^^^
 
-Implementing encryption is not required unless otherwise stated. However, if
-encryption is used than the following applies:
+.. note::
+   Implementing support for encryption is not required unless otherwise stated.
+
+If encryption is used than the following applies:
 
 * Encryption settings needs to be configurable in both the supervision system as
   well as the site.
