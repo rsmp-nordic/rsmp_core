@@ -441,6 +441,9 @@ elements and the titles in the SXL.
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
    |                 |                    |                                               |
    |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1033,6 +1036,11 @@ Return values ("sS") are always sent but can be empty if no return values exists
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | s               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1468,6 +1476,11 @@ elements and the titles in the signal exchange list (SXL).
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1602,6 +1615,11 @@ between the JSon elements and the titles in the SXL.
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+

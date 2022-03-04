@@ -9,6 +9,9 @@ RSMP is now case sensitive #35
 ## Connect to multiple supervisors
 Each site needs to support multiple RSMP connections #19
 
+## Array type
+Add ability to send a list of values #63
+
 ## Minor clarifications
 - Clarify when commands/requests can be sent #34
 - Table in chapter 4.5.1.6 updated #55
