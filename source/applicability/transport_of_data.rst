@@ -34,7 +34,7 @@ RSMP connections can be established:
 
 .. note::
    Implementing support for communication between sites is not required unless
-   otherwise stated.
+   otherwise stated in the :term:`SXL`.
 
 .. _multiple-supervisors:
 
@@ -43,7 +43,7 @@ Multiple supervisors
 
 .. note::
    Implementing support for multiple supervisors is not required unless
-   otherwise stated.
+   otherwise stated in the :term:`SXL`.
 
 Each site needs to support the following:
 
