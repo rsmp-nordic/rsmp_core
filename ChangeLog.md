@@ -7,7 +7,7 @@ The 'q' field in StatusUpdate should be changed when sending buffered messages #
 RSMP is now case sensitive #35
 
 ## Connect to multiple supervisors
-Each site needs to support multiple RSMP connections #19
+Each site needs to support multiple RSMP connections (if required in the SXL) #19
 
 ## Array type
 Add ability to send a list of values #63
