@@ -47,13 +47,6 @@ Multiple supervisors
 
 Each site needs to support the following:
 
-* At least three (3) RSMP connections to different supervision systems
-  simultaneously and handle concurrent communication with all of them.
-
-  For example, a traffic light controller might connect to both a traffic
-  management system and a bus priority system. Or it might connect to both a
-  traffic management system and a secondary monitoring system.
-
 * It must be possible to configure the list of supervisors as part of the
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
