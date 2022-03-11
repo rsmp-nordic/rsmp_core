@@ -79,7 +79,7 @@ Security
 .. note::
    Implementing support for encryption is not required unless otherwise stated.
 
-If encryption is used than the following applies:
+If encryption is used then the following applies:
 
 * Encryption settings needs to be configurable in both the supervision system as
   well as the site.
@@ -133,11 +133,11 @@ implicit in the following figure.
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-10. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
+10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
     are sent. (according to section :ref:`alarm-messages`).
 
 11. Buffered messages in the equipment's outgoing communication buffer are sent,
-    incl. alarms, aggregated status and status updates.
+    including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
