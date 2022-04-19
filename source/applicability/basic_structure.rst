@@ -14,6 +14,8 @@ deserialisation of values where the data type in unknown before casting is
 performed, for instance for the values in "return values".
 
 Parsing needs to be performed case sensitive.
+All enum values (e.g. :ref:`alarm-status`) must use the exact casing stated
+in this specification.
 
 Empty values are sent as **""** for simple values and as **[]** for arrays.
 Optional values can be omitted, but can not be sent as **null** unless
