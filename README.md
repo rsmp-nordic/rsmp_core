@@ -15,6 +15,7 @@ The specification is available the following formats:
 * [View the core specification online](https://rsmp-nordic.org/rsmp_specifications/core/3.2)
 * [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.2/rsmp-spec-3.2.pdf)
 
+
 ## FAQ
 Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
 
