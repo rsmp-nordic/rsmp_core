@@ -18,15 +18,68 @@ formatted text.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
-can continue to send messages. The exception in the RSMP / SXL version message
-(see section :ref:`rsmpsxl-version`).
+can continue to send messages. The exception is during the first part of
+communication establishment (see section :ref:`communication-establishment-between-sites-and-supervision-system`
+and :ref:`communication-establishment-between-sites`).
+
+RSMP connections can be established:
+
+* Between site and supervision system.
+  See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
+  The site needs to support multiple RSMP connections to different
+  supervisors. See :ref:`Multiple supervisors <multiple-supervisors>`.
+
+* Directly between sites.
+  See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
+
+.. note::
+   Implementing support for communication between sites is not required unless
+   otherwise stated in the :term:`SXL`.
+
+.. _multiple-supervisors:
+
+Multiple supervisors
+^^^^^^^^^^^^^^^^^^^^
+
+.. note::
+   Implementing support for multiple supervisors is not required unless
+   otherwise stated in the :term:`SXL`.
+
+Each site needs to support the following:
+
+* It must be possible to configure the list of supervisors as part of the
+  RSMP configuration in the site. In the configuration, supervisors are
+  identified by their IP addresses.
+
+* It must be possible to configure supervisors as primary or secondary.
+
+* There can be multiple secondary supervisors, but only one primary.
+
+* A secondary supervisor does not recieve alarms.
+
+* A secondary supervisor receives aggregated status and can request,
+  subscribe and receive statuses.
+
+* Watchdog messages from a secondary supervisor does not adjust the clock.
+  See section :ref:`watchdog`.
+
+* Except from not sending alarms to secondary supervisors, a site must
+  handle all types of message from all supervisors, including command requests,
+  status requests and status subscriptions. Commands from multiple supervisors
+  are served on a first-come basis, without any concept of priority.
+
+* Supervisor connections are handled separately. When a supervisor sends a
+  command or status request, the response is send only to that particular
+  supervisor.
 
 
 Security
 ^^^^^^^^
 
-Implementing encryption is not required unless otherwise stated. However, if
-encryption is used than the following applies:
+.. note::
+   Implementing support for encryption is not required unless otherwise stated.
+
+If encryption is used then the following applies:
 
 * Encryption settings needs to be configurable in both the supervision system as
   well as the site.
@@ -54,31 +107,37 @@ implicit in the following figure.
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
 2. The supervision system verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The system responds
-   with a MessageNotAck and closes the connection
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
 3. The supervision system sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
 4. The site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The site responds
-   with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
-5. The site sends a Watchdog (according to section :ref:`watchdog`)
 
-6. The system sends a Watchdog (according to section :ref:`watchdog`)
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
-7. Aggregated status (according to section :ref:`aggregated-status-message`).
+6. The site sends a Watchdog (according to section :ref:`watchdog`)
+
+7. The system sends a Watchdog (according to section :ref:`watchdog`)
+
+8. Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent
+
+9. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-8. All alarms (incl. active, inactive, suspended, unsuspended and acknowledged)
-   are sent. (according to section :ref:`alarm-messages`).
+10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
+    are sent. (according to section :ref:`alarm-messages`).
 
-9. Buffered messages in the equipment's outgoing communication buffer are sent,
-   incl. alarms, aggregated status and status updates.
+11. Buffered messages in the equipment's outgoing communication buffer are sent,
+    including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -106,9 +165,8 @@ each connected site must either:
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Implementing support for communication between sites is not required unless
-otherwise stated. However, if communication between sites is used than the
-following applies.
+When establishing communication directly between sites, messages are sent in
+the following order.
 
 One site acts as a leader and the other one as a follower.
 
@@ -125,23 +183,28 @@ implicit in the following figure.
    :ref:`rsmpsxl-version`).
 
 2. The leader site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The leader site
-   responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
 3. The leader site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
 4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed. The follower site
-   responds with a MessageNotAck and closes the connection.
-   (see section :ref:`message-acknowledgement`)
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
 
-5. The follower site sends Watchdog (according to section :ref:`watchdog`)
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
-6. The leader site sends Watchdog (according to section :ref:`watchdog`)
+6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
-7. Aggregated status (according to section :ref:`aggregated-status-message`)
+7. The leader site sends Watchdog (according to section :ref:`watchdog`)
+
+8. Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent
+
+9. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -155,9 +218,31 @@ For communication between sites the following applies:
   connection with the wrong site
 * The component id which is used in all messages is the follower site's
   component id
-* Watchdog messages does not adjust the clock
+* Watchdog messages does not adjust the clock. See section :ref:`watchdog`.
 * Alarm messages are not sent
 * No communication buffer exist
+
+.. _communication-rejection:
+
+Communication rejection
+^^^^^^^^^^^^^^^^^^^^^^^
+
+During RSMP/SXL Version exchange each communicating party needs to verify:
+
+* RSMP version(s)
+* SXL version
+* Site id
+
+If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+
+1. The communication establishment sequence does not proceed
+2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
+   reason (`rea`) set to the cause of rejection. For instance,
+   ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
+3. The connection is closed
+
+.. image:: /img/msc/communication-rejection.png
+   :align: center
 
 .. _communication-disruption:
 
@@ -169,12 +254,14 @@ In the event of an communication disruption the following principles applies:
 * If the equipment supports buffering of status messages, the status
   subscriptions remains active regardless of communication disruption and the
   status updates are stored in the equipment's outgoing communication buffer.
-* Active subscriptions to status messages which does does not support buffering
-  ceases if the communication disruption occurs.
+* Active subscriptions to status messages which does not support buffering
+  ceases if communication disruption occurs.
+* Active subscriptions to status messages ceases if the equipment restarts.
 * Once communication is restored all the buffered messages are sent according to
   the communication establishment sequence.
+* When sending buffered status messages, the ``q`` field should be set to ``old``
 * The communication buffer is stored and sent using the FIFO principle.
-* In the event of communications failure or power outage the contens of the
+* In the event of communications failure or power outage the contents of the
   outgoing communication buffer must not be lost.
 * The internal communication buffer of the device must at a minimum be
   sized to be able to store 10000 messages.

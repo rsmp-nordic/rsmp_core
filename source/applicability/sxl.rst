@@ -81,8 +81,8 @@ different message types.
    =================  =========================================  ================================
    Message type       Sent when                                  Adapted to be transmitted to NTS
    =================  =========================================  ================================
-   Alarm              On change                                  Yes
-   Aggregated status  On change                                  Yes
+   Alarm              On change *or* request                     Yes
+   Aggregated status  On change *or* request                     Yes
    Status             On request *or* according to subscription  No
    Command            On request                                 Yes, partly (functional status)
    =================  =========================================  ================================

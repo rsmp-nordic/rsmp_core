@@ -11,8 +11,11 @@ JSon boolean elements are used.
 
 The reason why JSon string elements are heavily used is to simplify
 deserialisation of values where the data type in unknown before casting is
-performed, for instance for the values in "return values". Parsing is
-recommended to be performed case insensitive.
+performed, for instance for the values in "return values".
+
+Parsing needs to be performed case sensitive.
+All enum values (e.g. :ref:`alarm-status`) must use the exact casing stated
+in this specification.
 
 Empty values are sent as **""** for simple values and as **[]** for arrays.
 Optional values can be omitted, but can not be sent as **null** unless
@@ -57,50 +60,52 @@ The following table is describing the variable content of all message types.
    :label: table-variable-content
    :caption: Variable content
    :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.55\linewidth}
+   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.25\linewidth} p{0.50\linewidth}
 
-   +---------+-------------------+---------------------------------------+
-   | Element | Value             | Description                           |
-   +=========+===================+=======================================+
-   | mType   | rSMsg             | RSMP identifier                       |
-   +---------+-------------------+---------------------------------------+
-   | type    | Alarm             | Alarm message                         |
-   |         +-------------------+---------------------------------------+
-   |         | AggregatedStatus  | Aggregated status message             |
-   |         +-------------------+---------------------------------------+
-   |         | StatusRequest     | Status message. Request status        |
-   |         +-------------------+---------------------------------------+
-   |         | StatusResponse    | Status message. Status response       |
-   |         +-------------------+---------------------------------------+
-   |         | StatusSubscribe   | Status message. Start subscription    |
-   |         +-------------------+---------------------------------------+
-   |         | StatusUpdate      | Status message. Update of status      |
-   |         +-------------------+---------------------------------------+
-   |         | StatusUnsubscribe | Status message. End subscription      |
-   |         +-------------------+---------------------------------------+
-   |         | CommandRequest    | Command message. Request command      |
-   |         +-------------------+---------------------------------------+
-   |         | CommandResponse   | Command message. Response of command  |
-   |         +-------------------+---------------------------------------+
-   |         | MessageAck        | Message acknowledegment. Successful   |
-   |         +-------------------+---------------------------------------+
-   |         | MessageNotAck     | Message acknowledegment. Unsuccessful |
-   |         +-------------------+---------------------------------------+
-   |         | Version           | RSMP / SXL version message            |
-   |         +-------------------+---------------------------------------+
-   |         | Watchdog          | Watchdog message                      |
-   +---------+-------------------+---------------------------------------+
-   | mId     | *(GUID)*          | Message identity. Generated as a GUID |
-   | *(or)*  |                   | (Globally unique identifier) in the   |
-   | oMId    |                   | equipment that sent the message. Only |
-   |         |                   | version 4 of Leach-Salz UUID is used. |
-   |         |                   |                                       |
-   |         |                   | * **mId** is used i all messages as a |
-   |         |                   |   reference for the message ack       |
-   |         |                   | * **oMId** is used in the message ack |
-   |         |                   |   to refer to the message which is    |
-   |         |                   |   being acked                         |
-   +---------+-------------------+---------------------------------------+
+   +---------+-------------------------+---------------------------------------+
+   | Element | Value                   | Description                           |
+   +=========+=========================+=======================================+
+   | mType   | rSMsg                   | RSMP identifier                       |
+   +---------+-------------------------+---------------------------------------+
+   | type    | Alarm                   | Alarm message                         |
+   |         +-------------------------+---------------------------------------+
+   |         | AggregatedStatus        | Aggregated status message             |
+   |         +-------------------------+---------------------------------------+
+   |         | AggregatedStatusRequest | Aggregated status request message     |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusRequest           | Status message. Request status        |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusResponse          | Status message. Status response       |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusSubscribe         | Status message. Start subscription    |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusUpdate            | Status message. Update of status      |
+   |         +-------------------------+---------------------------------------+
+   |         | StatusUnsubscribe       | Status message. End subscription      |
+   |         +-------------------------+---------------------------------------+
+   |         | CommandRequest          | Command message. Request command      |
+   |         +-------------------------+---------------------------------------+
+   |         | CommandResponse         | Command message. Response of command  |
+   |         +-------------------------+---------------------------------------+
+   |         | MessageAck              | Message acknowledegment. Successful   |
+   |         +-------------------------+---------------------------------------+
+   |         | MessageNotAck           | Message acknowledegment. Unsuccessful |
+   |         +-------------------------+---------------------------------------+
+   |         | Version                 | RSMP / SXL version message            |
+   |         +-------------------------+---------------------------------------+
+   |         | Watchdog                | Watchdog message                      |
+   +---------+-------------------------+---------------------------------------+
+   | mId     | *(GUID)*                | Message identity. Generated as a GUID |
+   | *(or)*  |                         | (Globally unique identifier) in the   |
+   | oMId    |                         | equipment that sent the message. Only |
+   |         |                         | version 4 of Leach-Salz UUID is used. |
+   |         |                         |                                       |
+   |         |                         | * **mId** is used i all messages as a |
+   |         |                         |   reference for the message ack       |
+   |         |                         | * **oMId** is used in the message ack |
+   |         |                         |   to refer to the message which is    |
+   |         |                         |   being acked                         |
+   +---------+-------------------------+---------------------------------------+
 
 ..
 
@@ -287,7 +292,7 @@ or alarm suspend messages).
    |                   +--------------------+------------------------------------------------------------------------------------+
    |                   | Active             | The alarm is active                                                                |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | sS                | suspended          | The alarm is suspended                                                             |
+   | sS                | Suspended          | The alarm is suspended                                                             |
    |                   +--------------------+------------------------------------------------------------------------------------+
    |                   | notSuspended       | The alarm is not suspended                                                         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
@@ -438,6 +443,9 @@ elements and the titles in the SXL.
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
    |                 |                    |                                               |
    |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
@@ -698,8 +706,8 @@ status of the site. The aggregated status applies to the object which is
 defined by **ObjectType** in the signal exchange list. If no object is defined
 then no aggregated status message is sent.
 
-Aggregated status message are interaction driven and are sent if state
-bits, functional position or functional status are changed at the site.
+Aggregated status message are interaction driven and are sent if state,
+functional position or functional status are changed at the site.
 
 Message structure
 """""""""""""""""
@@ -760,29 +768,32 @@ between the JSon elements and the titles in the SXL.
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.50\linewidth}
 
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | Element            | SXL element        | Description                                                    |
-   +====================+====================+================================================================+
-   | fP                 | functionalPosition | Functional position. Is **null** if no value is defined in SXL.|
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | fS                 | functionalState    | Functional state. Is **null** if no value is defined in SXL.   |
-   +--------------------+--------------------+----------------------------------------------------------------+
-   | se                 | State              | Status bits. 8 bit status bit array, where each element is     |
-   |                    |                    | defined as either **true** or **false**.                       |
-   |                    |                    | This status bit array defines the status of the site to NTS    |
-   +--------------------+--------------------+----------------------------------------------------------------+
+   ======= =================== =============================================================
+   Element SXL element         Description
+   ======= =================== =============================================================
+   fP      functionalPosition  Functional position. |br|
+                               Is ``null`` or empty string if no value is defined in SXL.
+   fS      functionalState     Functional state. |br|
+                               Is ``null`` or empty string if no value is defined in SXL.
+   se      State               Array of eight booleans.
+   ======= =================== =============================================================
 
 ..
 
+State
+~~~~~
 
-Status bits (state)
-~~~~~~~~~~~~~~~~~~~
+* **State** ``se`` is an array of eight booleans. The boolean elements defines
+  the status of the site to :term:`NTS`.
 
-The principle of aggregating of statuses for each bit is defined by the
-associated comments in the signal exchange list (SXL). A generic
-description of each bit is presented in the figure below
+* It is technically valid in RSMP to set the boolean elements to a nonsensical
+  values, e.g. all boolean elements to ``false``, but it is not defined how to
+  interpret it at the receiving end
 
-.. image:: /img/msc/agg_status_bits.png
+A definition of each boolean element (1-8) is presented in the figure below.
+The signal exchange list (SXL) may define a more detailed definition.
+
+.. image:: /img/msc/agg_state_array.png
    :align: center
 
 .. _aggregated-status-req:
@@ -821,7 +832,7 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or status bits changes at the
+**Functional state, functional position or state booleans changes at the
 site**
 
 
@@ -884,8 +895,10 @@ below.
 
 JSon code 13: A status request message
 
-The status code id (**sCI**) and name (**n**) are placed in an array
-(**sS**) in order to enable support for requesting multiple status at once.
+The status code id (``sCI``) and name (``n``) are placed in an array
+(``sS``) in order to enable support for requesting multiple status at
+once.
+
 The following table is describing the variable content of the message.
 
 The *SXL element* column describes the correlation between the JSon
@@ -914,8 +927,12 @@ Structure for a message with status of one or several objects
 A message with status of one or several objects has the structure
 according to the example below.
 
-If the component (**cId**) is not known, then the site must not disconnect but
-instead answer with this type of message where **q** is set to **undefined**.
+The status code id (``sCI``) and name (``n``) are placed in an array
+(``sS``) in order to enable support for responding to multiple statuses at once.
+The following table is describing the variable content of the message.
+
+If the component (``cId``) is not known, then the site must not disconnect but
+instead answer with this type of message where ``q`` is set to ``undefined``.
 
 .. code-block:: json
    :name: json-status-response
@@ -944,7 +961,6 @@ instead answer with this type of message where **q** is set to **undefined**.
    }
 
 JSon code 14: A status response message
-
 
 The following table is describing the variable content of the message:
 
@@ -1022,6 +1038,11 @@ Return values ("sS") are always sent but can be empty if no return values exists
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | s               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1036,7 +1057,7 @@ The following table describes additional variable content of the message.
 
 .. figtable::
    :nofig:
-   :label: table-statusresponse-returnvalues-qualtiy
+   :label: table-statusresponse-returnvalues-quality
    :caption: Return value quality
    :loc: H
    :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
@@ -1046,18 +1067,22 @@ The following table describes additional variable content of the message.
    +=================+====================+===============================================+
    | q               | recent             | The value is up to date                       |
    |                 +--------------------+-----------------------------------------------+
-   |                 | old                | The value is not up to date                   |
+   |                 | old                | The value is not up to date.                  |
+   |                 |                    | Used when sending buffered values             |
    |                 +--------------------+-----------------------------------------------+
-   |                 | undefined          | The component does not exist and no           |
-   |                 |                    | subscription will be performed.               |
-   |                 |                    | **s** should be set to **null**.              |
+   |                 | undefined          | The component does not exist                  |
    |                 +--------------------+-----------------------------------------------+
-   |                 | unknown            | The value is unknown and no subscription will |
-   |                 |                    | be performed.                                 |
-   |                 |                    | **s** should be set to **null**.              |
+   |                 | unknown            | The value is unknown                          |
    +-----------------+--------------------+-----------------------------------------------+
 
 ..
+
+If the component does not exist or the value ``s`` is unknown then:
+
+* Subscription will not be performed
+* ``q`` is set according to the table above
+* ``s`` must be set to ``null``
+
 
 Structure for a status subscription request message on one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1121,8 +1146,6 @@ The following table is describing the variable content of the message:
    |            |            | message should be sent.                                |
    |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
    |            |            | 2.5 seconds. Dot (.) is used as decimal point.         |
-   |            |            | If “0” it means that the value should not be sent      |
-   |            |            | according to an interval                               |
    +------------+------------+--------------------------------------------------------+
    | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
    |            |            | when the value changes.                                |
@@ -1130,34 +1153,50 @@ The following table is describing the variable content of the message:
 
 ..
 
-The **updateRate** (uRt) and **sendOnChange** (sOc) determines when a
-status update should be sent. **updateRate** defines a specific interval
-when to send updates. If **updateRate** is set to "0" it means that no
-update is sent using an interval. **sendOnChange** defines if an status
-update should be sent as soon as the value changes.
+The following applies:
 
-It is possible to combine **updateRate** and **sendOnChange** to send an
-update when the value changes and at the same time using a specific
-interval.
+* The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
+  status update should be sent. **updateRate** defines a specific interval
+  when to send updates.
+
+* If **updateRate** is set to "0" it means that no update is sent using an
+  interval.
+
+* **sendOnChange** defines if an status update should be sent as soon as the
+  value changes.
+
+* It is possible to combine **updateRate** and **sendOnChange** to send an
+  update when the value changes and at the same time using a specific
+  interval.
+
+* It is not valid to set **updateRate=0** and **sendOnChange=false** since
+  it means that no subscription updates will be sent.
+
+* It is allowed to change **updateRate** and **sendOnChange** by sending a
+  new StatusSubscribe during an active subscription.
 
 
 Structure for a response message with answer to a request for status subscription for one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A response message with answer to a request for status subscription
-has the structure according to the example below. This response is
-always sent immediately after request for subscription regardless if
-the value recently changed or as an effect of the interval for the
-subscription. The reason for sending the response immediately is
-because subscriptions usually are established shortly after RSMP
-connection establishment and the supervision system needs to update
-with the current statuses and events.
-If an subscription is already active then the site must not establish
-a new subscription but use the existing one. This message type should
-not be sent if the subscription already exist.
-If the object is not known then the site must not disconnect
-but instead answer with this type of message where **q** is set to
-**undefined**.
+has the structure according to the example below.
+
+The following applies:
+
+* A StatusUpdate is always sent immediately after subscription request,
+  unless the subscription is already active. The reason for sending the
+  response immediately is because subscriptions usually are established
+  shortly after RSMP connection establishment and the supervision system
+  needs to update with the current statuses.
+
+* If an subscription is already active then the site must not establish
+  a new subscription but use the existing one. It's allowed to change
+  **updateRate** and **sendOnChange**.
+
+* If the object is not known then the site must not disconnect
+  but instead answer with this type of message where **q** is set to
+  **undefined**.
 
 .. code-block:: json
    :name: json-status-update
@@ -1321,7 +1360,7 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to do something at the site.
+Command messages are used to give order to one or more requested objects.
 The site responds with a command acknowledgement.
 
 Command messages are interaction driven and are sent when command are
@@ -1330,7 +1369,8 @@ requested on any given object by the supervision system or other equipment
 Message structure
 """""""""""""""""
 
-Structure of a command message request
+Structure of a command for one or more objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1373,6 +1413,9 @@ requested object
 
 JSon code 20: A command request message
 
+The command code (``cCI``) and name (``n``) are placed in an array
+(``arg``) in order to enable support for requesting multiple commands at
+once.
 
 The following table is describing the variable content of the message:
 
@@ -1435,6 +1478,11 @@ elements and the titles in the signal exchange list (SXL).
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1447,9 +1495,14 @@ Structure of command response message
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
 requested object.
+
+The command code (``cCI``) and name (``n``) are placed in an array
+(``rvs``) in order to enable support for responding to multiple commands at
+once.
+
 If the object is not known then the site must not disconnect
-but instead answer with this type of message where **age** is set to
-**undefined**.
+but instead answer with this type of message where ``age`` is set to
+``undefined``.
 
 .. code-block:: json
    :name: json-command-response
@@ -1564,6 +1617,11 @@ between the JSon elements and the titles in the SXL.
    |                 |                    | | **boolean**: Boolean data type              |
    |                 |                    | | **base64**: Binary data expressed in        |
    |                 |                    |   base64 format according to RFC-4648         |
+   |                 |                    | | **array**: List of values. Makes it         |
+   |                 |                    |   possible to send multiple values in a JSON  |
+   |                 |                    |   array. Content defined by SXL.              |
+   |                 |                    |                                               |
+   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1720,21 +1778,21 @@ Site sends initial message
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
 
-Version of RSMP and revision of SXL are always sent directly after
-establishing communication. Both communicating systems send this as
-their first message and waits for message response until any other
-messages are sent. Information regarding all supported RSMP versions
-should be included in the version message. The version message should
-be implemented in such a way that is should be possible to add
-additional tags/variables (e.g. date) without affecting existing
-implementations.
+RSMP/SXL Version is the initial message when establishing communication.
 
-If any discrepancies with the version numbers are detected between the
-two communicating systems this should be set using a MessageNotAck.
-The communication is terminated after that and an internal alarm is
-activated in both communicating system. If both communicating systems
-support several RSMP versions it is always the latest version that
-should be used.
+It contains:
+Site Id
+* SXL revision
+* All supported RSMP versions
+
+The Site Id and SXL revision must match between the communicating parties.
+
+If there is a mismatch or if there are no RSMP version that both
+communicating parties support, see :ref:`communication-rejection`.
+
+The version message should be implemented in such a way that is should be
+possible to add additional tags/variables (e.g. date) without affecting
+existing implementations.
 
 The principle of the message exchange is defined by the communication
 establishment (See
@@ -1908,4 +1966,14 @@ Supervision system/other equipment sends watchdog message
 .. image:: /img/msc/watchdog_system.png
 
 1. Watchdog message is sent from supervision system/other equipment
+
+.. |br| replace:: |br_html| |br_latex|
+
+.. |br_html| raw:: html
+
+   <br>
+
+.. |br_latex| raw:: latex
+
+   \newline
 

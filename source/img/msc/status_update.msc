@@ -12,12 +12,12 @@ msc {
   |||;
   ...;
   |||;
-  Site abox Site [ label = "Status changed (uRt=0) or interval time reached" ];
+  Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
   |||;
   Site>>"Supervision system" [ label = "Status update message" ];
   ...;
   |||;
-  Site abox Site [ label = "Status changed (uRt=0) or interval time reached" ];
+  Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
   ...;
   Site>>"Supervision system" [ label = "Status update message" ];
   ...;

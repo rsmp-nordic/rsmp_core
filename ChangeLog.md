@@ -1,3 +1,31 @@
+# Version 3.2
+
+## Buffered messages
+The 'q' field in StatusUpdate should be changed when sending buffered messages #73
+
+## Case sensitive
+RSMP is now case sensitive #35
+
+## Connect to multiple supervisors
+Each site needs to support multiple RSMP connections (if required in the SXL) #19
+
+## Array type
+Add ability to send a list of values #63
+
+## Minor clarifications
+- Clarify when commands/requests can be sent #34
+- Table in chapter 4.5.1.6 updated #55
+- The list of participants in the RSMP Nordic collaboration updated #67
+- Fix in changelog for 3.1.3 "ageState" #69
+- How to reject a RSMP connection #43
+- How to determine RSMP version during handshake #43
+- Allow update of subscription interval time by sending new subscription request #52
+- Aggregated status without any bits set #57
+- Subscriptions should not persist across restarts/power outage #74
+- CommandRequest and CommandResponse can contain multiple requests/responses #58
+- null or empty string is allowed in functionalPostion/state #45
+- Respond with MessageNotAck if security code is incorrect #79
+
 # Version 3.1.5
 
 ## MessageAck must be prioritized over buffered messages
@@ -84,13 +112,14 @@ The time sync using watchdog should be possible to enable/disable in the site
   alarms which are not sent doesn't need to be interpreted as inactive since
   they are expected to be sent as part of buffered messages.
 * 1000 buffered messages now changed to 10000 as minimum buffer size
-* "ageState" can now have the state of "undefined" in case the object
+* "ageState" changed name to "q" (quality)
+* "q" can now have the state of "undefined" in case the object
   does not exist.
 * With the exception of aggregated status only JSon string elements are used,
   and JSon number or boolean elements are not used. Some examples used wrong
   types and have been updated.
 * If an object is not known during status request or command request, the
-  site must not disconnect but instead reply with "ageState" set to "undefined"
+  site must not disconnect but instead reply with "q" set to "undefined"
 * If a subscription is already active on a given status then the site
   should not establish a new subscription but use the existing one.
   StatusUpdate should not be sent as response in this case.

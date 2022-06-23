@@ -13,9 +13,13 @@ msc {
   |||;
   a abox a [ label = "Verify RSMP version, SXL version and site id" ];
   |||;
+  --- [ label = "RSMP version is selected based upon what site/supervisor support" ];
+  |||;
   a=>b [ label = "Watchdog" ];
   |||;
   a<=b [ label = "Watchdog" ];
+  |||;
+  --- [ label = "Asynchronous message exchange can begin" ];
   |||;
   a=>b [ label = "Aggregated status" ];
   |||;
