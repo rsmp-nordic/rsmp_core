@@ -112,7 +112,6 @@ The time sync using watchdog should be possible to enable/disable in the site
   alarms which are not sent doesn't need to be interpreted as inactive since
   they are expected to be sent as part of buffered messages.
 * 1000 buffered messages now changed to 10000 as minimum buffer size
-* "ageState" changed name to "q" (quality)
 * "q" can now have the state of "undefined" in case the object
   does not exist.
 * With the exception of aggregated status only JSon string elements are used,
@@ -139,6 +138,7 @@ The time sync using watchdog should be possible to enable/disable in the site
 * Appendix 6.3.2 (page 7). Command messages has no return values.
   In RSMP 3.x and later commands only returns values based on the arguments
   in CommandReponse
+* Fix typo. Incorrectly used "ageState" instead of "q"
 
 ## Clarifications
 
