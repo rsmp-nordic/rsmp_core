@@ -36,15 +36,6 @@ On Ubuntu:
   graphviz python3-sphinx-rtd-theme
 ```
 
-On Arch:
-
-```
-# pacman -S python-sphinx texlive-most texlive-latexextra texlive-humanities \
-  imagemagick librsvg python-sphinx_rtd_theme
-$ git clone https://aur.archlinux.org/mscgen.git
-$ cd mscgen; makepkg -sri
-```
-
 On MacOS using MacTex and Homebrew:
 
 Download MacTeX and install from http://www.tug.org/mactex
