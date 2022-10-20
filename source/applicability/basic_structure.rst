@@ -208,7 +208,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.55}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.30}|\Yl{0.55}|
 
 .. table:: Alarm message
 
@@ -222,7 +222,7 @@ elements and the titles in the signal exchange list (SXL).
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.25}|\Yl{0.40}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.25}|\Yl{0.40}|
 
 .. table:: Alarm status change
 
@@ -253,7 +253,7 @@ Alarm status
 Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.60}|
 
 .. table:: Alarm status
 
@@ -312,7 +312,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.60}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.65}|
 
 .. table:: Alarm status details defined by SXL
 
@@ -365,7 +365,7 @@ Return values ("rvs") are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. **[]**) if no return values are defined.
 
-.. tabularcolumns:: |\Yl{0.08}|\Yl{0.10}|\Yl{0.60}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.60}|
 
 .. table:: Alarm return values
 
@@ -715,7 +715,7 @@ The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
 between the JSon elements and the titles in the SXL.
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.60}|
 
 .. table:: Aggregated status SXL content
 
@@ -855,7 +855,7 @@ elements and the titles in the SXL.
 
 .. _table-statusrequest:
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Status request
 
@@ -912,7 +912,7 @@ The following table is describing the variable content of the message:
 
 .. _table-statusresponse:
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: Status response
 
@@ -934,7 +934,7 @@ Return values (returnvalue)
 
 Return values ("sS") are always sent but can be empty if no return values exists.
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.80}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
 
 .. table:: Return values (returnvalue)
 
@@ -989,7 +989,7 @@ Return values ("sS") are always sent but can be empty if no return values exists
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.65}|
 
 .. table:: Return value quality
 
@@ -1061,7 +1061,7 @@ JSon code 15: A status subscribe message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.80}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
 
 .. table:: Status Request
 
@@ -1345,7 +1345,7 @@ The following table is describing the variable content of the message:
 
 Values to send with the command (arguments)
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.60}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.60}|
 
 .. table:: Command argument
 
@@ -1478,7 +1478,7 @@ Return values (returnvalue)
 Return values (**rvs**) is always sent but can
 be empty if not return values are defined.
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.70}|
 
 .. table:: Command return values
 
@@ -1635,7 +1635,7 @@ JSon code 23: A not acknowledgement message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: Message not ack
 
@@ -1727,7 +1727,7 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Version information defined by SXL
 
@@ -1754,7 +1754,7 @@ elements and the titles in the signal exchange list (SXL).
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.90}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.85}|
 
 .. table:: Version information
 
@@ -1809,7 +1809,7 @@ JSon code 25: A watchdog message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: Watchdog
 

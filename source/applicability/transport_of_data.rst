@@ -269,7 +269,7 @@ In the event of an communication disruption the following principles applies:
 The following message types should be buffered in the equipment's outgoing
 communication buffer in the event of an communication disruption.
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|
+.. tabularcolumns:: |\Yl{0.30}|\Yl{0.50}|
 
 .. table:: Message types that should be buffered
 
