@@ -269,12 +269,9 @@ In the event of an communication disruption the following principles applies:
 The following message types should be buffered in the equipment's outgoing
 communication buffer in the event of an communication disruption.
 
-.. figtable::
-   :nofig:
-   :label: message-types-buffered
-   :caption: Message types that should be buffered
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.40\linewidth}
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|
+
+.. table:: Message types that should be buffered
 
    ================= ====================================
    Message type      Buffered during communication outage
@@ -287,8 +284,6 @@ communication buffer in the event of an communication disruption.
    Watchdog messages No
    MessageAck        No
    ================= ====================================
-
-..
 
 The following configuration options should exist at the site:
 

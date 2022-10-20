@@ -3,12 +3,9 @@
 Change log
 ==========
 
-.. figtable::
-   :nofig:
-   :label: table-changelog
-   :caption: Changelog
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.15\linewidth} p{0.15\linewidth} p{0.30\linewidth} p{0.15\linewidth}
+.. tabularcolumns: |\Yl{0.15}|\Yl{0.15}|\Yl{0.30}|\Yl{0.15}|
+
+.. table:: Changelog
 
    =========== ========== ============================================================= ===============
    Version     Date       Change                                                        Name (initials)

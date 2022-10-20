@@ -55,12 +55,9 @@ JSon code 2: An RSMP message
 
 The following table is describing the variable content of all message types.
 
-.. figtable::
-   :nofig:
-   :label: table-variable-content
-   :caption: Variable content
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.25\linewidth} p{0.50\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.30}|\Yl{0.55}|
+
+.. table:: Variable content
 
    +---------+-------------------------+---------------------------------------+
    | Element | Value                   | Description                           |
@@ -107,8 +104,6 @@ The following table is describing the variable content of all message types.
    |         |                         |   being acked                         |
    +---------+-------------------------+---------------------------------------+
 
-..
-
 The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.
@@ -116,12 +111,9 @@ messages, message acknowledgement messages and watchdog messages.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
-.. figtable::
-   :nofig:
-   :label: table-variable-content-sxl
-   :caption: Variable content defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+
+.. table:: Variable content defined by SXL
 
    ============ ============== ===================
    Element      SXL element    Description
@@ -130,8 +122,6 @@ elements and the titles in the SXL.
    xNId         externalNtsId  Identity for the NTS object in communcation between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.
    cId          componentId    Component id for the object which the message is referring to.
    ============ ============== ===================
-
-..
 
 .. _alarm-messages:
 
@@ -218,12 +208,9 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. figtable::
-   :nofig:
-   :label: table-alarm
-   :caption: Alarm message
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.25\linewidth} p{0.55\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.55}|
+
+.. table:: Alarm message
 
    ============ ====================== =============
    Element      SXL element            Description
@@ -233,17 +220,11 @@ elements and the titles in the signal exchange list (SXL).
    xNACId       externalNtsAlarmCodeId Alarm code in order to identify alarm type during communication with NTS
    ============ ====================== =============
 
-..
-
 The following table describes additional variable content of the message.
 
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.25}|\Yl{0.40}|
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-status-change
-   :caption: Alarm status change
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.12\linewidth} p{0.20\linewidth} p{0.40\linewidth}
+.. table:: Alarm status change
 
    +--------------+--------------------+--------------------+----------------------------------------------+
    | Element      | Value              | Origin             | Description                                  |
@@ -263,8 +244,6 @@ The following table describes additional variable content of the message.
    |              | Resume             | Supervision system | Unsuspend an alarm                           |
    +--------------+--------------------+--------------------+----------------------------------------------+
 
-..
-
 
 .. _alarm-status:
 
@@ -274,12 +253,9 @@ Alarm status
 Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-status
-   :caption: Alarm status
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+
+.. table:: Alarm status
 
    +-------------------+--------------------+------------------------------------------------------------------------------------+
    | Element           | Value              | Description                                                                        |
@@ -310,8 +286,6 @@ or alarm suspend messages).
    |                   |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
 
-..
-
 :numref:`alarm-transitions` show possible transitions between
 different alarm states.
 
@@ -338,12 +312,9 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-status-details-sxl
-   :caption: Alarm status details defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.12\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.60}|
+
+.. table:: Alarm status details defined by SXL
 
    +-------------------+--------------------+------------------------------------------------------------------------------------+
    | Element           | SXL element        | Description                                                                        |
@@ -385,8 +356,6 @@ elements and the titles in the signal exchange list (SXL).
    |                   |                    | 3. Alarm that will be corrected during the next planned maintenance shift.         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
 
-..
-
 .. _return-values:
 
 Return values
@@ -396,12 +365,9 @@ Return values ("rvs") are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. **[]**) if no return values are defined.
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-return
-   :caption: Alarm return values
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.10}|\Yl{0.60}|
+
+.. table:: Alarm return values
 
    ======= ========== ===========
    Element Value      Description
@@ -409,20 +375,15 @@ be empty (i.e. **[]**) if no return values are defined.
    rvs     *(array)*  Return values. Contains the element **n** and **v** in an array
    ======= ========== ===========
 
-..
-
 The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).
 
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the SXL.
 
-.. figtable::
-   :nofig:
-   :label: table-alarm-return-values
-   :caption: Alarm return value defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.12\linewidth} p{0.12\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table::
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
@@ -451,8 +412,6 @@ elements and the titles in the SXL.
    +-----------------+--------------------+-----------------------------------------------+
    | v               | value              | Value from equipment                          |
    +-----------------+--------------------+-----------------------------------------------+
-
-..
 
 .. _alarmmessages-req:
 
@@ -737,12 +696,9 @@ JSon code 11: An aggregated status message
 
 The following tables are describing the variable content of the message:
 
-.. figtable::
-   :nofig:
-   :label: table-agg-basic
-   :caption: Aggregated status
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Aggregated status
 
    ================== ============= ==========================================
    Element            Value         Description
@@ -755,18 +711,13 @@ The following tables are describing the variable content of the message:
                                     message is sent). All timestamps uses UTC.
    ================== ============= ==========================================
 
-..
-
 The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
 between the JSon elements and the titles in the SXL.
 
-.. figtable::
-   :nofig:
-   :label: table-agg-specialisation
-   :caption: Aggregated status SXL content
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.50\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+
+.. table:: Aggregated status SXL content
 
    ======= =================== =============================================================
    Element SXL element         Description
@@ -777,8 +728,6 @@ between the JSon elements and the titles in the SXL.
                                Is ``null`` or empty string if no value is defined in SXL.
    se      State               Array of eight booleans.
    ======= =================== =============================================================
-
-..
 
 State
 ~~~~~
@@ -906,11 +855,9 @@ elements and the titles in the SXL.
 
 .. _table-statusrequest:
 
-.. figtable::
-   :nofig:
-   :caption: Status request
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Status request
 
    ============ ============ ===================
    Element      SXL element  Description
@@ -919,7 +866,6 @@ elements and the titles in the SXL.
    n            name         Unique reference of the value
    ============ ============ ===================
 
-..
 
 Structure for a message with status of one or several objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -966,11 +912,9 @@ The following table is describing the variable content of the message:
 
 .. _table-statusresponse:
 
-.. figtable::
-   :nofig:
-   :caption: Status response
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.55\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Status response
 
    +-----------------+--------------------+--------------------------------------------+
    | Element         | Value              | Description                                |
@@ -984,19 +928,15 @@ The following table is describing the variable content of the message:
    |                 |                    | All timestamps uses UTC.                   |
    +-----------------+--------------------+--------------------------------------------+
 
-..
 
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Return values ("sS") are always sent but can be empty if no return values exists.
 
-.. figtable::
-   :nofig:
-   :label: table-statusresponse-returnvalues-sS
-   :caption: Return values (returnvalue)
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.80}|
+
+.. table:: Return values (returnvalue)
 
    ========== ========== ===================
    Element    Value      Description
@@ -1004,15 +944,11 @@ Return values ("sS") are always sent but can be empty if no return values exists
    sS         *(array)*  Return values. Contains the elements "sCI", "s", "n" and "q" in an array.
    ========== ========== ===================
 
-..
-
 .. _table-statusresponse-returnvalues:
 
-.. figtable::
-   :nofig:
-   :caption: Return values (returnvalue)
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: Return values (returnvalue)
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
@@ -1051,16 +987,11 @@ Return values ("sS") are always sent but can be empty if no return values exists
    |                 |                    | sent.                                         |
    +-----------------+--------------------+-----------------------------------------------+
 
-..
-
 The following table describes additional variable content of the message.
 
-.. figtable::
-   :nofig:
-   :label: table-statusresponse-returnvalues-quality
-   :caption: Return value quality
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.15\linewidth} p{0.65\linewidth}
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.65}|
+
+.. table:: Return value quality
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | Value              | Description                                   |
@@ -1074,8 +1005,6 @@ The following table describes additional variable content of the message.
    |                 +--------------------+-----------------------------------------------+
    |                 | unknown            | The value is unknown                          |
    +-----------------+--------------------+-----------------------------------------------+
-
-..
 
 If the component does not exist or the value ``s`` is unknown then:
 
@@ -1132,12 +1061,9 @@ JSon code 15: A status subscribe message
 
 The following table is describing the variable content of the message:
 
-.. figtable::
-   :nofig:
-   :label: table-statusrequest-basic
-   :caption: Status Request
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.80}|
+
+.. table:: Status Request
 
    +------------+------------+--------------------------------------------------------+
    | Element    | Value      | Description                                            |
@@ -1150,8 +1076,6 @@ The following table is describing the variable content of the message:
    | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
    |            |            | when the value changes.                                |
    +------------+------------+--------------------------------------------------------+
-
-..
 
 The following applies:
 
@@ -1421,19 +1345,15 @@ The following table is describing the variable content of the message:
 
 Values to send with the command (arguments)
 
-.. figtable::
-   :nofig:
-   :label: table-commands-argument
-   :caption: Command argument
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.60}|
+
+.. table:: Command argument
 
    ============ ============ =============
    Element      Value        Description
    ============ ============ =============
    arg          *(array)*    Argument. Contains the element **cCI**, **n**, **cO**, **v** in an array
    ============ ============ =============
-..
 
 The following table describes the variable content of the message which is
 defined by the SXL.
@@ -1441,12 +1361,9 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. figtable::
-   :nofig:
-   :label: table-command-arguments-sxl
-   :caption: Command arguments defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.18\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+
+.. table:: Command arguments defined by SXL
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
@@ -1486,8 +1403,6 @@ elements and the titles in the signal exchange list (SXL).
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
-
-..
 
 Structure of command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1544,12 +1459,9 @@ JSon code 21: A command response message
 
 The following table is describing the variable content of the message:
 
-.. figtable::
-   :nofig:
-   :label: table-command-response
-   :caption: Command response
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.65\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Command response
 
    +------------------+--------------------+------------------------------------------------------------------------------------+
    | Element          | Value              | Description                                                                        |
@@ -1559,7 +1471,6 @@ The following table is describing the variable content of the message:
    |                  |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
    +------------------+--------------------+------------------------------------------------------------------------------------+
 
-..
 
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1567,12 +1478,9 @@ Return values (returnvalue)
 Return values (**rvs**) is always sent but can
 be empty if not return values are defined.
 
-.. figtable::
-   :nofig:
-   :label: table-command-returnvalues-rvs
-   :caption: Command return values
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.10}|\Yl{0.70}|
+
+.. table:: Command return values
 
    ========= ========= =============
    Element   Value     Description
@@ -1580,18 +1488,13 @@ be empty if not return values are defined.
    rvs       *(array)* Return values. Contains the elements **cCI**, **v**, **n** and **q** in an array.
    ========= ========= =============
 
-..
-
 The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
 between the JSon elements and the titles in the SXL.
 
-.. figtable::
-   :nofig:
-   :label: table-command-returnvalue-sxl
-   :caption: Command return value defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.20\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+
+.. table:: Command return value defined by SXL
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
@@ -1626,16 +1529,11 @@ between the JSon elements and the titles in the SXL.
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
 
-..
-
 The following table describes additional variable content of the message.
 
-.. figtable::
-   :nofig:
-   :label: table-command-returnvalue
-   :caption: Command return value
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.30\linewidth}
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.60}|
+
+.. table:: Command return value
 
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | Value              | Description                                   |
@@ -1650,8 +1548,6 @@ The following table describes additional variable content of the message.
    |                 | unknown            | The value is unknown.                         |
    |                 |                    | **v** should be set to **null**.              |
    +-----------------+--------------------+-----------------------------------------------+
-
-..
 
 Message exchange between site and supervision system/other equipment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1739,20 +1635,15 @@ JSon code 23: A not acknowledgement message
 
 The following table is describing the variable content of the message:
 
-.. figtable::
-   :nofig:
-   :label: table-messagenoteack-basic
-   :caption: Message not ack
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.10\linewidth} p{0.70\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Message not ack
 
    ======== ============ ===============
    Element  Value        Description
    ======== ============ ===============
    rea      *(optional)* Error message where all relevant information about the nature of the error can be provided.
    ======== ============ ===============
-
-..
 
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1836,12 +1727,9 @@ defined by the SXL.
 The *SXL element* column describes the correlation between the JSon
 elements and the titles in the signal exchange list (SXL).
 
-.. figtable::
-   :nofig:
-   :label: table-version-basic-sxl
-   :caption: Version information defined by SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.08\linewidth} p{0.18\linewidth} p{0.65\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
+
+.. table:: Version information defined by SXL
 
    +-------------+--------------------+--------------------------------------------------------------------+
    | Element     | SXL element        | Description                                                        |
@@ -1864,24 +1752,17 @@ elements and the titles in the signal exchange list (SXL).
    | SXL         | SXL revision       | Revision of SXL. E.g ”1.3”                                         |
    +-------------+--------------------+--------------------------------------------------------------------+
 
-..
-
 The following table describes additional variable content of the message.
 
-.. figtable::
-   :nofig:
-   :label: table-version-basic
-   :caption: Version information
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.80\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.90}|
+
+.. table:: Version information
 
    ========= ===============
    Element   Description
    ========= ===============
    vers      Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
    ========= ===============
-
-..
 
 .. _watchdog:
 
@@ -1928,12 +1809,9 @@ JSon code 25: A watchdog message
 
 The following table is describing the variable content of the message:
 
-.. figtable::
-   :nofig:
-   :label: table-watchdog-basic
-   :caption: Watchdog
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.15\linewidth} p{0.60\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.15}|\Yl{0.75}|
+
+.. table:: Watchdog
 
    ================== ============= ==========================================
    Element            Value         Description
@@ -1946,8 +1824,6 @@ The following table is describing the variable content of the message:
                                     the event occurs (and not when the
                                     message is sent). All timestamps uses UTC.
    ================== ============= ==========================================
-
-..
 
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

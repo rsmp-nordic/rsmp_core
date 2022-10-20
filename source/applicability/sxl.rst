@@ -71,12 +71,9 @@ Overview on functional differences between different message types
 The following table defines the functional differences between
 different message types.
 
-.. figtable::
-   :nofig:
-   :label: table-functional-differencies
-   :caption: Functional differencies
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.40\linewidth} p{0.30\linewidth}
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+
+.. table:: Functional differencies
 
    =================  =========================================  ================================
    Message type       Sent when                                  Adapted to be transmitted to NTS
@@ -87,8 +84,6 @@ different message types.
    Command            On request                                 Yes, partly (functional status)
    =================  =========================================  ================================
 
-..
-
 Definitions
 -----------
 The following notions are used as titles from the columns in the SXL. All
@@ -97,12 +92,9 @@ basic structure.
 
 The following table defines the different versions of command messages.
 
-.. figtable::
-   :nofig:
-   :label: table-different-commands
-   :caption: Commands - different versions
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.25\linewidth} p{0.65\linewidth}
+.. tabularcolumns:: |\Yl{0.25}|\Yl{0.75}|
+
+.. table:: Commands - different versions
 
    +------------------------+-----------------------------------------------+
    | Notion                 | Description                                   |
@@ -122,8 +114,6 @@ The following table defines the different versions of command messages.
    | Parameter              | Used for modification of technical or         |
    |                        | autonomous traffic parameters of the equipment|
    +------------------------+-----------------------------------------------+
-
-..
 
 Functional relationships in the signal exchange list
 ----------------------------------------------------
@@ -153,12 +143,9 @@ list.
 The following table defines the message types which supports arguments and
 return values. 
 
-.. figtable::
-   :nofig:
-   :label: table-support
-   :caption: Support for arguments and return values
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.20\linewidth} p{0.20\linewidth} p{0.20\linewidth}
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
+
+.. table:: Support for arguments and return values
 
    =================  ========  ============
    Message type       Argument  Return value
@@ -168,8 +155,6 @@ return values.
    Status             No        Yes
    Commands           Yes       No
    =================  ========  ============
-
-..
 
 Version mangement
 -----------------
@@ -181,12 +166,9 @@ which are part of the RSMP specification refers to version of RSMP. The
 following table defines the principles for version numbering for each
 document.
 
-.. figtable::
-   :nofig:
-   :label: table-version-management
-   :caption: Version management
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.30\linewidth} p{0.40\linewidth}
+.. tabularcolumns:: |\Yl{0.30}|\Yl{0.40}|
+
+.. table:: Version management
 
    =================================  ========================
    Document                           Principles of versioning
@@ -194,8 +176,6 @@ document.
    RSMP specification                 Version of RSMP
    Signal exchange list (SXL)         Own version *and* version of RSMP
    =================================  ========================
-
-..
 
 The document "RSMP specification" uses the version of RSMP, for instance, "1.0".
 
@@ -218,12 +198,9 @@ differences can emerge; it is recommended that a table is added on the
 front page of each SXL the sites are using. The following table defines
 an example for the design of the table.
 
-.. figtable::
-   :nofig:
-   :label: table-revision
-   :caption: Revision of SXL
-   :loc: H
-   :spec: >{\raggedright\arraybackslash}p{0.10\linewidth} p{0.30\linewidth}
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.30}|
+
+.. table:: Revision of SXL
 
    ======  =============================
    Site    Revision of SXL which is used
@@ -232,8 +209,6 @@ an example for the design of the table.
    Site 2  1.0
    Site 3  1.1
    ======  =============================
-
-..
 
 The purpose is to be able to update the SXL with a new revision and at the
 samt time inform about which sites which the revision applies to.
