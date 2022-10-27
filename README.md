@@ -32,8 +32,8 @@ On Ubuntu:
 
 ```
 # apt-get install python3-sphinx texlive texlive-latex-extra \
-  texlive-humanities mscgen imagemagick librsvg2-bin latexmk \
-  graphviz python3-sphinx-rtd-theme
+  texlive-humanities texlive-fonts-extra mscgen imagemagick \
+  librsvg2-bin latexmk graphviz python3-sphinx-rtd-theme
 ```
 
 On MacOS using MacTex and Homebrew:
