@@ -935,7 +935,7 @@ Return values ("sS") are always sent but can be empty if no return values exists
    +-----------------+--------------------+-----------------------------------------------+
    | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | type               | The :ref:`data type<data_types>` of the value.|
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
    +-----------------+--------------------+-----------------------------------------------+
    | s               | Value              | Value                                         |
@@ -1339,7 +1339,7 @@ elements and the titles in the signal exchange list (SXL).
    +-----------------+--------------------+-----------------------------------------------+
    | cO              | Command            | Command                                       |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | type               | The :ref:`data type<data_types>` of the value.|
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
@@ -1447,7 +1447,7 @@ between the JSon elements and the titles in the SXL.
    +-----------------+--------------------+-----------------------------------------------+
    | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | type               | The :ref:`data type<data_types>` of the value.|
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
