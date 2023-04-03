@@ -16,11 +16,9 @@ General definition:
    * - string
      - Text information
    * - integer
-     - Numerical value (16-bit signed integer), [-32768 – 32767]
-   * - long
-     - Numerical value (32-bit signed long)
-   * - real
-     - Float (64-bit double precision floating point)
+     - JSON integer according to the ECMA standard
+   * - number
+     - JSON numerical value. Can be either integer or floating point according to the ECMA standard
    * - boolean
      - Boolean data type
    * - base64
