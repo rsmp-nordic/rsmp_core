@@ -3,102 +3,88 @@
 Change log
 ==========
 
-Version 3.2 (2022-06-23)
-------------------------
+Version 3.2
+-----------
+Release date: 2022-06-23
 
-Buffered messages
-^^^^^^^^^^^^^^^^^
+**Important changes**
 
-The 'q' field in StatusUpdate should be changed when sending buffered messages [#73](https://github.com/rsmp-nordic/rsmp_core/issues/73)
+* **Buffered messages**. The 'q' field in StatusUpdate should be changed when
+  sending buffered messages. :issue:`73`
 
-Case sensitive
-^^^^^^^^^^^^^^
+* **Case sensitive**. RSMP is now case sensitive. :issue:`35`
 
-RSMP is now case sensitive [#35](https://github.com/rsmp-nordic/rsmp_core/issues/35)
+* **Connect to multiple supervisors**. Each site needs to support multiple
+  RSMP connections (if required in the SXL). :issue:`19`
 
-Connect to multiple supervisors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+* **Array type**. Add ability to send a list of values :issue:`63`
 
-Each site needs to support multiple RSMP connections (if required in the SXL) [#19](https://github.com/rsmp-nordic/rsmp_core/issues/19)
+**Minor clarifications**
 
-Array type
-^^^^^^^^^^
+- Clarify when commands/requests can be sent :issue:`34`
+- Table in chapter 4.5.1.6 updated :issue:`55`
+- The list of participants in the RSMP Nordic collaboration updated. :issue:`67`
+- Fix in changelog for 3.1.3 "ageState" :issue:`69`
+- How to reject a RSMP connection :issue:`38`
+- How to determine RSMP version during handshake :issue:`43`
+- Allow update of subscription interval time by sending new subscription request :issue:`52`
+- Aggregated status without any bits set :issue:`57`
+- Subscriptions should not persist across restarts/power outage :issue:`74`
+- CommandRequest and CommandResponse can contain multiple requests/responses :issue:`58`
+- null or empty string is allowed in functionalPostion/state :issue:`45`
+- Respond with MessageNotAck if security code is incorrect :issue:`79`
 
-Add ability to send a list of values [#63](https://github.com/rsmp-nordic/rsmp_core/issues/63)
+Version 3.1.5
+-------------
+Release date: 2020-10-30
 
-Minor clarifications
-^^^^^^^^^^^^^^^^^^^^
-- Clarify when commands/requests can be sent [#34](https://github.com/rsmp-nordic/rsmp_core/issues/34)
-- Table in chapter 4.5.1.6 updated [#55](https://github.com/rsmp-nordic/rsmp_core/issues/55)
-- The list of participants in the RSMP Nordic collaboration updated [#67](https://github.com/rsmp-nordic/rsmp_core/issues/67)
-- Fix in changelog for 3.1.3 "ageState" [#69](https://github.com/rsmp-nordic/rsmp_core/issues/69)
-- How to reject a RSMP connection [#38](https://github.com/rsmp-nordic/rsmp_core/issues/38)
-- How to determine RSMP version during handshake [#43](https://github.com/rsmp-nordic/rsmp_core/issues/43)
-- Allow update of subscription interval time by sending new subscription request [#52](https://github.com/rsmp-nordic/rsmp_core/issues/52)
-- Aggregated status without any bits set [#57](https://github.com/rsmp-nordic/rsmp_core/issues/57)
-- Subscriptions should not persist across restarts/power outage [#74](https://github.com/rsmp-nordic/rsmp_core/issues/74)
-- CommandRequest and CommandResponse can contain multiple requests/responses [#58](https://github.com/rsmp-nordic/rsmp_core/issues/58)
-- null or empty string is allowed in functionalPostion/state [#45](https://github.com/rsmp-nordic/rsmp_core/issues/45)
-- Respond with MessageNotAck if security code is incorrect [#79](https://github.com/rsmp-nordic/rsmp_core/issues/79)
-
-Version 3.1.5 (2020-10-30)
---------------------------
-
-MessageAck must be prioritized over buffered messages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**MessageAck must be prioritized over buffered messages**
 
 During communication establishment there may be buffered messages that needs
 to be sent by the equipment. Sending any buffered messages is part of the
 communication sequence, but it may take a long time to empty the buffer
 in case of a slow network or long communication interruption. The equipment
 must prioritize to respond with MessageAck to any requests that the
-supervision system may send during this time. Discussed in [#4](https://github.com/rsmp-nordic/rsmp_core/issues/4).
-[View changes](https://github.com/rsmp-nordic/rsmp_core/commit/c6190f85e1bec18cce760040db922aef68eed7a3)
+supervision system may send during this time. Discussed in :issue:`4`.
+`View changes <https://github.com/rsmp-nordic/rsmp_core/commit/c6190f85e1bec18cce760040db922aef68eed7a3>`_
 
-Don't send new alarms if they're already active
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Don't send new alarms if they're already active**
 
 Clarify that new alarms shouldn't be sent if the alarm is already active.
 No changes to the protocol itself.
-Discussed in [#18](https://github.com/rsmp-nordic/rsmp_core/issues/18)
+Discussed in :issue:`18`
 
-Ability to request alarms and aggregated status
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Ability to request alarms and aggregated status**
 
-Discussed in [#22](https://github.com/rsmp-nordic/rsmp_core/issues/22)
+Discussed in :issue:`22`
 
-Status subscriptions and update on change+interval
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Status subscriptions and update on change+interval**
 
-Discussed in [#21](https://github.com/rsmp-nordic/rsmp_core/issues/21)
+Discussed in :issue:`21`
 
-Version 3.1.4 (2017-11-03)
---------------------------
+Version 3.1.4
+-------------
+Relase date: 2017-11-03
 
-Alarm timestamps
-^^^^^^^^^^^^^^^^
+**Alarm timestamps**
 
 The Alarm timestamp (aSp) now also represents when the alarm changes status,
-for instance when alarms turns inactive. See issue
-https://github.com/rsmp-nordic/rsmp_core/issues/1
+for instance when alarms turns inactive. See issue :issue:`1`
 
-Encryption
-^^^^^^^^^^
+**Encryption**
 
 Implementation of encryption support in the equipment is no longer mandatory
 (it was introduced in 3.1.3)
 
-Connection establishment/handshake
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Connection establishment/handshake**
 
 The connection establishment sequence has been clarified. The site begins
 sending the version message.
 All alarms (not just active and blocked) are sent during connection
 establishment. Alarms may have turned inactive during communication
-interruption. https://github.com/rsmp-nordic/rsmp_core/issues/3
+interruption. :issue:`3`
 
-Communication interruption
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Communication interruption**
 
 Buffering should be possible to enable/disable for each status
 
@@ -109,22 +95,20 @@ equipment and supervision system treats this a communication interruption and
 disconnects. The site then reconnects with proper handshake according to
 the connection establishment sequence.
 
-Watchdog
-^^^^^^^^
+**Watchdog**
 
 The time sync using watchdog should be possible to enable/disable in the site
 
-Clarifications
-^^^^^^^^^^^^^^
+**Clarifications**
 
 * The XML examples has been removed. Only JSon is used for message exchange
 * Message exchange diagrams has been improved
 
-Version 3.1.3 (2014-11-24)
---------------------------
+Version 3.1.3
+-------------
+Release date: 2014-11-24
 
-Important changes
-^^^^^^^^^^^^^^^^^
+**Important changes**
 
 * Encryption. All traffic should be possible to encrypt if required.
   Both supervision systems and sites should have to possibility to easily
@@ -159,8 +143,7 @@ Important changes
 * The watchdog interval duration must be configurable with a default sent to
   once 1 minute (60 seconds)
 
-Adjustments
-^^^^^^^^^^^
+**Adjustments**
 
 * Chapter 4.1 (page 6): Typo. Five messages types are actually four.
 * Chapter 5.5.1 (page 38). Typo in the table for JSon, "timestamp" should
@@ -175,8 +158,7 @@ Adjustments
   in CommandReponse
 * Fix typo. Incorrectly used "ageState" instead of "q"
 
-Clarifications
-^^^^^^^^^^^^^^
+**Clarifications**
 
 * Chapter 5.3.1 (page 8): Clarification regarding the prerequisites when
   using separate signal exchange lists for different sites
@@ -198,8 +180,9 @@ Clarifications
 * Appendix 6.4 (page 9). Chapter of configurable data areas removed since it
   is not used.
 
-Version 3.1.2 (2012-02-29)
---------------------------
+Version 3.1.2
+-------------
+Release date: 2012-02-29
 
 The following typos has been fixed:
 
@@ -211,6 +194,7 @@ The following typos has been fixed:
 * Chapter 5.5.1, 5.5.6.1 (page 36, 47). "co" should be "cO"
 
 The following clarifications has been made:
+
 * On page 10,11,17,18,36,41: SequenceNumber removed completely
   (should have been removed already in previous version)
 * Appendix, page 13: Alarm messages are also sent at alarm blocking
@@ -229,8 +213,9 @@ The following clarifications has been made:
   "functionalPosition" and "Manouver"
 
 
-Version 3.1.1 (2011-12-23)
---------------------------
+Version 3.1.1
+-------------
+Release date: 2011-12-23
 
 * Command message (commandCodeId) moved to argument/return value. This
   makes it possible to send multiple commands in the same message.
@@ -244,8 +229,9 @@ Version 3.1.1 (2011-12-23)
 * Time stamp in JSon adjusted. Now uses the same format as XML
 * Clarification regarding the usage of JSon string elements
 
-Version 3.0 (2011-11-04)
-------------------------
+Version 3.0
+-----------
+Release date: 2011-11-04
 
 * NTSObjectId changed to NTSOId in JSon
 * All active alarms and blocked alarms are sent at restored communication,
@@ -260,13 +246,15 @@ Version 2.0
 
 * *Same as version 1.0 below*
 
-Version 1.1o (2011-11-02)
--------------------------
+Version 1.1o
+------------
+Release date: 2011-11-02
 
 * sequenceNumber is removed from all message types
 
-Version 1.1n (2011-11-02)
--------------------------
+Version 1.1n
+------------
+Release date: 2011-11-02
 
 * requestId (rId) removed. Sufficient data is available to tie a reponse
   to a request
@@ -300,8 +288,9 @@ Version 1.1n (2011-11-02)
 * References to VV:publ 2007:54 ISSN 1401-9612 for format of
   alarmCodeId/statusCodeId/commandCodeId
 
-Version 1.1m (2011-11-01)
--------------------------
+Version 1.1m
+------------
+Release date: 2011-11-01
 
 * Fixed JSon example. It stated ctId instead of cId for componentId
 * Removed incorrect text about prerequisites for sending in the appendix,
@@ -316,26 +305,30 @@ Version 1.1m (2011-11-01)
 * Removed TYPE and VALUE for all message types (remains in SXL)
 * Description removed from status message (remains in SXL)
 
-Version 1.1l (2011-10-30)
--------------------------
+Version 1.1l
+------------
+Release date: 2011-11-30
 
 * New design of status messages
+
   * Makes it possible to send multiple requests in a single message and
     receive reponse in a single message
   * Makes it possible to subscribe to multiple status values, either
     by interval or on change
   * sequenceNumber (sNr) removed
   * "description" removed
-  * "type" and "unit" removed (stil left in SXL
+  * "type" and "unit" removed (stil left in SXL)
 
-Version 1.1k (2011-10-26)
--------------------------
+Version 1.1k 
+------------
+Release date: 2011-10-26
 
 * Added a new message type for sending version of RSMP and revision of SXL,
   (rsmpVersion and sxlRevision)
 
-Version 1.1j (2011-10-25)
--------------------------
+Version 1.1j
+------------
+Release date: 2011-10-25
 
 * Remove global time stamp for all message types
 * Added timestamp for alarm acknowledgement, alarm blocking and watchdog
@@ -347,17 +340,19 @@ Version 1.1j (2011-10-25)
 * Watchdog is now sent in both directions and should be used for time
   synchronization
 
-Version 1.1i (2011-10-24)
--------------------------
+Version 1.1i
+------------
+Release date: 2011-10-24
 
 * Fixed JSon example. It stated ctId instead of cId for componentId
 
-Version 1.1h (2011-10-20)
--------------------------
+Version 1.1h
+------------
+Release date: 2011-10-20
 
 * Typo in XML code 12
 * SXL template: new column **Object (optional))** in alarm sheet
-  *The purpose is that you should be a able to specify alarms for
+   *The purpose is that you should be a able to specify alarms for
    a specific object per site, since e.g a passage detector have
    several lasers with different alarm descriptions and id depending
    in where the detector is located. This extra column defines the
@@ -367,37 +362,42 @@ Version 1.1h (2011-10-20)
 * Added text about wrapping of JSon packets
 * Added text about time stamps in JSon, and updated all JSon examples
 
-Version 1.1g (2011-10-06)
--------------------------
+Version 1.1g
+------------
+Release date: 2011-10-06
 
 * Updated JSon examples
 * Long as data type
 * SXL template updated to match "configurable data areas"
 
-Version 1.1f (2011-10-05)
--------------------------
+Version 1.1f
+------------
+Release date: 2011-10-05
 
 * Updated text about version management
 * Continued work about "Integer" and "real as data types
 
-Version 1.1e (2011-10-04)
--------------------------
+Version 1.1e
+------------
+Release date: 2011-10-04
 
 * Text about configurable data areas added in the appendix
 * "Integer" and "real" as data types in arguments and return values
    (some work still needed)
 * Text about version management
 
-Version 1.1d (2011-09-27)
--------------------------
+Version 1.1d
+------------
+Release date: 2011-09-27
 
 * Add suggested changes from Acobia. TCP/IP as a definition
 * Updated Data and transport chapter. JSon and pure TCP connection
 * Added a new column in SXL which defined which prerequisites control
   when a event message is sent. The specification also updated
 
-Version 1.1c (2011-09-26)
--------------------------
+Version 1.1c
+------------
+Release date: 2011-09-26
 
 * Remove argument at status request. There is no good reason for using
   arguments when command messages are better suited. No SXL uses this
@@ -405,61 +405,71 @@ Version 1.1c (2011-09-26)
   commands to be sent in a single message
 * Added more JSon examples (watchdog + message acknowledements MessageNotAck)
 
-Version 1.1b (2011-09-19)
--------------------------
+Version 1.1b
+------------
+Release date: 2011-08-19
 
 * Added chapter about JSon
 * Removed "status" in StatusRequest. (No SXL uses this)
 * Added time stamp in command responses (commandTimeStamp) and
   aggregated status (aggstatusTimeStamp)
 
-Version 1.1a (2011-05-25)
--------------------------
+Version 1.1a
+------------
+Release date: 2011-05-25
 
 * Typo on page 7
 * Typo on page 11 (appendix)
 
-Version 1.0 (2011-05-20)
-------------------------
+Version 1.0
+-----------
+Release date: 2011-05-20
 
 * Clarifications regarding the signal exchange list added
 * Clarifications about transport layer
 
 *(Unofficial versions 1.1 and 2.0 are equal to this version)*
 
-Version 1.0b (2011-01-12)
--------------------------
+Version 1.0b
+------------
+Release date: 2011-01-12
 
 * Added watchdog as separate message type
 
-Version 1.0a (2010-10-08)
--------------------------
+Version 1.0a
+------------
+Release date: 2010-10-08
 
 * This version was used for the variable speed signs
 * No changes since 0.97
 
-Version 0.97 (2010-10-07)
--------------------------
+Version 0.97
+------------
+Release date: 2010-10-07
 
 * "number", "boolean" and "ordinal" added as possible data types in "type"
 * Clarifications regarding binary data format (base64)
 
-Version 0.96 (2010-09-23)
--------------------------
+Version 0.96
+------------
+Release date: 2010-09-23
 
 * Major update of the object model
+
   * The Object "returnvalue" and "argument" adjusted for global usage
     with it's associated contens. This removes limitations of the number
     of data values which can be included in a single message
   * Bit value of "aggregated status" redesigned for increased readability
 
-Version 0.95 (2010-09-01)
--------------------------
+Version 0.95
+------------
+Release date: 2010-09-01
 
 * Minor adjustments of the document formatting
 
-Version 0.94 (2010-08-31)
--------------------------
+Version 0.94
+------------
+Release date: 2010-08-31
 
 * Update of the object model
   * Namespace "message" removed
@@ -474,8 +484,9 @@ Version 0.94 (2010-08-31)
 * Message acknowledgement updated and the ability to sent error message
   if the receiver didn't understand the message added
 
-Version 0.93 (2010-08-27)
--------------------------
+Version 0.93
+------------
+Release date: 2010-08-27
 
 * On page 15 and 17 it was incorrectly stated that acknowledgement messages
   (and not alarm messages) should be sent to supervision system in case
@@ -484,13 +495,15 @@ Version 0.93 (2010-08-27)
   message exchange and make the figure more consistent with the other
   message types. No functional changes has been made
 * Clarify figures regarding:
+
   * Message exchange when alarms are acknowledged/blocked locally
   * Message exchange is not dependent of being send/received in any
     particular order
 * "alarmState" could enter two values, "ok" and "acitve". This has been 
   changed to "inactive" and "active"
 
-Version 0.92 (2010-06-23)
--------------------------
+Version 0.92
+------------
+Release date: 2001-06-23
 
 This version was distributed with the specifications for variable speed signs.

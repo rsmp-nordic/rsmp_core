@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # rsmp-spec documentation build configuration file, created by
@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.abspath('extensions'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.mathjax']
+extensions = ['sphinx.ext.mathjax', 'sphinx.ext.extlinks']
 
 numfig = True
 
@@ -80,6 +80,9 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+# Github issues
+
+extlinks = {'issue': ('https://github.com/rsmp-nordic/rsmp_core/issues/%s', '[%s]')}
 
 # -- Options for HTML output ----------------------------------------------
 
