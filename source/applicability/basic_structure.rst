@@ -1672,7 +1672,8 @@ RSMP/SXL Version
 RSMP/SXL Version is the initial message when establishing communication.
 
 It contains:
-Site Id
+
+* Site Id
 * SXL revision
 * All supported RSMP versions
 
