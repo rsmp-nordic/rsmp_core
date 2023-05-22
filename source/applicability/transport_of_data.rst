@@ -308,7 +308,7 @@ not very good.
 Both Json and XML could contain tab characters (0x09), CR (0x0d) and LF (0x0a).
 If the packets are serialized using .NET those special characters does not
 exist. Therefore it is a good practice to use formfeed (0x0c), e.g. ’\f’
-in C/C++/C#. Formfeed won't be embedded in in the packets so the parser only
+in C/C++/C#. Formfeed won't be embedded in the packets so the parser only
 needs to search the incoming buffer for 0x0c and deal with every packet.
 
 Example of wrapping of a packet:
