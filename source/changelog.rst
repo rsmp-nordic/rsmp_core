@@ -504,6 +504,6 @@ Release date: 2010-08-27
 
 Version 0.92
 ------------
-Release date: 2001-06-23
+Release date: 2010-06-23
 
 This version was distributed with the specifications for variable speed signs.
