@@ -877,9 +877,6 @@ The status code id (``sCI``) and name (``n``) are placed in an array
 (``sS``) in order to enable support for responding to multiple statuses at once.
 The following table is describing the variable content of the message.
 
-If the component (``cId``) is not known, then the site must not disconnect but
-instead answer with this type of message where ``q`` is set to ``undefined``.
-
 .. code-block:: json
    :name: json-status-response
 
@@ -1117,10 +1114,6 @@ The following applies:
 * If an subscription is already active then the site must not establish
   a new subscription but use the existing one. It's allowed to change
   **updateRate** and **sendOnChange**.
-
-* If the object is not known then the site must not disconnect
-  but instead answer with this type of message where **q** is set to
-  **undefined**.
 
 .. code-block:: json
    :name: json-status-update
@@ -1414,10 +1407,6 @@ requested object.
 The command code (``cCI``) and name (``n``) are placed in an array
 (``rvs``) in order to enable support for responding to multiple commands at
 once.
-
-If the object is not known then the site must not disconnect
-but instead answer with this type of message where ``age`` is set to
-``undefined``.
 
 .. code-block:: json
    :name: json-command-response
