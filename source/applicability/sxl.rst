@@ -306,5 +306,5 @@ Sequence for a write operation:
    attached as a return value.
 3. The supervision system/other site compares the sent value (desired)
    with the new value from the site (actual value/process value) and can
-   determine if the new value could be sent or or not.
+   determine if the new value could be set or or not.
 
