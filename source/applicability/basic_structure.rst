@@ -119,7 +119,7 @@ elements and the titles in the SXL.
    Element      SXL element    Description
    ============ ============== ===================
    ntsOId       NTSObjectId    Component id for the NTS object which the  message is referring to.
-   xNId         externalNtsId  Identity for the NTS object in communcation between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.
+   xNId         externalNtsId  Identity for the NTS object in communication between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.
    cId          componentId    Component id for the object which the message is referring to.
    ============ ============== ===================
 
@@ -273,7 +273,7 @@ or alarm suspend messages).
    |                   | notSuspended       | The alarm is not suspended                                                         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
    | aTs               | *(timestamp)*      | Timestamp for when the alarm changes status.                                       |
-   |                   |                    | See the contents of aSp to determine which type of timetamp is used                |
+   |                   |                    | See the contents of aSp to determine which type of timestamp is used               |
    |                   |                    |                                                                                    |
    |                   |                    | | - aSp: Issue: Timestamp for when the alarm gets **active** or **inactive**       |
    |                   |                    | | - aSp: Acknowledge: Timestamp for when the alarm gets **acknowledged** or        |
@@ -1368,7 +1368,7 @@ elements and the titles in the signal exchange list (SXL).
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | cCI             | commandCodeId      | The uniqe code of a command request.          |
+   | cCI             | commandCodeId      | The unique code of a command request.         |
    |                 |                    | The examples in this document are defined     |
    |                 |                    | according to the following format: *Myyyy*,   |
    |                 |                    | where *yyyy* is a unique number.              |
@@ -1499,7 +1499,7 @@ between the JSon elements and the titles in the SXL.
    +-----------------+--------------------+-----------------------------------------------+
    | Element         | SXL element        | Description                                   |
    +=================+====================+===============================================+
-   | cCI             | commandCodeId      | The uniqe code of a command.                  |
+   | cCI             | commandCodeId      | The unique code of a command.                 |
    |                 |                    | The examples in this document are defined     |
    |                 |                    | according to the following format: *Myyyy*,   |
    |                 |                    | where *yyyy* is a unique number.              |
