@@ -55,7 +55,7 @@ Each site needs to support the following:
 
 * There can be multiple secondary supervisors, but only one primary.
 
-* A secondary supervisor does not recieve alarms.
+* A secondary supervisor does not receive alarms.
 
 * A secondary supervisor receives aggregated status and can request,
   subscribe and receive statuses.
