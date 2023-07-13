@@ -12,7 +12,7 @@ The following branch defines RSMP version **3.2**.
 
 The specification is available the following formats:
 
-* [View the core specification online](https://rsmp-nordic.org/rsmp_specifications/core/3.2)
+* [View the core specification online]([https://rsmp-nordic.org/rsmp_specifications/core/3.2](https://rsmp-nordic.github.io/rsmp_specifications/core/3.2/))
 * [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.2/rsmp-spec-3.2.pdf)
 
 
