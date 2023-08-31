@@ -3,6 +3,28 @@
 Change log
 ==========
 
+Version 3.2.1
+-------------
+Release-date: 2022-10-01
+
+The full list of changes between version 3.2.1 and 3.2
+`can be viewed on github <https://github.com/rsmp-nordic/rsmp_core/compare/v3.2...v3.2.1>`_.
+
+**Important changes**
+
+- Add timestamp as a data type in RSMP Core. Time stamp is a commonly used in the TLC SXL.
+  This means that there is no need for duplicate definitions. No changes to the protocol
+  itself. :issue:`101`
+- Only use JSON types. This means that "long" and "real" data types are removed since
+  they don't exist in the ECMA standard. The data type "number" is added instead.
+  :issue:`82`
+
+**Minor clarifications**
+
+- Add separate section for error handling. No changes to the protocol. :issue:`114`
+- Include the full changelog.
+- Correct spelling mistakes and fix minor issues.
+
 Version 3.2
 -----------
 Release date: 2022-06-23
