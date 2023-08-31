@@ -244,6 +244,10 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
+Is it not allowed to disconnect for any other circumstance other than mismatch
+during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
+unless there is a communication disruption.
+
 .. _communication-disruption:
 
 Communication disruption
