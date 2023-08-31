@@ -4,7 +4,7 @@ Signal Exchange List
 ====================
 
 The signal exchange list an important functional part of RSMP.
-Since the contens of every message using RSMP is dynamic, a predefined
+Since the contents of every message using RSMP is dynamic, a predefined
 signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
@@ -14,7 +14,7 @@ predefined principles which is defined below.
 
 Structure
 ---------
-The following sections presents the format and contens of the SXL. Each
+The following sections presents the format and contents of the SXL. Each
 section corresponds to the names of each sheet in the SXL.
 
 First page
@@ -73,7 +73,7 @@ different message types.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
 
-.. table:: Functional differencies
+.. table:: Functional differences
 
    =================  =========================================  ================================
    Message type       Sent when                                  Adapted to be transmitted to NTS
@@ -106,7 +106,7 @@ The following table defines the different versions of command messages.
    +------------------------+-----------------------------------------------+
    | Functional state       | Not used                                      |
    +------------------------+-----------------------------------------------+
-   | Manouver               | Possible command options for individual       |
+   | Maneuver               | Possible command options for individual       |
    |                        | objects for groups of objects from management |
    |                        | system (not NTS). May also apply to automatic |
    |                        | control. For instance, "start" or "stop"      |
@@ -156,8 +156,8 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-Version mangement
------------------
+Version management
+------------------
 
 Version of RSMP
 ^^^^^^^^^^^^^^^

@@ -38,7 +38,7 @@ Definitions
        signals, e.g. commands, status and alarms.
 
        An object can represent physical equipment or abstract concepts
-       E.g. a camera, a control flow alorithm or a group of signs.
+       E.g. a camera, a control flow algorithm or a group of signs.
 
        An object is identified using the objects component id. *Please
        note that an object is not necessarily the same thing as an NTS
