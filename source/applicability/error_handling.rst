@@ -22,8 +22,7 @@ This include mismatch of:
 Unknown component
 ^^^^^^^^^^^^^^^^^
 
-If the component (``cId``) is not known, then the site must not disconnect
-when receiving a CommandRequest or StatusRequest, but instead answer with
+If the component (``cId``) is not known, then the site must answer with
 CommandResponse/StatusResponse where ``q`` or ``age`` is set according to the
 table below. ``v`` should be set to ``null``.
 
@@ -39,10 +38,9 @@ table below. ``v`` should be set to ``null``.
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a status (``sCI``) or command (``cId``) is unimplemented, the site must
-not disconnect or treat this as an SXL mismatch, but instead answer with
-CommandResponse/Response where ``q`` or ``age`` is set according to the table
-below. ``v`` should be set to ``null``.
+If a status (``sCI``) or command (``cId``) is unimplemented, the site answers
+with CommandResponse/Response where ``q`` or ``age`` is set according to the
+table below. ``v`` should be set to ``null``.
 
 .. table:: Unimplemented
 
