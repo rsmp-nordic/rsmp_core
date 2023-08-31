@@ -275,15 +275,13 @@ or alarm suspend messages).
    | aTs               | *(timestamp)*      | Timestamp for when the alarm changes status.                                       |
    |                   |                    | See the contents of aSp to determine which type of timestamp is used               |
    |                   |                    |                                                                                    |
-   |                   |                    | | - aSp: Issue: Timestamp for when the alarm gets **active** or **inactive**       |
-   |                   |                    | | - aSp: Acknowledge: Timestamp for when the alarm gets **acknowledged** or        |
-   |                   |                    |   **not acknowledged**                                                             |
-   |                   |                    | | - aSp: Suspend: Timestamp for when the alarm gets **suspended** or               |
-   |                   |                    |   **not suspended**                                                                |
+   |                   |                    | | - aSp: Issue: When the alarm gets **active** or **inactive**                     |
+   |                   |                    | | - aSp: Acknowledge: When the alarm gets **acknowledged** or **not acknowledged** |
+   |                   |                    | | - aSp: Suspend: When the alarm gets **suspended** or **not suspended**           |
    |                   |                    |                                                                                    |
-   |                   |                    | The timestamp uses the W3C XML **dateTime** definition with 3 decimal places.      |
    |                   |                    | All timestamps are set at the local level (and not in the supervision system) when |
-   |                   |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
+   |                   |                    | the alarm occurs (and not when the message is sent).                               |
+   |                   |                    | See also the :ref:`data type<data_types>` section.                                 |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
 
 :numref:`alarm-transitions` show possible transitions between
@@ -390,25 +388,8 @@ elements and the titles in the SXL.
    +=================+====================+===============================================+
    | n               | name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | type               | The data type of the value.                   |
+   | *(not sent)*    | type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
-   |                 |                    |                                               |
-   |                 |                    | | General definition:                         |
-   |                 |                    | | **string**: Text information                |
-   |                 |                    | | **integer**: Numerical value                |
-   |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 |                    | | **long**: Numerical value                   |
-   |                 |                    |   (32-bit signed long)                        |
-   |                 |                    | | **real**: Float                             |
-   |                 |                    |   (64-bit double precision floating point)    |
-   |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **base64**: Binary data expressed in        |
-   |                 |                    |   base64 format according to RFC-4648         |
-   |                 |                    | | **array**: List of values. Makes it         |
-   |                 |                    |   possible to send multiple values in a JSON  |
-   |                 |                    |   array. Content defined by SXL.              |
-   |                 |                    |                                               |
-   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | value              | Value from equipment                          |
    +-----------------+--------------------+-----------------------------------------------+
@@ -700,16 +681,14 @@ The following tables are describing the variable content of the message:
 
 .. table:: Aggregated status
 
-   ================== ============= ==========================================
-   Element            Value         Description
-   ================== ============= ==========================================
-   aSTS               *(timestamp)* The timestamp uses the W3C XML dateTime
-                                    definition with a 3 decimal places. All
-                                    timestamps are set at the local level
-                                    (and not in the supervision system) when
-                                    the event occurs (and not when the
-                                    message is sent). All timestamps uses UTC.
-   ================== ============= ==========================================
+   ======= ============= =====================================================================
+   Element Value         Description
+   ======= ============= =====================================================================
+   aSTS    *(timestamp)* Timestamp for the aggregated status.
+                         All timestamps are set at the site (and not in the supervision
+                         system) when the event occurs (and not when the message is sent).
+                         See also the :ref:`data type<data_types>` section.
+   ======= ============= =====================================================================
 
 The following table describes the variable content defined by the signal
 exchange list (SXL). The *SXL element* column describes the correlation
@@ -916,18 +895,14 @@ The following table is describing the variable content of the message:
 
 .. table:: Status response
 
-   +-----------------+--------------------+--------------------------------------------+
-   | Element         | Value              | Description                                |
-   +=================+====================+============================================+
-   | sTs             | *(timestamp)*      | Timestamp for the status. The timestamp    |
-   |                 |                    | uses the W3C XML dateTime                  |
-   |                 |                    | definition with a 3 decimal places. All    |
-   |                 |                    | timestamps are set at the site (and not in |
-   |                 |                    | the supervision system) when the status is |
-   |                 |                    | fetched (and not when the message is sent) |
-   |                 |                    | All timestamps uses UTC.                   |
-   +-----------------+--------------------+--------------------------------------------+
-
+   ======= ============= ======================================================================
+   Element Value         Description
+   ======= ============= ======================================================================
+   sTs     *(timestamp)* Timestamp for the status.
+                         All timestamps are set at the site (and not in the supervision
+                         system) when the status is fetched (and not when the message is sent).
+                         See also the :ref:`data type<data_types>` section.
+   ======= ============= ======================================================================
 
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -960,25 +935,8 @@ Return values ("sS") are always sent but can be empty if no return values exists
    +-----------------+--------------------+-----------------------------------------------+
    | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The data type of the value.                   |
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
-   |                 |                    |                                               |
-   |                 |                    | | General definition:                         |
-   |                 |                    | | **string**: Text information                |
-   |                 |                    | | **integer**: Numerical value                |
-   |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 |                    | | **long**: Numerical value                   |
-   |                 |                    |   (32-bit signed long)                        |
-   |                 |                    | | **real**: Float                             |
-   |                 |                    |   (64-bit double precision floating point)    |
-   |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **base64**: Binary data expressed in        |
-   |                 |                    |   base64 format according to RFC-4648         |
-   |                 |                    | | **array**: List of values. Makes it         |
-   |                 |                    |   possible to send multiple values in a JSON  |
-   |                 |                    |   array. Content defined by SXL.              |
-   |                 |                    |                                               |
-   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | s               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1381,25 +1339,8 @@ elements and the titles in the signal exchange list (SXL).
    +-----------------+--------------------+-----------------------------------------------+
    | cO              | Command            | Command                                       |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The data type of the value.                   |
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
-   |                 |                    |                                               |
-   |                 |                    | | General definition:                         |
-   |                 |                    | | **string**: Text information                |
-   |                 |                    | | **integer**: Numerical value                |
-   |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 |                    | | **long**: Numerical value                   |
-   |                 |                    |   (32-bit signed long)                        |
-   |                 |                    | | **real**: Float                             |
-   |                 |                    |   (64-bit double precision floating point)    |
-   |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **base64**: Binary data expressed in        |
-   |                 |                    |   base64 format according to RFC-4648         |
-   |                 |                    | | **array**: List of values. Makes it         |
-   |                 |                    |   possible to send multiple values in a JSON  |
-   |                 |                    |   array. Content defined by SXL.              |
-   |                 |                    |                                               |
-   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1463,14 +1404,14 @@ The following table is describing the variable content of the message:
 
 .. table:: Command response
 
-   +------------------+--------------------+------------------------------------------------------------------------------------+
-   | Element          | Value              | Description                                                                        |
-   +==================+====================+====================================================================================+
-   | cTS              | *(timestamp)*      | The timestamp uses the W3C XML dateTime definition with a 3 decimal places.        |
-   |                  |                    | All timestamps are set at the local level (and not in the supervision system) when |
-   |                  |                    | the alarm occurs (and not when the message is sent). All timestamps uses UTC.      |
-   +------------------+--------------------+------------------------------------------------------------------------------------+
-
+   ======= ============= =====================================================================
+   Element Value         Description
+   ======= ============= =====================================================================
+   cTS     *(timestamp)* Timestamp for the command reponse.
+                         All timestamps are set at the site (and not in the supervision
+                         system) when the event occurs (and not when the message is sent).
+                         See also the :ref:`data type<data_types>` section.
+   ======= ============= =====================================================================
 
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1506,25 +1447,8 @@ between the JSon elements and the titles in the SXL.
    +-----------------+--------------------+-----------------------------------------------+
    | n               | Name               | Unique reference of the value                 |
    +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The data type of the value.                   |
+   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
    |                 |                    | Defined in the SXL but is not actually sent   |
-   |                 |                    |                                               |
-   |                 |                    | | General definition:                         |
-   |                 |                    | | **string**: Text information                |
-   |                 |                    | | **integer**: Numerical value                |
-   |                 |                    |   (16-bit signed integer), [-32768 – 32767]   |
-   |                 |                    | | **long**: Numerical value                   |
-   |                 |                    |   (32-bit signed long)                        |
-   |                 |                    | | **real**: Float                             |
-   |                 |                    |   (64-bit double precision floating point)    |
-   |                 |                    | | **boolean**: Boolean data type              |
-   |                 |                    | | **base64**: Binary data expressed in        |
-   |                 |                    |   base64 format according to RFC-4648         |
-   |                 |                    | | **array**: List of values. Makes it         |
-   |                 |                    |   possible to send multiple values in a JSON  |
-   |                 |                    |   array. Content defined by SXL.              |
-   |                 |                    |                                               |
-   |                 |                    | Point (".") is always used as decimal mark    |
    +-----------------+--------------------+-----------------------------------------------+
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
@@ -1814,17 +1738,12 @@ The following table is describing the variable content of the message:
 
 .. table:: Watchdog
 
-   ================== ============= ==========================================
-   Element            Value         Description
-   ================== ============= ==========================================
-   wTs                *(timestamp)* Watchdog timestamp.
-                                    The timestamp uses the W3C XML dateTime
-                                    definition with a 3 decimal places. All
-                                    timestamps are set at the local level
-                                    (and not in the supervision system) when
-                                    the event occurs (and not when the
-                                    message is sent). All timestamps uses UTC.
-   ================== ============= ==========================================
+   ======= ============= =====================================================================
+   Element Value         Description
+   ======= ============= =====================================================================
+   wTs     *(timestamp)* Timestamp for the watchdog.
+                         See also the :ref:`data type<data_types>` section.
+   ======= ============= =====================================================================
 
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
