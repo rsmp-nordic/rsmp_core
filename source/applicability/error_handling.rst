@@ -23,18 +23,18 @@ Unknown component
 ^^^^^^^^^^^^^^^^^
 
 If the component (``cId``) is not known, then the site must not disconnect
-when receiving a CommandRequest or StatusRequest, but instead answer with 
-CommandReponse/StatusReponse where ``q`` or ``age`` is set according to the
+when receiving a CommandRequest or StatusRequest, but instead answer with
+CommandResponse/StatusResponse where ``q`` or ``age`` is set according to the
 table below. ``v`` should be set to ``null``.
 
 .. table:: ComponentId unknown
 
-   ============== =================
-   Message type   Content
-   ============== =================
-   StatusResponse q=undefined
-   CommandReponse age=undefined
-   ============== =================
+   =============== =================
+   Message type    Content
+   =============== =================
+   StatusResponse  q=undefined
+   CommandResponse age=undefined
+   =============== =================
 
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -46,12 +46,12 @@ below. ``v`` should be set to ``null``.
 
 .. table:: Unimplemented
 
-   ============== =================
-   Message type   Content
-   ============== =================
-   StatusResponse q=unknown
-   CommandReponse age=unknown
-   ============== =================
+   =============== =================
+   Message type    Content
+   =============== =================
+   StatusResponse  q=unknown
+   CommandResponse age=unknown
+   =============== =================
 
 
 Incomplete commands
