@@ -26,6 +26,6 @@ General definition:
    * - timestamp
      - The timestamp uses the W3C XML dateTime definition with 3 decimal places. All timestamps uses UTC.
    * - array
-     - List of of key and value pairs (like a hash table). Makes it possible to send multiple values. Content defined by SXL.
+     - List of values. Makes it possible to send multiple values of any data type or list of key and value pairs. Content defined by SXL.
 
 Point (".") is always used as decimal mark.
