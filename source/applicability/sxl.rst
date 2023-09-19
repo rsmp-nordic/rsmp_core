@@ -211,7 +211,7 @@ an example for the design of the table.
    ======  =============================
 
 The purpose is to be able to update the SXL with a new revision and at the
-samt time inform about which sites which the revision applies to.
+same time inform about which sites which the revision applies to.
 
 
 Required signals

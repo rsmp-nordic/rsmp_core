@@ -291,7 +291,7 @@ communication buffer in the event of an communication disruption.
 
 The following configuration options should exist at the site:
 
-* It should be possible configure which status messages that will be buffered
+* It should be possible to configure which status messages that will be buffered
   during communication outage
 * The site should try to reconnect to the supervision system/other site
   during communications failure (yes/no). This configuration option should

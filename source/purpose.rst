@@ -27,7 +27,7 @@ which is then sent to the operating contractor, ie. sufficient
 information about the type of skills and equipment necessary to
 correct the error. Additional detailed information about an alarm
 (e.g. which I/O card has broken, the LED chain that is out of order,
-etc.) can read on site via vendor-specific web interface or operator
+etc.) can be read on site via vendor-specific web interface or operator
 panel.
 
 Identified requirements

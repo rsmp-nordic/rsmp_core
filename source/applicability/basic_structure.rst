@@ -1595,7 +1595,7 @@ The Site Id and SXL revision must match between the communicating parties.
 If there is a mismatch or if there are no RSMP version that both
 communicating parties support, see :ref:`communication-rejection`.
 
-The version message should be implemented in such a way that is should be
+The version message should be implemented in such a way that it should be
 possible to add additional tags/variables (e.g. date) without affecting
 existing implementations.
 
