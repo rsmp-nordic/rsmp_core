@@ -16,7 +16,7 @@ MessageNotAck.
 This include mismatch of:
 
 * status code id (``sCI``)
-* command code id (``cId``)
+* command code id (``cCI``)
 * name (``n``)
 
 Unknown component
@@ -38,7 +38,7 @@ table below. ``v`` should be set to ``null``.
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a status (``sCI``) or command (``cId``) is unimplemented, the site answers
+If a status (``sCI``) or command (``cCI``) is unimplemented, the site answers
 with CommandResponse/Response where ``q`` or ``age`` is set according to the
 table below. ``v`` should be set to ``null``.
 
