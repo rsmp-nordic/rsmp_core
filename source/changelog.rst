@@ -5,7 +5,7 @@ Change log
 
 Version 3.2.1
 -------------
-Release date: 2023-10-01
+Release date: 2023-10-14
 
 The full list of changes between version 3.2.1 and 3.2
 `can be viewed on github <https://github.com/rsmp-nordic/rsmp_core/compare/v3.2...3.2.1>`_.
