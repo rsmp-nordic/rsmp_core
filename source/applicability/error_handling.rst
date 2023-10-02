@@ -13,11 +13,12 @@ StatusRequest, which is not caught during communication handshake (See
 :ref:`rsmpsxl-version`), then this is considered a serious error resulting in
 MessageNotAck.
 
-This include mismatch of:
+This includes:
 
-* status code id (``sCI``)
-* command code id (``cCI``)
-* name (``n``)
+* unknown alarm code id (``aCId``)
+* unknown status code id (``sCI``)
+* unknown command code id (``cCI``)
+* unknown name (``n``) in arguments or return values
 
 Unknown component
 ^^^^^^^^^^^^^^^^^
