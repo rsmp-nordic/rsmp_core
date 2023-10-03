@@ -1,8 +1,8 @@
 FAQ
 ===
 
-Contens
--------
+Contents
+--------
 + [CommandResponse and verifying executed commands](#1)
 + [CommandResponse and MessageAck](#2)
 + [Version message and MessageAck](#3)
@@ -39,7 +39,7 @@ priority) depends on the configuration of the equipment.
 To be sure that a command really has been executed the supervision system needs
 to:
 1, Watch the ACK/NACK. Was the command received and correctly formatted?
-2, Watch the CommandReponse. Was the command accepted by the traffic controller?
+2, Watch the CommandResponse. Was the command accepted by the traffic controller?
 3, Watch the corresponding statuses. Is the command actually executed (and
    remains active) within the expected time period?
 

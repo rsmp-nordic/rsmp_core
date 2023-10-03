@@ -3,6 +3,28 @@
 Change log
 ==========
 
+Version 3.2.1
+-------------
+Release date: 2023-10-03
+
+The full list of changes between version 3.2.1 and 3.2
+`can be viewed on github <https://github.com/rsmp-nordic/rsmp_core/compare/v3.2...v3.2.1>`_.
+
+**Important changes**
+
+- Add timestamp as a data type in RSMP Core. Time stamp is a commonly used in the TLC SXL.
+  This means that there is no need for duplicate definitions. No changes to the protocol
+  itself. :issue:`101`
+- Only use JSON types. This means that "long" and "real" data types are removed since
+  they don't exist in the ECMA standard. The data type "number" is added instead.
+  :issue:`82`
+
+**Minor clarifications**
+
+- Add separate section for error handling. No changes to the protocol. :issue:`114`
+- Include the full changelog.
+- Correct spelling mistakes and fix minor issues.
+
 Version 3.2
 -----------
 Release date: 2022-06-23
@@ -64,7 +86,7 @@ Discussed in :issue:`21`
 
 Version 3.1.4
 -------------
-Relase date: 2017-11-03
+Release date: 2017-11-03
 
 **Alarm timestamps**
 
@@ -155,7 +177,7 @@ Release date: 2014-11-24
 * The abbreviation SUL (for signal exchange list) changed to SXL
 * Appendix 6.3.2 (page 7). Command messages has no return values.
   In RSMP 3.x and later commands only returns values based on the arguments
-  in CommandReponse
+  in CommandResponse
 * Fix typo. Incorrectly used "ageState" instead of "q"
 
 **Clarifications**
@@ -210,7 +232,7 @@ The following clarifications has been made:
 * Appendix 6.2 (page 5,6,7): Clarification regarding descriptions about
   "componentId", "ntsObjectId", "externalNtsId", "alarmCodeId",
   "description", "externalAlarmCodeId", "category", "functionalState",
-  "functionalPosition" and "Manouver"
+  "functionalPosition" and "Maneuver"
 
 
 Version 3.1.1
@@ -222,10 +244,10 @@ Release date: 2011-12-23
 * "ageState" was on the wrong place in the examples
 * "value" renamed to "status" in status messages
 * Clarified description of "siteId"
-* Version message: "ntsObjecId" replaced with "siteId". All site identities
+* Version message: "ntsObjectId" replaced with "siteId". All site identities
   (siteId) which are included in the communication is sent in the
   version message as a list.
-* Adjusted the format of aggregated status in JSon. Sent as an array insted
+* Adjusted the format of aggregated status in JSon. Sent as an array instead
 * Time stamp in JSon adjusted. Now uses the same format as XML
 * Clarification regarding the usage of JSon string elements
 
@@ -256,7 +278,7 @@ Version 1.1n
 ------------
 Release date: 2011-11-02
 
-* requestId (rId) removed. Sufficient data is available to tie a reponse
+* requestId (rId) removed. Sufficient data is available to tie a response
   to a request
 * sequenceNumber (sNr, seqNr) is removed from status messages, but is kept
   in all other messages (alarm, events, aggregated status) which has used
@@ -312,12 +334,12 @@ Release date: 2011-11-30
 * New design of status messages
 
   * Makes it possible to send multiple requests in a single message and
-    receive reponse in a single message
+    receive response in a single message
   * Makes it possible to subscribe to multiple status values, either
     by interval or on change
   * sequenceNumber (sNr) removed
   * "description" removed
-  * "type" and "unit" removed (stil left in SXL)
+  * "type" and "unit" removed (still left in SXL)
 
 Version 1.1k 
 ------------
@@ -457,7 +479,7 @@ Release date: 2010-09-23
 * Major update of the object model
 
   * The Object "returnvalue" and "argument" adjusted for global usage
-    with it's associated contens. This removes limitations of the number
+    with it's associated contents. This removes limitations of the number
     of data values which can be included in a single message
   * Bit value of "aggregated status" redesigned for increased readability
 
@@ -499,11 +521,11 @@ Release date: 2010-08-27
   * Message exchange when alarms are acknowledged/blocked locally
   * Message exchange is not dependent of being send/received in any
     particular order
-* "alarmState" could enter two values, "ok" and "acitve". This has been 
+* "alarmState" could enter two values, "ok" and "active". This has been
   changed to "inactive" and "active"
 
 Version 0.92
 ------------
-Release date: 2001-06-23
+Release date: 2010-06-23
 
 This version was distributed with the specifications for variable speed signs.

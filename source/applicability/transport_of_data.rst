@@ -55,7 +55,7 @@ Each site needs to support the following:
 
 * There can be multiple secondary supervisors, but only one primary.
 
-* A secondary supervisor does not recieve alarms.
+* A secondary supervisor does not receive alarms.
 
 * A secondary supervisor receives aggregated status and can request,
   subscribe and receive statuses.
@@ -244,6 +244,10 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
+Is it not allowed to disconnect for any other circumstance other than mismatch
+during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
+unless there is a communication disruption.
+
 .. _communication-disruption:
 
 Communication disruption
@@ -287,7 +291,7 @@ communication buffer in the event of an communication disruption.
 
 The following configuration options should exist at the site:
 
-* It should be possible configure which status messages that will be buffered
+* It should be possible to configure which status messages that will be buffered
   during communication outage
 * The site should try to reconnect to the supervision system/other site
   during communications failure (yes/no). This configuration option should

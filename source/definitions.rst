@@ -31,14 +31,14 @@ Definitions
 
    Object
        An object is a abstract term which is used in control and
-       supervision systems. An object can have on or more statuses
+       supervision systems. An object can have one or more statuses
        that may change depending on changes of circumstance of the
        object or control of the object from external source.
        Communication with the object is made using exchange of
        signals, e.g. commands, status and alarms.
 
        An object can represent physical equipment or abstract concepts
-       E.g. a camera, a control flow alorithm or a group of signs.
+       E.g. a camera, a control flow algorithm or a group of signs.
 
        An object is identified using the objects component id. *Please
        note that an object is not necessarily the same thing as an NTS
@@ -62,7 +62,7 @@ Definitions
        All control and supervision related functions in NTS consist of
        NTS objects.
 
-       An NTS object can represent on or many objects.
+       An NTS object can represent one or many objects.
 
        An NTS objects is identified in the communication interface
        using “externalNtsId”. NTS can not use the format used in
@@ -76,7 +76,7 @@ Definitions
        are possible for the NTS object.
 
    Component
-       A component is a object or NTS object.
+       A component is an object or NTS object.
 
        A component is identified using component-id.
 
