@@ -24,8 +24,8 @@ table below. ``v`` should be set to ``null``.
 SXL mismatch
 ^^^^^^^^^^^^
 
-If there is a mismatch of the SXL when receiving a CommandRequest or
-StatusRequest, which is not caught during communication handshake (See
+If there is a mismatch of the SXL when receiving a command, status or alarm
+request, which is not caught during communication handshake (See
 :ref:`rsmpsxl-version`), then this is considered a serious error resulting in
 MessageNotAck.
 
