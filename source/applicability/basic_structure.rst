@@ -165,10 +165,10 @@ element 'aSp'.
 Message structure
 """""""""""""""""
 
-.. _structure-for-an-alarm-message:
+.. _structure-of-an-alarm-message:
 
-Structure for an alarm message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of an alarm message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm message has the structure according to the example below.
 
@@ -582,7 +582,7 @@ JSon code 9: Resuming an alarm using an alarm suspend message
 JSon code 10: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
-(See :ref:`structure-for-an-alarm-message`) with the exception for alarm status
+(See :ref:`structure-of-an-alarm-message`) with the exception for alarm status
 (See :ref:`alarm-status`) and (See :ref:`return-values`).
 
 Message exchange between site and supervision system
@@ -780,9 +780,9 @@ site**
 Status Messages
 ^^^^^^^^^^^^^^^
 
-The status message is a type of message that is sent to the
-supervision system or other equipment with the status of one or more
-requested objects.
+The status message is a type of message that is sent to the supervision
+system or other equipment with the status of one or more requested
+signals, for the referenced object(s).
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -794,8 +794,8 @@ can be sent during the following prerequisites:
 Message structure
 """""""""""""""""
 
-Structure for a request of a status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a status request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status request message has the structure according to the example
 below.
@@ -846,11 +846,10 @@ elements and the titles in the SXL.
    ============ ============ ===================
 
 
-Structure for a message with status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A message with status of one or several objects has the structure
-according to the example below.
+A status response message has the structure according to the example below.
 
 The status code id (``sCI``) and name (``n``) are placed in an array
 (``sS``) in order to enable support for responding to multiple statuses at once.
@@ -968,8 +967,8 @@ If the component does not exist or the value ``s`` is unknown then:
 * ``s`` must be set to ``null``
 
 
-Structure for a status subscription request message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status subscription request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
@@ -1055,11 +1054,11 @@ The following applies:
   new StatusSubscribe during an active subscription.
 
 
-Structure for a response message with answer to a request for status subscription for one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status update message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A response message with answer to a request for status subscription
-has the structure according to the example below.
+The status update message is an answer to a request for status subscription.
+It has the structure according to the example below.
 
 The following applies:
 
@@ -1169,12 +1168,12 @@ JSon code 17: A subscription request to subscribe to statues with different upda
 JSon code 18: A partial status update. Only a single status is updated
 
 
-Structure for a status unsubscription message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status unsubscription message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
-objects. No particular answer is sent for this request, other than the
+signals. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
 .. code-block:: json
@@ -1235,7 +1234,8 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to one or more requested objects.
+Command messages are used to give order to one or more requested signals,
+for the references object(s).
 The site responds with a command acknowledgement.
 
 Command messages are interaction driven and are sent when command are
@@ -1244,8 +1244,8 @@ requested on any given object by the supervision system or other equipment
 Message structure
 """""""""""""""""
 
-Structure of a command for one or more objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1338,8 +1338,8 @@ elements and the titles in the signal exchange list (SXL).
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
 
-Structure of command response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
