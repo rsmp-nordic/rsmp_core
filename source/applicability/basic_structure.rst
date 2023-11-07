@@ -1217,8 +1217,8 @@ implicit in the following figure.
 .. image:: /img/msc/status_request_response.png
    :align: center
 
-1. Request of status for an object
-2. Response with status of an object
+1. Status request
+2. Status response
 
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1471,8 +1471,8 @@ implicit in the following figure.
 .. image:: /img/msc/command_request_response.png
    :align: center
 
-1. Command request for an object
-2. Command response of an object
+1. Command request
+2. Command response
 
 .. _message-acknowledgement:
 
