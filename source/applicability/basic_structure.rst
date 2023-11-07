@@ -782,7 +782,7 @@ Status Messages
 
 The status message is a type of message that is sent to the supervision
 system or other equipment with the status of one or more requested
-signals, for the referenced object(s).
+signals, for the referenced object.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
