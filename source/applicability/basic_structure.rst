@@ -100,7 +100,7 @@ The following table is describing the variable content of all message types.
 .. note::
    * **mId** is generated as GUID (Globally unique identifier) in the equipment
      that sent the message
-   * **mId** is used i all messages as a reference for the message ack
+   * **mId** is used in all messages as a reference for the message ack
    * **oMId** is used in the message ack to refer to the message which is being acked
    * Only version 4 of Leach-Salz UUID is used for the GUID
    * Each message sent should have a new GUID (even if the content is the same)
