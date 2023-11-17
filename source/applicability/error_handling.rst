@@ -9,22 +9,17 @@ Unknown component
 ^^^^^^^^^^^^^^^^^
 
 If the component (``cId``) is not known, then the site must answer with
-CommandResponse/StatusResponse the values are set according to the
-table below.
+CommandResponse/StatusResponse where ``q`` or ``age`` is set according to the
+table below. ``v`` should be set to ``null``.
 
 .. table:: ComponentId unknown
 
-   +-----------------+---------+-----------+
-   | Message type    | Element | Value     |
-   +=================+=========+===========+
-   | StatusResponse  | q       | undefined |
-   |                 +---------+-----------+
-   |                 | s       | ``null``  |
-   +-----------------+---------+-----------+
-   | CommandResponse | age     | undefined |
-   |                 +---------+-----------+
-   |                 | v       | ``null``  |
-   +-----------------+---------+-----------+
+   =============== =================
+   Message type    Content
+   =============== =================
+   StatusResponse  q=undefined
+   CommandResponse age=undefined
+   =============== =================
 
 SXL mismatch
 ^^^^^^^^^^^^
@@ -44,23 +39,19 @@ This includes:
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a status (``sCI``) or command (``cCI``) is recognized in relation to its SXL
-but not unimplemented, the site answers with CommandResponse/StatusResponse where
-the values are set according to the table below.
+If a status (``sCI``) or command (``cCI``) is unimplemented, the site answers
+with CommandResponse/Response where ``q`` or ``age`` is set according to the
+table below. ``v`` should be set to ``null``.
 
 .. table:: Unimplemented
 
-   +-----------------+---------+-----------+
-   | Message type    | Element | Value     |
-   +=================+=========+===========+
-   | StatusResponse  | q       | unknown   |
-   |                 +---------+-----------+
-   |                 | s       | ``null``  |
-   +-----------------+---------+-----------+
-   | CommandResponse | age     | unknown   |
-   |                 +---------+-----------+
-   |                 | v       | ``null``  |
-   +-----------------+---------+-----------+
+   =============== =================
+   Message type    Content
+   =============== =================
+   StatusResponse  q=unknown
+   CommandResponse age=unknown
+   =============== =================
+
 
 Incomplete commands
 ^^^^^^^^^^^^^^^^^^^
