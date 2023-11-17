@@ -103,7 +103,8 @@ The following table is describing the variable content of all message types.
    * **mId** is used in all messages as a reference for the message ack
    * **oMId** is used in the message ack to refer to the message which is being acked
    * Only version 4 of Leach-Salz UUID is used for the GUID
-   * Each message sent should have a new GUID (even if the content is the same)
+   * Each message sent should have a new GUID, even if the message is resent or the
+     content is the same
 
 The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
