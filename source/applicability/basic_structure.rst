@@ -781,8 +781,8 @@ Status Messages
 ^^^^^^^^^^^^^^^
 
 The status message is a type of message that is sent to the supervision
-system or other equipment with the status of one or more requested
-signals, for the referenced object.
+system or other equipment with the value of one or more requested
+statuses, for the referenced object.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -1173,7 +1173,7 @@ Structure for a status unsubscription message
 
 A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
-signals. No particular answer is sent for this request, other than the
+statuses. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
 .. code-block:: json
@@ -1234,8 +1234,8 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to one or more requested signals,
-for the references object(s).
+Command messages are used to give order using one or more commands, for the
+referenced object.
 The site responds with a command acknowledgement.
 
 Command messages are interaction driven and are sent when command are
