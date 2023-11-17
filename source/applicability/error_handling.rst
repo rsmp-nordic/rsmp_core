@@ -9,7 +9,7 @@ Unknown component
 ^^^^^^^^^^^^^^^^^
 
 If the component (``cId``) is not known, then the site must answer with
-CommandResponse/StatusResponse the values are set according to the
+CommandResponse/StatusResponse where the values are set according to the
 table below.
 
 .. table:: ComponentId unknown
