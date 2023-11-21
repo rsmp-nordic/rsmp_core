@@ -52,6 +52,7 @@ table below. ``v`` should be set to ``null``.
    CommandResponse age=unknown
    =============== =================
 
+.. _incomplete-commands:
 
 Incomplete commands
 ^^^^^^^^^^^^^^^^^^^
