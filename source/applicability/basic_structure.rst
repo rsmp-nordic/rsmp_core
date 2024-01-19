@@ -92,17 +92,19 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
-   | mId     | *(GUID)*                | Message identity. Generated as a GUID |
-   | *(or)*  |                         | (Globally unique identifier) in the   |
-   | oMId    |                         | equipment that sent the message. Only |
-   |         |                         | version 4 of Leach-Salz UUID is used. |
-   |         |                         |                                       |
-   |         |                         | * **mId** is used i all messages as a |
-   |         |                         |   reference for the message ack       |
-   |         |                         | * **oMId** is used in the message ack |
-   |         |                         |   to refer to the message which is    |
-   |         |                         |   being acked                         |
+   | mId     | *(GUID)*                | Message identity                      |
+   | *(or)*  |                         |                                       |
+   | oMId    |                         |                                       |
    +---------+-------------------------+---------------------------------------+
+
+.. note::
+   * **mId** is generated as GUID (Globally unique identifier) in the equipment
+     that sent the message
+   * **mId** is used in all messages as a reference for the message ack
+   * **oMId** is used in the message ack to refer to the message which is being acked
+   * Only version 4 of Leach-Salz UUID is used for the GUID
+   * Each message sent should have a new GUID, even if the message is resent or the
+     content is the same
 
 The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
