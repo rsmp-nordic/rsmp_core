@@ -8,8 +8,8 @@ msc {
   |||;
   system abox system [ label = "An alarm is acknowledged" ];
   |||;
-  site<=system [ label = "Alarm acknowledgement message" ];
+  site<=system [ label = "Alarm acknowledgement" ];
   |||;
-  site=>system [ label = "Alarm message" ];
+  site=>system [ label = "Alarm" ];
   |||;
 }
