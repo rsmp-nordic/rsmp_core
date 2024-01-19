@@ -3,68 +3,171 @@
 Signal Exchange List
 ====================
 
-The signal exchange list an important functional part of RSMP.
+The signal exchange list is an important functional part of RSMP.
 Since the contents of every message using RSMP is dynamic, a predefined
 signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
-The signal exchange list defines which message types (signals) which is possible
-to send to a specific equipment or object. It is formatted according to
-predefined principles which is defined below.
+The signal exchange list defines the alarms, commands and statuses which is
+possible to send and receive for each object type.
 
-Structure
----------
-The following sections presents the format and contents of the SXL. Each
-section corresponds to the names of each sheet in the SXL.
+The SXL can be defined by either a YAML file or an Excel file using predefined
+principles which is defined below.
 
-First page
-^^^^^^^^^^
-The sheet "First page" defines site(s), revision and date of the SXL.
+Object types
+------------
 
-Object types and object
-^^^^^^^^^^^^^^^^^^^^^^^
-The "object types" sheet defines the types of object that can exist in a
-site, i.e. "LED".
+An **object type** defines a type of object that can exist in a site,
+i.e. "LED". Each object type can have a set of alarms, statuses and
+commands associated with it.
 
-The object sheet defines the number of each type of object that exists in
-the site. If more that one site is defined in the SXL; then one object
-sheet needs to be defined for each site.
+Using the Excel format; objects types are defined in it's own sheet.
+Using the YAML format; each object type is defined like this:
 
-If more that one site is defined in the same SXL; then the object sheet
-is renamed to the name of the site.
+.. code-block:: yaml
 
-The status for an object is suitable to be transmitted to NTS if the
-NTS identity (externalNtsId) is defined.
+   objects:
+     [object-type]:
 
-Object definitions
-^^^^^^^^^^^^^^^^^^
+Where ``[object-type]`` is the name of the object type. For instance,
+Traffic Light Controller".
+
 Depending on applicability, each object type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
 
-Single and grouped objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Message types
+-------------
+
+The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
+are defined in the SXL.
+
+Using the Excel format; alarms, aggregated status, status and commands are
+defined in their own sheet.
+
+Using the YAML format; each message type is defined like this:
+
+.. code-block:: yaml
+
+  objects:
+    object-type:
+      aggregated_status:
+        1:
+          title: Local mode
+          description: In local mode
+        2:
+          title: High priority fault
+          description: Fail safe mode
+      alarms:
+        A0001:
+          description: alarm description text
+          priority: 1
+          category: D
+          arguments:
+            argument-1:
+              type: integer
+              min: 0
+              max: 10
+              descrition: A0001 argument 1
+      statuses:
+        S0001:
+          description: status description text
+          arguments:
+            argument-1:
+              type: string
+              description: S0001 argument 1
+      commands:
+        M0001:
+          description: command description text
+          arguments:
+            argument-1:
+              type: boolean
+              description: M0001 argument 1
+
+  ..
+
+This example defines the alarm A0001, status S0001 and command M0001.
+Each with one argument named "argument-1" using integer, string and boolean
+data types. It also defines the aggregated status (only bit 1 and 2).
+
+At least one argument are required for command and statuses, but they are
+optional in alarms.
+
+
+Site configuration
+==================
+
+A site configuration defines the individual objects (or components) that exists
+in a specific site. It also defines the relationship between those objects.
+
+The site configuration can either be defined as a separate YAML file or be
+combined with the YAML file of the SXL when needed. The Excel file always
+combines the SXL and the site configuration.
+
+Meta data
+---------
+The site configuration may define a set of meta data of a specific site.
+It is defined in the first sheet named "Version" in in the Excel version and at
+the very top of the YAML version.
+
+It contains:
+
+.. table:: meta data
+
+   ================= ================
+   Excel             YAML
+   ================= ================
+   Plant id          ``id``
+   Plant name        ``description``
+   Constructor       ``constructor``
+   Reviewed          *(not used)*
+   Approved          *(not used)*
+   Created date      ``created-date``
+   SXL revision [#]_ ``version``
+   RSMP version      ``rsmp-version``
+   ================= ================
+
+.. rubric:: Footnotes
+
+.. [#] Revision number and Revision date
+
+
+Objects
+-------
+
+A site consists of objects, identified by unique component ids (``cId``).
+
+Using the Excel format; objects are defined in it's own sheet - one for each
+site.
+Using the YAML format, each object is defined lite this:
+
+.. code-block:: yaml
+
+  sites:
+    [site-id]:
+      description: [site description]
+      objects:
+        [object type]:
+          [object-1]:
+            componentId: AA+BBCCC=DDDEEFFF
+            ntsObjectId: AA+BBCCC=DDDEEFFF
+            externalNtsId: 00000
+
+Where:
+
+* ``[site-id]`` is the site id. This is needed during initial handshake
+* ``[site description]``. Site description
+* ``[object-type]`` defines which object type the object belongs to
+* ``[object-1]`` is the name of the object. For instance "signal group 1"
+
 An object can either be categorized as a **single object** or **grouped
-object**.
+object**. There must be at least one grouped object which is typically also
+the main component. Grouped objects are defined by **componentId** and
+**ntsObjectId** are being set equal. Single objects have a unique
+**componentId** but uses the **ntsObjectId** of their main component.
 
-An object is defined under the title **group object** if the object is a
-component group according to TDOK 2012:1171. Other objects are defined
-under **single object**.
-
-If the **externalNtsId** field is used; it means that the object is adapted
-to be sent to NTS.
-
-Other sheets
-^^^^^^^^^^^^
-The sheets **Alarm**, **Aggregated status**, **Status** and **Command**
-corresponds to the respective message type which is defined in the RSMP
-specification.
-
-- Italic text which is used as title in columns is not part of the
-  protocol, but is only used as a guiding explanation text.
-- Return values and argument are optional and there is no limitation on
-  how many return values and arguments which can be used for a single
-  message.
+**externalNtsId** is optional and only used if the object is intended to
+be sent to :term:`NTS`.
 
 Overview on functional differences between different message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
