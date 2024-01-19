@@ -9,46 +9,15 @@ signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
 The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive.
-
-It may also define the object tree of a specific site. The object tree defines
-the individual objects of a site and their relationship. This is used to
-define what can be sent/received to each object.
+possible to send and receive for each object type.
 
 The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.
 
-Meta data
----------
-The SXL may define a set of meta data of a specific site. It is defined
-in the first sheet named "Version" in in the Excel version and at the
-very top of the YAML version.
-
-It contains:
-
-.. table:: meta data
-
-   ================= ================
-   Excel             YAML
-   ================= ================
-   Plant id          ``id``
-   Plant name        ``description``
-   Constructor       ``constructor``
-   Reviewed          *(not used)*
-   Approved          *(not used)*
-   Created date      ``created-date``
-   SXL revision [#]_ ``version``
-   RSMP version      ``rsmp-version``
-   ================= ================
-
-.. rubric:: Footnotes
-
-.. [#] Revision number and Revision date
-
 Object types
 ------------
 
-A **object type** defines a type of object that can exist in a site,
+An **object type** defines a type of object that can exist in a site,
 i.e. "LED". Each object type can have a set of alarms, statuses and
 commands associated with it.
 
@@ -66,45 +35,6 @@ Traffic Light Controller".
 Depending on applicability, each object type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
-
-Objects
--------
-
-If the SXL defines the objects of an individual site(s), than each individual
-**object** is defined as well. Each object is identified using it's component
-id (``cId``).
-
-Using the Excel format; objects are defined in it's own sheet - one for each
-site.
-Using the YAML format, each object is defined lite this:
-
-.. code-block:: yaml
-
-  sites:
-    [site-id]:
-      description: [site description]
-      objects:
-        [object type]:
-          [object-1]:
-            componentId: AA+BBCCC=DDDEEFFF
-            ntsObjectId: AA+BBCCC=DDDEEFFF
-            externalNtsId: 00000
-
-Where:
-
-* ``[site-id]`` is the site id. This is needed during initial handshake
-* ``[site description]``. Site description
-* ``[object-type]`` defines which object type the object belongs to
-* ``[object-1]`` is the name of the object. For instance "signal group 1"
-
-An object can either be categorized as a **single object** or **grouped
-object**. There must be at least one grouped object which is typically also
-the main component. Grouped objects are defined by **componentId** and
-**ntsObjectId** are being set equal. Single objects have a unique
-**componentId** but uses the **ntsObjectId** of their main component.
-
-**externalNtsId** is optional and only used if the object is intended to
-be sent to :term:`NTS`.
 
 Message types
 -------------
@@ -162,6 +92,82 @@ data types. It also defines the aggregated status (only bit 1 and 2).
 
 At least one argument are required for command and statuses, but they are
 optional in alarms.
+
+
+Site configuration
+==================
+
+A site configuration defines the individual objects (or components) that exists
+in a specific site. It also defines the relationship between those objects.
+
+The site configuration can either be defined as a separate YAML file or be
+combined with the YAML file of the SXL when needed. The Excel file always
+combines the SXL and the site configuration.
+
+Meta data
+---------
+The site configuration may define a set of meta data of a specific site.
+It is defined in the first sheet named "Version" in in the Excel version and at
+the very top of the YAML version.
+
+It contains:
+
+.. table:: meta data
+
+   ================= ================
+   Excel             YAML
+   ================= ================
+   Plant id          ``id``
+   Plant name        ``description``
+   Constructor       ``constructor``
+   Reviewed          *(not used)*
+   Approved          *(not used)*
+   Created date      ``created-date``
+   SXL revision [#]_ ``version``
+   RSMP version      ``rsmp-version``
+   ================= ================
+
+.. rubric:: Footnotes
+
+.. [#] Revision number and Revision date
+
+
+Objects
+-------
+
+A site consists of objects, identified by unique component ids (``cId``).
+
+Using the Excel format; objects are defined in it's own sheet - one for each
+site.
+Using the YAML format, each object is defined lite this:
+
+.. code-block:: yaml
+
+  sites:
+    [site-id]:
+      description: [site description]
+      objects:
+        [object type]:
+          [object-1]:
+            componentId: AA+BBCCC=DDDEEFFF
+            ntsObjectId: AA+BBCCC=DDDEEFFF
+            externalNtsId: 00000
+
+Where:
+
+* ``[site-id]`` is the site id. This is needed during initial handshake
+* ``[site description]``. Site description
+* ``[object-type]`` defines which object type the object belongs to
+* ``[object-1]`` is the name of the object. For instance "signal group 1"
+
+An object can either be categorized as a **single object** or **grouped
+object**. There must be at least one grouped object which is typically also
+the main component. Grouped objects are defined by **componentId** and
+**ntsObjectId** are being set equal. Single objects have a unique
+**componentId** but uses the **ntsObjectId** of their main component.
+
+**externalNtsId** is optional and only used if the object is intended to
+be sent to :term:`NTS`.
 
 Overview on functional differences between different message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
