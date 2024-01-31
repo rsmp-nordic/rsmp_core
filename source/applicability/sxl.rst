@@ -27,10 +27,10 @@ Using the YAML format; each object type is defined like this:
 .. code-block:: yaml
 
    objects:
-     [object-type]:
+     object-type:
 
-Where ``[object-type]`` is the name of the object type. For instance,
-Traffic Light Controller".
+Where ``object-type`` is the name of the object type. For instance,
+"Traffic Light Controller".
 
 Depending on applicability, each object type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
@@ -58,6 +58,9 @@ Using the YAML format; each message type is defined like this:
         2:
           title: High priority fault
           description: Fail safe mode
+      functional_position:
+        position-1: start
+        position-2: stop
       alarms:
         A0001:
           description: alarm description text
@@ -88,91 +91,17 @@ Using the YAML format; each message type is defined like this:
 
 This example defines the alarm A0001, status S0001 and command M0001.
 Each with one argument named "argument-1" using integer, string and boolean
-data types. It also defines the aggregated status (only bit 1 and 2).
+data types.
+
+It also defines the aggregated status (only bit 1 and 2) and :term:`functional
+position`.
 
 At least one argument are required for command and statuses, but they are
 optional in alarms.
 
-
-Site configuration
-==================
-
-A site configuration defines the individual objects (or components) that exists
-in a specific site. It also defines the relationship between those objects.
-
-The site configuration can either be defined as a separate YAML file or be
-combined with the YAML file of the SXL when needed. The Excel file always
-combines the SXL and the site configuration.
-
-Meta data
----------
-The site configuration may define a set of meta data of a specific site.
-It is defined in the first sheet named "Version" in in the Excel version and at
-the very top of the YAML version.
-
-It contains:
-
-.. table:: meta data
-
-   ================= ================
-   Excel             YAML
-   ================= ================
-   Plant id          ``id``
-   Plant name        ``description``
-   Constructor       ``constructor``
-   Reviewed          *(not used)*
-   Approved          *(not used)*
-   Created date      ``created-date``
-   SXL revision [#]_ ``version``
-   RSMP version      ``rsmp-version``
-   ================= ================
-
-.. rubric:: Footnotes
-
-.. [#] Revision number and Revision date
-
-
-Objects
--------
-
-A site consists of objects, identified by unique component ids (``cId``).
-
-Using the Excel format; objects are defined in it's own sheet - one for each
-site.
-Using the YAML format, each object is defined lite this:
-
-.. code-block:: yaml
-
-  sites:
-    [site-id]:
-      description: [site description]
-      objects:
-        [object type]:
-          [object-1]:
-            componentId: AA+BBCCC=DDDEEFFF
-            ntsObjectId: AA+BBCCC=DDDEEFFF
-            externalNtsId: 00000
-
-Where:
-
-* ``[site-id]`` is the site id. This is needed during initial handshake
-* ``[site description]``. Site description
-* ``[object-type]`` defines which object type the object belongs to
-* ``[object-1]`` is the name of the object. For instance "signal group 1"
-
-An object can either be categorized as a **single object** or **grouped
-object**. There must be at least one grouped object which is typically also
-the main component. Grouped objects are defined by **componentId** and
-**ntsObjectId** are being set equal. Single objects have a unique
-**componentId** but uses the **ntsObjectId** of their main component.
-
-**externalNtsId** is optional and only used if the object is intended to
-be sent to :term:`NTS`.
-
-Overview on functional differences between different message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following table defines the functional differences between
-different message types.
+Functional differences between message types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The following table defines the functional differences between message types.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
 
@@ -187,46 +116,11 @@ different message types.
    Command            On request                                 Yes, partly (functional status)
    =================  =========================================  ================================
 
-Definitions
------------
-The following notions are used as titles from the columns in the SXL. All
-the notions corresponds to the element with the same name in the
-basic structure.
-
-The following table defines the different versions of command messages.
-
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.75}|
-
-.. table:: Commands - different versions
-
-   +------------------------+-----------------------------------------------+
-   | Notion                 | Description                                   |
-   +========================+===============================================+
-   | Functional position    | Designed for NTS. Provides command options    |
-   |                        | for an NTS object. In order to get the status |
-   |                        | the corresponding status functionalPosition   |
-   |                        | in Aggregated status is used.                 |
-   +------------------------+-----------------------------------------------+
-   | Functional state       | Not used                                      |
-   +------------------------+-----------------------------------------------+
-   | Maneuver               | Possible command options for individual       |
-   |                        | objects for groups of objects from management |
-   |                        | system (not NTS). May also apply to automatic |
-   |                        | control. For instance, "start" or "stop"      |
-   +------------------------+-----------------------------------------------+
-   | Parameter              | Used for modification of technical or         |
-   |                        | autonomous traffic parameters of the equipment|
-   +------------------------+-----------------------------------------------+
-
-Functional relationships in the signal exchange list
-----------------------------------------------------
-
-Functional states
-^^^^^^^^^^^^^^^^^
-The functional states which an object can enter should also be possible to
-control. The commands which are defined in **"Functional states**
-in the **Commands** sheet should correlate to the functional states
-which are defined in **functionalPosition** in "**Aggregated status**".
+.. note::
+   In addition of :term:`functional position`, the Excel version of the SXL
+   can also differentiate between different kinds of command messages using
+   :term:`maneuver` and :term:`parameter` sections. However, their use has no
+   functional significance from a protocol point of view.
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -258,64 +152,6 @@ return values.
    Status             No        Yes
    Commands           Yes       No
    =================  ========  ============
-
-Version management
-------------------
-
-Version of RSMP
-^^^^^^^^^^^^^^^
-The version of RSMP defines the overall version of RSMP. All documents
-which are part of the RSMP specification refers to version of RSMP. The
-following table defines the principles for version numbering for each
-document.
-
-.. tabularcolumns:: |\Yl{0.30}|\Yl{0.40}|
-
-.. table:: Version management
-
-   =================================  ========================
-   Document                           Principles of versioning
-   =================================  ========================
-   RSMP specification                 Version of RSMP
-   Signal exchange list (SXL)         Own version *and* version of RSMP
-   =================================  ========================
-
-The document "RSMP specification" uses the version of RSMP, for instance, "1.0".
-
-The signal exchange list (SXL) has it's own version but which version RSMP
-that the SXL uses must de defined.
-
-When a new version RSMP is established all associated documents need to be
-updated to reflect this.
-
-Revision of SXL
-^^^^^^^^^^^^^^^
-Revision of SXL is unique for a site. In order to uniquely identify a SXL
-for a supervision system the identity of the site (siteId) and it's
-version of SXL (SXL Revision) needs to be known. In each SXL there must
-defined which version of RSMP which it is conforms to.
-
-In order to support a common SXL for many sites where the alarms, status,
-and command message types are mostly shared - but there is a risk of
-differences can emerge; it is recommended that a table is added on the
-front page of each SXL the sites are using. The following table defines
-an example for the design of the table.
-
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.30}|
-
-.. table:: Revision of SXL
-
-   ======  =============================
-   Site    Revision of SXL which is used
-   ======  =============================
-   Site 1  1.1
-   Site 2  1.0
-   Site 3  1.1
-   ======  =============================
-
-The purpose is to be able to update the SXL with a new revision and at the
-same time inform about which sites which the revision applies to.
-
 
 Required signals
 ----------------
