@@ -154,35 +154,6 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-Version management
-------------------
-
-Version of RSMP
-^^^^^^^^^^^^^^^
-The version of RSMP defines the overall version of RSMP. All documents
-which are part of the RSMP specification refers to version of RSMP. The
-following table defines the principles for version numbering for each
-document.
-
-.. tabularcolumns:: |\Yl{0.30}|\Yl{0.40}|
-
-.. table:: Version management
-
-   =================================  ========================
-   Document                           Principles of versioning
-   =================================  ========================
-   RSMP specification                 Version of RSMP
-   Signal exchange list (SXL)         Own version *and* version of RSMP
-   =================================  ========================
-
-The document "RSMP specification" uses the version of RSMP, for instance, "1.0".
-
-The signal exchange list (SXL) has it's own version but which version RSMP
-that the SXL uses must de defined.
-
-When a new version RSMP is established all associated documents need to be
-updated to reflect this.
-
 Required signals
 ----------------
 
