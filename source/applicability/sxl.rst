@@ -59,9 +59,8 @@ Using the YAML format; each message type is defined like this:
           title: High priority fault
           description: Fail safe mode
       functional_position:
-        position-1: Maximum setting
-        position-2: Half setting
-        position-3: Minimum setting
+        position-1: start
+        position-2: stop
       alarms:
         A0001:
           description: alarm description text
