@@ -58,6 +58,10 @@ Using the YAML format; each message type is defined like this:
         2:
           title: High priority fault
           description: Fail safe mode
+      functional_position:
+        position-1: Maximum setting
+        position-2: Half setting
+        position-3: Minimum setting
       alarms:
         A0001:
           description: alarm description text
@@ -88,7 +92,10 @@ Using the YAML format; each message type is defined like this:
 
 This example defines the alarm A0001, status S0001 and command M0001.
 Each with one argument named "argument-1" using integer, string and boolean
-data types. It also defines the aggregated status (only bit 1 and 2).
+data types.
+
+It also defines the aggregated status (only bit 1 and 2) and functional
+positions.
 
 At least one argument are required for command and statuses, but they are
 optional in alarms.
