@@ -100,10 +100,9 @@ position`.
 At least one argument are required for command and statuses, but they are
 optional in alarms.
 
-Overview on functional differences between different message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following table defines the functional differences between
-different message types.
+Functional differences between message types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The following table defines the functional differences between message types.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
 
@@ -123,9 +122,6 @@ different message types.
    can also differentiate between different kinds of command messages using
    :term:`maneuver` and :term:`parameter` sections. However, their use has no
    functional significance from a protocol point of view.
-
-Functional relationships in the signal exchange list
-----------------------------------------------------
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
