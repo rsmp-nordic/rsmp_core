@@ -30,7 +30,7 @@ Using the YAML format; each object type is defined like this:
      [object-type]:
 
 Where ``[object-type]`` is the name of the object type. For instance,
-Traffic Light Controller".
+"Traffic Light Controller".
 
 Depending on applicability, each object type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
