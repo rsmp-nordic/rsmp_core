@@ -94,8 +94,8 @@ This example defines the alarm A0001, status S0001 and command M0001.
 Each with one argument named "argument-1" using integer, string and boolean
 data types.
 
-It also defines the aggregated status (only bit 1 and 2) and functional
-positions.
+It also defines the aggregated status (only bit 1 and 2) and :term:`functional
+position`.
 
 At least one argument are required for command and statuses, but they are
 optional in alarms.
@@ -118,36 +118,11 @@ different message types.
    Command            On request                                 Yes, partly (functional status)
    =================  =========================================  ================================
 
-Definitions
------------
-The following notions are used as titles from the columns in the SXL. All
-the notions corresponds to the element with the same name in the
-basic structure.
-
-The following table defines the different versions of command messages.
-
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.75}|
-
-.. table:: Commands - different versions
-
-   +------------------------+-----------------------------------------------+
-   | Notion                 | Description                                   |
-   +========================+===============================================+
-   | Functional position    | Designed for NTS. Provides command options    |
-   |                        | for an NTS object. In order to get the status |
-   |                        | the corresponding status functionalPosition   |
-   |                        | in Aggregated status is used.                 |
-   +------------------------+-----------------------------------------------+
-   | Functional state       | Not used                                      |
-   +------------------------+-----------------------------------------------+
-   | Maneuver               | Possible command options for individual       |
-   |                        | objects for groups of objects from management |
-   |                        | system (not NTS). May also apply to automatic |
-   |                        | control. For instance, "start" or "stop"      |
-   +------------------------+-----------------------------------------------+
-   | Parameter              | Used for modification of technical or         |
-   |                        | autonomous traffic parameters of the equipment|
-   +------------------------+-----------------------------------------------+
+.. note::
+   In addition of :term:`functional position`, the Excel version of the SXL
+   can also differentiate between different kinds of command messages using
+   :term:`maneuver` and :term:`parameter` sections. However, their use has no
+   functional significance from a protocol point of view.
 
 Functional relationships in the signal exchange list
 ----------------------------------------------------

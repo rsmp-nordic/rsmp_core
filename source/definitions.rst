@@ -24,20 +24,37 @@ Definitions
        European standard for message exchange between traffic systems
        (www.datex2.eu)
 
+   Functional position
+       Provides command options for a site. For instance, "start" or "stop"
+       It is meant to be used for the entire site and not for an individual
+       component. It can be implemented using a command and can be read from
+       the site using the aggregated status message.
+
+   Functional state
+       Not used
+
    ITS site
-      Road side equipment. Covers both field level and local level
+       Road side equipment. Covers both field level and local level
 
    JSON
        JavaScript Object Notation
 
    Local road side equipment
-       See ITS site
+       See :term:`ITS site`
+
+   Maneuver
+       Provides command options for one or many individual components.
+       For instance, "start" or "stop". It can be implemented using a
+       command and can be read from the site using a corresponding status
+       message.
+
+       Designed to be used with NTS.
 
    Maximo
       STA’s support system for maintenance
 
    NTS
-      National Traffic management system. Replaces CTS
+      National Traffic management system at the STA.
 
    NTS Object
        Used for objects in NTS
@@ -81,6 +98,10 @@ Definitions
        positions, alarm codes, commands and statuses that exists that
        object type.
 
+   Parameter
+       Used for modification of technical or autonomous traffic parameters
+       of the equipment. Can be implemented using commands and statuses.
+
    RSMP
        Road Side Message Protocol
 
@@ -89,7 +110,7 @@ Definitions
        Collaboration between a group of Nordic road authorities.
 
    Site
-       See ITS site
+       See :term:`ITS site`
 
    STA
        Swedish Transport Administration
