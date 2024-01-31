@@ -145,13 +145,6 @@ The following table defines the different versions of command messages.
 Functional relationships in the signal exchange list
 ----------------------------------------------------
 
-Functional states
-^^^^^^^^^^^^^^^^^
-The functional states which an object can enter should also be possible to
-control. The commands which are defined in **"Functional states**
-in the **Commands** sheet should correlate to the functional states
-which are defined in **functionalPosition** in "**Aggregated status**".
-
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Argument and return values makes it possible to send extra information in
