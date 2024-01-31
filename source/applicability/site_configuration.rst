@@ -57,21 +57,21 @@ Using the YAML format, each object is defined lite this:
 .. code-block:: yaml
 
   sites:
-    [site-id]:
-      description: [site description]
+    site-id:
+      description: site description
       objects:
-        [object type]:
-          [object-1]:
+        object-type:
+          object-1:
             componentId: AA+BBCCC=DDDEEFFF
             ntsObjectId: AA+BBCCC=DDDEEFFF
             externalNtsId: 00000
 
 Where:
 
-* ``[site-id]`` is the site id. This is needed during initial handshake
-* ``[site description]``. Site description
-* ``[object-type]`` defines which object type the object belongs to
-* ``[object-1]`` is the name of the object. For instance "signal group 1"
+* ``site-id`` is the site id. This is needed during initial handshake
+* ``site description``. Site description
+* ``object-type`` defines which object type the object belongs to
+* ``object-1`` is the name of the object. For instance "signal group 1"
 
 An object can either be categorized as a **single object** or **grouped
 object**. There must be at least one grouped object which is typically also
