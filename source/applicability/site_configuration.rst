@@ -12,9 +12,16 @@ combines the SXL and the site configuration.
 
 Meta data
 ---------
+In order to uniquely identify an SXL and site configuration for a
+supervision system the site id and the version needs to be known.
+See :ref:`rsmpsxl-version`. The SXL defines the site id, but meta data is
+needed to provide the SXL version.
+
 The site configuration may define a set of meta data of a specific site.
 It is defined in the first sheet named "Version" in in the Excel version and at
 the very top of the YAML version.
+
+In each SXL there must defined which version of RSMP which it is conforms to.
 
 It contains:
 

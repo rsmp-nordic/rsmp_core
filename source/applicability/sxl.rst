@@ -183,35 +183,6 @@ that the SXL uses must de defined.
 When a new version RSMP is established all associated documents need to be
 updated to reflect this.
 
-Revision of SXL
-^^^^^^^^^^^^^^^
-Revision of SXL is unique for a site. In order to uniquely identify a SXL
-for a supervision system the identity of the site (siteId) and it's
-version of SXL (SXL Revision) needs to be known. In each SXL there must
-defined which version of RSMP which it is conforms to.
-
-In order to support a common SXL for many sites where the alarms, status,
-and command message types are mostly shared - but there is a risk of
-differences can emerge; it is recommended that a table is added on the
-front page of each SXL the sites are using. The following table defines
-an example for the design of the table.
-
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.30}|
-
-.. table:: Revision of SXL
-
-   ======  =============================
-   Site    Revision of SXL which is used
-   ======  =============================
-   Site 1  1.1
-   Site 2  1.0
-   Site 3  1.1
-   ======  =============================
-
-The purpose is to be able to update the SXL with a new revision and at the
-same time inform about which sites which the revision applies to.
-
-
 Required signals
 ----------------
 
