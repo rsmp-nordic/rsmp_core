@@ -286,14 +286,16 @@ or alarm suspend messages).
    |                   |                    | See also the :ref:`data type<data_types>` section.                                 |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
 
-:numref:`alarm-transitions` show possible transitions between
+:ref:`alarm-transitions` show possible transitions between
 different alarm states.
 
 Continuous lines defines possible alarm status changes controlled by logic
 and dashed lines defines possible changes controlled by user.
 
+.. _alarm-transitions:
 
-.. mermaid:: Alarm transitions
+.. mermaid::
+   :caption: Alarm transitions
 
    stateDiagram
      Inactive
