@@ -267,8 +267,16 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
 3. The connection is closed
 
-.. image:: /img/msc/communication-rejection.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system/Site
+     Site->>System: RSMP/SXL version
+     Note over System: Verify RSMP version, SXL version and site id
+     System->>Site: MessageNotAck
+     Note over Site,System: Connection closed
 
 Is it not allowed to disconnect for any other circumstance other than mismatch
 during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
