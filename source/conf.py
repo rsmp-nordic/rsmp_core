@@ -37,6 +37,15 @@ extensions = [
     'sphinxcontrib.mermaid'
 ]
 
+# Mermaid config
+mermaid_sequence_config = 'source/style/sequence_config.json'
+
+# Prevents white space underneath the diagram
+mermaid_pdfcrop = 'pdfcrop'
+
+# Needed when using configuration
+mermaid_output_format = 'png'
+
 numfig = True
 
 # Add any paths that contain templates here, relative to this directory.
