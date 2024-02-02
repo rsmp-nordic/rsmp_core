@@ -6,8 +6,8 @@ msc {
   Site, "Supervision system";
 
   |||;
-  Site<-"Supervision system" [ label = "Aggregated status request message" ];
+  Site<-"Supervision system" [ label = "Aggregated status request" ];
   |||;
-  Site->"Supervision system" [ label = "Aggregated status message" ];
+  Site->"Supervision system" [ label = "Aggregated status" ];
   |||;
 }

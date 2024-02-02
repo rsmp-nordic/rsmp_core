@@ -92,17 +92,19 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
-   | mId     | *(GUID)*                | Message identity. Generated as a GUID |
-   | *(or)*  |                         | (Globally unique identifier) in the   |
-   | oMId    |                         | equipment that sent the message. Only |
-   |         |                         | version 4 of Leach-Salz UUID is used. |
-   |         |                         |                                       |
-   |         |                         | * **mId** is used i all messages as a |
-   |         |                         |   reference for the message ack       |
-   |         |                         | * **oMId** is used in the message ack |
-   |         |                         |   to refer to the message which is    |
-   |         |                         |   being acked                         |
+   | mId     | *(GUID)*                | Message identity                      |
+   | *(or)*  |                         |                                       |
+   | oMId    |                         |                                       |
    +---------+-------------------------+---------------------------------------+
+
+.. note::
+   * **mId** is generated as GUID (Globally unique identifier) in the equipment
+     that sent the message
+   * **mId** is used in all messages as a reference for the message ack
+   * **oMId** is used in the message ack to refer to the message which is being acked
+   * Only version 4 of Leach-Salz UUID is used for the GUID
+   * Each message sent should have a new GUID, even if the message is resent or the
+     content is the same
 
 The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
@@ -165,10 +167,10 @@ element 'aSp'.
 Message structure
 """""""""""""""""
 
-.. _structure-for-an-alarm-message:
+.. _structure-of-an-alarm-message:
 
-Structure for an alarm message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of an alarm message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm message has the structure according to the example below.
 
@@ -602,7 +604,7 @@ JSon code 9: Resuming an alarm using an alarm suspend message
 JSon code 10: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
-(See :ref:`structure-for-an-alarm-message`) with the exception for alarm status
+(See :ref:`structure-of-an-alarm-message`) with the exception for alarm status
 (See :ref:`alarm-status`) and (See :ref:`return-values`).
 
 Message exchange between site and supervision system
@@ -843,9 +845,9 @@ site**
 Status Messages
 ^^^^^^^^^^^^^^^
 
-The status message is a type of message that is sent to the
-supervision system or other equipment with the status of one or more
-requested objects.
+The status message is a type of message that is sent to the supervision
+system or other equipment with the value of one or more requested
+statuses, for the referenced object.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -857,8 +859,8 @@ can be sent during the following prerequisites:
 Message structure
 """""""""""""""""
 
-Structure for a request of a status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a status request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status request message has the structure according to the example
 below.
@@ -909,11 +911,10 @@ elements and the titles in the SXL.
    ============ ============ ===================
 
 
-Structure for a message with status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A message with status of one or several objects has the structure
-according to the example below.
+A status response message has the structure according to the example below.
 
 The status code id (``sCI``) and name (``n``) are placed in an array
 (``sS``) in order to enable support for responding to multiple statuses at once.
@@ -1031,8 +1032,8 @@ If the component does not exist or the value ``s`` is unknown then:
 * ``s`` must be set to ``null``
 
 
-Structure for a status subscription request message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status subscription request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
@@ -1118,11 +1119,11 @@ The following applies:
   new StatusSubscribe during an active subscription.
 
 
-Structure for a response message with answer to a request for status subscription for one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status update message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A response message with answer to a request for status subscription
-has the structure according to the example below.
+The status update message is an answer to a request for status subscription.
+It has the structure according to the example below.
 
 The following applies:
 
@@ -1232,12 +1233,12 @@ JSon code 17: A subscription request to subscribe to statues with different upda
 JSon code 18: A partial status update. Only a single status is updated
 
 
-Structure for a status unsubscription message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status unsubscription message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
-objects. No particular answer is sent for this request, other than the
+statuses. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
 .. code-block:: json
@@ -1286,8 +1287,8 @@ implicit in the following figure.
      Supervision system->>Site: Status request message
      Site->>Supervision system: Status response message
 
-1. Request of status for an object
-2. Response with status of an object
+1. Status request
+2. Status response
 
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1313,8 +1314,12 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to one or more requested objects.
+Command messages are used to give order using one or more commands, for the
+referenced object.
 The site responds with a command acknowledgement.
+
+All arguments needs to included in a command, otherwise it results a serious
+error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
 
 Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment
@@ -1322,8 +1327,8 @@ requested on any given object by the supervision system or other equipment
 Message structure
 """""""""""""""""
 
-Structure of a command for one or more objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1416,8 +1421,8 @@ elements and the titles in the signal exchange list (SXL).
    | v               | Value              | Value                                         |
    +-----------------+--------------------+-----------------------------------------------+
 
-Structure of command response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
@@ -1556,8 +1561,8 @@ implicit in the following figure.
      Note over Site: Command is accepted
      Site->>Supervision system: Command response message
 
-1. Command request for an object
-2. Command response of an object
+1. Command request
+2. Command response
 
 .. _message-acknowledgement:
 

@@ -83,7 +83,7 @@ If encryption is used then the following applies:
 
 * Encryption settings needs to be configurable in both the supervision system as
   well as the site.
-* For the encrypted communication, SSL 3.0/TLS 1.0 or later is used.
+* For the encrypted communication, TLS 1.3 or later is used.
 * Certificates should be used to verify the identities of equipments.
 * Equipment which uses RSMP should contain a user interface for easy management
   of certificates.
