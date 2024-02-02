@@ -8,8 +8,8 @@ msc {
   |||;
   system abox system [ label = "An alarm is suspended/unsuspended" ];
   |||;
-  site<=system [ label = "Alarm suspend message (on/off)" ];
+  site<=system [ label = "Alarm suspend (on/off)" ];
   |||;
-  site=>system [ label = "Alarm message" ];
+  site=>system [ label = "Alarm" ];
   |||;
 }
