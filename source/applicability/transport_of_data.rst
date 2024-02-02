@@ -101,8 +101,21 @@ messages are sent in the following order.
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/establish-site-system.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system
+     System->>Site: RSMP/SXL version
+     Note over System: Verify RSMP version, SXL version and site id
+     Site->>System: RSMP/SXL version
+     Note over Site: Verify RSMP version, SXL version and site id
+     Note Site,System: RSMP version is selected based upon what sites support
+     System->>Site: Watchdog
+     Site->>System: Watchdog
+     Note Site,System: Asynchronous message exchange can begin
+     Site->>System: Aggregated status
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
@@ -176,8 +189,21 @@ following order.
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/establish-site-site.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Leader as Site (leader)
+     participant Follower as Site (follower)
+     Follower->>Leader: RSMP/SXL version
+     Note over Leader: Verify RSMP version, SXL version and site id
+     Leader->>Follower: RSMP/SXL version
+     Note over Follower: Verify RSMP version, SXL version and site id
+     Note Leader,Follower: RSMP version is selected based upon what sites support
+     Follower->>Leader: Watchdog
+     Leader->>Follower: Watchdog
+     Note Leader,Follower: Asynchronous message exchange can begin
+     Follower->>Leader: Aggregated status
 
 1. The follower site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
