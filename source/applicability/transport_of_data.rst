@@ -107,15 +107,17 @@ implicit in the following figure.
      autonumber
      participant Site
      participant System as Supervision system
-     System->>Site: RSMP/SXL version
-     Note over System: Verify RSMP version, SXL version and site id
      Site->>System: RSMP/SXL version
-     Note over Site: Verify RSMP version, SXL version and site id
-     Note over Site,System: RSMP version is selected based upon what sites support
-     System->>Site: Watchdog
+     System-->System: Verify RSMP version,<br/>SXL version and site id
+     System->>Site: RSMP/SXL version
+     Site-->Site: Verify RSMP version,<br/>SXL version and site id
+     Note over Site,System: RSMP version is implicitly selected<br/>based upon the latest version that<br/>both communicating parties support
      Site->>System: Watchdog
+     System->>Site: Watchdog
      Note over Site,System: Asynchronous message exchange can begin
      Site->>System: Aggregated status
+     Site->>System: All alarms
+     Site->>System: Buffered messages
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
