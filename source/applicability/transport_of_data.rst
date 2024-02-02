@@ -111,10 +111,10 @@ implicit in the following figure.
      Note over System: Verify RSMP version, SXL version and site id
      Site->>System: RSMP/SXL version
      Note over Site: Verify RSMP version, SXL version and site id
-     Note Site,System: RSMP version is selected based upon what sites support
+     Note over Site,System: RSMP version is selected based upon what sites support
      System->>Site: Watchdog
      Site->>System: Watchdog
-     Note Site,System: Asynchronous message exchange can begin
+     Note over Site,System: Asynchronous message exchange can begin
      Site->>System: Aggregated status
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
@@ -199,10 +199,10 @@ implicit in the following figure.
      Note over Leader: Verify RSMP version, SXL version and site id
      Leader->>Follower: RSMP/SXL version
      Note over Follower: Verify RSMP version, SXL version and site id
-     Note Leader,Follower: RSMP version is selected based upon what sites support
+     Note over Leader,Follower: RSMP version is selected based upon what sites support
      Follower->>Leader: Watchdog
      Leader->>Follower: Watchdog
-     Note Leader,Follower: Asynchronous message exchange can begin
+     Note over Leader,Follower: Asynchronous message exchange can begin
      Follower->>Leader: Aggregated status
 
 1. The follower site sends RSMP / SXL version (according to section
