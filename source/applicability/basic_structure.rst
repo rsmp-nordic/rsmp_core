@@ -778,7 +778,7 @@ State
 A definition of each boolean element (1-8) is presented in the figure below.
 The signal exchange list (SXL) may define a more detailed definition.
 
-.. image:: /img/msc/agg_state_array.png
+.. image:: /img/agg_state_array.png
    :align: center
 
 .. _aggregated-status-req:
