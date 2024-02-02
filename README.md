@@ -34,6 +34,7 @@ On Ubuntu:
   texlive-humanities texlive-fonts-extra imagemagick \
   librsvg2-bin latexmk python3-sphinx-rtd-theme \
   python3-sphinxcontrib-mermaid
+# npm install -g @mermaid-js/mermaid-cli
 ```
 
 On MacOS using MacTex and Homebrew:
