@@ -297,6 +297,32 @@ and dashed lines defines possible changes controlled by user.
 
    Alarm transitions
 
+.. mermaid::
+
+   stateDiagram
+     Inactive
+     Suspended
+     ActiveNack: Active, Not acknowledged
+     ActiveAck: Active, Acknowledged
+     InactiveNack: Inactive, Not acknowledged
+
+     ActiveAck-->Inactive: Issue, inactive
+     ActiveAck-->Suspended: Suspend
+
+     Inactive-->ActiveNack: Issue, active
+     Inactive-->Suspended: Suspend
+
+     ActiveNack-->InactiveNack: Issue, inactive
+     ActiveNack-->Suspended: Suspend
+     ActiveNack-->ActiveAck: Acknowledge
+
+     InactiveNack-->ActiveNack: Issue, active
+     InactiveNack-->Suspended: Suspend
+     InactiveNack-->Inactive: Acknowledge
+
+     Suspended-->Inactive: Resume
+     Suspended-->ActiveNack: Resume
+
 Alarms should not be sent unless:
 
 * Alarms are unblocked and it's state changes
@@ -593,46 +619,79 @@ implicit in the following figures.
 
 **An alarm is active/inactive**
 
-.. image:: /img/msc/alarm_active_inactive.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Site: An alarm changes status
+     Site->>Supervision system: Alarm message
 
 1. An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)
 
 **An alarm is requested**
 
-.. image:: /img/msc/alarm_request.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Supervision system: An alarm is requested
+     Supervision system->>Site: Alarm request message
+     Site->>Supervision system: Alarm message
 
 1. An alarm is requested from the supervision system
 2. An alarm message is sent to supervision system with the status of the alarm
 
 **An alarm is acknowledged at the supervision system**
 
-.. image:: /img/msc/alarm_ack_system.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Supervision system: An alarm is acknowledged
+     Supervision system->>Site: Alarm request acknowledgement message
+     Site->>Supervision system: Alarm message
 
 1. An alarm acknowledgement message is sent to the site
 2. An alarm message is sent to the supervision system (that the alarm is acknowledged)
 
 **An alarm is acknowledged at the site**
 
-.. image:: /img/msc/alarm_ack_site.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Site: An alarm is acknowledged
+     Site->>Supervision system: Alarm message
 
 1. An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)
 
 **An alarm is suspended/unsuspended from the supervision system**
 
-.. image:: /img/msc/alarm_suspend_system.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Supervision system: An alarm is suspended/unsuspended
+     Supervision system->>Site: Alarm suspend message (on/off)
+     Site->>Supervision system: Alarm message
 
 1. An alarm suspend message is being sent to the site
 2. An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)
 
 **An alarm is suspended/unsuspended from the site**
 
-.. image:: /img/msc/alarm_suspend_site.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Site: An alarm is suspended/unsuspended
+     Site->>Supervision system: Alarm message
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
 
@@ -763,16 +822,26 @@ implicit in the following figures.
 **Functional state, functional position or state booleans changes at the
 site**
 
+.. mermaid::
 
-.. image:: /img/msc/aggregated_status.png
-   :align: center
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Note over Site: Change of functional state,<br/>functional position or status bits
+     Site->>Supervision system: Aggregated status message
+
 
 1. An aggregated status message is sent to the supervision system.
 
 **The supervision system request aggregated status**
 
-.. image:: /img/msc/aggregated_status_request.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Supervision system->>Site: Aggregated status request message
+     Site->>Supervision system: Aggregated status message
 
 1. An aggregated status request message is sent to the site.
 2. An aggregated status message is sent to the supervision system.
@@ -1215,8 +1284,13 @@ Message exchange between site and supervision system/other equipment - request
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/status_request_response.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Supervision system->>Site: Status request message
+     Site->>Supervision system: Status response message
 
 1. Request of status for an object
 2. Response with status of an object
@@ -1227,8 +1301,18 @@ Message exchange between site and supervision system/other equipment - subscript
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/status_update.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     participant Site
+     participant Supervision system
+     Supervision system->>Site: Status subscription message
+     Site->>Supervision system: Status update message
+     Note over Site: Status changed (sOc) or interval time reached (uRt)
+     Site->>Supervision system: Status update message
+     Note over Site: Status changed (sOc) or interval time reached (uRt)
+     Site->>Supervision system: Status update message
+     Site->>Supervision system: Status unsubscription message
 
 Example of message exchange with subscription, status updates and unsubscription.
 
@@ -1468,8 +1552,15 @@ Message exchange between site and supervision system/other equipment
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/command_request_response.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant Supervision system
+     Supervision system->>Site: Command request message
+     Note over Site: Command is accepted
+     Site->>Supervision system: Command response message
 
 1. Command request for an object
 2. Command response of an object
@@ -1563,16 +1654,28 @@ Message exchange between site and supervision system/other equipment
 
 Supervision system sends initial message
 
-.. image:: /img/msc/message_ack_system.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system<br/>or other equipment
+     System->>Site: Any RSMP message
+     Site->>System: MessageAck
 
 1. A message is sent from supervision system or other equipment
 2. The site responds with an message acknowledgement
 
 Site sends initial message
 
-.. image:: /img/msc/message_ack_site.png
-   :align: center
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system<br/>or other equipment
+     Site->>System: Any RSMP message
+     System->>Site: MessageAck
 
 1. A message is sent from the site
 2. The supervision system or other equipment responds with an message acknowledgement
@@ -1742,13 +1845,25 @@ implicit in the following figures.
 
 Site sends watchdog message
 
-.. image:: /img/msc/watchdog_site.png
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system
+     Site->>System: Watchdog message
 
 1. Watchdog message is sent from site
 
 Supervision system/other equipment sends watchdog message
 
-.. image:: /img/msc/watchdog_system.png
+.. mermaid::
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system
+     System->>Site: Watchdog message
 
 1. Watchdog message is sent from supervision system/other equipment
 
