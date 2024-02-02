@@ -290,14 +290,8 @@ different alarm states.
 Continuous lines defines possible alarm status changes controlled by logic
 and dashed lines defines possible changes controlled by user.
 
-.. figure:: /img/dot/alarm_transitions.png
-   :name: alarm-transitions
-   :alt: Alarm transitions
-   :align: center
 
-   Alarm transitions
-
-.. mermaid::
+.. mermaid:: Alarm transitions
 
    stateDiagram
      Inactive
