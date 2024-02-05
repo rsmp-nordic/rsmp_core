@@ -606,15 +606,18 @@ Allowed content in alarm suspend message is the same as for alarm messages
 (See :ref:`structure-of-an-alarm-message`) with the exception for alarm status
 (See :ref:`alarm-status`) and (See :ref:`return-values`).
 
+|pagebreak_latex|
+
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**An alarm is active/inactive**
+**An alarm turns active/inactive**
 
 .. mermaid::
+   :caption: An alarm turns active/inactive
 
    sequenceDiagram
      autonumber
@@ -623,11 +626,13 @@ implicit in the following figures.
      Note over Site: An alarm changes status
      Site->>Supervision system: Alarm message
 
-1. An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)
+1. An alarm message is sent to supervision system with the status of the
+   alarm (the alarm is active/inactive)
 
 **An alarm is requested**
 
 .. mermaid::
+   :caption: An alarm is requested
 
    sequenceDiagram
      autonumber
@@ -643,6 +648,7 @@ implicit in the following figures.
 **An alarm is acknowledged at the supervision system**
 
 .. mermaid::
+   :caption: An alarm is acknowledged at the supervision system
 
    sequenceDiagram
      autonumber
@@ -655,9 +661,12 @@ implicit in the following figures.
 1. An alarm acknowledgement message is sent to the site
 2. An alarm message is sent to the supervision system (that the alarm is acknowledged)
 
+|pagebreak_latex|
+
 **An alarm is acknowledged at the site**
 
 .. mermaid::
+   :caption: An alarm is acknowledged at the site
 
    sequenceDiagram
      autonumber
@@ -671,6 +680,7 @@ implicit in the following figures.
 **An alarm is suspended/unsuspended from the supervision system**
 
 .. mermaid::
+   :caption: An alarm is suspended/unsuspended from the supervision system
 
    sequenceDiagram
      autonumber
@@ -686,6 +696,7 @@ implicit in the following figures.
 **An alarm is suspended/unsuspended from the site**
 
 .. mermaid::
+   :caption: An alarm is suspended/unsuspended from the site
 
    sequenceDiagram
      autonumber
@@ -820,10 +831,11 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or state booleans changes at the
+**Functional state, functional position or status bits changes at the
 site**
 
 .. mermaid::
+   :caption: Functional state, functional position or status bits changes at the site
 
    sequenceDiagram
      autonumber
@@ -838,6 +850,7 @@ site**
 **The supervision system request aggregated status**
 
 .. mermaid::
+   :caption: The supervision system request aggregated status
 
    sequenceDiagram
      autonumber
@@ -1287,6 +1300,7 @@ Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. mermaid::
+   :caption: Message exchange with status request
 
    sequenceDiagram
      autonumber
@@ -1305,6 +1319,7 @@ Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. mermaid::
+   :caption: Message exchange with status subscription
 
    sequenceDiagram
      participant Site
@@ -1560,6 +1575,7 @@ Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. mermaid::
+   :caption: Message exchange with command request
 
    sequenceDiagram
      autonumber
@@ -1659,9 +1675,10 @@ The following table is describing the variable content of the message:
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Supervision system sends initial message
+**Supervision system sends initial message**
 
 .. mermaid::
+   :caption: Supervision system sends initial message
 
    sequenceDiagram
      autonumber
@@ -1673,9 +1690,10 @@ Supervision system sends initial message
 1. An RSMP message is sent from supervision system or other equipment
 2. The site responds with an message acknowledgement
 
-Site sends initial message
+**Site sends initial message**
 
 .. mermaid::
+   :caption: Site sends initial message
 
    sequenceDiagram
      autonumber
@@ -1853,6 +1871,7 @@ implicit in the following figures.
 Site sends watchdog message
 
 .. mermaid::
+   :caption: Site sends watchdog message
 
    sequenceDiagram
      autonumber
@@ -1865,6 +1884,7 @@ Site sends watchdog message
 Supervision system/other equipment sends watchdog message
 
 .. mermaid::
+   :caption: Supervision system sends watchdog message
 
    sequenceDiagram
      autonumber
@@ -1884,3 +1904,6 @@ Supervision system/other equipment sends watchdog message
 
    \newline
 
+.. |pagebreak_latex| raw:: latex
+
+   \pagebreak

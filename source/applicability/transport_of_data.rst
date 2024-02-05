@@ -102,6 +102,7 @@ Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. mermaid::
+   :caption: Communication establishment - Site and supervision system
 
    sequenceDiagram
      autonumber
@@ -188,6 +189,7 @@ Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. mermaid::
+   :caption: Communication establishment - Between sites
 
    sequenceDiagram
      autonumber
@@ -263,6 +265,7 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 3. The connection is closed
 
 .. mermaid::
+   :caption: Communication rejection
 
    sequenceDiagram
      autonumber
