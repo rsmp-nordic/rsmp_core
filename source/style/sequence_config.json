@@ -1,4 +1,5 @@
 {
-  "actorMargin": 200,
+  "actorMargin": 400,
+  "width": 200,
   "mirrorActors": false
 }
