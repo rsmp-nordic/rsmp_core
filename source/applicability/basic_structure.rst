@@ -671,7 +671,7 @@ implicit in the following figures.
    sequenceDiagram
      participant Site
      participant Supervision system
-     Note over Supervision system: An alarm is suspended/unsuspended
+     Note over Supervision system: An alarm is suspended<br/>or unsuspended
      Supervision system->>Site: Alarm suspend message (on/off)
      Site->>Supervision system: Alarm message
 
@@ -685,7 +685,7 @@ implicit in the following figures.
    sequenceDiagram
      participant Site
      participant Supervision system
-     Note over Site: An alarm is suspended/unsuspended
+     Note over Site: An alarm is suspended<br/>or unsuspended
      Site->>Supervision system: Alarm message
 
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
@@ -1284,7 +1284,7 @@ implicit in the following figure.
      participant Site
      participant Supervision system
      Supervision system->>Site: Status request message
-     Site->>Supervision system: Status response message
+     Site-->>Supervision system: Status response message
 
 1. Status request
 2. Status response
@@ -1299,14 +1299,14 @@ implicit in the following figure.
 
    sequenceDiagram
      participant Site
-     participant Supervision system
-     Supervision system->>Site: Status subscription message
-     Site->>Supervision system: Status update message
-     Note over Site: Status changed (sOc) or interval time reached (uRt)
-     Site->>Supervision system: Status update message
-     Note over Site: Status changed (sOc) or interval time reached (uRt)
-     Site->>Supervision system: Status update message
-     Site->>Supervision system: Status unsubscription message
+     participant System as Supervision system
+     System->>Site: Status subscription message
+     Site-->>System: Status update message
+     Note over Site: Status changed (sOc) or<br/>interval time reached (uRt)
+     Site-->>System: Status update message
+     Note over Site: Status changed (sOc) or<br/>interval time reached (uRt)
+     Site-->>System: Status update message
+     System->>Site: Status unsubscription message
 
 Example of message exchange with subscription, status updates and unsubscription.
 
@@ -1558,7 +1558,7 @@ implicit in the following figure.
      participant Supervision system
      Supervision system->>Site: Command request message
      Note over Site: Command is accepted
-     Site->>Supervision system: Command response message
+     Site-->>Supervision system: Command response message
 
 1. Command request
 2. Command response
@@ -1659,7 +1659,7 @@ Supervision system sends initial message
      participant Site
      participant System as Supervision system<br/>or other equipment
      System->>Site: Any RSMP message
-     Site->>System: MessageAck
+     Site-->>System: MessageAck
 
 1. A message is sent from supervision system or other equipment
 2. The site responds with an message acknowledgement
@@ -1673,7 +1673,7 @@ Site sends initial message
      participant Site
      participant System as Supervision system<br/>or other equipment
      Site->>System: Any RSMP message
-     System->>Site: MessageAck
+     System-->>Site: MessageAck
 
 1. A message is sent from the site
 2. The supervision system or other equipment responds with an message acknowledgement
