@@ -19,6 +19,7 @@
 #
 import os
 import sys
+import platform
 sys.path.insert(0, os.path.abspath('extensions'))
 
 
@@ -38,7 +39,11 @@ extensions = [
 ]
 
 # Mermaid config
-mermaid_sequence_config = 'source/style/sequence_config.json'
+mermaid_params = ['--configFile', 'source/style/sequence_config.json']
+
+# Add workaround for Windows WSL2
+if(platform.uname().release.endswith("microsoft-standard-WSL2")):
+    mermaid_params.extend(['-p', 'source/style/puppeteerConfigFile.json'])
 
 # Prevents white space underneath the diagram
 mermaid_pdfcrop = 'pdfcrop'
