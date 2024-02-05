@@ -289,9 +289,6 @@ or alarm suspend messages).
 :ref:`alarm-transitions` show possible transitions between
 different alarm states.
 
-Continuous lines defines possible alarm status changes controlled by logic
-and dashed lines defines possible changes controlled by user.
-
 .. _alarm-transitions:
 
 .. mermaid::
