@@ -130,29 +130,25 @@ implicit in the following figure.
 
 4. The site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+   (see section :ref:`communication-rejection`). The latest version of RSMP
+   that both communicating parties exchange in the RSMP/SXL Version is
+   implicitly selected and used in any further RSMP communication.
 
+5. The site sends a Watchdog (according to section :ref:`watchdog`)
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+6. The system sends a Watchdog (according to section :ref:`watchdog`).
+   Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent.
 
-6. The site sends a Watchdog (according to section :ref:`watchdog`)
-
-7. The system sends a Watchdog (according to section :ref:`watchdog`)
-
-8. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
-
-9. Aggregated status (according to section :ref:`aggregated-status-message`).
+7. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
-    are sent. (according to section :ref:`alarm-messages`).
+8. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
+   are sent. (according to section :ref:`alarm-messages`).
 
-11. Buffered messages in the equipment's outgoing communication buffer are sent,
-    including alarms, aggregated status and status updates.
+9. Buffered messages in the equipment's outgoing communication buffer are sent,
+   including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
