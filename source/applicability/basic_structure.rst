@@ -617,6 +617,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Site: An alarm changes status
@@ -629,6 +630,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Supervision system: An alarm is requested
@@ -643,6 +645,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Supervision system: An alarm is acknowledged
@@ -657,6 +660,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Site: An alarm is acknowledged
@@ -669,6 +673,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Supervision system: An alarm is suspended<br/>or unsuspended
@@ -683,6 +688,7 @@ implicit in the following figures.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Site: An alarm is suspended<br/>or unsuspended
@@ -820,6 +826,7 @@ site**
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Note over Site: Change of functional state,<br/>functional position or status bits
@@ -833,6 +840,7 @@ site**
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Supervision system->>Site: Aggregated status request message
@@ -1281,6 +1289,7 @@ implicit in the following figure.
 .. mermaid::
 
    sequenceDiagram
+     autonumber
      participant Site
      participant Supervision system
      Supervision system->>Site: Status request message
