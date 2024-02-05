@@ -1670,7 +1670,7 @@ Supervision system sends initial message
      System->>Site: Any RSMP message
      Site-->>System: MessageAck
 
-1. A message is sent from supervision system or other equipment
+1. An RSMP message is sent from supervision system or other equipment
 2. The site responds with an message acknowledgement
 
 Site sends initial message
@@ -1684,7 +1684,7 @@ Site sends initial message
      Site->>System: Any RSMP message
      System-->>Site: MessageAck
 
-1. A message is sent from the site
+1. An RSMP message is sent from the site
 2. The supervision system or other equipment responds with an message acknowledgement
 
 .. _rsmpsxl-version:
