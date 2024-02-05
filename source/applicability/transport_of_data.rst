@@ -194,9 +194,9 @@ implicit in the following figure.
      participant Leader as Site (leader)
      participant Follower as Site (follower)
      Follower->>Leader: RSMP/SXL version
-     Note over Leader: Verify RSMP version, SXL version and site id
+     Leader-->Leader: Verify RSMP version,<br/>SXL version and site id
      Leader->>Follower: RSMP/SXL version
-     Note over Follower: Verify RSMP version, SXL version and site id
+     Follower-->Follower: Verify RSMP version,<br/>SXL version and site id
      Note over Leader,Follower: RSMP version is selected based upon what sites support
      Follower->>Leader: Watchdog
      Leader->>Follower: Watchdog
@@ -214,21 +214,18 @@ implicit in the following figure.
    :ref:`rsmpsxl-version`).
 
 4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+   If there is a mismatch the sequence does not proceed. (see section
+   :ref:`communication-rejection`). The latest version of RSMP that both
+   communicating parties exchange in the RSMP/SXL Version is implicitly
+   selected and used in any further RSMP communication.
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
-6. The follower site sends Watchdog (according to section :ref:`watchdog`)
+6. The leader site sends Watchdog (according to section :ref:`watchdog`).
+   Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent.
 
-7. The leader site sends Watchdog (according to section :ref:`watchdog`)
-
-8. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
-
-9. Aggregated status (according to section :ref:`aggregated-status-message`)
+7. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -272,7 +269,7 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
      participant Site
      participant System as Supervision system/Site
      Site->>System: RSMP/SXL version
-     Note over System: Verify RSMP version, SXL version and site id
+     System-->System: Verify RSMP version,<br/>SXL version and site id
      System->>Site: MessageNotAck
      Note over Site,System: Connection closed
 
