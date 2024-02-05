@@ -33,7 +33,7 @@ On Ubuntu:
 # apt-get install python3-sphinx texlive texlive-latex-extra \
   texlive-humanities texlive-fonts-extra imagemagick \
   librsvg2-bin latexmk python3-sphinx-rtd-theme \
-  python3-sphinxcontrib-mermaid
+  python3-sphinxcontrib-mermaid texlive-extra-utils
 # npm install -g @mermaid-js/mermaid-cli
 ```
 
