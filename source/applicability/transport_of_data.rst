@@ -222,6 +222,12 @@ For communication between sites the following applies:
 * Alarm messages are not sent
 * No communication buffer exist
 
+.. note::
+   Please note that it's the leader site that connects the the follower site,
+   but it's also the leader site that requests commands and statuses.
+   This is different to how the RSMP connection between sites and supervision
+   system works.
+
 .. _communication-rejection:
 
 Communication rejection
