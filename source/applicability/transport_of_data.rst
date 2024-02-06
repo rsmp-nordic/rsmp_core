@@ -363,18 +363,25 @@ The following principles applies:
 Transport between site and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Supervision system acts a socket server and waits for the site to
-connect. If the communication were to fail it is the site’s
-responsibility to reconnect.
+* The supervision system implements a socket server and waits for the site
+  to connect
+* The site initiates the connection to the supervision system
+* The supervision system can request commands, statuses (with optional
+  subscription) and alarms
+* If the communication were to fail it is the site’s responsibility to
+  reconnect
 
 Transport between sites
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-One site acts as leader and the other one as a follower.
+One site acts as leader and the other site(s) as followers. The leader can
+request commands, statuses (with optional subscription) and alarms to the
+follower site(s). It is the leader one who connects. This is different to
+how the RSMP connection between sites and supervision system works.
 
-* The leader site initiates the connection to the following site.
-* The follower sites implements a socket server and waits for the leader site
-  to connect.
-* If the communication were to fail it is the follower site’s responsibility
-  to reconnect.
-
+* The follower site(s) implements a socket server and waits for the leader
+  site to connect
+* The leader site initiates the connection to the follower site(s)
+* The leader can request commands, statuses (with optional subscription)
+* If the communication were to fail it is the leader site’s responsibility
+  to reconnect
