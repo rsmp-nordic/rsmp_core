@@ -1021,23 +1021,21 @@ The following table is describing the variable content of the message:
 
 .. table:: Status Request
 
-   +------------+------------+--------------------------------------------------------+
-   | Element    | Value      | Description                                            |
-   +============+============+========================================================+
-   | uRt        | *(string)* | updateRate. Determines the interval of which the       |
-   |            |            | message should be sent.                                |
-   |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
-   |            |            | 2.5 seconds. Dot (.) is used as decimal point.         |
-   +------------+------------+--------------------------------------------------------+
-   | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
-   |            |            | when the value changes.                                |
-   +------------+------------+--------------------------------------------------------+
+   ======== ========================
+   Element  Value      Description
+   ======== ========== =============
+   uRt      *(string)* updateRate
+   sOc      boolean    sendOnChange
+   ======== ========== =============
+
+The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
+status update should be sent.
 
 The following applies:
 
-* The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
-  status update should be sent. **updateRate** defines a specific interval
-  when to send updates.
+* **updateRate** defines a specific interval when to send updates.
+  Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
+  Dot (.) is used as a decimal point.
 
 * If **updateRate** is set to "0" it means that no update is sent using an
   interval.
@@ -1048,6 +1046,12 @@ The following applies:
 * It is possible to combine **updateRate** and **sendOnChange** to send an
   update when the value changes and at the same time using a specific
   interval.
+
+* If **updateRate** and **sendOnChange=true** are combined, the updateRate
+  timer is reset when the value changes.
+  For example, if updateRate is set to 5 seconds but the value changes after
+  2 seconds (triggering sendOnChange) the updateRate timer starts over and
+  waits another 5 seconds to trigger.
 
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
