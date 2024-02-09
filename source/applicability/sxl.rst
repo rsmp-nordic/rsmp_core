@@ -99,6 +99,63 @@ position`.
 At least one argument are required for command and statuses, but they are
 optional in alarms.
 
+.. _alarm-description:
+
+Alarm description
+^^^^^^^^^^^^^^^^^
+Description of the alarm. Defined in SXL but is not sent.
+
+The format of the description is free of choice but has the following
+requirements:
+- Description is unique for the object type
+- Description is defined in cooperation with the Purchaser before use
+
+.. _alarm-category:
+
+Alarm category
+^^^^^^^^^^^^^^
+The alarm category is defined in the SXL by a single character, either
+``T`` or ``D``.
+
+==========  ===============
+Value       Description
+==========  ===============
+T           Traffic alarm
+D           Technical alarm
+==========  ===============
+
+A **traffic alarm** indicates events in the traffic related functions or the
+technical processes that affects traffic.
+
+A couple of examples from a tunnel:
+
+- Stopped vehicle
+- Fire alarm
+- Error which affects message to motorists
+- High level of :math:`CO_{2}` in traffic room
+- etc.
+
+**Technical alarms** are alarms that do not directly affect the traffic.
+One example of technical alarm is when an impulse fan stops working.
+
+.. _alarm-priority:
+
+Alarm priority
+^^^^^^^^^^^^^^
+The priority of the alarm.
+
+Defined in the SXL as a single character, ``1``, ``2`` or ``3``.
+
+The following values are defined:
+
+=====  ==============================
+Value  Description
+=====  ==============================
+1      Alarm that requires immediate action.
+2      Alarm that does not require immediate action, but action is planned during the next work shift.
+3      Alarm that will be corrected during the next planned maintenance shift.
+=====  ==============================
+
 Functional differences between message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following table defines the functional differences between message types.
