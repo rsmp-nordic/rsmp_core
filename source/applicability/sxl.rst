@@ -66,12 +66,14 @@ Using the YAML format; each message type is defined like this:
           description: alarm description text
           priority: 1
           category: D
+          externalAlarmCodeId: manufacturer specific alarm text
+          externalNtsAlarmCodeId: 0000
           arguments:
             argument-1:
               type: integer
               min: 0
               max: 10
-              descrition: A0001 argument 1
+              description: A0001 argument 1
       statuses:
         S0001:
           description: status description text
@@ -89,8 +91,13 @@ Using the YAML format; each message type is defined like this:
 
   ..
 
-This example defines the alarm A0001, status S0001 and command M0001.
-Each with one argument named "argument-1" using integer, string and boolean
+This example defines:
+
+- An alarm with the :term:`alarm code id` ``A0001``
+- A status with the :term:`status code id` ``S0001``
+- A command with the :term:`command code id` ``M0001``.
+
+Each with one argument named ``argument-1`` using integer, string and boolean
 data types.
 
 It also defines the aggregated status (only bit 1 and 2) and :term:`functional
@@ -98,6 +105,63 @@ position`.
 
 At least one argument are required for command and statuses, but they are
 optional in alarms.
+
+.. _alarm-description:
+
+Alarm description
+^^^^^^^^^^^^^^^^^
+Description of the alarm. Defined in SXL but is not sent.
+
+The format of the description is free of choice but has the following
+requirements:
+- Description is unique for the object type
+- Description is defined in cooperation with the Purchaser before use
+
+.. _alarm-category:
+
+Alarm category
+^^^^^^^^^^^^^^
+The alarm category is defined in the SXL by a single character, either
+``T`` or ``D``.
+
+==========  ===============
+Value       Description
+==========  ===============
+T           Traffic alarm
+D           Technical alarm
+==========  ===============
+
+A **traffic alarm** indicates events in the traffic related functions or the
+technical processes that affects traffic.
+
+A couple of examples from a tunnel:
+
+- Stopped vehicle
+- Fire alarm
+- Error which affects message to motorists
+- High level of :math:`CO_{2}` in traffic room
+- etc.
+
+**Technical alarms** are alarms that do not directly affect the traffic.
+One example of technical alarm is when an impulse fan stops working.
+
+.. _alarm-priority:
+
+Alarm priority
+^^^^^^^^^^^^^^
+The priority of the alarm.
+
+Defined in the SXL as a single character, ``1``, ``2`` or ``3``.
+
+The following values are defined:
+
+=====  ==============================
+Value  Description
+=====  ==============================
+1      Alarm that requires immediate action.
+2      Alarm that does not require immediate action, but action is planned during the next work shift.
+3      Alarm that will be corrected during the next planned maintenance shift.
+=====  ==============================
 
 Functional differences between message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
