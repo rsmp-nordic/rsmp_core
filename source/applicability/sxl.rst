@@ -66,12 +66,14 @@ Using the YAML format; each message type is defined like this:
           description: alarm description text
           priority: 1
           category: D
+          externalAlarmCodeId: manufacturer specific alarm text
+          externalNtsAlarmCodeId: 0000
           arguments:
             argument-1:
               type: integer
               min: 0
               max: 10
-              descrition: A0001 argument 1
+              description: A0001 argument 1
       statuses:
         S0001:
           description: status description text
@@ -89,8 +91,13 @@ Using the YAML format; each message type is defined like this:
 
   ..
 
-This example defines the alarm A0001, status S0001 and command M0001.
-Each with one argument named "argument-1" using integer, string and boolean
+This example defines:
+
+- An alarm with the :term:`alarm code id` ``A0001``
+- A status with the :term:`status code id` ``S0001``
+- A command with the :term:`command code id` ``M0001``.
+
+Each with one argument named ``argument-1`` using integer, string and boolean
 data types.
 
 It also defines the aggregated status (only bit 1 and 2) and :term:`functional
