@@ -217,10 +217,12 @@ elements and the titles in the signal exchange list (SXL).
    ============ ====================== ======================  ==================================
    Element      SXL (Excel)            SXL (YAML)              Description
    ============ ====================== ======================  ==================================
-   aCId         alarmCodeId                                    :term:`Alarm code id`
+   aCId         alarmCodeId            [alarmCodeId] [#f1]_    :term:`Alarm code id`
    xACId        externalAlarmCodeId    externalAlarmCodeId     :term:`External alarm code id`
    xNACId       externalNtsAlarmCodeId externalNtsAlarmcodeId  :term:`External NTS alarm code id`
    ============ ====================== ======================  ==================================
+
+.. [#f1] See :ref:`signal-exchange-list`
 
 The following table describes additional variable content of the message.
 
@@ -353,13 +355,15 @@ elements and the titles in the SXL.
 
 .. table::
 
-   =============  ============ ========== ===============================================
-   Element        SXL (Excel)  SXL (YAML) Description
-   =============  ============ ========== ===============================================
-   n              name                    Unique reference of the value
-   *(not sent)*   type         type       The :ref:`data type<data_types>` of the value
-   v              value                   Value from equipment
-   =============  ============ ========== ===============================================
+   =============  ============ ==================== ===============================================
+   Element        SXL (Excel)  SXL (YAML)           Description
+   =============  ============ ==================== ===============================================
+   n              Name         [argument id] [#f2]_ Unique reference of the value
+   *(not sent)*   Type         type                 The :ref:`data type<data_types>` of the value
+   v              Value                             Value from equipment
+   =============  ============ ==================== ===============================================
+
+.. [#f2] See :ref:`signal-exchange-list`
 
 .. _alarmmessages-req:
 
@@ -806,12 +810,14 @@ elements and the titles in the SXL.
 
 .. table:: Status request
 
-   ============ ============ ========== ===============================
-   Element      SXL (Excel)  SXL (YAML) Description
-   ============ ============ ========== ===============================
-   sCI          statusCodeId            :term:`Status code id`
-   n            name                    Unique reference of the value
-   ============ ============ ========== ===============================
+   ============ ============ ===================== ===============================
+   Element      SXL (Excel)  SXL (YAML)            Description
+   ============ ============ ===================== ===============================
+   sCI          statusCodeId [statusCodeId] [#f3]_ :term:`Status code id`
+   n            Name         [argument id] [#f3]_  Unique reference of the value
+   ============ ============ ===================== ===============================
+
+.. [#f3] See :ref:`signal-exchange-list`
 
 
 Structure for status response message
@@ -890,15 +896,17 @@ Return values ("sS") are always sent but can be empty if no return values exists
 
 .. table:: Return values (returnvalue)
 
-   =============   ============  =========== ==============================================
-   Element         SXL (Excel)   SXL (YAML)  Description
-   =============   ============  =========== ==============================================
-   sCI             statusCodeId              :term:`Status code id`
-   n               Name                      Unique reference of the value
-   *(not sent)*    Type          type        The :ref:`data type<data_types>` of the value.
-   s               Value                     Value
-   *(not sent)*    Comment       description Description for the status request.
-   =============   ============  =========== ==============================================
+   =============   ============  ====================== ==============================================
+   Element         SXL (Excel)   SXL (YAML)             Description
+   =============   ============  ====================== ==============================================
+   sCI             statusCodeId  [statusCodeId] [#f4]_  :term:`Status code id`
+   n               Name          [argument id] [#f4]_   Unique reference of the value
+   *(not sent)*    Type          type                   The :ref:`data type<data_types>` of the value.
+   s               Value                                Value from equipment
+   *(not sent)*    Comment       description            Description for the status request.
+   =============   ============  ====================== ==============================================
+
+.. [#f4] See :ref:`signal-exchange-list`
 
 The following table describes additional variable content of the message.
 
@@ -1282,17 +1290,18 @@ elements and the titles in the signal exchange list (SXL).
 
 .. table:: Command arguments defined by SXL
 
-   =============  ============== ============ ===============================================
-   Element        SXL (Excel)    SXL (YAML)   Description
-   =============  ============== ============ ===============================================
-   cCI            commandCodeId               :term:`Command code id`
-   *(not sent)*   Description    description  Description for the command request.
-   n              Name                        Unique reference of the value
-   cO             Command        command      Command
-   *(not sent)*   Type           type         The :ref:`data type<data_types>` of the value.
-   v              Value                       Value
-   =============  ============== ============ ===============================================
+   =============  ============== ====================== ===============================================
+   Element        SXL (Excel)    SXL (YAML)             Description
+   =============  ============== ====================== ===============================================
+   cCI            commandCodeId  [commandCodeId] [#f5]_ :term:`Command code id`
+   *(not sent)*   Description    description            Description for the command request.
+   n              Name           [argument] [#f5]_      Unique reference of the value
+   cO             Command        command                Command
+   *(not sent)*   Type           type                   The :ref:`data type<data_types>` of the value.
+   v              Value                                 Value
+   =============  ============== ====================== ===============================================
 
+.. [#f5] See :ref:`signal-exchange-list`
 
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1382,14 +1391,16 @@ between the JSon elements and the titles in the SXL.
 
 .. table:: Command return value defined by SXL
 
-   =============  ============== ============ ===============================================
-   Element        SXL (Excel)    SXL (YAML)   Description
-   =============  ============== ============ ===============================================
-   cCI            commandCodeId               :term:`Command code id`
-   n              Name                        Unique reference of the value
-   *(not sent)*   Type           type         The :ref:`data type<data_types>` of the value.
-   v              Value                       Value
-   =============  ============== ============ ===============================================
+   =============  ============== ====================== ===============================================
+   Element        SXL (Excel)    SXL (YAML)             Description
+   =============  ============== ====================== ===============================================
+   cCI            commandCodeId  [commandCodeId] [#f6]_ :term:`Command code id`
+   n              Name           [argument id] [#f6]_   Unique reference of the value
+   *(not sent)*   Type           type                   The :ref:`data type<data_types>` of the value.
+   v              Value                                 Value
+   =============  ============== ====================== ===============================================
+
+.. [#f6] See :ref:`signal-exchange-list`
 
 The following table describes additional variable content of the message.
 
