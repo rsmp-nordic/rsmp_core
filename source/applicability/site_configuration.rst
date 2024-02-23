@@ -74,11 +74,18 @@ Where:
 * ``object-1`` is the name of the object. For instance "signal group 1"
 
 An object can either be categorized as a **single object** or **grouped
-object**. There must be at least one grouped object which is typically also
-the main component. Grouped objects are defined by **componentId** and
-**ntsObjectId** are being set equal. Single objects have a unique
-**componentId** but uses the **ntsObjectId** of their main component.
+object**, also known as the main component(s).
 
-**externalNtsId** is optional and only used if the object is intended to
-be sent to :term:`NTS`.
+The main component(s) is defined by **componentId** and **ntsObjectId** are
+being set equal. This means that the object is visible from NTS.
+
+Single objects have a unique **componentId** but uses the **ntsObjectId** of
+their main component.
+
+**externalNtsId** and **ntsObjectId** are optional and only used if the
+object is intended to be sent to :term:`NTS`.
+
+.. note::
+   :term:`NTS` is used at the :term:`STA`. Other road authorities typically
+   leaves the `xNid` and `ntsOid` as empty strings.
 
