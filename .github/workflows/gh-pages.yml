@@ -62,4 +62,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: rsmp-spec.pdf
-        path: build/latex/rsmp-spec.pdf
+        path: 3.2.2/build/latex/rsmp-spec.pdf
