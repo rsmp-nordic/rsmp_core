@@ -33,13 +33,16 @@ jobs:
               mscgen
     - name: Build rsmp_core repository
       run: make html latexpdf
-    - name: Commit documentation changes
+    - name: Setup git
       run: |
-        mkdir -p docs/3.2.2
-        cp -r build/html/* docs/3.2.2
-        git pull -q
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+    - name: Commit documentation changes
+      run: |
+        git checkout gh-pages
+        git pull -q
+        mkdir -p docs/3.2.2
+        cp -r build/html/* docs/3.2.2
         git add docs/3.2.2
         git commit -m "Update documentation" -a || true
         # The above will fail if no changes were present, so
