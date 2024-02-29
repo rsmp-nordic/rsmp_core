@@ -1,0 +1,87 @@
+# This workflow updates the sphinx documentation and builds a website
+
+name: Build Core
+
+on:
+  push:
+    branches: [ 3.1.5 ]
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build-core:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out rsmp_core repository (gh-pages)
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+    - name: Check out rsmp_core repository (3.1.5 branch)
+      uses: actions/checkout@v4
+      with:
+        path: 3.1.5
+        ref: 3.1.5
+    - name: Install dependencies for mscgen
+      run: |
+        sudo apt-get remove nginx
+        sudo apt-get remove libgd3
+        sudo apt-get -y install autoconf flex bison gcc make pkg-config libgd-dev
+    - name: Clone mscgen
+      run: git clone https://github.com/dok-net/mscgen.git
+    - name: Fetch patch for mscgen (fixes issue under Ubuntu 20.04)
+      run: |
+        cp .github/patches/gd.diff mscgen
+        cd mscgen
+        patch -p1 <gd.diff
+    - name: Compile and install mscgen
+      run: |
+        cd mscgen
+        chmod +x autogen.sh
+        chmod +x test/renderercheck.sh
+        ./autogen.sh
+        autoupdate
+        ./configure
+        make
+        make check
+        sudo make install
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install \
+              python3-sphinx \
+              python3-sphinx-rtd-theme \
+              texlive \
+              texlive-latex-extra \
+              texlive-humanities \
+              texlive-fonts-extra \
+              imagemagick \
+              librsvg2-bin \
+              latexmk \
+              graphviz
+    - name: Build rsmp_core repository
+      run: |
+        cd 3.1.5
+        make html latexpdf
+    - name: Setup git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+    - name: Commit documentation changes
+      run: |
+        mkdir -p docs/3.1.5
+        cp -r 3.1.5/build/html/* docs/3.1.5
+        git pull -q
+        git add docs/3.1.5
+        git commit -m "Update documentation" -a || true
+        # The above will fail if no changes were present, so
+        # we ignore the return code.
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rsmp-spec.pdf
+        path: 3.1.5/build/latex/rsmp-spec.pdf
