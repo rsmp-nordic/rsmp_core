@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. Purpose &mdash; RSMP Specification 3.1.5-draft documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Applicability" href="applicability.html" />
+    <link rel="prev" title="2. Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RSMP Specification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">2. Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Purpose</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#identified-requirements">3.1. Identified requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="applicability.html">4. Applicability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">5. Change log</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RSMP Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>3. Purpose</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/purpose.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="purpose">
+<span id="id1"></span><h1>3. Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h1>
+<p>The purpose of this protocol is to create a standardized way to
+communicate between systems at the local level and systems at the
+regional level regardless of supplier and technology. The goal is to
+be able to easily add and remove signals in new facilities and
+applications without having to expand or change the standards and
+guidelines. This means that the protocol, as opposed to many other
+standards and protocols do not include detailed information about the
+signal exchange but is focused on defining the types of signals which
+are then described construction or items specifically. The goal is
+that in the long term, based on installed systems and objects, is to
+be able to produce signal exchange lists of type object that can be
+reused in new contracts so that alarm messages, commands, etc. have
+the same names regardless of facility or provider.</p>
+<p>The purpose of the signal exchange is to provide information relating
+to, for example, traffic control managers and administrators. E.g. the
+information needed to monitor and control the road side equipment, as
+well as the information that can be used for statistics and analysis
+of traffic and equipment’s status. For instance, alarms contains
+sufficient information to be able to create a work order in Maximo
+which is then sent to the operating contractor, ie. sufficient
+information about the type of skills and equipment necessary to
+correct the error. Additional detailed information about an alarm
+(e.g. which I/O card has broken, the LED chain that is out of order,
+etc.) can read on site via vendor-specific web interface or operator
+panel.</p>
+<div class="section" id="identified-requirements">
+<h2>3.1. Identified requirements<a class="headerlink" href="#identified-requirements" title="Permalink to this headline">¶</a></h2>
+<p>In order to provide an information exchange that is not dependent of
+technology area or vendor specific information - four message types
+have been identified that cover all types of information that the
+Swedish Transport Administration needs. The information in each
+message is dynamic and is defined by technical area or specific
+equipment using a specific signal exchange list (SXL). The SXL also
+represents the interface between the supervision system / other
+facilities and equipment. The four message types are:</p>
+<ul class="simple">
+<li><strong>Alarm</strong>. System, traffic- or monitoring alarms that require action
+by the traffic operator or traffic engineer. Usually sent from the
+equipment to the monitoring system when they occur.</li>
+<li><strong>Aggregated status</strong>. An aggregated status that gives an overview
+glance of the status of the road side equipment. Usually sent from
+the equipment as soon as it changes to the monitoring system.</li>
+<li><strong>Status</strong>. Status changes, indications and detailed information
+should be logged or made visible at the monitoring system. Sent upon
+request from the supervision system / other facility or using
+subscription (either at status change or at set time interval).</li>
+<li><strong>Command</strong>. Commands sent from a supervision system or other
+facility to alter the equipment / object status or control
+principle.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="applicability.html" class="btn btn-neutral float-right" title="4. Applicability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="2. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright RSMP Nordic
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
