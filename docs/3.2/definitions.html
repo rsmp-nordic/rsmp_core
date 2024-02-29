@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Definitions &mdash; RSMP Specification 3.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Introduction" href="introduction.html" />
+    <link rel="prev" title="RSMP Specification" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RSMP Specification
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="purpose.html">3. Purpose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applicability.html">4. Applicability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">5. Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RSMP Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>Definitions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/definitions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="definitions">
+<span id="id1"></span><h1><span class="section-number">1. </span>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline"></a></h1>
+<dl class="glossary">
+<dt id="term-SXL">SXL<a class="headerlink" href="#term-SXL" title="Permalink to this term"></a></dt><dd><p>Signal exchange list. Defines which messages types (signals)
+which is possible to send to a specific equipment or object.
+E.g. alarms, statuses and commands</p>
+</dd>
+<dt id="term-NTS">NTS<a class="headerlink" href="#term-NTS" title="Permalink to this term"></a></dt><dd><p>National Traffic management system. Replaces CTS</p>
+</dd>
+<dt id="term-Maximo">Maximo<a class="headerlink" href="#term-Maximo" title="Permalink to this term"></a></dt><dd><p>STA’s support system for maintenance</p>
+</dd>
+<dt id="term-ITS-site">ITS site<a class="headerlink" href="#term-ITS-site" title="Permalink to this term"></a></dt><dd><p>Road side equipment. Covers both field level and local level</p>
+</dd>
+<dt id="term-Site">Site<a class="headerlink" href="#term-Site" title="Permalink to this term"></a></dt><dd><p>See ITS site</p>
+</dd>
+<dt id="term-Local-road-side-equipment">Local road side equipment<a class="headerlink" href="#term-Local-road-side-equipment" title="Permalink to this term"></a></dt><dd><p>See ITS site</p>
+</dd>
+<dt id="term-Supervision-system">Supervision system<a class="headerlink" href="#term-Supervision-system" title="Permalink to this term"></a></dt><dd><p>Control and supervision system for regional and/or national
+level</p>
+</dd>
+<dt id="term-Object">Object<a class="headerlink" href="#term-Object" title="Permalink to this term"></a></dt><dd><p>An object is a abstract term which is used in control and
+supervision systems. An object can have on or more statuses
+that may change depending on changes of circumstance of the
+object or control of the object from external source.
+Communication with the object is made using exchange of
+signals, e.g. commands, status and alarms.</p>
+<p>An object can represent physical equipment or abstract concepts
+E.g. a camera, a control flow alorithm or a group of signs.</p>
+<p>An object is identified using the objects component id. <em>Please
+note that an object is not necessarily the same thing as an NTS
+object.</em></p>
+</dd>
+<dt id="term-Aggregated-object">Aggregated object<a class="headerlink" href="#term-Aggregated-object" title="Permalink to this term"></a></dt><dd><p>An aggregated object consists of one or many other objects.
+E.g. Component group (CG)</p>
+</dd>
+<dt id="term-Object-type">Object type<a class="headerlink" href="#term-Object-type" title="Permalink to this term"></a></dt><dd><p>An object type is a classification of objects that controls the
+properties of all the objects of the same object type. The
+object type determines how the object is presented in
+supervision system, how it is grouped and which functional
+positions, alarm codes, commands and statuses that exists that
+object type.</p>
+</dd>
+<dt id="term-NTS-Object">NTS Object<a class="headerlink" href="#term-NTS-Object" title="Permalink to this term"></a></dt><dd><p>Used for objects in NTS</p>
+<p>All control and supervision related functions in NTS consist of
+NTS objects.</p>
+<p>An NTS object can represent on or many objects.</p>
+<p>An NTS objects is identified in the communication interface
+using “externalNtsId”. NTS can not use the format used in
+component-id.</p>
+<p>An object and NTS object and use the same component-id.</p>
+</dd>
+<dt id="term-NTS-Object-type">NTS-Object type<a class="headerlink" href="#term-NTS-Object-type" title="Permalink to this term"></a></dt><dd><p>A NTS object type is a classification of NTS objects.
+Determines among other things which functional positions that
+are possible for the NTS object.</p>
+</dd>
+<dt id="term-Component">Component<a class="headerlink" href="#term-Component" title="Permalink to this term"></a></dt><dd><p>A component is a object or NTS object.</p>
+<p>A component is identified using component-id.</p>
+</dd>
+<dt id="term-Component-ID">Component-ID<a class="headerlink" href="#term-Component-ID" title="Permalink to this term"></a></dt><dd><p>A component-id identifies components.</p>
+<p>The format used for the STA’s sites is specified in the STA
+publication TDOK 2012:1171, e.g. AA+BBCDD=EEEFFGGG.</p>
+</dd>
+<dt id="term-XML">XML<a class="headerlink" href="#term-XML" title="Permalink to this term"></a></dt><dd><p>eXtensible Markup Language</p>
+</dd>
+<dt id="term-JSON">JSON<a class="headerlink" href="#term-JSON" title="Permalink to this term"></a></dt><dd><p>JavaScript Object Notation</p>
+</dd>
+<dt id="term-TCP-IP">TCP/IP<a class="headerlink" href="#term-TCP-IP" title="Permalink to this term"></a></dt><dd><p>Transfer Control Protocol/Internet Protocol</p>
+</dd>
+<dt id="term-W3C">W3C<a class="headerlink" href="#term-W3C" title="Permalink to this term"></a></dt><dd><p>World Wide Web Consortium</p>
+</dd>
+<dt id="term-DATEX-II">DATEX II<a class="headerlink" href="#term-DATEX-II" title="Permalink to this term"></a></dt><dd><p>European standard for message exchange between traffic systems
+(www.datex2.eu)</p>
+</dd>
+<dt id="term-RSMP">RSMP<a class="headerlink" href="#term-RSMP" title="Permalink to this term"></a></dt><dd><p>Road Side Message Protocol</p>
+</dd>
+<dt id="term-STA">STA<a class="headerlink" href="#term-STA" title="Permalink to this term"></a></dt><dd><p>Swedish Transport Administration</p>
+</dd>
+<dt id="term-RSMP-Nordic">RSMP Nordic<a class="headerlink" href="#term-RSMP-Nordic" title="Permalink to this term"></a></dt><dd><p>Organization for maintaining and develop the RSMP protocol.
+Collaboration between a group of Nordic road authorities.</p>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="RSMP Specification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="introduction.html" class="btn btn-neutral float-right" title="2. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright RSMP Nordic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
