@@ -1,0 +1,1204 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.5. Usage of JSON &mdash; RSMP Specification 3.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Change log" href="../changelog.html" />
+    <link rel="prev" title="4.4. Basic structure" href="basic_structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> RSMP Specification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.5. Usage of JSON</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comparison-of-elements">4.5.1. Comparison of elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping-of-packets">4.5.2. Wrapping of packets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alarm-messages">4.5.3. Alarm messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-an-alarm-message">4.5.3.1. Structure for an alarm message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-alarm-acknowledgement-message">4.5.3.2. Structure for alarm acknowledgement message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-alarm-suspend-message">4.5.3.3. Structure for alarm suspend message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregated-status-message">4.5.4. Aggregated status Message</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure">4.5.4.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#status-message">4.5.5. Status Message</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-a-request-of-a-status-of-one-or-several-objects">4.5.5.1. Structure for a request of a status of one or several objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-a-message-with-status-of-one-or-several-objects">4.5.5.2. Structure for a message with status of one or several objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects">4.5.5.3. Structure for a status subscription request message on one or several objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">4.5.5.4. Structure for a response message with answer to a request for status subscription for one or several objects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects">4.5.5.5. Structure for a status unsubscription message on one or several objects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#command-messages">4.5.6. Command messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure-of-a-command-message-request">4.5.6.1. Structure of a command message request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-of-command-response-message">4.5.6.2. Structure of command response message</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#message-acknowledgement">4.5.7. Message acknowledgement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-acknowledgement">4.5.7.1. Message structure – Message acknowledgement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-not-acknowledged">4.5.7.2. Message structure – Message not acknowledged</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.5.8. RSMP/SXL Version</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4.5.8.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.5.9. Watchdog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.5.9.1. Message structure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/sxl.html">1. Signal exchange list</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RSMP Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../applicability.html">4. Applicability</a> &raquo;</li>
+        
+      <li>4.5. Usage of JSON</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/applicability/usage_of_json.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage-of-json">
+<span id="id1"></span><h1>4.5. Usage of JSON<a class="headerlink" href="#usage-of-json" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="comparison-of-elements">
+<h2>4.5.1. Comparison of elements<a class="headerlink" href="#comparison-of-elements" title="Permalink to this headline">¶</a></h2>
+<p>The following table present a comparison of the names used in XML
+verses JSON. Please note that the JSON elements are formatted as JSON
+string elements and not JSON number or JSON boolean.</p>
+<div class="figure align-center" id="table-compare-xml-json">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="67%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element in XML</th>
+<th class="head">Element in JSON</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>acknowledgeState</td>
+<td>ack</td>
+</tr>
+<tr class="row-odd"><td>ageState (status message)</td>
+<td>age</td>
+</tr>
+<tr class="row-even"><td>ageState (command message)</td>
+<td>q</td>
+</tr>
+<tr class="row-odd"><td>aggregatedStatusSpecialisation</td>
+<td>aSS</td>
+</tr>
+<tr class="row-even"><td>aggstatusTimeStamp</td>
+<td>aSTS</td>
+</tr>
+<tr class="row-odd"><td>alarmCodeId</td>
+<td>aCId</td>
+</tr>
+<tr class="row-even"><td>alarmSpecialisation</td>
+<td>aSp</td>
+</tr>
+<tr class="row-odd"><td>alarmState</td>
+<td>aS</td>
+</tr>
+<tr class="row-even"><td>timestamp</td>
+<td>ts</td>
+</tr>
+<tr class="row-odd"><td>arguments</td>
+<td>arg</td>
+</tr>
+<tr class="row-even"><td>category</td>
+<td>cat</td>
+</tr>
+<tr class="row-odd"><td>command</td>
+<td>cO</td>
+</tr>
+<tr class="row-even"><td>commandCodeId</td>
+<td>cCI</td>
+</tr>
+<tr class="row-odd"><td>commandTimeStamp</td>
+<td>cTS</td>
+</tr>
+<tr class="row-even"><td>componentId</td>
+<td>cId</td>
+</tr>
+<tr class="row-odd"><td>externalAlarmCodeId</td>
+<td>xACId</td>
+</tr>
+<tr class="row-even"><td>externalEventCodeId</td>
+<td>xECId</td>
+</tr>
+<tr class="row-odd"><td>externalNtsAlarmCodeId</td>
+<td>xNACId</td>
+</tr>
+<tr class="row-even"><td>externalNtsId</td>
+<td>xNId</td>
+</tr>
+<tr class="row-odd"><td>functionalPosition</td>
+<td>fP</td>
+</tr>
+<tr class="row-even"><td>functionalState</td>
+<td>fS</td>
+</tr>
+<tr class="row-odd"><td>message xsi:type</td>
+<td>type</td>
+</tr>
+<tr class="row-even"><td>messageId</td>
+<td>mId</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>n</td>
+</tr>
+<tr class="row-even"><td>originalMessageId</td>
+<td>oMId</td>
+</tr>
+<tr class="row-odd"><td>priority</td>
+<td>pri</td>
+</tr>
+<tr class="row-even"><td>reason</td>
+<td>rea</td>
+</tr>
+<tr class="row-odd"><td>returnvalue</td>
+<td>rv</td>
+</tr>
+<tr class="row-even"><td>returnvalues (alarm)</td>
+<td>rvs</td>
+</tr>
+<tr class="row-odd"><td>returnvalues (statusresponse)</td>
+<td>sS</td>
+</tr>
+<tr class="row-even"><td>rsmpVersion</td>
+<td>vers</td>
+</tr>
+<tr class="row-odd"><td>rsmpVersions</td>
+<td>RSMP</td>
+</tr>
+<tr class="row-even"><td>roadSideMessage mType:</td>
+<td>rSMsg</td>
+</tr>
+<tr class="row-odd"><td>ntsObjectId</td>
+<td>ntsOId</td>
+</tr>
+<tr class="row-even"><td>siteIds</td>
+<td>siteId</td>
+</tr>
+<tr class="row-odd"><td>siteId</td>
+<td>sId</td>
+</tr>
+<tr class="row-even"><td>source</td>
+<td>source</td>
+</tr>
+<tr class="row-odd"><td>state</td>
+<td>se</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>s</td>
+</tr>
+<tr class="row-odd"><td>statuses</td>
+<td>sS</td>
+</tr>
+<tr class="row-even"><td>statusCodeId</td>
+<td>sCI</td>
+</tr>
+<tr class="row-odd"><td>statusTimestamp</td>
+<td>sTs</td>
+</tr>
+<tr class="row-even"><td>suspendState</td>
+<td>sS</td>
+</tr>
+<tr class="row-odd"><td>sxlRevision</td>
+<td>SXL</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>t</td>
+</tr>
+<tr class="row-odd"><td>unit</td>
+<td>u</td>
+</tr>
+<tr class="row-even"><td>updateRate</td>
+<td>uRt</td>
+</tr>
+<tr class="row-odd"><td>watchdogTimestamp</td>
+<td>wTs</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.24:</strong> Comparison XML - JSON</span></p>
+</center></div></div>
+<div class="section" id="wrapping-of-packets">
+<span id="table-compare-xml-json"></span><h2>4.5.2. Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Permalink to this headline">¶</a></h2>
+<p>Both Json and XML packets can be tricky to decode unless one always
+know that the packet is complete. Json lacks an end tag and an XML end
+tag may be embedded in the text source. In order to reliably detect
+the end of a packet one must therefore make an own parser of perform
+tricks in the code, which is not very good.</p>
+<p>In both Json and XML there could exist tab characters (0x09), CR
+(0x0d) and LF (0x0a). Are the packets serialized using .NET those
+special characters does not exist. Therefore it is a good practice to
+use formfeed (0x0c), e.g. ’f’ in C/C++/C#. Formfeed cannot be
+embedded in the packets because those are encoded in UTF-8 so the
+parser only needs to search the incoming buffer for 0x0c and deal with
+every packet.</p>
+<p>Example of wrapping of a packet:</p>
+<div class="code highlight-default notranslate" id="json-wrapping"><div class="highlight"><pre><span></span> <span class="p">{</span>
+     <span class="s2">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;d2e9a9a1-a082-44f5-b4e0-6c9233-a204c&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+81102=881WA001&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+81102=881WA001&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;aCId&quot;</span><span class="p">:</span> <span class="s2">&quot;A001&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;xACId&quot;</span><span class="p">:</span> <span class="s2">&quot;Lamp error #14&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;xNACId&quot;</span><span class="p">:</span> <span class="s2">&quot;3052&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;aSp&quot;</span><span class="p">:</span> <span class="s2">&quot;acknowledge&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;ack&quot;</span><span class="p">:</span> <span class="s2">&quot;Acknowledged&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;aS&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;sS&quot;</span><span class="p">:</span> <span class="s2">&quot;notSuspended&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;aTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;cat&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;pri&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;rvs&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span>
+      <span class="p">}]</span>
+ <span class="p">}</span><span class="o">&lt;</span><span class="mh">0x0c</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Character between &lt;&gt; is the bytes binary content in hex (ASCII code),
+ex &lt;0x0c&gt; is ASCII code 12, e.g. FF (formfeed).</p>
+</div>
+<div class="section" id="alarm-messages">
+<h2>4.5.3. Alarm messages<a class="headerlink" href="#alarm-messages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="structure-for-an-alarm-message">
+<h3>4.5.3.1. Structure for an alarm message<a class="headerlink" href="#structure-for-an-alarm-message" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-structure-for-an-alarm-message"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+    <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+    <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+    <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+    <span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+    <span class="nt">&lt;externalAlarmCodeId&gt;</span>Lampfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+    <span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+    <span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Issue&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;acknowledgeState&gt;</span>notAcknowledged<span class="nt">&lt;/acknowledgeState&gt;</span>
+        <span class="nt">&lt;alarmState&gt;</span>active<span class="nt">&lt;/alarmState&gt;</span>
+        <span class="nt">&lt;suspendState&gt;</span>notSuspended<span class="nt">&lt;/suspendState&gt;</span>
+        <span class="nt">&lt;timestamp&gt;</span>2009-10-01T11:59:31.571Z<span class="nt">&lt;/timestamp&gt;</span>
+        <span class="nt">&lt;category&gt;</span>D<span class="nt">&lt;/category&gt;</span>
+        <span class="nt">&lt;priority&gt;</span>2<span class="nt">&lt;/priority&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;name&gt;</span>signalgrupp<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+                <span class="nt">&lt;/returnvalue&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;name&gt;</span>färg<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>röd<span class="nt">&lt;/value&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+        <span class="nt">&lt;/alarmSpecialisation&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-structure-for-an-alarm-message"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aCId&quot;</span><span class="p">:</span> <span class="s2">&quot;A001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xACId&quot;</span><span class="p">:</span> <span class="s2">&quot;Lampfel på lykta 1 (röd)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNACId&quot;</span><span class="p">:</span> <span class="s2">&quot;3143&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aSp&quot;</span><span class="p">:</span> <span class="s2">&quot;Issue&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ack&quot;</span><span class="p">:</span> <span class="s2">&quot;notAcknowledged&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aS&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:</span> <span class="s2">&quot;notSuspended&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-01T11:59:31.571Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cat&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;pri&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;rvs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;signalgrupp&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+        <span class="p">},{</span>
+            <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;färg&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;röd&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 1: Comparison of example of alarm message XML/JSON</p>
+</div>
+<div class="section" id="structure-for-alarm-acknowledgement-message">
+<h3>4.5.3.2. Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-structure-for-alarm-acknowledgement-message"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+        <span class="nt">&lt;externalAlarmCodeId&gt;</span>Larmfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+        <span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+        <span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Acknowledge&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-structure-for-alarm-acknowledgement-message"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aCId&quot;</span><span class="p">:</span> <span class="s2">&quot;A001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xACId&quot;</span><span class="p">:</span> <span class="s2">&quot;Larmfel på lykta 1 (röd)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNACId&quot;</span><span class="p">:</span> <span class="s2">&quot;3143&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aSp&quot;</span><span class="p">:</span> <span class="s2">&quot;acknowledge&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ack&quot;</span><span class="p">:</span> <span class="s2">&quot;Acknowledged&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aS&quot;</span><span class="p">:</span> <span class="s2">&quot;active&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:</span> <span class="s2">&quot;notSuspended&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-01T11:59:31.571Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cat&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;pri&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;rvs&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;signalgrupp&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;färg&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;röd&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 2: Comparison of example of alarm acknowledgement XML/JSON</p>
+</div>
+<div class="section" id="structure-for-alarm-suspend-message">
+<h3>4.5.3.3. Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-structure-for-alarm-suspend-message"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+        <span class="nt">&lt;externalAlarmCodeId&gt;</span>Larmfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+        <span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+        <span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Suspend&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;suspendAction&gt;</span>suspend<span class="nt">&lt;/suspendAction&gt;</span>
+        <span class="nt">&lt;/alarmSpecialisation&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-structure-for-alarm-suspend-message"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Alarm&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;aCId&quot;</span><span class="p">:</span> <span class="s2">&quot;A001&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xACId&quot;</span><span class="p">:</span> <span class="s2">&quot;Larmfel på lykta 1 (röd)&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;xNACId&quot;</span><span class="p">:</span> <span class="s2">&quot;3143&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;aSp&quot;</span><span class="p">:</span> <span class="s2">&quot;suspend&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 3: Comparison of example of alarm suspend message XML/JSON</p>
+</div>
+</div>
+<div class="section" id="aggregated-status-message">
+<span id="aggregatedstatus"></span><h2>4.5.4. Aggregated status Message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="message-structure">
+<h3>4.5.4.1. Message structure<a class="headerlink" href="#message-structure" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-aggregated-status-message"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;AggregatedStatus&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>F+40100=416CG100<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;aggstatusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/aggstatusTimeStamp&gt;</span>
+        <span class="nt">&lt;aggregatedStatusSpecialisation&gt;</span>
+             <span class="nt">&lt;functionalPosition&gt;</span>Trafikstyrning<span class="nt">&lt;/functionalPosition&gt;</span>
+             <span class="nt">&lt;functionalState&gt;</span>Automatiskt nedsatt hastighet<span class="nt">&lt;/functionalState&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>2<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>true<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>3<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>true<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>4<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>5<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>6<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>7<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;state&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>8<span class="nt">&lt;/name&gt;</span>
+                 <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+             <span class="nt">&lt;/state&gt;</span>
+        <span class="nt">&lt;/aggregatedStatusSpecialisation&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-aggregated-status-message"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AggregatedStatus&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;aSTS&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fP&quot;</span><span class="p">:</span> <span class="s2">&quot;Trafikstyrning&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fS&quot;</span><span class="p">:</span> <span class="s2">&quot;Automatiskt nedsatt hastighet&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;se&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;false&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 4: Comparison of example of aggregated status message XML/JSON</p>
+</div>
+</div>
+<div class="section" id="status-message">
+<h2>4.5.5. Status Message<a class="headerlink" href="#status-message" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="structure-for-a-request-of-a-status-of-one-or-several-objects">
+<h3>4.5.5.1. Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-status-request"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusRequest&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statuses&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+        <span class="nt">&lt;/statuses&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-status-request"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusRequest&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:[{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;speed&quot;</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;occupancy&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 5: Comparison of example of status request message XML/JSON</p>
+</div>
+<div class="section" id="structure-for-a-message-with-status-of-one-or-several-objects">
+<h3>4.5.5.2. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-status-response"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusResponse&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/statusTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>70<span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S007<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>unknown<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>0<span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-status-response"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusResponse&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:[{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;70&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;q&quot;</span><span class="p">:</span> <span class="s2">&quot;recent&quot;</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S007&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;q&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 6: Comparison of example of status response message XML/JSON</p>
+</div>
+<div class="section" id="structure-for-a-status-subscription-request-message-on-one-or-several-objects">
+<h3>4.5.5.3. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-status-subscribe"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusSubscribe&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statuses&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;updateRate&gt;</span>10<span class="nt">&lt;/updateRate&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;updateRate&gt;</span>10<span class="nt">&lt;/updateRate&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+        <span class="nt">&lt;/statuses&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-status-subscribe"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusSubscribe&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:[{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;speed&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span>
+        <span class="p">},{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;occupancy&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uRt&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 7: Comparison of example of status subscription message XML/JSON</p>
+</div>
+<div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
+<h3>4.5.5.4. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-status-update"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusUpdate&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/statusTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>70<span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S007<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>unknown<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>0<span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-status-update"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusUpdate&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:[{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;70&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;q&quot;</span><span class="p">:</span> <span class="s2">&quot;recent&quot;</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S007&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;q&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 8: Comparison of example of answer of status subscription message XML/JSON</p>
+</div>
+<div class="section" id="structure-for-a-status-unsubscription-message-on-one-or-several-objects">
+<h3>4.5.5.5. Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-status-unsubscribe"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusUnSubscribe&quot;</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+         <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+         <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+         <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+         <span class="nt">&lt;statuses&gt;</span>
+             <span class="nt">&lt;status&gt;</span>
+                 <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+             <span class="nt">&lt;/status&gt;</span>
+             <span class="nt">&lt;status&gt;</span>
+                 <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                 <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+             <span class="nt">&lt;/status&gt;</span>
+         <span class="nt">&lt;/statuses&gt;</span>
+     <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-status-unsubscribe"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;StatusUnsubscribe&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;sS&quot;</span><span class="p">:[{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;speed&quot;</span>
+    <span class="p">},{</span>
+        <span class="nt">&quot;sCI&quot;</span><span class="p">:</span> <span class="s2">&quot;S003&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;occupancy&quot;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 9: Comparison of example of answer of status unsubscription message XML/JSON</p>
+</div>
+</div>
+<div class="section" id="command-messages">
+<h2>4.5.6. Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="structure-of-a-command-message-request">
+<h3>4.5.6.1. Structure of a command message request<a class="headerlink" href="#structure-of-a-command-message-request" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-command-request"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;CommandRequest&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;arguments&gt;</span>
+            <span class="nt">&lt;argument&gt;</span>
+            <span class="nt">&lt;commandCodeId&gt;</span>M002<span class="nt">&lt;/commandCodeId&gt;</span>
+            <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;&lt;command&gt;</span>setValue<span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;value&gt;</span>Auto<span class="nt">&lt;/value&gt;</span>
+            <span class="nt">&lt;/argument&gt;</span>
+        <span class="nt">&lt;/arguments&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-command-request"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandRequest&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;arg&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;cCI&quot;</span><span class="p">:</span> <span class="s2">&quot;M003&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cO&quot;</span><span class="p">:</span> <span class="s2">&quot;setValue&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;Auto&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 10: Comparison of example of command request message XML/JSON</p>
+</div>
+<div class="section" id="structure-of-command-response-message">
+<h3>4.5.6.2. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-command-response"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;CommandResponse&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;commandTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/commandTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;commandCodeId&gt;</span>M002<span class="nt">&lt;/commandCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>Auto<span class="nt">&lt;/value&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-command-response"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;CommandResponse&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ntsOId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;xNId&quot;</span><span class="p">:</span> <span class="s2">&quot;23055&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cId&quot;</span><span class="p">:</span> <span class="s2">&quot;AB+84001=860VA001&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;cTS&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;rvs&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;cCI&quot;</span><span class="p">:</span> <span class="s2">&quot;M002&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;age&quot;</span><span class="p">:</span> <span class="s2">&quot;recent&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;n&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;v&quot;</span><span class="p">:</span> <span class="s2">&quot;70&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 11: Comparison of example of command response message XML/JSON</p>
+</div>
+</div>
+<div class="section" id="message-acknowledgement">
+<h2>4.5.7. Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="message-structure-message-acknowledgement">
+<h3>4.5.7.1. Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-message-acknowledgement"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;MessageAck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;originalMessageId&gt;</span>{E4FSD010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/originalMessageId&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-message-acknowledgement"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MessageAck&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;oMId&quot;</span><span class="p">:</span> <span class="s2">&quot;F4FSD010-D587-7A3B-8BD5-5C80A72C7154&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 12: Comparison of example of message acknowledgement XML/JSON</p>
+</div>
+<div class="section" id="message-structure-message-not-acknowledged">
+<h3>4.5.7.2. Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-message-not-acknowledged"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;MessageNotAck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;originalMessageId&gt;</span>{E4FSD010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/originalMessageId&gt;</span>
+        <span class="nt">&lt;reason&gt;</span>alarmCode: A054 does not exist<span class="nt">&lt;/reason&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-message-not-acknowledged"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;MessageNotAck&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;oMId&quot;</span><span class="p">:</span> <span class="s2">&quot;F4FSD010-D587-7A3B-8BD5-5C80A72C7154&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;rea&quot;</span><span class="p">:</span> <span class="s2">&quot;alarmCode: A054 does not exist&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 13: Comparison of example of message not acknowledged XML/JSON</p>
+</div>
+</div>
+<div class="section" id="rsmp-sxl-version">
+<h2>4.5.8. RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>4.5.8.1. Message structure<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-rsmp-sxl-version"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4/RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Version&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;siteIds&gt;</span>
+            <span class="nt">&lt;siteId&gt;</span>F+40100=416CG100<span class="nt">&lt;/siteId&gt;</span>
+        <span class="nt">&lt;/siteIds&gt;</span>
+    <span class="nt">&lt;rsmpVersions&gt;</span>
+        <span class="nt">&lt;rsmpVersion&gt;</span>1.0<span class="nt">&lt;/rsmpVersion&gt;</span>
+        <span class="nt">&lt;rsmpVersion&gt;</span>1.2<span class="nt">&lt;/rsmpVersion&gt;</span>
+        <span class="nt">&lt;rsmpVersion&gt;</span>1.3<span class="nt">&lt;/rsmpVersion&gt;</span>
+    <span class="nt">&lt;/rsmpVersions&gt;</span>
+    <span class="nt">&lt;sxlVersion&gt;</span>1.3<span class="nt">&lt;/sxlVersion&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-rsmp-sxl-version"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Version&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;siteId&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;sId&quot;</span><span class="p">:</span> <span class="s2">&quot;F+40100=416CG100&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;RSMP&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;vers&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;vers&quot;</span><span class="p">:</span> <span class="s2">&quot;1.2&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&quot;vers&quot;</span><span class="p">:</span> <span class="s2">&quot;1.3&quot;</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;SXL&quot;</span><span class="p">:</span><span class="s2">&quot;1.3&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 14: Comparison of example of version message XML/JSON</p>
+</div>
+</div>
+<div class="section" id="watchdog">
+<h2>4.5.9. Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>4.5.9.1. Message structure<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>The example below compares the message structure between the XML and JSON
+formats. Please note that some lines may be wrapped.</p>
+<div class="highlight-xml notranslate" id="xml-watchdog"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Watchdog&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;watchdogTimestamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/watchdogTimestamp&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;mType&quot;</span><span class="p">:</span> <span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Watchdog&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;mId&quot;</span><span class="p">:</span> <span class="s2">&quot;E68A0010-C336-41ac-BD58-5C80A72C7092&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;wTs&quot;</span><span class="p">:</span> <span class="s2">&quot;2009-10-02T14:34:34.345Z&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>XML/JSON code 16: Comparison of watchdog messages XML/JSON</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="5. Change log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic_structure.html" class="btn btn-neutral float-left" title="4.4. Basic structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Definitions &mdash; RSMP Specification 3.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Introduction" href="introduction.html" />
+    <link rel="prev" title="RSMP Specification" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RSMP Specification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="purpose.html">3. Purpose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applicability.html">4. Applicability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">5. Change log</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/sxl.html">1. Signal exchange list</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RSMP Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>1. Definitions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/definitions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="definitions">
+<span id="id1"></span><h1>1. Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-sxl">SXL</dt>
+<dd>Signal exchange list</dd>
+<dt id="term-nts">NTS</dt>
+<dd>National Traffic management system. Replaces CTS</dd>
+<dt id="term-maximo">Maximo</dt>
+<dd>STA’s support system for maintenance</dd>
+<dt id="term-its-site">ITS site</dt>
+<dd>Road side equipment. Covers both field level and local level</dd>
+<dt id="term-site">Site</dt>
+<dd>See ITS site</dd>
+<dt id="term-local-road-side-equipment">Local road side equipment</dt>
+<dd>See ITS site</dd>
+<dt id="term-supervision-system">Supervision system</dt>
+<dd>Control and supervision system for regional and/or national
+level</dd>
+<dt id="term-object">Object</dt>
+<dd><p class="first">An object is a abstract term which is used in control and
+supervision systems. An object can have on or more statuses
+that may change depending on changes of circumstance of the
+object or control of the object from external source.
+Communication with the object is made using exchange of
+signals, e.g. commands, status and alarms.</p>
+<p>An object may also be equivalent of a physical equipment. E.g.
+camera, but could also be abstract such as an algorithm.</p>
+<p class="last">An object is identified using the objects component id. Please
+note that an object is not necessarily the same thing as an NTS
+object.</p>
+</dd>
+<dt id="term-aggregated-object">Aggregated object</dt>
+<dd>An aggregated object consists of one or many other objects.
+E.g. Component group (CG)</dd>
+<dt id="term-object-type">Object type</dt>
+<dd>An object type is a classification of objects that controls the
+properties of all the objects of the same object type. The
+object type determines how the object is presented in
+supervision system, how it is grouped and which functional
+positions, alarm codes, commands and statuses that exists that
+object type.</dd>
+<dt id="term-nts-object">NTS Object</dt>
+<dd><p class="first">Used for objects in NTS</p>
+<p>All control and supervision related functions in NTS consist of
+NTS objects.</p>
+<p>An NTS object can represent on or many objects.</p>
+<p>An NTS objects is identified in the communication interface
+using “externalNtsId”. NTS can not use the format used in
+component-id.</p>
+<p class="last">An object and NTS object and use the same component-id.</p>
+</dd>
+<dt id="term-nts-object-type">NTS-Object type</dt>
+<dd>A NTS object type is a classification of NTS objects.
+Determines among other things which functional positions that
+are possible for the NTS object.</dd>
+<dt id="term-component">Component</dt>
+<dd><p class="first">A component is a object or NTS object.</p>
+<p class="last">A component is identified using component-id.</p>
+</dd>
+<dt id="term-component-id">Component-ID</dt>
+<dd><p class="first">A component-id identifies components.</p>
+<p class="last">The format used for the STA’s sites is specified in the STA
+publication 2007:54 ISSN 1401-9612, e.g. AA+BBCDD=EEEFFGGG.</p>
+</dd>
+<dt id="term-xml">XML</dt>
+<dd>eXtensible Markup Language</dd>
+<dt id="term-json">JSON</dt>
+<dd>JavaScript Object Notation</dd>
+<dt id="term-tcp-ip">TCP/IP</dt>
+<dd>Transfer Control Protocol/Internet Protocol</dd>
+<dt id="term-w3c">W3C</dt>
+<dd>World Wide Web Consortium</dd>
+<dt id="term-datex-ii">DATEX II</dt>
+<dd>European standard for message exchange between traffic systems
+(www.datex2.eu)</dd>
+<dt id="term-rsmp">RSMP</dt>
+<dd>Road Side Message Protocol</dd>
+</dl>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="2. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="RSMP Specification" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
