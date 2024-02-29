@@ -1,0 +1,65 @@
+# This workflow updates the sphinx documentation and builds a website
+
+name: Build Core
+
+on:
+  push:
+    branches: [ 3.2 ]
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build-core:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out rsmp_core repository (gh-pages)
+      uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+    - name: Check out rsmp_core repository (3.2 branch)
+      uses: actions/checkout@v4
+      with:
+        path: 3.2
+        ref: 3.2
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install \
+              python3-sphinx \
+              python3-sphinx-rtd-theme \
+              texlive \
+              texlive-latex-extra \
+              texlive-humanities \
+              texlive-fonts-extra \
+              imagemagick \
+              librsvg2-bin \
+              latexmk \
+              graphviz \
+              mscgen
+    - name: Build rsmp_core repository
+      run: |
+        cd 3.2
+        make html latexpdf
+    - name: Setup git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+    - name: Commit documentation changes
+      run: |
+        mkdir -p docs/3.2
+        cp -r 3.2/build/html/* docs/3.2
+        git pull -q
+        git add docs/3.2
+        git commit -m "Update documentation" -a || true
+        # The above will fail if no changes were present, so
+        # we ignore the return code.
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rsmp-spec.pdf
+        path: 3.2/build/latex/rsmp-spec.pdf
