@@ -12,9 +12,14 @@ jobs:
   build-core:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out rsmp_core repository
+    - name: Check out rsmp_core repository (gh-pages)
       uses: actions/checkout@v4
       with:
+        ref: gh-pages
+    - name: Check out rsmp_core repository (3.2.2 branch)
+      uses: actions/checkout@v4
+      with:
+        path: 3.2.2
         ref: 3.2.2
     - name: Install dependencies
       run: |
@@ -32,17 +37,18 @@ jobs:
               graphviz \
               mscgen
     - name: Build rsmp_core repository
-      run: make html latexpdf
+      run: |
+        cd 3.2.2
+        make html latexpdf
     - name: Setup git
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
     - name: Commit documentation changes
       run: |
-        git checkout gh-pages
-        git pull -q
         mkdir -p docs/3.2.2
-        cp -r build/html/* docs/3.2.2
+        cp -r 3.2.2/build/html/* docs/3.2.2
+        git pull -q
         git add docs/3.2.2
         git commit -m "Update documentation" -a || true
         # The above will fail if no changes were present, so
