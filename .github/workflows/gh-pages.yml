@@ -30,13 +30,11 @@ jobs:
               graphviz \
               mscgen
     - name: Build rsmp_core repository
-      run: |
-        cd rsmp_core
-        make html latexpdf
+      run: make html latexpdf
     - name: Commit documentation changes
       run: |
         mkdir -p docs/core/3.2.2
-        cp -r rsmp_core/build/html/* docs/core/3.2.2
+        cp -r build/html/* docs/core/3.2.2
         git pull -q
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -53,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: rsmp-spec.pdf
-        path: rsmp_core/build/latex/rsmp-spec.pdf
+        path: build/latex/rsmp-spec.pdf
