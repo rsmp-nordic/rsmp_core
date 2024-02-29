@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-core:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Check out rsmp_core repository (gh-pages)
       uses: actions/checkout@v4
