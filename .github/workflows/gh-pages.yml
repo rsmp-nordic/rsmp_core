@@ -35,12 +35,12 @@ jobs:
       run: make html latexpdf
     - name: Commit documentation changes
       run: |
-        mkdir -p docs/core/3.2.2
-        cp -r build/html/* docs/core/3.2.2
+        mkdir -p docs/3.2.2
+        cp -r build/html/* docs/3.2.2
         git pull -q
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add docs/core/3.2.2
+        git add docs/3.2.2
         git commit -m "Update documentation" -a || true
         # The above will fail if no changes were present, so
         # we ignore the return code.
