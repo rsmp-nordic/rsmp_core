@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.3. Transport of data &mdash; RSMP Specification 3.1.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. Basic structure" href="basic_structure.html" />
+    <link rel="prev" title="4.2. Object model" href="object_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> RSMP Specification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. Transport of data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#security">4.3.1. Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system">4.3.2. Communication establishment between sites and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites">4.3.3. Communication establishment between sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-disruption">4.3.4. Communication disruption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-site-and-supervision-system">4.3.5. Transport between site and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-sites">4.3.6. Transport between sites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage_of_json.html">4.5. Usage of JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/sxl.html">1. Signal exchange list</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RSMP Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../applicability.html">4. Applicability</a> &raquo;</li>
+        
+      <li>4.3. Transport of data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/applicability/transport_of_data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="transport-of-data">
+<span id="id1"></span><h1>4.3. Transport of data<a class="headerlink" href="#transport-of-data" title="Permalink to this headline">¶</a></h1>
+<p>The message flow is different between different types of messages.
+Some message types are event driven and are sent without a request (push),
+while others are interaction driven, i.e. they sent in response to a
+request from a host system or other system (client-server).</p>
+<p>To ensure that messages reach their destinations a message acknowledgment
+is sent for all messages. This gives the application a simple way to
+follow up on the message exchange. To communicate between equipments
+and supervisions systems a pure TCP connection is used (TCP/IP), and
+the data sent is based on the JSON format, ie formatted text.</p>
+<p>Messages can be sent asynchronously, i.e. while the site or supervision
+system is waiting for an answer to a previously sent message it can
+can continue to send messages.</p>
+<div class="section" id="security">
+<h2>4.3.1. Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>Connections with RSMP must be protected with encryption if the purchaser
+requires it.
+Encryption settings needs to be configurable in both the supervision
+system as well as the site. For the encrypted communication,
+SSL 3.0/TLS 1.0 or later is used.
+Certificates should be used to verify the identities of equipments.
+Equipment which uses RSMP should contain a user interface for easy
+management of certificates.
+The issuing and renewal of certificates should should be made in
+cooperation with the purchaser unless other arrangement is agreed upon.</p>
+</div>
+<div class="section" id="communication-establishment-between-sites-and-supervision-system">
+<span id="id2"></span><h2>4.3.2. Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Permalink to this headline">¶</a></h2>
+<p>When establishing communication, messages are sent in the following
+order.</p>
+<img alt="../_images/establish-site-system.png" class="align-center" src="../_images/establish-site-system.png" />
+<ol class="arabic simple">
+<li>RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).
+Verification of RSMP version, SXL version and site id.</li>
+<li>Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
+<li>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)</li>
+<li>All active and blocked alarm are sent (according to section
+<a class="reference internal" href="basic_structure.html#alarm-messages"><span class="std std-ref">Alarm messages</span></a>).</li>
+<li>Any remaining messages in the equipment’s outgoing communication
+buffer are sent</li>
+</ol>
+<p>Since only one version of the signal exchange list is allowed to be used
+at the communication establishment (according to the version message),
+each connected site must either:</p>
+<ul class="simple">
+<li>Use the same version of the signal exchange list via the same
+RSMP connection</li>
+<li>Use different signal exchange lists via separate RSMP connections. In
+this case the supervision system must listen on separate port numbers
+- one for each signal exchange list. This is required if there should
+be a possibility to update a signal exchange list without affecting
+the signal exchange lists for all the other connected sites.</li>
+</ul>
+</div>
+<div class="section" id="communication-establishment-between-sites">
+<h2>4.3.3. Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).
+Verification of RSMP version, SXL version and site id.</li>
+<li>Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</li>
+<li>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)</li>
+</ol>
+<img alt="../_images/establish-site-site.png" class="align-center" src="../_images/establish-site-site.png" />
+<p>For communication between sites the following applies:</p>
+<ul class="simple">
+<li>The site id (siteId) which is sent in RSMP / SXL version is the
+connecting site’s own siteId</li>
+<li>If the siteId does not match with the expected siteId at other site
+the connection should be  terminated. The purpose is to reduce the risk
+of establishing connection with the wrong site</li>
+<li>The component id (componentId) which is used in all messages is the
+connecting site’s component id</li>
+<li>Watchdog messages does not adjust the clock</li>
+<li>Alarm messages are not sent</li>
+<li>No communication buffer exist</li>
+</ul>
+</div>
+<div class="section" id="communication-disruption">
+<span id="id3"></span><h2>4.3.4. Communication disruption<a class="headerlink" href="#communication-disruption" title="Permalink to this headline">¶</a></h2>
+<p>In the event of a communications failure the outgoing messages are
+stored in the equipment’s communication buffer. Once communication is
+restored all the messages in the communications buffer are sent.</p>
+<p>Any subscriptions to status messages ceases if the communication
+failure occurs.</p>
+<p>In the event of communications failure or power outage outgoing
+communication buffer of equipment not empty, this does not apply
+watchdog messages.</p>
+<p>The internal communication buffer of the device must at a minimum be
+sized to be able to store 10000 messages. At full communication buffer
+the FIFO principle applies.</p>
+</div>
+<div class="section" id="transport-between-site-and-supervision-system">
+<h2>4.3.5. Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h2>
+<p>Supervision system acts a socket server and waits for the site to
+connect. If the communication were to fail it is the site’s
+responsibility to reconnect.</p>
+</div>
+<div class="section" id="transport-between-sites">
+<h2>4.3.6. Transport between sites<a class="headerlink" href="#transport-between-sites" title="Permalink to this headline">¶</a></h2>
+<p>One site acts as socket server and waits for the other site to
+connect. If the communication were to fail it is the connecting site’s
+responsibility to reconnect.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basic_structure.html" class="btn btn-neutral float-right" title="4.4. Basic structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="object_model.html" class="btn btn-neutral float-left" title="4.2. Object model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

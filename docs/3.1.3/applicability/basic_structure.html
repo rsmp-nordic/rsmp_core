@@ -1,0 +1,1881 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.4. Basic structure &mdash; RSMP Specification 3.1.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.5. Usage of JSON" href="usage_of_json.html" />
+    <link rel="prev" title="4.3. Transport of data" href="transport_of_data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> RSMP Specification
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. Basic structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#alarm-messages">4.4.1. Alarm messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure">4.4.1.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system">4.4.1.2. Message exchange between site and supervision system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#aggregated-status-message">4.4.2. Aggregated status message</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">4.4.2.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">4.4.2.2. Message exchange between site and supervision system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#status-messages">4.4.3. Status Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.4.3.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-a-request-of-a-status-of-one-or-several-objects">4.4.4. Structure for a request of a status of one or several objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-a-message-with-status-of-one-or-several-objects">4.4.5. Structure for a message with status of one or several objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#return-values-returnvalue">4.4.6. Return values (returnvalue)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects">4.4.7. Structure for a status subscription request message on one or several objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">4.4.8. Structure for a response message with answer to a request for status subscription for one or several objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects">4.4.9. Structure for a status unsubscription message on one or several objects</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-request">4.4.9.1. Message exchange between site and supervision system/other equipment - request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription">4.4.9.2. Message exchange between site and supervision system/other equipment - subscription</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#command-messages">4.4.10. Command messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">4.4.10.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-of-command-response-message">4.4.11. Structure of command response message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.4.12. Return values (returnvalue)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment">4.4.12.1. Message exchange between site and supervision system/other equipment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#message-acknowledgement">4.4.13. Message acknowledgement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-acknowledgement">4.4.13.1. Message structure – Message acknowledgement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#message-structure-message-not-acknowledged">4.4.13.2. Message structure – Message not acknowledged</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">4.4.13.3. Message exchange between site and supervision system/other equipment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.4.14. RSMP/SXL Version</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">4.4.14.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">4.4.14.2. Message exchange between site and supervision system/other equipment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.15. Watchdog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">4.4.15.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">4.4.15.2. Message exchange between site and supervision system/other equipment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage_of_json.html">4.5. Usage of JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/sxl.html">1. Signal exchange list</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RSMP Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../applicability.html">4. Applicability</a> &raquo;</li>
+        
+      <li>4.4. Basic structure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/applicability/basic_structure.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-structure">
+<span id="id1"></span><h1>4.4. Basic structure<a class="headerlink" href="#basic-structure" title="Permalink to this headline">¶</a></h1>
+<p>Unicode (ISO 10646) and UTF-8 are used for all messages. All messages
+are based on the structure presented below. In the following example the
+message type is an alarm message.</p>
+<div class="highlight-xml notranslate" id="xml-basic"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<div class="figure align-center" id="table-variable-content">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="7%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>messageId</td>
+<td><em>(GUID)</em></td>
+<td>Message identity. Generated as a GUID (Globally unique identifier) in the equipment that sent the message. Only version 4 of Leach-Salz UUID is used.</td>
+</tr>
+<tr class="row-odd"><td>ntsObjectId <em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Component-id for the NTS object which the message is referring to.</td>
+</tr>
+<tr class="row-even"><td>externalNtsId <em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Identity for the NTS objects in communication between NTS and other systems. The format is 5 integers (Mentioned in SL31 Object-Identity). Defined in cooperation with representatives from NTS. Unique for the site.</td>
+</tr>
+<tr class="row-odd"><td>componentId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Component id for the object which the message is referring to</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.1:</strong> Variable content</span></p>
+<span class="target" id="table-variable-content"></span></center></div><div class="section" id="alarm-messages">
+<span id="id2"></span><h2>4.4.1. Alarm messages<a class="headerlink" href="#alarm-messages" title="Permalink to this headline">¶</a></h2>
+<p>An alarm message is sent to the supervision system when:</p>
+<ul class="simple">
+<li>An alarm becomes active / inactive</li>
+<li>An alarm is acknowledged</li>
+<li>An alarm is being suspended / un-suspended</li>
+</ul>
+<p>An acknowledgment of an alarm does not cause a single alarm event to
+be acknowledged but all alarm events for the specific object with the
+associated alarm code id. This approach simplifies both in
+implementation but also in handling - if many alarms occur on the same
+equipment with short time intervals.</p>
+<p>A suspend of an alarm causes all alarms from the specific object with
+the associated alarm code id to be suspended.</p>
+<p>Alarm messages are event driven and sent to the supervision system
+when the alarm occurs. Acknowledgement of alarms and alarm suspend
+messages are interaction driven.</p>
+<div class="section" id="message-structure">
+<h3>4.4.1.1. Message structure<a class="headerlink" href="#message-structure" title="Permalink to this headline">¶</a></h3>
+<p id="structure-for-an-alarm-message">Structure for an alarm message</p>
+<p>An alarm message has the same structure when it’s sent regardless
+whether or not it is a new alarm, being acknowledged or being
+suspended, with the exception of “alarmSpecialisation”.</p>
+<p>The following table describes the differences:</p>
+<div class="figure align-center" id="table-alarm-specialisation">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element and value</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&lt;alarmSpecialisation xsi:type=”<strong>Issue</strong>”&gt;</td>
+<td>An alarm becomes active/in-active</td>
+</tr>
+<tr class="row-odd"><td>&lt;alarmSpecialisation xsi:type=”<strong>Acknowledge</strong>”&gt;</td>
+<td>An alarm is acknowledged</td>
+</tr>
+<tr class="row-even"><td>&lt;alarmSpecialisation xsi:type=”<strong>Suspend</strong>”&gt;</td>
+<td>Suspension of an alarm is being activated/deactivated</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.2:</strong> alarm-specialisation</span></p>
+<span class="target" id="table-alarm-specialisation"></span></center></div><p>An alarm message has the structure according to the example below. In the
+following example the message contains an alarm for a lamp error at the
+site “AB+84001=860VA001”.</p>
+<div class="highlight-xml notranslate" id="xml-alarm-issue"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+<span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+<span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+<span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+<span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+<span class="nt">&lt;externalAlarmCodeId&gt;</span>Lampfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+<span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+<span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Issue&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;acknowledgeState&gt;</span>notAcknowledged<span class="nt">&lt;/acknowledgeState&gt;</span>
+   <span class="nt">&lt;alarmState&gt;</span>active<span class="nt">&lt;/alarmState&gt;</span>
+   <span class="nt">&lt;suspendState&gt;</span>notSuspended<span class="nt">&lt;/suspendState&gt;</span>
+   <span class="nt">&lt;timestamp&gt;</span>2009-10-01T11:59:31.571Z<span class="nt">&lt;/timestamp&gt;</span>
+   <span class="nt">&lt;category&gt;</span>T<span class="nt">&lt;/category&gt;</span>
+   <span class="nt">&lt;priority&gt;</span>2<span class="nt">&lt;/priority&gt;</span>
+   <span class="nt">&lt;returnvalues&gt;</span>
+      <span class="nt">&lt;returnvalue&gt;</span>
+          <span class="nt">&lt;name&gt;</span>signalgrupp<span class="nt">&lt;/name&gt;</span>
+          <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/returnvalue&gt;</span>
+      <span class="nt">&lt;returnvalue&gt;</span>
+         <span class="nt">&lt;name&gt;</span>färg<span class="nt">&lt;/name&gt;</span>
+         <span class="nt">&lt;value&gt;</span>röd<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/returnvalue&gt;</span>
+   <span class="nt">&lt;/returnvalues&gt;</span>
+<span class="nt">&lt;/alarmSpecialisation&gt;</span>
+<span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = Alarm)</p>
+<div class="figure align-center" id="table-alarm-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>alarmCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code id. Determined in the signal exchange list (SXL). The examples in this document are defined according to the following format: Ayyy, where yyy is a unique number.</td>
+</tr>
+<tr class="row-odd"><td>externalAlarmCodeId <em>(optional)</em></td>
+<td><em>(Manufacturer specific)</em></td>
+<td>Manufacturer specific alarm code and alarm description Manufacturer, model, alarm code och additional alarm description.</td>
+</tr>
+<tr class="row-even"><td>externalNtsAlarmCodeId <em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code in order to identify alarm type during communication with NTS and other system. <em>(See SL31 Alarm-Code)</em></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.3:</strong> alarm-basic</span></p>
+<span class="target" id="table-alarm-basic"></span></center></div><p>Alarm status</p>
+<div class="figure align-center" id="table-alarm-status">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="16%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">acknowledegeState</td>
+<td>acknowledged</td>
+<td>The alarm is acknowledged</td>
+</tr>
+<tr class="row-odd"><td>notAcknowledged</td>
+<td>The alarm is not acknowledged</td>
+</tr>
+<tr class="row-even"><td rowspan="2">alarmState</td>
+<td>inactive</td>
+<td>The alarm is inactive</td>
+</tr>
+<tr class="row-odd"><td>active</td>
+<td>The alarm is active</td>
+</tr>
+<tr class="row-even"><td rowspan="2">suspendState</td>
+<td>suspended</td>
+<td>The alarm is suspended</td>
+</tr>
+<tr class="row-odd"><td>notSuspended</td>
+<td>The alarm is not suspended</td>
+</tr>
+<tr class="row-even"><td>timestamp</td>
+<td><em>(timestamp)</em></td>
+<td>Timestamp for when the alarm either occurs, gets acknowledged or gets suspended.
+See the contents of <strong>alarmSpecialisation</strong> to determine which type timetamp is
+used. The timestamp uses the W3C XML <strong>dateTime</strong> definition with 3 decimal places
+All timestamps are set at the local level (and not in the supervision system) when
+the alarm occurs (and not when the message is sent). All timestamps uses UTC.</td>
+</tr>
+<tr class="row-odd"><td>category</td>
+<td>T <em>or</em> D</td>
+<td><p class="first">A character, either ”T” or ”D”.</p>
+<div class="line-block">
+<div class="line">An alarm belongs to one of these categories:</div>
+<div class="line">- T.&nbsp;Traffic alarm</div>
+<div class="line">- D.&nbsp;Technical alarm</div>
+</div>
+<p><strong>Traffic alarm:</strong>
+Traffic alarms indicate events in the traffic related functions or the technical
+processes that effects traffic.</p>
+<div class="line-block">
+<div class="line">A couple of examples from a tunnel:</div>
+<div class="line">- Stopped vehicle</div>
+<div class="line">- Fire alarm</div>
+<div class="line">- Error which affects message to motorists</div>
+<div class="line">- High level of CO2 in traffic room</div>
+<div class="line">- Etc.</div>
+</div>
+<p class="last"><strong>Technical alarm:</strong>
+Technical alarms are alarms that do not directly affect the traffic. One example
+of a technical alarm is when an impulse fan stops working.</p>
+</td>
+</tr>
+<tr class="row-even"><td>description
+<em>(only in SXL,
+never actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Description of the alarm. Only defined in SXL and is never actually sent.
+(The format of the description is free of choice but has the following
+requirements:
+- The text is unique for the object type
+- The text is defined in cooperation with the Purchaser before use)</td>
+</tr>
+<tr class="row-odd"><td>priority</td>
+<td>[0-9]</td>
+<td><p class="first">The priority of the message. The following values are defined:</p>
+<ol class="last arabic simple">
+<li>Alarm that requires immediate action.</li>
+<li>Alarm that does not require immediate action, but action is planned during
+the next work shift.</li>
+<li>Alarm that will be corrected during the next planned maintenance shift.</li>
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.4:</strong> alarm-status</span></p>
+<span class="target" id="table-alarm-status"></span></center></div><p>Return values</p>
+<div class="figure align-center" id="table-alarm-return-values">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Unique reference of the value</td>
+</tr>
+<tr class="row-odd"><td>type
+<em>(Only in SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td><p class="first">The data type of the value.
+Defined in the SXL but is not actually sent</p>
+<div class="last line-block">
+<div class="line">General definition:</div>
+<div class="line"><strong>string</strong>: Text information</div>
+<div class="line"><strong>integer</strong>: Numerical value
+(16-bit signed integer), [-32768 – 32767]</div>
+<div class="line"><strong>long</strong>: Numerical value
+(32-bit signed long)</div>
+<div class="line"><strong>real</strong>: Float
+(64-bit double precision floating point)</div>
+<div class="line"><strong>boolean</strong>: Boolean data type</div>
+<div class="line"><strong>base64</strong>: Binary data expressed in
+base64 format according to RFC-4648</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>unit
+<em>(Only is SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>The unit of the value. Defined in SXL but
+are not actually sent</td>
+</tr>
+<tr class="row-odd"><td>value</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Value</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.5:</strong> alarm-return-values</span></p>
+<span class="target" id="table-alarm-return-values"></span></center></div><p>Structure for alarm acknowledgement message</p>
+<p>An alarm acknowledgement message has the structure according to the example
+below.</p>
+<div class="highlight-xml notranslate" id="xml-alarm-ack"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+<span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+<span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+<span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+<span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+<span class="nt">&lt;externalAlarmCodeId&gt;</span>Larmfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+<span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+<span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Acknowledge&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = Alarm)</p>
+<div class="figure align-center" id="table-alarm-ack-basic-values">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="18%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>alarmCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code id. Determined in the signal exchange list (SXL).
+The examples in this document are defined according to the
+following format: Ayyy, where yyy is a unique number.</td>
+</tr>
+<tr class="row-odd"><td>externalAlarmCodeId
+<em>(optional)</em></td>
+<td><em>(Manufacturer
+specific)</em></td>
+<td>Manufacturer specific alarm code and alarm description.
+Manufacturer, model, alarm code och additional alarm description</td>
+</tr>
+<tr class="row-even"><td>externalNtsAlarmCodeId
+<em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code in order to identify alarm type during communication
+with NTS and other systems. <em>(See SL31 Alarm-Code)</em></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.6:</strong> alarm-ack-basic-values</span></p>
+<span class="target" id="table-alarm-ack-basic-values"></span></center></div><p>Alarm acknowledgement (xsi:type = Acknowledge)</p>
+<p>(no content)</p>
+<p>Structure for alarm suspend message</p>
+<p>An alarm suspend message has the structure according to the example
+below.</p>
+<div class="highlight-xml notranslate" id="xml-alarm-suspend"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Alarm&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+<span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+<span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+<span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+<span class="nt">&lt;alarmCodeId&gt;</span>A001<span class="nt">&lt;/alarmCodeId&gt;</span>
+<span class="nt">&lt;externalAlarmCodeId&gt;</span>Larmfel på lykta 1 (röd)<span class="nt">&lt;/externalAlarmCodeId&gt;</span>
+<span class="nt">&lt;externalNtsAlarmCodeId&gt;</span>3143<span class="nt">&lt;/externalNtsAlarmCodeId&gt;</span>
+<span class="nt">&lt;alarmSpecialisation</span> <span class="na">xsi:type=</span><span class="s">&quot;Suspend&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;suspendAction&gt;</span>suspend<span class="nt">&lt;/suspendAction&gt;</span>
+<span class="nt">&lt;/alarmSpecialisation&gt;</span>
+<span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = Alarm)</p>
+<div class="figure align-center" id="table-alarm-block-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="18%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>alarmCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code id. Determined in the signal exchange list (SXL).
+The examples in this document are defined according to the
+following format: Ayyy, where yyy is a unique number.</td>
+</tr>
+<tr class="row-odd"><td>externalAlarmCodeId
+<em>(optional)</em></td>
+<td><em>(Manufacturer
+specific)</em></td>
+<td>Manufacturer specific alarm code and alarm description.
+Manufacturer, model, alarm code och additional alarm description</td>
+</tr>
+<tr class="row-even"><td>externalNtsAlarmCodeId
+<em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Alarm code in order to identify alarm type during communication
+with NTS and other system. <em>(See SL31 Alarm-Code)</em></td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.7:</strong> alarm-block-basic</span></p>
+<span class="target" id="table-alarm-block-basic"></span></center></div><p>Alarm suspend (xsi:type = Suspend)</p>
+<div class="figure align-center" id="table-alarm-suspend">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="16%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">suspendAction</td>
+<td>suspend</td>
+<td>Activate suspend of an alarm</td>
+</tr>
+<tr class="row-odd"><td>resume</td>
+<td>Deactivate a suspend of an alarm</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.8:</strong> alarm-suspend</span></p>
+<span class="target" id="table-alarm-suspend"></span></center></div></div>
+<div class="section" id="message-exchange-between-site-and-supervision-system">
+<h3>4.4.1.2. Message exchange between site and supervision system<a class="headerlink" href="#message-exchange-between-site-and-supervision-system" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figures.</p>
+<p><strong>An alarm is active/inactive</strong></p>
+<img alt="../_images/alarm_active_inactive.png" class="align-center" src="../_images/alarm_active_inactive.png" />
+<ol class="arabic simple">
+<li>An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)</li>
+</ol>
+<p><strong>An alarm is acknowledged at the supervision system</strong></p>
+<img alt="../_images/alarm_ack_system.png" class="align-center" src="../_images/alarm_ack_system.png" />
+<ol class="arabic simple">
+<li>An alarm acknowledgement message is sent to the site</li>
+<li>An alarm message is sent to the supervision system (that the alarm is acknowledged)</li>
+</ol>
+<p><strong>An alarm is acknowledged at the site</strong></p>
+<img alt="../_images/alarm_ack_site.png" class="align-center" src="../_images/alarm_ack_site.png" />
+<ol class="arabic simple">
+<li>An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)</li>
+</ol>
+<p><strong>An alarm is suspended/unsuspended from the supervision system</strong></p>
+<img alt="../_images/alarm_suspend_system.png" class="align-center" src="../_images/alarm_suspend_system.png" />
+<ol class="arabic simple">
+<li>An alarm suspend message is being sent to the site</li>
+<li>An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)</li>
+</ol>
+<p><strong>An alarm is suspended/unsuspended from the site</strong></p>
+<img alt="../_images/alarm_suspend_site.png" class="align-center" src="../_images/alarm_suspend_site.png" />
+<ol class="arabic simple">
+<li>An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)</li>
+</ol>
+</div>
+</div>
+<div class="section" id="aggregated-status-message">
+<span id="id3"></span><h2>4.4.2. Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline">¶</a></h2>
+<p>This type of message is sent to the supervision system to inform about the
+status of the site.</p>
+<p>Aggregated status message are interaction driven and are sent if state
+bits, functional position or functional status are changed at the site.</p>
+<div class="section" id="id4">
+<h3>4.4.2.1. Message structure<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>An aggregated status message has the structure according to the example
+below.</p>
+<div class="highlight-xml notranslate" id="xml-agg-status"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;AggregatedStatus&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+<span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+<span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+<span class="nt">&lt;componentId&gt;</span>F+40100=416CG100<span class="nt">&lt;/componentId&gt;</span>
+<span class="nt">&lt;aggstatusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/aggstatusTimeStamp&gt;</span>
+<span class="nt">&lt;aggregatedStatusSpecialisation&gt;</span>
+   <span class="nt">&lt;functionalPosition&gt;</span>Trafikstyrning<span class="nt">&lt;/functionalPosition&gt;</span>
+   <span class="nt">&lt;functionalState&gt;</span>Automatiskt nedsatt hastighet<span class="nt">&lt;/functionalState&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>2<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>true<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>3<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>true<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>4<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>5<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>6<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>7<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;state&gt;</span>
+      <span class="nt">&lt;name&gt;</span>8<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;state&gt;</span>false<span class="nt">&lt;/state&gt;</span>
+   <span class="nt">&lt;/state&gt;</span>
+<span class="nt">&lt;/aggregatedStatusSpecialisation&gt;</span>
+<span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following tables are describing the variable content of the message:</p>
+<p>Basic (aggregatedStatus)</p>
+<div class="figure align-center" id="table-agg-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="18%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>aggstatusTimeStamp</td>
+<td><em>(timestamp)</em></td>
+<td>The timestamp uses the W3C XML dateTime
+definition with a 3 decimal places. All
+timestamps are set at the local level
+(and not in the supervision system) when
+the event occurs (and not when the
+message is sent). All timestamps uses UTC.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.9:</strong> Basic (aggregatedStatus)</span></p>
+<span class="target" id="table-agg-basic"></span></center></div><p>Aggregated status (aggregatedStatusSpecialisation)</p>
+<div class="figure align-center" id="table-agg-specialisation">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>functionalPosition</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Functional position</td>
+</tr>
+<tr class="row-odd"><td>functionalState
+<em>(optional)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Functional state</td>
+</tr>
+<tr class="row-even"><td>state</td>
+<td><em>(see below)</em></td>
+<td>Status bits (see below)</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.10:</strong> Aggregated status (aggregatedStatusSpecialisation)</span></p>
+<span class="target" id="table-agg-specialisation"></span></center></div><p>Status bits (state)</p>
+<p>The status bits are a set of 8 bits that describes the state of the site
+for NTS. Every bit can either be true or false</p>
+<div class="figure align-center" id="table-agg-status">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="30%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="2">state</td>
+<td>true</td>
+<td rowspan="2">State bit</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>[1-8]</td>
+<td>Bit nr
+(integer between 1 and 8)</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.11:</strong> Aggregated status</span></p>
+<span class="target" id="table-agg-status"></span></center></div><p>The principle of aggregating of statuses for each bit is defined by the
+associated comments in the signal exchange list (SXL). A generic
+description of each bit is presented in the figure below</p>
+<img alt="../_images/agg_status_bits.png" class="align-center" src="../_images/agg_status_bits.png" />
+</div>
+<div class="section" id="id5">
+<h3>4.4.2.2. Message exchange between site and supervision system<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figure.</p>
+<img alt="../_images/aggregated_status.png" class="align-center" src="../_images/aggregated_status.png" />
+<p><strong>(Functional state, functional position or status bits changes at the
+site)</strong></p>
+<ol class="arabic simple">
+<li>An aggregated status message is sent to the supervision system.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="status-messages">
+<h2>4.4.3. Status Messages<a class="headerlink" href="#status-messages" title="Permalink to this headline">¶</a></h2>
+<p>The status message is a type of message that is sent to the
+supervision system or other equipment with the status of one or more
+requested objects.</p>
+<p>The status message can both be interaction driven or event driver and
+can be sent during the following prerequisites:</p>
+<ul class="simple">
+<li>When status is requested from the supervision system or other equipment.</li>
+<li>According to subscription – either by using a fixed time interval or
+when the status changes.</li>
+</ul>
+<div class="section" id="id6">
+<h3>4.4.3.1. Message structure<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="structure-for-a-request-of-a-status-of-one-or-several-objects">
+<h2>4.4.4. Structure for a request of a status of one or several objects<a class="headerlink" href="#structure-for-a-request-of-a-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h2>
+<p>A status request message has the structure according to the example
+below. If the object is not known, then the site must not disconnect
+but instead answer with this type of message where “ageState” contains
+“undefined”.</p>
+<div class="highlight-xml notranslate" id="xml-status-req"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusRequest&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+<span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+<span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+<span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+<span class="nt">&lt;statuses&gt;</span>
+   <span class="nt">&lt;status&gt;</span>
+      <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+      <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+   <span class="nt">&lt;/status&gt;</span>
+   <span class="nt">&lt;status&gt;</span>
+      <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+      <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+   <span class="nt">&lt;/status&gt;</span>
+<span class="nt">&lt;/statuses&gt;</span>
+<span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following tables are describing the variable content of the message:</p>
+<p>Basic (xsi:type = StatusRequest)</p>
+<div class="figure align-center" id="table-statusrequest">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="19%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>statusCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Status code id. Determined by the signal exchange list (SXL).
+The examples in this document are defined according to the following
+format: syyy, where yyy is a unique number.</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Unique reference</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.12:</strong> Basic (xsi:type = StatusRequest)</span></p>
+<span class="target" id="table-statusrequest"></span></center></div></div>
+<div class="section" id="structure-for-a-message-with-status-of-one-or-several-objects">
+<h2>4.4.5. Structure for a message with status of one or several objects<a class="headerlink" href="#structure-for-a-message-with-status-of-one-or-several-objects" title="Permalink to this headline">¶</a></h2>
+<p>A message with status of one or several objects has the structure
+according to the example below.</p>
+<div class="highlight-xml notranslate" id="xml-status-response"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusResponse&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/statusTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>70<span class="nt">&lt;/status&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>14<span class="nt">&lt;/status&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = StatusResponse)</p>
+<div class="figure align-center" id="table-statusresponse">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="25%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>statusTimeStamp</td>
+<td><em>(timestamp)</em></td>
+<td>The timestamp uses the W3C XML dateTime
+definition with a 3 decimal places. All
+timestamps are set at the local level (and
+not in the supervision system) when the
+alarm occurs (and not when the message
+message is sent). All timestamps uses UTC.</td>
+</tr>
+<tr class="row-odd"><td>description
+<em>(Only in SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>Description for the status request.
+Defined in the SXL but is not actually
+sent.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.13:</strong> Basic (xsi:type = StatusResponse)</span></p>
+<span class="target" id="table-statusresponse"></span></center></div></div>
+<div class="section" id="return-values-returnvalue">
+<h2>4.4.6. Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="table-statusresponse-returnvalues">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>statusCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Status code id. Determined by the signal
+exchange list (SXL). The examples in this
+document are defined according to the
+following format: Syyy, where yyy is a
+unique number.</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Unique reference of the value</td>
+</tr>
+<tr class="row-even"><td>type
+<em>(Only in SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td><p class="first">The data type of the value.
+Defined in the SXL but is not actually sent</p>
+<div class="last line-block">
+<div class="line">General definition:</div>
+<div class="line"><strong>string</strong>: Text information</div>
+<div class="line"><strong>integer</strong>: Numerical value
+(16-bit signed integer), [-32768 – 32767]</div>
+<div class="line"><strong>long</strong>: Numerical value
+(32-bit signed long)</div>
+<div class="line"><strong>real</strong>: Float
+(64-bit double precision floating point)</div>
+<div class="line"><strong>boolean</strong>: Boolean data type</div>
+<div class="line"><strong>base64</strong>: Binary data expressed in
+base64 format according to RFC-4648</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>unit
+<em>(Only is SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>The unit of the value. Defined in SXL but
+are not actually sent</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Value</td>
+</tr>
+<tr class="row-odd"><td rowspan="4">ageState</td>
+<td>recent</td>
+<td>The value is up to date</td>
+</tr>
+<tr class="row-even"><td>old</td>
+<td>The value is not up to date</td>
+</tr>
+<tr class="row-odd"><td>undefined</td>
+<td>The component does not exist and no
+subscription will be performed</td>
+</tr>
+<tr class="row-even"><td>unknown</td>
+<td>The value is unknown and no subscription will
+be performed.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.14:</strong> Return values (returnvalue)</span></p>
+<span class="target" id="table-statusresponse-returnvalues"></span></center></div></div>
+<div class="section" id="structure-for-a-status-subscription-request-message-on-one-or-several-objects">
+<h2>4.4.7. Structure for a status subscription request message on one or several objects<a class="headerlink" href="#structure-for-a-status-subscription-request-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h2>
+<p>A message with the request of subscription to a status has the
+structure according to the example below. The message is used for
+constructing a list of subscriptions of statuses, digital and analogue
+values and events that are desirable to send to supervision system,
+e.g. temperature, wind speed, power consumption, manual control.</p>
+<div class="highlight-xml notranslate" id="xml-status-subscribe"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusSubscribe&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statuses&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;updateRate&gt;</span>10<span class="nt">&lt;/updateRate&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;updateRate&gt;</span>10<span class="nt">&lt;/updateRate&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+        <span class="nt">&lt;/statuses&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = StatusRequest)</p>
+<div class="figure align-center" id="table-statusrequest-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>updateRate</td>
+<td><em>(string)</em></td>
+<td>Determines the interval of which the message should be
+sent. Defined in seconds with decimals, e.g. ”2.5” for
+2.5 seconds. Dot (.) is used as decimal point. If “0”
+means that the value should be sent when changed.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.15:</strong> Basic (xsi:type = StatusRequest)</span></p>
+<span class="target" id="table-statusrequest-basic"></span></center></div></div>
+<div class="section" id="structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects">
+<h2>4.4.8. Structure for a response message with answer to a request for status subscription for one or several objects<a class="headerlink" href="#structure-for-a-response-message-with-answer-to-a-request-for-status-subscription-for-one-or-several-objects" title="Permalink to this headline">¶</a></h2>
+<p>A response message with answer to a request for status subscription
+has the structure according to the example below. This response is
+always sent immediately after request for subscription regardless if
+the value recently changed or as an effect of the interval for the
+subscription. The reason for sending the response immediately is
+because subscriptions usually are established shortly after RSMP
+connection establishment and the supervision system needs to update
+with the current statuses and events.
+If an subscription is already active then the site must not establish
+a new subscription but use the existing one. This message type should
+not be sent if the subscription already exist.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where “ageState” contains
+“undefined”.</p>
+<div class="highlight-xml notranslate" id="xml-status-update"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusUpdate&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statusTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/statusTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>70<span class="nt">&lt;/status&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;status&gt;</span>14<span class="nt">&lt;/status&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The allowed content is described in Table <a href="#table-statusresponse">4.13</a> and
+<a href="#table-statusresponse-returnvalues">4.14</a>.</p>
+</div>
+<div class="section" id="structure-for-a-status-unsubscription-message-on-one-or-several-objects">
+<h2>4.4.9. Structure for a status unsubscription message on one or several objects<a class="headerlink" href="#structure-for-a-status-unsubscription-message-on-one-or-several-objects" title="Permalink to this headline">¶</a></h2>
+<p>A message with the request of unsubscription to a status has the structure
+according to the example below. The request unsubscribes on one or several
+objects. No particular answer is sent for this request, other than the
+usual message acknowledgement.</p>
+<div class="highlight-xml notranslate" id="xml-status-unsubscribe"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;StatusUnSubscribe&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;statuses&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>speed<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+            <span class="nt">&lt;status&gt;</span>
+                <span class="nt">&lt;statusCodeId&gt;</span>S003<span class="nt">&lt;/statusCodeId&gt;</span>
+                <span class="nt">&lt;name&gt;</span>occupancy<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;/status&gt;</span>
+        <span class="nt">&lt;/statuses&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The allowed content is described in Table <a href="#table-statusrequest">4.12</a></p>
+<div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-request">
+<h3>4.4.9.1. Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figure.</p>
+<img alt="../_images/status_request_response.png" class="align-center" src="../_images/status_request_response.png" />
+<ol class="arabic simple">
+<li>Request of status for an object</li>
+<li>Response with status of an object</li>
+</ol>
+</div>
+<div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment-subscription">
+<h3>4.4.9.2. Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figure.</p>
+<img alt="../_images/status_update.png" class="align-center" src="../_images/status_update.png" />
+<ol class="arabic simple">
+<li>Update with status of an object</li>
+</ol>
+</div>
+</div>
+<div class="section" id="command-messages">
+<h2>4.4.10. Command messages<a class="headerlink" href="#command-messages" title="Permalink to this headline">¶</a></h2>
+<p>Command messages are used to give order to do something at the site.
+The site responds with a command acknowledgement.</p>
+<p>Command messages are interaction driven and are sent when command are
+requested on any given object by the supervision system or other equipment</p>
+<div class="section" id="id7">
+<h3>4.4.10.1. Message structure<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Structure of a command message request</p>
+<p>A command request message has the structure according to the example
+below. A command request message with the intent to change a value of the
+requested object</p>
+<div class="highlight-xml notranslate" id="xml-command-req"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;CommandRequest&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+    <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+    <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+    <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+    <span class="nt">&lt;arguments&gt;</span>
+        <span class="nt">&lt;argument&gt;</span>
+            <span class="nt">&lt;commandCodeId&gt;</span>M002<span class="nt">&lt;/commandCodeId&gt;</span>
+            <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;command&gt;</span>setValue<span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;value&gt;</span>Auto<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/argument&gt;</span>
+    <span class="nt">&lt;/arguments&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Values to send with the command (arguments)</p>
+<div class="figure align-center" id="table-command-arguments">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>commandCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Command code id. Determined in the signal
+exchange list (SXL). The examples in this
+document are defined according to the
+following format: Myyy, where yyy is a unique
+number.</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Unique reference of the value</td>
+</tr>
+<tr class="row-even"><td>command</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Command</td>
+</tr>
+<tr class="row-odd"><td>type
+<em>(Only in SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td><p class="first">The data type of the value.
+Defined in the SXL but is not actually sent</p>
+<div class="last line-block">
+<div class="line">General definition:</div>
+<div class="line"><strong>string</strong>: Text information</div>
+<div class="line"><strong>integer</strong>: Numerical value
+(16-bit signed integer), [-32768 – 32767]</div>
+<div class="line"><strong>long</strong>: Numerical value
+(32-bit signed long)</div>
+<div class="line"><strong>real</strong>: Float
+(64-bit double precision floating point)</div>
+<div class="line"><strong>boolean</strong>: Boolean data type</div>
+<div class="line"><strong>base64</strong>: Binary data expressed in
+base64 format according to RFC-4648</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>unit
+<em>(Only is SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>The unit of the value. Defined in SXL but
+are not actually sent</td>
+</tr>
+<tr class="row-odd"><td>value</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Value</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.16:</strong> command-arguments</span></p>
+<span class="target" id="table-command-arguments"></span></center></div></div>
+</div>
+<div class="section" id="structure-of-command-response-message">
+<h2>4.4.11. Structure of command response message<a class="headerlink" href="#structure-of-command-response-message" title="Permalink to this headline">¶</a></h2>
+<p>A command response message has the structure according to the example
+below. A command response message informs about the updated value of the
+requested object.
+If the object is not known then the site must not disconnect
+but instead answer with this type of message where “ageState” contains
+“undefined”.</p>
+<div class="highlight-xml notranslate" id="xml-command-response"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;CommandResponse&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;ntsObjectId&gt;</span>F+40100=416CG100<span class="nt">&lt;/ntsObjectId&gt;</span>
+        <span class="nt">&lt;externalNtsId&gt;</span>23055<span class="nt">&lt;/externalNtsId&gt;</span>
+        <span class="nt">&lt;componentId&gt;</span>AB+84001=860VA001<span class="nt">&lt;/componentId&gt;</span>
+        <span class="nt">&lt;commandTimeStamp&gt;</span>2009-10-02T14:34:34.345Z<span class="nt">&lt;/commandTimeStamp&gt;</span>
+        <span class="nt">&lt;returnvalues&gt;</span>
+            <span class="nt">&lt;returnvalue&gt;</span>
+                <span class="nt">&lt;commandCodeId&gt;</span>M002<span class="nt">&lt;/commandCodeId&gt;</span>
+                <span class="nt">&lt;ageState&gt;</span>recent<span class="nt">&lt;/ageState&gt;</span>
+                <span class="nt">&lt;name&gt;</span>1<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>Auto<span class="nt">&lt;/value&gt;</span>
+            <span class="nt">&lt;/returnvalue&gt;</span>
+        <span class="nt">&lt;/returnvalues&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = CommandResponse)</p>
+<div class="figure align-center" id="table-command-response">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="16%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>commandTimeStamp</td>
+<td><em>(timestamp)</em></td>
+<td>The timestamp uses the W3C XML dateTime definition with a 3 decimal places.
+All timestamps are set at the local level (and not in the supervision system) when
+the alarm occurs (and not when the message is sent). All timestamps uses UTC.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.17:</strong> command-response</span></p>
+<span class="target" id="table-command-response"></span></center></div></div>
+<div class="section" id="id8">
+<h2>4.4.12. Return values (returnvalue)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="table-command-returnvalue">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>commandCodeId</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Command code id. Determined in the signal
+exchange list (SXL). The examples in this
+document are defined according to the
+following format: Myyy, where yyy is a unique
+number.</td>
+</tr>
+<tr class="row-odd"><td rowspan="4">ageState</td>
+<td>recent</td>
+<td>The value is up to date</td>
+</tr>
+<tr class="row-even"><td>old</td>
+<td>The value is not up to date</td>
+</tr>
+<tr class="row-odd"><td>undefined</td>
+<td>The component does not exist</td>
+</tr>
+<tr class="row-even"><td>unknown</td>
+<td>The value is unknown</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Unique reference of the value</td>
+</tr>
+<tr class="row-even"><td>type
+<em>(Only in SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td><p class="first">The data type of the value.
+Defined in the SXL but is not actually sent</p>
+<div class="last line-block">
+<div class="line">General definition:</div>
+<div class="line"><strong>string</strong>: Text information</div>
+<div class="line"><strong>integer</strong>: Numerical value
+(16-bit signed integer), [-32768 – 32767]</div>
+<div class="line"><strong>long</strong>: Numerical value
+(32-bit signed long)</div>
+<div class="line"><strong>real</strong>: Float
+(64-bit double precision floating point)</div>
+<div class="line"><strong>boolean</strong>: Boolean data type</div>
+<div class="line"><strong>base64</strong>: Binary data expressed in
+base64 format according to RFC-4648</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>unit
+<em>(Only is SXL,
+not actually
+sent)</em></td>
+<td><em>(Defined in SXL)</em></td>
+<td>The unit of the value. Defined in SXL but
+are not actually sent</td>
+</tr>
+<tr class="row-even"><td>value</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Value</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.18:</strong> command-returnvalue</span></p>
+<span class="target" id="table-command-returnvalue"></span></center></div><div class="section" id="message-exchange-between-site-and-supervision-system-other-equipment">
+<h3>4.4.12.1. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figure.</p>
+<img alt="../_images/command_request_response.png" class="align-center" src="../_images/command_request_response.png" />
+<ol class="arabic simple">
+<li>Command request for an object</li>
+<li>Command response of an object</li>
+</ol>
+</div>
+</div>
+<div class="section" id="message-acknowledgement">
+<span id="id9"></span><h2>4.4.13. Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline">¶</a></h2>
+<p>Message acknowledgement is sent as an initial answer to all other
+messages. This type of message should not be mixed up with alarm
+acknowledgement, which has a different function. The purpose of
+message acknowledgement is to detect communication disruptions,
+function as an acknowledgment that the message has reached its
+destination and to verify that the message was understood.</p>
+<p>There are two types of message acknowledgement – Message
+acknowledgment which confirms that the message was understood and
+Message not acknowledged which indicates that the message was not
+understood.</p>
+<p>The acknowledgement messages are interaction driven and are sent when
+any other type message are received.</p>
+<div class="section" id="message-structure-message-acknowledgement">
+<h3>4.4.13.1. Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Permalink to this headline">¶</a></h3>
+<p>An acknowledgement message has the structure according to the example
+below.</p>
+<div class="highlight-xml notranslate" id="xml-ack"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;MessageAck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;originalMessageId&gt;</span>{E4FSD010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/originalMessageId&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = MessageAck)</p>
+<div class="figure align-center" id="table-messageack-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="12%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>originalMessageId</td>
+<td><em>(GUID)</em></td>
+<td>Message identity. Generated as a GUID (Globally unique identifier)
+in the equipment that sent the message. Only version 4 of
+Leach-Salz UUID is used. This message identity is used in order to
+inform about which message is being acknowledged.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.19:</strong> Basic (xsi:type = MessageAck)</span></p>
+<span class="target" id="table-messageack-basic"></span></center></div></div>
+<div class="section" id="message-structure-message-not-acknowledged">
+<h3>4.4.13.2. Message structure – Message not acknowledged<a class="headerlink" href="#message-structure-message-not-acknowledged" title="Permalink to this headline">¶</a></h3>
+<p>A not acknowledgement message has the structure according to the example
+below.</p>
+<div class="highlight-xml notranslate" id="xml-notack"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4 RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;MessageNotAck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;originalMessageId&gt;</span>{E4FSD010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/originalMessageId&gt;</span>
+        <span class="nt">&lt;reason&gt;</span>alarmCode: A054 does not exist<span class="nt">&lt;/reason&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = MessageNotAck)</p>
+<div class="figure align-center" id="table-messagenoteack-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="14%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>originalMessageId</td>
+<td><em>(GUID)</em></td>
+<td>Message identity. Generated as a GUID (Globally unique identifier)
+in the equipment that sent the message. Only version 4 of
+Leach-Salz UUID is used. This message identity is used in order to
+inform about which message is being acknowledged.</td>
+</tr>
+<tr class="row-odd"><td>reason</td>
+<td><em>(optional)</em></td>
+<td>Error message where all relevant information about the nature of
+the error can be provided.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.20:</strong> Basic (xsi:type = MessageNotAck)</span></p>
+<span class="target" id="table-messagenoteack-basic"></span></center></div></div>
+<div class="section" id="id10">
+<h3>4.4.13.3. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Supervision system sends initial message</p>
+<img alt="../_images/message_ack_system.png" class="align-center" src="../_images/message_ack_system.png" />
+<ol class="arabic simple">
+<li>A message is sent from supervision system or other equipment</li>
+<li>The site responds with an message acknowledgement</li>
+</ol>
+<p>Site sends initial message</p>
+<img alt="../_images/message_ack_site.png" class="align-center" src="../_images/message_ack_site.png" />
+<ol class="arabic simple">
+<li>A message is sent from the site</li>
+<li>The supervision system or other equipment responds with an message acknowledgement</li>
+</ol>
+</div>
+</div>
+<div class="section" id="rsmp-sxl-version">
+<span id="rsmpsxl-version"></span><h2>4.4.14. RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Permalink to this headline">¶</a></h2>
+<p>Version of RSMP and revision of SXL are always sent directly after
+establishing communication. Both communicating systems send this as
+their first message and waits for message response until any other
+messages are sent. Information regarding all supported RSMP versions
+should be included in the version message. The version message should
+be implemented in such a way that is should be possible to add
+additional tags/variables (e.g. date) without affecting existing
+implementations.</p>
+<p>If any discrepancies with the version numbers are detected between the
+two communicating systems this should be set using a MessageNotAck.
+The communication is terminated after that and an internal alarm is
+activated in both communicating system. If both communicating systems
+support several RSMP versions it is always the latest version that
+should be used.</p>
+<div class="section" id="id11">
+<h3>4.4.14.1. Message structure<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>A version message has the structure according to the example below. In
+the example below the system has support for RSMP version 1.0, 1.2 and
+1.3 and SXL version 1.3 for site “F+40100=416”.</p>
+<div class="highlight-xml notranslate" id="xml-version"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4/RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Version&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;siteIds&gt;</span>
+            <span class="nt">&lt;siteId&gt;</span>F+40100=416<span class="nt">&lt;/siteId&gt;</span>
+        <span class="nt">&lt;/siteIds&gt;</span>
+        <span class="nt">&lt;rsmpVersions&gt;</span>
+            <span class="nt">&lt;rsmpVersion&gt;</span>1.0<span class="nt">&lt;/rsmpVersion&gt;</span>
+            <span class="nt">&lt;rsmpVersion&gt;</span>1.2<span class="nt">&lt;/rsmpVersion&gt;</span>
+            <span class="nt">&lt;rsmpVersion&gt;</span>1.3<span class="nt">&lt;/rsmpVersion&gt;</span>
+        <span class="nt">&lt;/rsmpVersions&gt;</span>
+        <span class="nt">&lt;sxlVersion&gt;</span>1.3<span class="nt">&lt;/sxlVersion&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = Version)</p>
+<div class="figure align-center" id="table-version-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="20%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>siteId</td>
+<td><em>(Defined in SXL)</em></td>
+<td><p class="first">Site identity. Used in order to refer to a “logical” identity of a
+site.</p>
+<div class="line-block">
+<div class="line">At the STA, the following formats can be used:</div>
+</div>
+<ul class="simple">
+<li>The site id from the STAs component id standard TDOK 2012:1171
+e.g. ”40100”.</li>
+<li>It is also possible to use the full component id (TDOK 2012:1171)
+of the grouped object in the site in case the site id part of
+the component id is insufficient in order to uniquely identify a
+site.</li>
+</ul>
+<p class="last">All the site ids that are used in the RSMP connection are sent
+in the message</p>
+</td>
+</tr>
+<tr class="row-odd"><td>rsmpVersion</td>
+<td><em>(Defined in the
+guideline)</em></td>
+<td>Version of RSMP. E.g. ”1.0”, ”1.1” or ”1.3”</td>
+</tr>
+<tr class="row-even"><td>sxlRevision</td>
+<td><em>(Defined in SXL)</em></td>
+<td>Revision of SXL. E.g ”1.3”</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.21:</strong> Basic (xsi:type = Version)</span></p>
+<span class="target" id="table-version-basic"></span></center></div></div>
+<div class="section" id="id12">
+<h3>4.4.14.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figures.</p>
+<p>The site sends a version message</p>
+<img alt="../_images/version_site.png" src="../_images/version_site.png" />
+<ol class="arabic simple">
+<li>Version message is sent from the site</li>
+</ol>
+<p>Supervision system/other equipment sends version message</p>
+<img alt="../_images/version_system.png" src="../_images/version_system.png" />
+<ol class="arabic simple">
+<li>Version message is send from supervision system/other equipment</li>
+</ol>
+</div>
+</div>
+<div class="section" id="watchdog">
+<span id="id13"></span><h2>4.4.15. Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline">¶</a></h2>
+<p>The primary purpose of watchdog messages is to ensure that the
+communication remains established and to detect any communication
+disruptions between site and supervision system. For any subsystem
+alarms are used instead. The secondary purpose of watchdog messages is
+to provide a timestamp that can be used for simple time
+synchronization. Unless other time synchronization method is used or
+other reasons apply, the site should synchronize its clock using the
+timestamp from watchdog messages – both at communication
+establishment and then at least once every 24 hours.</p>
+<p>Watchdog messages are sent in both directions, both from the site and
+from the supervision system. At initial communication establishment
+(after version message) the watchdog message should be sent.</p>
+<p>The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.</p>
+<div class="section" id="id14">
+<h3>4.4.15.1. Message structure<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>A watchdog message has the structure according to the example below.</p>
+<div class="highlight-xml notranslate" id="xml-watchdog"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;roadSideMessage</span> <span class="na">modelBaseVersion=</span><span class="s">&quot;1.0&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4&quot;</span>
+   <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+   <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://roadsidemessage.vv.se/1_0_1_4/RoadSideMessage_1_0_1_4.xsd&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;message</span> <span class="na">xsi:type=</span><span class="s">&quot;Watchdog&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;messageId&gt;</span>{E68A0010-C336-41ac-BD58-5C80A72C7092}<span class="nt">&lt;/messageId&gt;</span>
+        <span class="nt">&lt;watchdogTimestamp&gt;</span>2009-10-02T14:34:34.341Z<span class="nt">&lt;/watchdogTimestamp&gt;</span>
+    <span class="nt">&lt;/message&gt;</span>
+<span class="nt">&lt;/roadSideMessage&gt;</span>
+</pre></div>
+</div>
+<p>The following table is describing the variable content of the message:</p>
+<p>Basic (xsi:type = Watchdog)</p>
+<div class="figure align-center" id="table-watchdog-basic">
+<center><table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="18%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Element</th>
+<th class="head">Value</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>watchdogtimestamp</td>
+<td><em>(timestamp)</em></td>
+<td>The timestamp uses the W3C XML dateTime
+definition with a 3 decimal places. All
+timestamps are set at the local level
+(and not in the supervision system) when
+the event occurs (and not when the
+message is sent). All timestamps uses UTC.</td>
+</tr>
+</tbody>
+</table>
+<p class="caption"><span class="caption-text"><strong>Figure 4.22:</strong> Basic (xsi:type = Watchdog)</span></p>
+<span class="target" id="table-watchdog-basic"></span></center></div></div>
+<div class="section" id="id15">
+<h3>4.4.15.2. Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
+implicit in the following figures.</p>
+<p>Site sends watchdog message</p>
+<img alt="../_images/watchdog_site.png" src="../_images/watchdog_site.png" />
+<ol class="arabic simple">
+<li>Watchdog message is sent from site</li>
+</ol>
+<p>Supervision system/other equipment sends watchdog message</p>
+<img alt="../_images/watchdog_system.png" src="../_images/watchdog_system.png" />
+<ol class="arabic simple">
+<li>Watchdog message is sent from supervision system/other equipment</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage_of_json.html" class="btn btn-neutral float-right" title="4.5. Usage of JSON" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="transport_of_data.html" class="btn btn-neutral float-left" title="4.3. Transport of data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
