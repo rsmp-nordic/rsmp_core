@@ -47,7 +47,7 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        branch: master
+        branch: 3.2.2
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload PDF as artifact
       uses: actions/upload-artifact@v4
