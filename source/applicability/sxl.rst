@@ -114,6 +114,7 @@ Description of the alarm. Defined in SXL but is not sent.
 
 The format of the description is free of choice but has the following
 requirements:
+
 - Description is unique for the object type
 - Description is defined in cooperation with the Purchaser before use
 
