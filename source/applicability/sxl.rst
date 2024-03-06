@@ -84,6 +84,7 @@ Using the YAML format; each message type is defined like this:
       commands:
         M0001:
           description: command description text
+          command: setStatus
           arguments:
             argument-1:
               type: boolean
@@ -95,7 +96,7 @@ This example defines:
 
 - An alarm with the :term:`alarm code id` ``A0001``
 - A status with the :term:`status code id` ``S0001``
-- A command with the :term:`command code id` ``M0001``.
+- A command with the :term:`command code id` ``M0001``
 
 Each with one argument named ``argument-1`` using integer, string and boolean
 data types.
@@ -106,12 +107,48 @@ position`.
 At least one argument are required for command and statuses, but they are
 optional in alarms.
 
+The alarm contains the fields:
+
+- ``description`` is the alarm description
+- ``category`` is the alarm category
+- ``priority`` is the alarm priority
+- ``externalAlarmCodeId`` is the :term:`External alarm code id`
+- ``externalNtsAlarmCodeId`` is the :term:`External NTS alarm code id`
+
+The status contains the fields:
+
+- ``description`` is the status description
+
+The command contains the fields:
+
+- ``description`` is the command description
+- ``command`` is optionally used for RPC (Remote Procedure Call)
+
+An argument contains the fields:
+
+- ``description`` is the argument description
+- ``min`` is the minimum value (only for *number* or *integer* data types)
+- ``max`` is the maximum value (only for *number* or *integer* data types)
+- ``type`` is the :ref:`data type<data_types>`
+
+.. note::
+
+    In the Excel version of the SXL, there is no separate min and max columns.
+    Instead, allowed values can be defined using the Value column according
+    to the following example: [0-100], where 0 is the minimum value and 100 is
+    the maximum value.
+
+The aggregated status contains the fields:
+
+- ``functional_position`` is the :term:`Functional position`
+- ``functional_state`` is the :term:`Functional state`
+- ``1-8`` is an array of eight booleans. Each with a title and description. See :ref:`state-bits`
+
+
 .. _alarm-description:
 
 Alarm description
 ^^^^^^^^^^^^^^^^^
-Description of the alarm. Defined in SXL but is not sent.
-
 The format of the description is free of choice but has the following
 requirements:
 
@@ -122,8 +159,7 @@ requirements:
 
 Alarm category
 ^^^^^^^^^^^^^^
-The alarm category is defined in the SXL by a single character, either
-``T`` or ``D``.
+The alarm category is defined in by a single character, either ``T`` or ``D``.
 
 ==========  ===============
 Value       Description
