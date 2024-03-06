@@ -52,7 +52,7 @@ A site consists of objects, identified by unique component ids (``cId``).
 
 Using the Excel format; objects are defined in it's own sheet - one for each
 site.
-Using the YAML format, each object is defined lite this:
+Using the YAML format, each object is defined like this:
 
 .. code-block:: yaml
 
