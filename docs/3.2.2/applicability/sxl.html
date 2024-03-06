@@ -167,6 +167,7 @@ defined in their own sheet.</p>
 <span class="w">    </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">M0001</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command description text</span><span class="w"></span>
+<span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">setStatus</span><span class="w"></span>
 <span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w"></span>
 <span class="w">          </span><span class="nt">argument-1</span><span class="p">:</span><span class="w"></span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span><span class="w"></span>
@@ -179,7 +180,7 @@ defined in their own sheet.</p>
 <ul class="simple">
 <li><p>An alarm with the <a class="reference internal" href="../definitions.html#term-Alarm-code-id"><span class="xref std std-term">alarm code id</span></a> <code class="docutils literal notranslate"><span class="pre">A0001</span></code></p></li>
 <li><p>A status with the <a class="reference internal" href="../definitions.html#term-Status-code-id"><span class="xref std std-term">status code id</span></a> <code class="docutils literal notranslate"><span class="pre">S0001</span></code></p></li>
-<li><p>A command with the <a class="reference internal" href="../definitions.html#term-Command-code-id"><span class="xref std std-term">command code id</span></a> <code class="docutils literal notranslate"><span class="pre">M0001</span></code>.</p></li>
+<li><p>A command with the <a class="reference internal" href="../definitions.html#term-Command-code-id"><span class="xref std std-term">command code id</span></a> <code class="docutils literal notranslate"><span class="pre">M0001</span></code></p></li>
 </ul>
 <p>Each with one argument named <code class="docutils literal notranslate"><span class="pre">argument-1</span></code> using integer, string and boolean
 data types.</p>
@@ -187,9 +188,45 @@ data types.</p>
 position</span></a>.</p>
 <p>At least one argument are required for command and statuses, but they are
 optional in alarms.</p>
+<p>The alarm contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is the alarm description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">category</span></code> is the alarm category</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code> is the alarm priority</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">externalAlarmCodeId</span></code> is the <a class="reference internal" href="../definitions.html#term-External-alarm-code-id"><span class="xref std std-term">External alarm code id</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">externalNtsAlarmCodeId</span></code> is the <a class="reference internal" href="../definitions.html#term-External-NTS-alarm-code-id"><span class="xref std std-term">External NTS alarm code id</span></a></p></li>
+</ul>
+<p>The status contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is the status description</p></li>
+</ul>
+<p>The command contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is the command description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code> is optionally used for RPC (Remote Procedure Call)</p></li>
+</ul>
+<p>An argument contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is the argument description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min</span></code> is the minimum value (only for <em>number</em> or <em>integer</em> data types)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max</span></code> is the maximum value (only for <em>number</em> or <em>integer</em> data types)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> is the <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the Excel version of the SXL, there is no separate min and max columns.
+Instead, allowed values can be defined using the Value column according
+to the following example: [0-100], where 0 is the minimum value and 100 is
+the maximum value.</p>
+</div>
+<p>The aggregated status contains the fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">functional_position</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">Functional position</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functional_state</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-state"><span class="xref std std-term">Functional state</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1-8</span></code> is an array of eight booleans. Each with a title and description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
+</ul>
 <section id="alarm-description">
 <span id="id2"></span><h3><span class="section-number">4.7.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Permalink to this headline"></a></h3>
-<p>Description of the alarm. Defined in SXL but is not sent.</p>
 <p>The format of the description is free of choice but has the following
 requirements:</p>
 <ul class="simple">
@@ -199,8 +236,7 @@ requirements:</p>
 </section>
 <section id="alarm-category">
 <span id="id3"></span><h3><span class="section-number">4.7.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Permalink to this headline"></a></h3>
-<p>The alarm category is defined in the SXL by a single character, either
-<code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
+<p>The alarm category is defined in by a single character, either <code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 40%" />

@@ -53,38 +53,38 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#aggregated-status-message">4.4.2. Aggregated status message</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id9">4.4.2.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">4.4.2.1. Message structure</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#aggregated-status-request-message">4.4.3. Aggregated status request message</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id10">4.4.3.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id11">4.4.3.2. Message exchange between site and supervision system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">4.4.3.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">4.4.3.2. Message exchange between site and supervision system</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#status-messages">4.4.4. Status Messages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id12">4.4.4.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">4.4.4.1. Message structure</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-request">4.4.4.2. Message exchange between site and supervision system/other equipment - request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription">4.4.4.3. Message exchange between site and supervision system/other equipment - subscription</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#command-messages">4.4.5. Command messages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.5.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">4.4.5.1. Message structure</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#message-exchange-between-site-and-supervision-system-other-equipment">4.4.5.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#message-acknowledgement">4.4.6. Message acknowledgement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#message-structure-message-acknowledgement">4.4.6.1. Message structure – Message acknowledgement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#message-structure-message-not-acknowledged">4.4.6.2. Message structure – Message not acknowledged</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id24">4.4.6.3. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.6.3. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.4.7. RSMP/SXL Version</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id25">4.4.7.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">4.4.7.1. Message structure</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.8. Watchdog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id27">4.4.8.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id28">4.4.8.2. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">4.4.8.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">4.4.8.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 </ul>
@@ -168,8 +168,8 @@ otherwise stated.</p>
 </div>
 <p>JSon code 2: An RSMP message</p>
 <p>The following table is describing the variable content of all message types.</p>
-<table class="docutils align-default" id="id29">
-<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id29" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id22">
+<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id22" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 34%" />
@@ -252,37 +252,25 @@ content is the same</p></li>
 <p>The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.</p>
-<p>The <em>Site config</em> columns describes the correlation between the JSon
-elements and the titles in the <a class="reference internal" href="site_configuration.html#site-configuration"><span class="std std-ref">Site configuration</span></a>.</p>
-<table class="docutils align-default" id="id30">
-<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content defined by SXL</span><a class="headerlink" href="#id30" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id23">
+<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id23" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 12%" />
 <col style="width: 20%" />
-<col style="width: 19%" />
-<col style="width: 49%" />
+<col style="width: 80%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>Site config (Excel)</p></th>
-<th class="head"><p>Site config (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>ntsOId</p></td>
-<td><p>NTSObjectId</p></td>
-<td><p>ntsObjectId</p></td>
-<td><p><a class="reference internal" href="../definitions.html#term-Component-id"><span class="xref std std-term">Component id</span></a> for the <a class="reference internal" href="../definitions.html#term-NTS-object"><span class="xref std std-term">NTS object</span></a>.</p></td>
+<td><p><a class="reference internal" href="../definitions.html#term-Component-id"><span class="xref std std-term">Component id</span></a> for the <a class="reference internal" href="../definitions.html#term-NTS-object"><span class="xref std std-term">NTS object</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>xNId</p></td>
-<td><p>externalNtsId</p></td>
-<td><p>externalNtsId</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-External-NTS-id"><span class="xref std std-term">External NTS id</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>cId</p></td>
-<td><p>componentId</p></td>
-<td><p>componentId</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Component-id"><span class="xref std std-term">Component id</span></a></p></td>
 </tr>
 </tbody>
@@ -350,49 +338,32 @@ element ‘aSp’.</p>
 <p>JSon code 3: An alarm message</p>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<p>The <em>SXL</em> columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id31">
-<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id31" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id24">
+<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id24" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 24%" />
-<col style="width: 24%" />
-<col style="width: 38%" />
+<col style="width: 26%" />
+<col style="width: 74%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>aCId</p></td>
-<td><p>alarmCodeId</p></td>
-<td><p>[alarmCodeId] <a class="footnote-reference brackets" href="#f1" id="id4">1</a></p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Alarm-code-id"><span class="xref std std-term">Alarm code id</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>xACId</p></td>
-<td><p>externalAlarmCodeId</p></td>
-<td><p>externalAlarmCodeId</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-External-alarm-code-id"><span class="xref std std-term">External alarm code id</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>xNACId</p></td>
-<td><p>externalNtsAlarmCodeId</p></td>
-<td><p>externalNtsAlarmcodeId</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-External-NTS-alarm-code-id"><span class="xref std std-term">External NTS alarm code id</span></a></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id4">1</a></span></dt>
-<dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
-</dd>
-</dl>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id32">
-<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id32" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id25" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 14%" />
 <col style="width: 20%" />
@@ -438,11 +409,11 @@ elements and the titles in the signal exchange list (SXL).</p>
 </table>
 </section>
 <section id="alarm-status">
-<span id="id5"></span><h4><span class="section-number">4.4.1.1.2. </span>Alarm status<a class="headerlink" href="#alarm-status" title="Permalink to this headline"></a></h4>
+<span id="id4"></span><h4><span class="section-number">4.4.1.1.2. </span>Alarm status<a class="headerlink" href="#alarm-status" title="Permalink to this headline"></a></h4>
 <p>Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).</p>
-<table class="docutils align-default" id="id33">
-<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id33" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id26">
+<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id26" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 15%" />
 <col style="width: 16%" />
@@ -511,49 +482,34 @@ and dashed lines defines possible changes controlled by user.</p>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<p>The <em>SXL</em> columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id34">
-<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id34" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id27">
+<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id27" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 20%" />
-<col style="width: 18%" />
-<col style="width: 40%" />
+<col style="width: 35%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>cat</p></td>
-<td><p>category</p></td>
-<td><p>category</p></td>
 <td><p><a class="reference internal" href="sxl.html#alarm-category"><span class="std std-ref">Alarm category</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
-<td><p>description</p></td>
-<td><p>description</p></td>
-<td><p><a class="reference internal" href="sxl.html#alarm-description"><span class="std std-ref">Alarm description</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>pri</p></td>
-<td><p>priority</p></td>
-<td><p>priority</p></td>
+<tr class="row-odd"><td><p>pri</p></td>
 <td><p><a class="reference internal" href="sxl.html#alarm-priority"><span class="std std-ref">Alarm priority</span></a></p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="return-values">
-<span id="id6"></span><h4><span class="section-number">4.4.1.1.3. </span>Return values<a class="headerlink" href="#return-values" title="Permalink to this headline"></a></h4>
+<span id="id5"></span><h4><span class="section-number">4.4.1.1.3. </span>Return values<a class="headerlink" href="#return-values" title="Permalink to this headline"></a></h4>
 <p>Return values (“rvs”) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
-<table class="docutils align-default" id="id35">
-<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id28">
+<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id28" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 13%" />
@@ -574,46 +530,26 @@ be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 </table>
 <p>The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).</p>
-<p>The <em>SXL</em> columns describes the correlation between the JSon
-elements and the titles in the SXL.</p>
-<table class="docutils align-default" id="id36">
-<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id36" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id29">
+<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id29" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 22%" />
-<col style="width: 51%" />
+<col style="width: 35%" />
+<col style="width: 65%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>n</p></td>
-<td><p>Name</p></td>
-<td><p>[argument id] <a class="footnote-reference brackets" href="#f2" id="id7">2</a></p></td>
-<td><p>Unique reference of the value</p></td>
+<td><p>Name of the return value</p></td>
 </tr>
-<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
-<td><p>Type</p></td>
-<td><p>type</p></td>
-<td><p>The <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a> of the value</p></td>
-</tr>
-<tr class="row-even"><td><p>v</p></td>
-<td><p>Value</p></td>
-<td></td>
+<tr class="row-odd"><td><p>v</p></td>
 <td><p>Value from equipment</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="footnote brackets">
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id7">2</a></span></dt>
-<dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
-</dd>
-</dl>
 </section>
 <section id="structure-for-alarm-request-message">
 <span id="alarmmessages-req"></span><h4><span class="section-number">4.4.1.1.4. </span>Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Permalink to this headline"></a></h4>
@@ -815,15 +751,15 @@ implicit in the following figures.</p>
 </section>
 </section>
 <section id="aggregated-status-message">
-<span id="id8"></span><h2><span class="section-number">4.4.2. </span>Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline"></a></h2>
+<span id="id6"></span><h2><span class="section-number">4.4.2. </span>Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Permalink to this headline"></a></h2>
 <p>This type of message is sent to the supervision system to inform about the
 status of the site. The aggregated status applies to the object which is
 defined by <strong>ObjectType</strong> in the signal exchange list. If no object is defined
 then no aggregated status message is sent.</p>
 <p>Aggregated status message are interaction driven and are sent if state,
 functional position or functional status are changed at the site.</p>
-<section id="id9">
-<h3><span class="section-number">4.4.2.1. </span>Message structure<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<section id="id7">
+<h3><span class="section-number">4.4.2.1. </span>Message structure<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <p>An aggregated status message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-agg-status"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
@@ -844,8 +780,8 @@ below.</p>
 </div>
 <p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
-<table class="docutils align-default" id="id37">
-<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id37" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id30">
+<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id30" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -868,47 +804,36 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 <p>The following table describes the variable content defined by the signal
-exchange list (SXL). The <em>SXL</em> columns describes the correlation
-between the JSon elements and the titles in the SXL.</p>
-<table class="docutils align-default" id="id38">
-<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id38" title="Permalink to this table"></a></caption>
+exchange list (SXL).</p>
+<table class="docutils align-default" id="id31">
+<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id31" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 26%" />
-<col style="width: 26%" />
-<col style="width: 38%" />
+<col style="width: 13%" />
+<col style="width: 87%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>fP</p></td>
-<td><p>functionalPosition</p></td>
-<td><p>functional_position</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">Functional position</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>fS</p></td>
-<td><p>functionalState</p></td>
-<td><p>functional_state</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Functional-state"><span class="xref std std-term">Functional state</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>se</p></td>
-<td><p>State</p></td>
-<td><p>1-8</p></td>
-<td><p>Array of eight booleans</p></td>
+<td><p>Array of eight booleans. See <a class="reference internal" href="#state-bits"><span class="std std-ref">State bits</span></a></p></td>
 </tr>
 </tbody>
 </table>
 <p><code class="docutils literal notranslate"><span class="pre">fP</span></code> and <code class="docutils literal notranslate"><span class="pre">fS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">null</span></code> or empty string if no value is defined
 in the SXL.</p>
-<section id="state">
-<h4><span class="section-number">4.4.2.1.1. </span>State<a class="headerlink" href="#state" title="Permalink to this headline"></a></h4>
+<section id="state-bits">
+<span id="id8"></span><h4><span class="section-number">4.4.2.1.1. </span>State bits<a class="headerlink" href="#state-bits" title="Permalink to this headline"></a></h4>
 <ul class="simple">
-<li><p><strong>State</strong> <code class="docutils literal notranslate"><span class="pre">se</span></code> is an array of eight booleans. The boolean elements defines
+<li><p><strong>State bits</strong> <code class="docutils literal notranslate"><span class="pre">se</span></code> is an array of eight booleans. The boolean elements defines
 the status of the site to <a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a>.</p></li>
 <li><p>It is technically valid in RSMP to set the boolean elements to a nonsensical
 values, e.g. all boolean elements to <code class="docutils literal notranslate"><span class="pre">false</span></code>, but it is not defined how to
@@ -925,8 +850,8 @@ The signal exchange list (SXL) may define a more detailed definition.</p>
 <p>This type of message is sent from the supervision system to request the
 latest aggregated status, in case the supervision system has lost track
 of the current status.</p>
-<section id="id10">
-<h3><span class="section-number">4.4.3.1. </span>Message structure<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<section id="id9">
+<h3><span class="section-number">4.4.3.1. </span>Message structure<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
 <p>An aggregated status request message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-agg-req-status"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
@@ -941,8 +866,8 @@ below.</p>
 </div>
 <p>JSon code 12: An aggregated status request message</p>
 </section>
-<section id="id11">
-<h3><span class="section-number">4.4.3.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<section id="id10">
+<h3><span class="section-number">4.4.3.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p><strong>Functional state, functional position or state booleans changes at the
@@ -971,8 +896,8 @@ can be sent during the following prerequisites:</p>
 <li><p>According to subscription – either by using a fixed time interval or
 when the status changes.</p></li>
 </ul>
-<section id="id12">
-<h3><span class="section-number">4.4.4.1. </span>Message structure<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<section id="id11">
+<h3><span class="section-number">4.4.4.1. </span>Message structure<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
 <section id="structure-of-a-status-request">
 <h4><span class="section-number">4.4.4.1.1. </span>Structure of a status request<a class="headerlink" href="#structure-of-a-status-request" title="Permalink to this headline"></a></h4>
 <p>A status request message has the structure according to the example
@@ -1001,41 +926,26 @@ below.</p>
 (<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple status at
 once.</p>
 <p>The following table is describing the variable content of the message.</p>
-<p>The <em>SXL</em> columns describes the correlation between the JSon
-elements and the titles in the SXL.</p>
-<table class="docutils align-default" id="id39">
-<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id39" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id32">
+<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id32" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
 <col style="width: 28%" />
-<col style="width: 41%" />
+<col style="width: 72%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>sCI</p></td>
-<td><p>statusCodeId</p></td>
-<td><p>[statusCodeId] <a class="footnote-reference brackets" href="#f3" id="id13">3</a></p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Status-code-id"><span class="xref std std-term">Status code id</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>n</p></td>
-<td><p>Name</p></td>
-<td><p>[argument id] <a class="footnote-reference brackets" href="#f3" id="id14">3</a></p></td>
-<td><p>Unique reference of the value</p></td>
+<td><p>Name of the return value</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="footnote brackets">
-<dt class="label" id="f3"><span class="brackets">3</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id14">2</a>)</span></dt>
-<dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
-</dd>
-</dl>
 </section>
 <section id="structure-for-status-response-message">
 <h4><span class="section-number">4.4.4.1.2. </span>Structure for status response message<a class="headerlink" href="#structure-for-status-response-message" title="Permalink to this headline"></a></h4>
@@ -1069,8 +979,8 @@ The following table is describing the variable content of the message.</p>
 </div>
 <p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id40">
-<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id40" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id33">
+<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id33" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 21%" />
 <col style="width: 38%" />
@@ -1096,8 +1006,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <section id="return-values-returnvalue">
 <h4><span class="section-number">4.4.4.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline"></a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
-<table class="docutils align-default" id="id41">
-<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id41" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id34">
+<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id34" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 11%" />
@@ -1116,57 +1026,32 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default" id="id42">
-<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id42" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id35">
+<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 24%" />
-<col style="width: 49%" />
+<col style="width: 28%" />
+<col style="width: 72%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>sCI</p></td>
-<td><p>statusCodeId</p></td>
-<td><p>[statusCodeId] <a class="footnote-reference brackets" href="#f4" id="id15">4</a></p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Status-code-id"><span class="xref std std-term">Status code id</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>n</p></td>
-<td><p>Name</p></td>
-<td><p>[argument id] <a class="footnote-reference brackets" href="#f4" id="id16">4</a></p></td>
-<td><p>Unique reference of the value</p></td>
+<td><p>Name of the return value</p></td>
 </tr>
-<tr class="row-even"><td><p><em>(not sent)</em></p></td>
-<td><p>Type</p></td>
-<td><p>type</p></td>
-<td><p>The <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a> of the value.</p></td>
-</tr>
-<tr class="row-odd"><td><p>s</p></td>
-<td><p>Value</p></td>
-<td></td>
+<tr class="row-even"><td><p>s</p></td>
 <td><p>Value from equipment</p></td>
-</tr>
-<tr class="row-even"><td><p><em>(not sent)</em></p></td>
-<td><p>Comment</p></td>
-<td><p>description</p></td>
-<td><p>Description for the status request.</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="footnote brackets">
-<dt class="label" id="f4"><span class="brackets">4</span><span class="fn-backref">(<a href="#id15">1</a>,<a href="#id16">2</a>)</span></dt>
-<dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
-</dd>
-</dl>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id43">
-<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id43" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id36">
+<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id36" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 24%" />
@@ -1244,8 +1129,8 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
 </div>
 <p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id44">
-<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id44" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id37">
+<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id37" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 26%" />
 <col style="width: 32%" />
@@ -1456,8 +1341,8 @@ The site responds with a command acknowledgement.</p>
 error resulting in MessageNotAck. See section about <a class="reference internal" href="error_handling.html#incomplete-commands"><span class="std std-ref">Incomplete commands</span></a>.</p>
 <p>Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment</p>
-<section id="id17">
-<h3><span class="section-number">4.4.5.1. </span>Message structure<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h3>
+<section id="id12">
+<h3><span class="section-number">4.4.5.1. </span>Message structure<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
 <section id="structure-of-a-command-request">
 <h4><span class="section-number">4.4.5.1.1. </span>Structure of a command request<a class="headerlink" href="#structure-of-a-command-request" title="Permalink to this headline"></a></h4>
 <p>A command request message has the structure according to the example
@@ -1502,8 +1387,8 @@ requested object</p>
 once.</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
-<table class="docutils align-default" id="id45">
-<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id45" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id38">
+<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id38" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 13%" />
 <col style="width: 13%" />
@@ -1524,61 +1409,32 @@ once.</p>
 </table>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<p>The <em>SXL</em> columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id46">
-<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id46" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id39">
+<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id39" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 15%" />
-<col style="width: 23%" />
-<col style="width: 49%" />
+<col style="width: 19%" />
+<col style="width: 81%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>SXL (Excel)</p></th>
-<th class="head"><p>SXL (YAML)</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>cCI</p></td>
-<td><p>commandCodeId</p></td>
-<td><p>[commandCodeId] <a class="footnote-reference brackets" href="#f5" id="id18">5</a></p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Command-code-id"><span class="xref std std-term">Command code id</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><em>(not sent)</em></p></td>
-<td><p>Description</p></td>
-<td><p>description</p></td>
-<td><p>Description for the command request.</p></td>
+<tr class="row-odd"><td><p>n</p></td>
+<td><p>Name of the argument</p></td>
 </tr>
-<tr class="row-even"><td><p>n</p></td>
-<td><p>Name</p></td>
-<td><p>[argument] <a class="footnote-reference brackets" href="#f5" id="id19">5</a></p></td>
-<td><p>Unique reference of the value</p></td>
-</tr>
-<tr class="row-odd"><td><p>cO</p></td>
-<td><p>Command</p></td>
-<td><p>command</p></td>
-<td><p>Command</p></td>
-</tr>
-<tr class="row-even"><td><p><em>(not sent)</em></p></td>
-<td><p>Type</p></td>
-<td><p>type</p></td>
-<td><p>The <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a> of the value.</p></td>
+<tr class="row-even"><td><p>cO</p></td>
+<td><p>Command. Optionally used for RPC (Remote Procedure Call)</p></td>
 </tr>
 <tr class="row-odd"><td><p>v</p></td>
-<td><p>Value</p></td>
-<td></td>
 <td><p>Value</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="footnote brackets">
-<dt class="label" id="f5"><span class="brackets">5</span><span class="fn-backref">(<a href="#id18">1</a>,<a href="#id19">2</a>)</span></dt>
-<dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
-</dd>
-</dl>
 </section>
 <section id="structure-of-a-command-response-message">
 <h4><span class="section-number">4.4.5.1.2. </span>Structure of a command response message<a class="headerlink" href="#structure-of-a-command-response-message" title="Permalink to this headline"></a></h4>
@@ -1624,8 +1480,8 @@ once.</p>
 </div>
 <p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id47">
-<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id47" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id40">
+<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id40" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -1648,12 +1504,12 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 </section>
-<section id="id20">
-<h4><span class="section-number">4.4.5.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#id20" title="Permalink to this headline"></a></h4>
+<section id="id13">
+<h4><span class="section-number">4.4.5.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
 be empty if not return values are defined.</p>
-<table class="docutils align-default" id="id48">
-<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id48" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id41">
+<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id41" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 9%" />
@@ -1675,8 +1531,8 @@ be empty if not return values are defined.</p>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL). The <em>SXL</em> columns describes the correlation
 between the JSon elements and the titles in the SXL.</p>
-<table class="docutils align-default" id="id49">
-<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return value defined by SXL</span><a class="headerlink" href="#id49" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id42">
+<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return value defined by SXL</span><a class="headerlink" href="#id42" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 14%" />
 <col style="width: 15%" />
@@ -1693,12 +1549,12 @@ between the JSon elements and the titles in the SXL.</p>
 <tbody>
 <tr class="row-even"><td><p>cCI</p></td>
 <td><p>commandCodeId</p></td>
-<td><p>[commandCodeId] <a class="footnote-reference brackets" href="#f6" id="id21">6</a></p></td>
+<td><p>[commandCodeId] <a class="footnote-reference brackets" href="#f6" id="id14">1</a></p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-Command-code-id"><span class="xref std std-term">Command code id</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>n</p></td>
 <td><p>Name</p></td>
-<td><p>[argument id] <a class="footnote-reference brackets" href="#f6" id="id22">6</a></p></td>
+<td><p>[argument id] <a class="footnote-reference brackets" href="#f6" id="id15">1</a></p></td>
 <td><p>Unique reference of the value</p></td>
 </tr>
 <tr class="row-even"><td><p><em>(not sent)</em></p></td>
@@ -1714,13 +1570,13 @@ between the JSon elements and the titles in the SXL.</p>
 </tbody>
 </table>
 <dl class="footnote brackets">
-<dt class="label" id="f6"><span class="brackets">6</span><span class="fn-backref">(<a href="#id21">1</a>,<a href="#id22">2</a>)</span></dt>
+<dt class="label" id="f6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id14">1</a>,<a href="#id15">2</a>)</span></dt>
 <dd><p>See <a class="reference internal" href="sxl.html#signal-exchange-list"><span class="std std-ref">Signal Exchange List</span></a></p>
 </dd>
 </dl>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id50">
-<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id50" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id43">
+<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id43" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 24%" />
@@ -1764,7 +1620,7 @@ implicit in the following figure.</p>
 </section>
 </section>
 <section id="message-acknowledgement">
-<span id="id23"></span><h2><span class="section-number">4.4.6. </span>Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline"></a></h2>
+<span id="id16"></span><h2><span class="section-number">4.4.6. </span>Message acknowledgement<a class="headerlink" href="#message-acknowledgement" title="Permalink to this headline"></a></h2>
 <p>Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
 acknowledgement, which has a different function. The purpose of
@@ -1820,8 +1676,8 @@ below.</p>
 </div>
 <p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id51">
-<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id51" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id44">
+<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id44" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 7%" />
 <col style="width: 11%" />
@@ -1841,8 +1697,8 @@ below.</p>
 </tbody>
 </table>
 </section>
-<section id="id24">
-<h3><span class="section-number">4.4.6.3. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id24" title="Permalink to this headline"></a></h3>
+<section id="id17">
+<h3><span class="section-number">4.4.6.3. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h3>
 <p>Supervision system sends initial message</p>
 <img alt="../_images/message_ack_system.png" class="align-center" src="../_images/message_ack_system.png" />
 <ol class="arabic simple">
@@ -1876,8 +1732,8 @@ existing implementations.</p>
 establishment (See
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>).</p>
-<section id="id25">
-<h3><span class="section-number">4.4.7.1. </span>Message structure<a class="headerlink" href="#id25" title="Permalink to this headline"></a></h3>
+<section id="id18">
+<h3><span class="section-number">4.4.7.1. </span>Message structure<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
 <p>A version message has the structure according to the example below. In
 the example below the system has support for RSMP version <strong>3.1.1</strong>,
 <strong>3.1.2</strong> and SXL version <strong>1.0.13</strong> for site <strong>O+14439=481WA001</strong>.</p>
@@ -1906,8 +1762,8 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 defined by the SXL.</p>
 <p>The <em>Site config</em> columns describes the correlation between the JSon
 elements and the titles in the site configuration.</p>
-<table class="docutils align-default" id="id52">
-<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id52" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id45">
+<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id45" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 28%" />
@@ -1938,8 +1794,8 @@ elements and the titles in the site configuration.</p>
 Therefore the site ids that are used in the RSMP connection are sent
 in the message using an array with <code class="docutils literal notranslate"><span class="pre">sId</span></code>.</p>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id53">
-<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id53" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id46">
+<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id46" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 6%" />
 <col style="width: 94%" />
@@ -1958,7 +1814,7 @@ in the message using an array with <code class="docutils literal notranslate"><s
 </section>
 </section>
 <section id="watchdog">
-<span id="id26"></span><h2><span class="section-number">4.4.8. </span>Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline"></a></h2>
+<span id="id19"></span><h2><span class="section-number">4.4.8. </span>Watchdog<a class="headerlink" href="#watchdog" title="Permalink to this headline"></a></h2>
 <p>The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
@@ -1978,8 +1834,8 @@ setting should be (1) once a minute.</p></li>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>
-<section id="id27">
-<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id27" title="Permalink to this headline"></a></h3>
+<section id="id20">
+<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id20" title="Permalink to this headline"></a></h3>
 <p>A watchdog message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span><span class="w"></span>
@@ -1991,8 +1847,8 @@ from the supervision system. At initial communication establishment
 </div>
 <p>JSon code 25: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id54">
-<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id54" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id47">
+<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id47" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -2013,8 +1869,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 </section>
-<section id="id28">
-<h3><span class="section-number">4.4.8.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id28" title="Permalink to this headline"></a></h3>
+<section id="id21">
+<h3><span class="section-number">4.4.8.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id21" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>
