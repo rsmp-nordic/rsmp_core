@@ -353,7 +353,7 @@ elements and the titles in the SXL.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|\Yl{0.55}|
 
-.. table::
+.. table:: Return values
 
    =============  ============ ==================== ===============================================
    Element        SXL (Excel)  SXL (YAML)           Description
