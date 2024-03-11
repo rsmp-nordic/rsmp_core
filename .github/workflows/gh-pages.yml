@@ -34,8 +34,8 @@ jobs:
               imagemagick \
               librsvg2-bin \
               latexmk \
-              graphviz \
-              mscgen
+              python3-sphinxcontrib-mermaid \
+              texlive-extra-utils
     - name: Build rsmp_core repository
       run: |
         cd 3.2.2
