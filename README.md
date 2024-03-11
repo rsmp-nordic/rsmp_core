@@ -27,7 +27,7 @@ Requirements:
 - LaTeX (and pdflatex, and various LaTeX packages)
 - Mermaid: https://mermaid.js.org/
 
-On Ubuntu 23.10 and later:
+On Ubuntu:
 
 ```
 # apt-get install python3-sphinx texlive texlive-latex-extra \
