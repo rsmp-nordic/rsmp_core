@@ -139,8 +139,21 @@ defined in their own sheet.</p>
 <span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local mode</span><span class="w"></span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In local mode</span><span class="w"></span>
 <span class="w">      </span><span class="nt">2</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">No Communications</span><span class="w"></span>
+<span class="w">      </span><span class="nt">3</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">High priority fault</span><span class="w"></span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fail safe mode</span><span class="w"></span>
+<span class="w">      </span><span class="nt">4</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium Priority Fault</span><span class="w"></span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium priority fault, but not in fail safe mode</span><span class="w"></span>
+<span class="w">      </span><span class="nt">5</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Low Priority Fault</span><span class="w"></span>
+<span class="w">      </span><span class="nt">6</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected / Normal - In Use</span><span class="w"></span>
+<span class="w">      </span><span class="nt">7</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected / Normal - Idle</span><span class="w"></span>
+<span class="w">      </span><span class="nt">8</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Not Connected</span><span class="w"></span>
 <span class="w">    </span><span class="nt">functional_position</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">position-1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span><span class="w"></span>
 <span class="w">      </span><span class="nt">position-2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span><span class="w"></span>
@@ -184,10 +197,6 @@ defined in their own sheet.</p>
 </ul>
 <p>Each with one argument named <code class="docutils literal notranslate"><span class="pre">argument-1</span></code> using integer, string and boolean
 data types.</p>
-<p>It also defines the aggregated status (only bit 1 and 2) and <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">functional
-position</span></a>.</p>
-<p>At least one argument are required for command and statuses, but they are
-optional in alarms.</p>
 <p>The alarm contains the fields:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> is the alarm description</p></li>
@@ -212,6 +221,8 @@ optional in alarms.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">max</span></code> is the maximum value (only for <em>number</em> or <em>integer</em> data types)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> is the <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a></p></li>
 </ul>
+<p>At least one argument are required for command and statuses, but they are
+optional in alarms.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the Excel version of the SXL, there is no separate min and max columns.
@@ -223,7 +234,8 @@ the maximum value.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">functional_position</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">Functional position</span></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">functional_state</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-state"><span class="xref std std-term">Functional state</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1-8</span></code> is an array of eight booleans. Each with a title and description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1-8</span></code> is an array of eight booleans. Each with a title and optional
+description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
 </ul>
 <section id="alarm-description">
 <span id="id2"></span><h3><span class="section-number">4.7.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Permalink to this headline"></a></h3>

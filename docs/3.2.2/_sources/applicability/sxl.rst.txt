@@ -56,8 +56,21 @@ Using the YAML format; each message type is defined like this:
           title: Local mode
           description: In local mode
         2:
+          title: No Communications
+        3:
           title: High priority fault
           description: Fail safe mode
+        4:
+          title: Medium Priority Fault
+          description: Medium priority fault, but not in fail safe mode
+        5:
+          title: Low Priority Fault
+        6:
+          title: Connected / Normal - In Use
+        7:
+          title: Connected / Normal - Idle
+        8:
+          title: Not Connected
       functional_position:
         position-1: start
         position-2: stop
@@ -101,12 +114,6 @@ This example defines:
 Each with one argument named ``argument-1`` using integer, string and boolean
 data types.
 
-It also defines the aggregated status (only bit 1 and 2) and :term:`functional
-position`.
-
-At least one argument are required for command and statuses, but they are
-optional in alarms.
-
 The alarm contains the fields:
 
 - ``description`` is the alarm description
@@ -131,6 +138,10 @@ An argument contains the fields:
 - ``max`` is the maximum value (only for *number* or *integer* data types)
 - ``type`` is the :ref:`data type<data_types>`
 
+At least one argument are required for command and statuses, but they are
+optional in alarms.
+
+
 .. note::
 
     In the Excel version of the SXL, there is no separate min and max columns.
@@ -141,8 +152,11 @@ An argument contains the fields:
 The aggregated status contains the fields:
 
 - ``functional_position`` is the :term:`Functional position`
+
 - ``functional_state`` is the :term:`Functional state`
-- ``1-8`` is an array of eight booleans. Each with a title and description. See :ref:`state-bits`
+
+- ``1-8`` is an array of eight booleans. Each with a title and optional
+  description. See :ref:`state-bits`
 
 
 .. _alarm-description:
