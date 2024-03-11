@@ -12,8 +12,6 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -465,11 +463,14 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="#alarm-transitions"><span class="std std-ref">Alarm transitions</span></a> show possible transitions between
+<p><a class="reference internal" href="#alarm-transitions"><span class="std std-numref">Fig. 4.1</span></a> show possible transitions between
 different alarm states.</p>
-<figure class="align-default" id="id25">
-<span id="alarm-transitions"></span><figcaption>
-<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Alarm transitions</span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
+<p>Continuous lines defines possible alarm status changes controlled by logic
+and dashed lines defines possible changes controlled by user.</p>
+<figure class="align-center" id="alarm-transitions">
+<img alt="Alarm transitions" src="../_images/alarm_transitions.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Alarm transitions</span><a class="headerlink" href="#alarm-transitions" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>Alarms should not be sent unless:</p>
@@ -481,8 +482,8 @@ different alarm states.</p>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id26">
-<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id26" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id25" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 65%" />
@@ -507,8 +508,8 @@ defined by the SXL.</p>
 <p>Return values (“rvs”) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
-<table class="docutils align-default" id="id27">
-<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id27" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id26">
+<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id26" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 13%" />
@@ -529,8 +530,8 @@ be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 </table>
 <p>The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id28">
-<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id28" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id27">
+<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id27" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 65%" />
@@ -708,69 +709,42 @@ example below.</p>
 <p>Allowed content in alarm suspend message is the same as for alarm messages
 (See <a class="reference internal" href="#structure-of-an-alarm-message"><span class="std std-ref">Structure of an alarm message</span></a>) with the exception for alarm status
 (See <a class="reference internal" href="#alarm-status"><span class="std std-ref">Alarm status</span></a>) and (See <a class="reference internal" href="#return-values"><span class="std std-ref">Return values</span></a>).</p>
-<p></p>
 </section>
 </section>
 <section id="message-exchange-between-site-and-supervision-system">
 <h3><span class="section-number">4.4.1.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#message-exchange-between-site-and-supervision-system" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
-<p><strong>An alarm turns active/inactive</strong></p>
-<figure class="align-default" id="id29">
-<figcaption>
-<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">An alarm turns active/inactive</span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p><strong>An alarm is active/inactive</strong></p>
+<img alt="../_images/alarm_active_inactive.png" class="align-center" src="../_images/alarm_active_inactive.png" />
 <ol class="arabic simple">
-<li><p>An alarm message is sent to supervision system with the status of the
-alarm (the alarm is active/inactive)</p></li>
+<li><p>An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)</p></li>
 </ol>
 <p><strong>An alarm is requested</strong></p>
-<figure class="align-default" id="id30">
-<figcaption>
-<p><span class="caption-number">Fig. 4.6 </span><span class="caption-text">An alarm is requested</span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/alarm_request.png" class="align-center" src="../_images/alarm_request.png" />
 <ol class="arabic simple">
 <li><p>An alarm is requested from the supervision system</p></li>
 <li><p>An alarm message is sent to supervision system with the status of the alarm</p></li>
 </ol>
 <p><strong>An alarm is acknowledged at the supervision system</strong></p>
-<figure class="align-default" id="id31">
-<figcaption>
-<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text">An alarm is acknowledged at the supervision system</span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/alarm_ack_system.png" class="align-center" src="../_images/alarm_ack_system.png" />
 <ol class="arabic simple">
 <li><p>An alarm acknowledgement message is sent to the site</p></li>
 <li><p>An alarm message is sent to the supervision system (that the alarm is acknowledged)</p></li>
 </ol>
-<p></p>
 <p><strong>An alarm is acknowledged at the site</strong></p>
-<figure class="align-default" id="id32">
-<figcaption>
-<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text">An alarm is acknowledged at the site</span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/alarm_ack_site.png" class="align-center" src="../_images/alarm_ack_site.png" />
 <ol class="arabic simple">
 <li><p>An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)</p></li>
 </ol>
 <p><strong>An alarm is suspended/unsuspended from the supervision system</strong></p>
-<figure class="align-default" id="id33">
-<figcaption>
-<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text">An alarm is suspended/unsuspended from the supervision system</span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/alarm_suspend_system.png" class="align-center" src="../_images/alarm_suspend_system.png" />
 <ol class="arabic simple">
 <li><p>An alarm suspend message is being sent to the site</p></li>
 <li><p>An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)</p></li>
 </ol>
 <p><strong>An alarm is suspended/unsuspended from the site</strong></p>
-<figure class="align-default" id="id34">
-<figcaption>
-<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text">An alarm is suspended/unsuspended from the site</span><a class="headerlink" href="#id34" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/alarm_suspend_site.png" class="align-center" src="../_images/alarm_suspend_site.png" />
 <ol class="arabic simple">
 <li><p>An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)</p></li>
 </ol>
@@ -806,8 +780,8 @@ below.</p>
 </div>
 <p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
-<table class="docutils align-default" id="id35">
-<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id28">
+<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id28" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -831,8 +805,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id36">
-<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id36" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id29">
+<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id29" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 13%" />
 <col style="width: 87%" />
@@ -896,22 +870,14 @@ below.</p>
 <h3><span class="section-number">4.4.3.2. </span>Message exchange between site and supervision system<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
-<p><strong>Functional state, functional position or status bits changes at the
+<p><strong>Functional state, functional position or state booleans changes at the
 site</strong></p>
-<figure class="align-default" id="id37">
-<figcaption>
-<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text">Functional state, functional position or status bits changes at the site</span><a class="headerlink" href="#id37" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/aggregated_status.png" class="align-center" src="../_images/aggregated_status.png" />
 <ol class="arabic simple">
 <li><p>An aggregated status message is sent to the supervision system.</p></li>
 </ol>
 <p><strong>The supervision system request aggregated status</strong></p>
-<figure class="align-default" id="id38">
-<figcaption>
-<p><span class="caption-number">Fig. 4.12 </span><span class="caption-text">The supervision system request aggregated status</span><a class="headerlink" href="#id38" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/aggregated_status_request.png" class="align-center" src="../_images/aggregated_status_request.png" />
 <ol class="arabic simple">
 <li><p>An aggregated status request message is sent to the site.</p></li>
 <li><p>An aggregated status message is sent to the supervision system.</p></li>
@@ -960,8 +926,8 @@ below.</p>
 (<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple status at
 once.</p>
 <p>The following table is describing the variable content of the message.</p>
-<table class="docutils align-default" id="id39">
-<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id39" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id30">
+<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id30" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 28%" />
 <col style="width: 72%" />
@@ -1013,8 +979,8 @@ The following table is describing the variable content of the message.</p>
 </div>
 <p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id40">
-<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id40" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id31">
+<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id31" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 21%" />
 <col style="width: 38%" />
@@ -1040,8 +1006,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <section id="return-values-returnvalue">
 <h4><span class="section-number">4.4.4.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Permalink to this headline"></a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
-<table class="docutils align-default" id="id41">
-<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id41" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id32">
+<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id32" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 11%" />
 <col style="width: 11%" />
@@ -1060,8 +1026,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default" id="id42">
-<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id42" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id33">
+<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id33" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 28%" />
 <col style="width: 72%" />
@@ -1084,8 +1050,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id43">
-<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id43" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id34">
+<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id34" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 24%" />
@@ -1163,8 +1129,8 @@ e.g. temperature, wind speed, power consumption, manual control.</p>
 </div>
 <p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id44">
-<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id44" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id35">
+<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id35" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 26%" />
 <col style="width: 32%" />
@@ -1352,11 +1318,7 @@ usual message acknowledgement.</p>
 <h3><span class="section-number">4.4.4.2. </span>Message exchange between site and supervision system/other equipment - request<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-request" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
-<figure class="align-default" id="id45">
-<figcaption>
-<p><span class="caption-number">Fig. 4.13 </span><span class="caption-text">Message exchange with status request</span><a class="headerlink" href="#id45" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/status_request_response.png" class="align-center" src="../_images/status_request_response.png" />
 <ol class="arabic simple">
 <li><p>Status request</p></li>
 <li><p>Status response</p></li>
@@ -1366,11 +1328,7 @@ implicit in the following figure.</p>
 <h3><span class="section-number">4.4.4.3. </span>Message exchange between site and supervision system/other equipment - subscription<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment-subscription" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
-<figure class="align-default" id="id46">
-<figcaption>
-<p><span class="caption-number">Fig. 4.14 </span><span class="caption-text">Message exchange with status subscription</span><a class="headerlink" href="#id46" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/status_update.png" class="align-center" src="../_images/status_update.png" />
 <p>Example of message exchange with subscription, status updates and unsubscription.</p>
 </section>
 </section>
@@ -1429,8 +1387,8 @@ requested object</p>
 once.</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
-<table class="docutils align-default" id="id47">
-<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id47" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id36">
+<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id36" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 13%" />
 <col style="width: 13%" />
@@ -1451,8 +1409,8 @@ once.</p>
 </table>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id48">
-<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id48" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id37">
+<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id37" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 19%" />
 <col style="width: 81%" />
@@ -1522,8 +1480,8 @@ once.</p>
 </div>
 <p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id49">
-<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id49" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id38">
+<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id38" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -1550,8 +1508,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <h4><span class="section-number">4.4.5.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
 be empty if not return values are defined.</p>
-<table class="docutils align-default" id="id50">
-<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id50" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id39">
+<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id39" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 9%" />
@@ -1572,8 +1530,8 @@ be empty if not return values are defined.</p>
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id51">
-<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id51" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id40">
+<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id40" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 22%" />
 <col style="width: 78%" />
@@ -1596,8 +1554,8 @@ exchange list (SXL).</p>
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id52">
-<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id52" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id41">
+<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id41" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 24%" />
@@ -1633,11 +1591,7 @@ exchange list (SXL).</p>
 <h3><span class="section-number">4.4.5.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#message-exchange-between-site-and-supervision-system-other-equipment" title="Permalink to this headline"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
-<figure class="align-default" id="id53">
-<figcaption>
-<p><span class="caption-number">Fig. 4.15 </span><span class="caption-text">Message exchange with command request</span><a class="headerlink" href="#id53" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/command_request_response.png" class="align-center" src="../_images/command_request_response.png" />
 <ol class="arabic simple">
 <li><p>Command request</p></li>
 <li><p>Command response</p></li>
@@ -1701,8 +1655,8 @@ below.</p>
 </div>
 <p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id54">
-<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id54" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id42">
+<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id42" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 7%" />
 <col style="width: 11%" />
@@ -1724,24 +1678,16 @@ below.</p>
 </section>
 <section id="id15">
 <h3><span class="section-number">4.4.6.3. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id15" title="Permalink to this headline"></a></h3>
-<p><strong>Supervision system sends initial message</strong></p>
-<figure class="align-default" id="id55">
-<figcaption>
-<p><span class="caption-number">Fig. 4.16 </span><span class="caption-text">Supervision system sends initial message</span><a class="headerlink" href="#id55" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p>Supervision system sends initial message</p>
+<img alt="../_images/message_ack_system.png" class="align-center" src="../_images/message_ack_system.png" />
 <ol class="arabic simple">
-<li><p>An RSMP message is sent from supervision system or other equipment</p></li>
+<li><p>A message is sent from supervision system or other equipment</p></li>
 <li><p>The site responds with an message acknowledgement</p></li>
 </ol>
-<p><strong>Site sends initial message</strong></p>
-<figure class="align-default" id="id56">
-<figcaption>
-<p><span class="caption-number">Fig. 4.17 </span><span class="caption-text">Site sends initial message</span><a class="headerlink" href="#id56" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<p>Site sends initial message</p>
+<img alt="../_images/message_ack_site.png" class="align-center" src="../_images/message_ack_site.png" />
 <ol class="arabic simple">
-<li><p>An RSMP message is sent from the site</p></li>
+<li><p>A message is sent from the site</p></li>
 <li><p>The supervision system or other equipment responds with an message acknowledgement</p></li>
 </ol>
 </section>
@@ -1795,8 +1741,8 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 defined by the SXL.</p>
 <p>The <em>Site config</em> columns describes the correlation between the JSon
 elements and the titles in the site configuration.</p>
-<table class="docutils align-default" id="id57">
-<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id57" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id43">
+<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id43" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 28%" />
@@ -1827,8 +1773,8 @@ elements and the titles in the site configuration.</p>
 Therefore the site ids that are used in the RSMP connection are sent
 in the message using an array with <code class="docutils literal notranslate"><span class="pre">sId</span></code>.</p>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id58">
-<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id58" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id44">
+<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id44" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 6%" />
 <col style="width: 94%" />
@@ -1880,8 +1826,8 @@ from the supervision system. At initial communication establishment
 </div>
 <p>JSon code 25: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id59">
-<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id59" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id45">
+<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id45" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 15%" />
@@ -1907,20 +1853,12 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>
-<figure class="align-default" id="id60">
-<figcaption>
-<p><span class="caption-number">Fig. 4.18 </span><span class="caption-text">Site sends watchdog message</span><a class="headerlink" href="#id60" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/watchdog_site.png" src="../_images/watchdog_site.png" />
 <ol class="arabic simple">
 <li><p>Watchdog message is sent from site</p></li>
 </ol>
 <p>Supervision system/other equipment sends watchdog message</p>
-<figure class="align-default" id="id61">
-<figcaption>
-<p><span class="caption-number">Fig. 4.19 </span><span class="caption-text">Supervision system sends watchdog message</span><a class="headerlink" href="#id61" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
+<img alt="../_images/watchdog_system.png" src="../_images/watchdog_system.png" />
 <ol class="arabic simple">
 <li><p>Watchdog message is sent from supervision system/other equipment</p></li>
 </ol>
