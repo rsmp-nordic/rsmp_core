@@ -19,6 +19,7 @@
 #
 import os
 import sys
+import platform
 sys.path.insert(0, os.path.abspath('extensions'))
 
 
@@ -31,7 +32,20 @@ sys.path.insert(0, os.path.abspath('extensions'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.mathjax', 'sphinx.ext.extlinks']
+extensions = [
+    'sphinx.ext.mathjax',
+    'sphinx.ext.extlinks',
+    'sphinxcontrib.mermaid'
+]
+
+# Mermaid config
+mermaid_params = ['--configFile', 'source/style/sequence_config.json']
+
+# Prevents white space underneath the diagram
+mermaid_pdfcrop = 'pdfcrop'
+
+# Needed when using configuration
+mermaid_output_format = 'png'
 
 numfig = True
 
