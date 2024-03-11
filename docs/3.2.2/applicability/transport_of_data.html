@@ -12,6 +12,8 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -175,7 +177,11 @@ with the purchaser unless other arrangement is agreed upon.</p></li>
 messages are sent in the following order.</p>
 <p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
-<img alt="../_images/establish-site-system.png" class="align-center" src="../_images/establish-site-system.png" />
+<figure class="align-default" id="id7">
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Communication establishment - Site and supervision system</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <ol class="arabic simple">
 <li><p>Site sends RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
 <li><p>The supervision system verifies the RSMP version, SXL version and site id.
@@ -185,14 +191,13 @@ If there is a mismatch the sequence does not proceed.
 <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
 <li><p>The site verifies the RSMP version, SXL version and site id.
 If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The latest version of RSMP that both communicating parties exchange in the
-RSMP/SXL Version is implicitly selected and used in any further RSMP
-communication.</p></li>
+(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>). The latest version of RSMP
+that both communicating parties exchange in the RSMP/SXL Version is
+implicitly selected and used in any further RSMP communication.</p></li>
 <li><p>The site sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
-<li><p>The system sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
-<li><p>Asynchronous message exchange can begin. This means that commands and
-statuses are allowed to be sent</p></li>
+<li><p>The system sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>).
+Asynchronous message exchange can begin. This means that commands and
+statuses are allowed to be sent.</p></li>
 <li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>).
 If no object for aggregated status is defined in the signal exchange list
 then no aggregated status message is sent.</p></li>
@@ -230,7 +235,11 @@ the following order.</p>
 following order.</p>
 <p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figure.</p>
-<img alt="../_images/establish-site-site.png" class="align-center" src="../_images/establish-site-site.png" />
+<figure class="align-default" id="id8">
+<figcaption>
+<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Communication establishment - Between sites</span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <ol class="arabic simple">
 <li><p>The follower site sends RSMP / SXL version (according to section
 <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
@@ -240,15 +249,14 @@ If there is a mismatch the sequence does not proceed.
 <li><p>The leader site sends RSMP / SXL version (according to section
 <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
 <li><p>The follower site verifies the RSMP version, SXL version and site id.
-If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The latest version of RSMP that both communicating parties exchange in the
-RSMP/SXL Version is implicitly selected and used in any further RSMP
-communication.</p></li>
+If there is a mismatch the sequence does not proceed. (see section
+<a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>). The latest version of RSMP that both
+communicating parties exchange in the RSMP/SXL Version is implicitly
+selected and used in any further RSMP communication.</p></li>
 <li><p>The follower site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
-<li><p>The leader site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
-<li><p>Asynchronous message exchange can begin. This means that commands and
-statuses are allowed to be sent</p></li>
+<li><p>The leader site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>).
+Asynchronous message exchange can begin. This means that commands and
+statuses are allowed to be sent.</p></li>
 <li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)
 If no object for aggregated status is defined in the signal exchange list
 then no aggregated status message is sent.</p></li>
@@ -291,7 +299,11 @@ reason (<cite>rea</cite>) set to the cause of rejection. For instance,
 <code class="docutils literal notranslate"><span class="pre">RSMP</span> <span class="pre">versions</span> <span class="pre">[3.1.5]</span> <span class="pre">requested,</span> <span class="pre">but</span> <span class="pre">only</span> <span class="pre">[3.1.1,3.1.2,3.1.3,3.1.4]</span> <span class="pre">supported</span></code></p></li>
 <li><p>The connection is closed</p></li>
 </ol>
-<img alt="../_images/communication-rejection.png" class="align-center" src="../_images/communication-rejection.png" />
+<figure class="align-default" id="id9">
+<figcaption>
+<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Communication rejection</span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 <p>Is it not allowed to disconnect for any other circumstance other than mismatch
 during RSMP/SXL Version or <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">missing message acknowledgement</span></a>
 unless there is a communication disruption.</p>
@@ -317,8 +329,8 @@ sized to be able to store 10000 messages.</p></li>
 </ul>
 <p>The following message types should be buffered in the equipment’s outgoing
 communication buffer in the event of an communication disruption.</p>
-<table class="docutils align-default" id="id7">
-<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Message types that should be buffered</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Message types that should be buffered</span><a class="headerlink" href="#id10" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 32%" />
 <col style="width: 68%" />

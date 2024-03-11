@@ -101,8 +101,24 @@ messages are sent in the following order.
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/establish-site-system.png
-   :align: center
+.. mermaid::
+   :caption: Communication establishment - Site and supervision system
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system
+     Site->>System: RSMP/SXL version
+     System-->System: Verify RSMP version,<br/>SXL version and site id
+     System->>Site: RSMP/SXL version
+     Site-->Site: Verify RSMP version,<br/>SXL version and site id
+     Note over Site,System: RSMP version is implicitly selected<br/>based upon the latest version that<br/>both communicating parties support
+     Site->>System: Watchdog
+     System->>Site: Watchdog
+     Note over Site,System: Asynchronous message exchange can begin
+     Site->>System: Aggregated status
+     Site->>System: All alarms
+     Site->>System: Buffered messages
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
@@ -115,29 +131,25 @@ implicit in the following figure.
 
 4. The site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+   (see section :ref:`communication-rejection`). The latest version of RSMP
+   that both communicating parties exchange in the RSMP/SXL Version is
+   implicitly selected and used in any further RSMP communication.
 
+5. The site sends a Watchdog (according to section :ref:`watchdog`)
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+6. The system sends a Watchdog (according to section :ref:`watchdog`).
+   Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent.
 
-6. The site sends a Watchdog (according to section :ref:`watchdog`)
-
-7. The system sends a Watchdog (according to section :ref:`watchdog`)
-
-8. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
-
-9. Aggregated status (according to section :ref:`aggregated-status-message`).
+7. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
-    are sent. (according to section :ref:`alarm-messages`).
+8. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
+   are sent. (according to section :ref:`alarm-messages`).
 
-11. Buffered messages in the equipment's outgoing communication buffer are sent,
-    including alarms, aggregated status and status updates.
+9. Buffered messages in the equipment's outgoing communication buffer are sent,
+   including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -176,8 +188,22 @@ following order.
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
-.. image:: /img/msc/establish-site-site.png
-   :align: center
+.. mermaid::
+   :caption: Communication establishment - Between sites
+
+   sequenceDiagram
+     autonumber
+     participant Leader as Site (leader)
+     participant Follower as Site (follower)
+     Follower->>Leader: RSMP/SXL version
+     Leader-->Leader: Verify RSMP version,<br/>SXL version and site id
+     Leader->>Follower: RSMP/SXL version
+     Follower-->Follower: Verify RSMP version,<br/>SXL version and site id
+     Note over Leader,Follower: RSMP version is selected based upon what sites support
+     Follower->>Leader: Watchdog
+     Leader->>Follower: Watchdog
+     Note over Leader,Follower: Asynchronous message exchange can begin
+     Follower->>Leader: Aggregated status
 
 1. The follower site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
@@ -190,21 +216,18 @@ implicit in the following figure.
    :ref:`rsmpsxl-version`).
 
 4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+   If there is a mismatch the sequence does not proceed. (see section
+   :ref:`communication-rejection`). The latest version of RSMP that both
+   communicating parties exchange in the RSMP/SXL Version is implicitly
+   selected and used in any further RSMP communication.
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
-6. The follower site sends Watchdog (according to section :ref:`watchdog`)
+6. The leader site sends Watchdog (according to section :ref:`watchdog`).
+   Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent.
 
-7. The leader site sends Watchdog (according to section :ref:`watchdog`)
-
-8. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
-
-9. Aggregated status (according to section :ref:`aggregated-status-message`)
+7. Aggregated status (according to section :ref:`aggregated-status-message`)
    If no object for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
@@ -247,8 +270,17 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
 3. The connection is closed
 
-.. image:: /img/msc/communication-rejection.png
-   :align: center
+.. mermaid::
+   :caption: Communication rejection
+
+   sequenceDiagram
+     autonumber
+     participant Site
+     participant System as Supervision system/Site
+     Site->>System: RSMP/SXL version
+     System-->System: Verify RSMP version,<br/>SXL version and site id
+     System->>Site: MessageNotAck
+     Note over Site,System: Connection closed
 
 Is it not allowed to disconnect for any other circumstance other than mismatch
 during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
