@@ -25,16 +25,15 @@ Requirements:
 
 - Sphinx: https://www.sphinx-doc.org
 - LaTeX (and pdflatex, and various LaTeX packages)
-- Mermaid: https://mermaid.js.org/
+- Mscgen: http://www.mcternan.me.uk/mscgen/
+- Graphviz: https://graphviz.org
 
 On Ubuntu:
 
 ```
 # apt-get install python3-sphinx texlive texlive-latex-extra \
-  texlive-humanities texlive-fonts-extra imagemagick \
-  librsvg2-bin latexmk python3-sphinx-rtd-theme \
-  python3-sphinxcontrib-mermaid texlive-extra-utils
-# npm install -g @mermaid-js/mermaid-cli
+  texlive-humanities texlive-fonts-extra mscgen imagemagick \
+  librsvg2-bin latexmk graphviz python3-sphinx-rtd-theme
 ```
 
 On MacOS using MacTex and Homebrew:
@@ -44,6 +43,20 @@ Download MacTeX and install from http://www.tug.org/mactex
 ```
 $ pip3 install -U sphinx sphinx_rtd_theme
 $ brew install gts
+$ brew install graphwiz
+# wget http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+```
+
+Install mscgen
+
+```
+curl -O http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+tar xfz mscgen-src-0.20.tar.gz 
+cd mscgen-0.20/
+./configure
+make
+make check
+sudo make install
 ```
 
 Then:

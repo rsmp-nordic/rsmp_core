@@ -1,0 +1,39 @@
+# Aggregated status boolean array
+
+msc {
+        hscale = "1.3";
+
+	A [label="Boolean element (1-8)"], B [label="Description"], C [label="Status"];
+
+        A box A [label="1"],
+	B box B [label="\nThe site is out of operation by the local control system or maintenance personnel\n"],
+        C box C [label="Light blue - Local control", textbgcolour="#00ffff"];
+
+        A box A [label="2"],
+	B box B [label="\nSupervision system has no contact with the site\n"],
+        C box C [label="Purple - Communication disruption", textbgcolour="#7030a0", textcolor="white"];
+
+        A box A [label="3"],
+	B box B [label="\nThe site has an alarm that requires immediate action. (Priority 1)\n"],
+        C box C [label="Red - High priority alarm", textbgcolour="#ff0000"];
+
+        A box A [label="4"],
+	B box B [label="\nThe site has an alarm that does not require immediate action but is planned during the next work shift. (Priority 2)\n"],
+        C box C [label="Yellow - Medium priority alarm", textbgcolour="#ffff00"];
+
+        A box A [label="5"],
+	B box B [label="\nThe site has an alarm that will be corrected at the next planned maintenance shift. (Priority 3)\n"],
+        C box C [label="Blue - Low priority alarm", textbgcolour="#548dd4"];
+
+        A box A [label="6"],
+	B box B [label="\nThe site is connected and is currently in use.\n"],
+        C box C [label="Green - Normal - In use", textbgcolour="#00b050"];
+
+        A box A [label="7"],
+	B box B [label="\nThe site is connected but is currently not in use.\n"],
+        C box C [label="Dark grey - Rest", textbgcolour="#404040", textcolor="white"];
+
+        A box A [label="8"],
+	B box B [label="\nThe site is not connected to the supervision system.\n"],
+        C box C [label="Light grey - Not Connected", textbgcolour="#a6a6a6"];
+}

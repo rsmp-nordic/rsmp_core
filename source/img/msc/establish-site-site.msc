@@ -1,0 +1,26 @@
+# MSC for establish site-site
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  a [label="Site (follower)"], b [label="Site (leader)"];
+
+  a=>b [ label = "RSMP/SXL version" ];
+  |||;
+  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
+  |||;
+  a<=b [ label = "RSMP/SXL version" ];
+  |||;
+  a abox a [ label = "Verify RSMP version, SXL version and site id" ];
+  |||;
+  --- [ label = "RSMP version is selected based upon what sites support" ];
+  |||;
+  a=>b [ label = "Watchdog" ];
+  |||;
+  a<=b [ label = "Watchdog" ];
+  |||;
+  --- [ label = "Asynchronous message exchange can begin" ];
+  |||;
+  a=>b [ label = "Aggregated status" ];
+  |||;
+}

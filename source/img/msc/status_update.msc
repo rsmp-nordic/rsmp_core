@@ -1,0 +1,27 @@
+# MSC for Status update
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  Site, "Supervision system";
+
+  |||;
+  Site<="Supervision system" [ label = "Status subscription" ];
+  |||;
+  Site>>"Supervision system" [ label = "Status update" ];
+  |||;
+  ...;
+  |||;
+  Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
+  |||;
+  Site>>"Supervision system" [ label = "Status update" ];
+  ...;
+  |||;
+  Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
+  ...;
+  Site>>"Supervision system" [ label = "Status update" ];
+  ...;
+  |||;
+  Site<="Supervision system" [ label = "Status unsubscription" ];
+  |||;
+}

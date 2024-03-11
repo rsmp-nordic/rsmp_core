@@ -1,0 +1,15 @@
+# MSC for Alarm system from system
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  site [label="Site"], system [label="Supervision system"];
+
+  |||;
+  system abox system [ label = "An alarm is suspended/unsuspended" ];
+  |||;
+  site<=system [ label = "Alarm suspend (on/off)" ];
+  |||;
+  site=>system [ label = "Alarm" ];
+  |||;
+}

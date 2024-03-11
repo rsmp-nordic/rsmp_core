@@ -1,0 +1,15 @@
+# MSC for Alarm ack from system
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  site [label="Site"], system [label="Supervision system"];
+
+  |||;
+  system abox system [ label = "An alarm is acknowledged" ];
+  |||;
+  site<=system [ label = "Alarm acknowledgement" ];
+  |||;
+  site=>system [ label = "Alarm" ];
+  |||;
+}

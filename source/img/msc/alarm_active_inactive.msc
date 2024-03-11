@@ -1,0 +1,13 @@
+# MSC for Alarm active/inactive
+
+msc {
+  hscale = "1.5", arcgradient = "0";
+
+  site [label="Site"], system [label="Supervision system"];
+
+  |||;
+  site abox site [ label = "An alarm changes status" ];
+  |||;
+  site=>system [ label = "Alarm" ];
+  |||;
+}
