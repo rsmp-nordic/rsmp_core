@@ -110,20 +110,17 @@ The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.
 
-The *Site config* columns describes the correlation between the JSon
-elements and the titles in the :ref:`site-configuration`.
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. table:: Variable content
 
-.. table:: Variable content defined by SXL
-
-   ============ =================== ================== =======================
-   Element      Site config (Excel) Site config (YAML) Description
-   ============ =================== ================== =======================
-   ntsOId       NTSObjectId         ntsObjectId        :term:`Component id` for the :term:`NTS object`.
-   xNId         externalNtsId       externalNtsId      :term:`External NTS id`
-   cId          componentId         componentId        :term:`Component id`
-   ============ =================== ================== =======================
+   ============ ================================================
+   Element      Description
+   ============ ================================================
+   ntsOId       :term:`Component id` for the :term:`NTS object`
+   xNId         :term:`External NTS id`
+   cId          :term:`Component id`
+   ============ ================================================
 
 .. _alarm-messages:
 
@@ -207,22 +204,18 @@ JSon code 3: An alarm message
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL* columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.30}|\Yl{0.30}|\Yl{0.25}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Alarm message
 
-   ============ ====================== ======================  ==================================
-   Element      SXL (Excel)            SXL (YAML)              Description
-   ============ ====================== ======================  ==================================
-   aCId         alarmCodeId            [alarmCodeId] [#f1]_    :term:`Alarm code id`
-   xACId        externalAlarmCodeId    externalAlarmCodeId     :term:`External alarm code id`
-   xNACId       externalNtsAlarmCodeId externalNtsAlarmcodeId  :term:`External NTS alarm code id`
-   ============ ====================== ======================  ==================================
-
-.. [#f1] See :ref:`signal-exchange-list`
+   ============ ==================================
+   Element      Description
+   ============ ==================================
+   aCId         :term:`Alarm code id`
+   xACId        :term:`External alarm code id`
+   xNACId       :term:`External NTS alarm code id`
+   ============ ==================================
 
 The following table describes additional variable content of the message.
 
@@ -330,20 +323,16 @@ Alarms should not be sent unless:
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL* columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
-
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|\Yl{0.50}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Alarm status details defined by SXL
 
-   ============= ============ =========== ========================
-   Element       SXL (Excel)  SXL (YAML)  Description
-   ============= ============ =========== ========================
-   cat           category     category    :ref:`alarm-category`
-   *(not sent)*  description  description :ref:`alarm-description`
-   pri           priority     priority    :ref:`alarm-priority`
-   ============= ============ =========== ========================
+   ============= ========================
+   Element       Description
+   ============= ========================
+   cat           :ref:`alarm-category`
+   pri           :ref:`alarm-priority`
+   ============= ========================
 
 .. _return-values:
 
@@ -367,22 +356,16 @@ be empty (i.e. **[]**) if no return values are defined.
 The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).
 
-The *SXL* columns describes the correlation between the JSon
-elements and the titles in the SXL.
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|\Yl{0.55}|
+.. table:: Return values
 
-.. table::
-
-   =============  ============ ==================== ===============================================
-   Element        SXL (Excel)  SXL (YAML)           Description
-   =============  ============ ==================== ===============================================
-   n              Name         [argument id] [#f2]_ Unique reference of the value
-   *(not sent)*   Type         type                 The :ref:`data type<data_types>` of the value
-   v              Value                             Value from equipment
-   =============  ============ ==================== ===============================================
-
-.. [#f2] See :ref:`signal-exchange-list`
+   =============  ========================
+   Element        Description
+   =============  ========================
+   n              Name of the return value
+   v              Value from equipment
+   =============  ========================
 
 .. _alarmmessages-req:
 
@@ -731,28 +714,29 @@ The following tables are describing the variable content of the message:
    ======= ============= =====================================================================
 
 The following table describes the variable content defined by the signal
-exchange list (SXL). The *SXL* columns describes the correlation
-between the JSon elements and the titles in the SXL.
+exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.25}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Aggregated status SXL content
 
-   ======= =================== =================== ===========================
-   Element SXL (Excel)         SXL (YAML)          Description
-   ======= =================== =================== ===========================
-   fP      functionalPosition  functional_position :term:`Functional position`
-   fS      functionalState     functional_state    :term:`Functional state`
-   se      State               1-8                 Array of eight booleans
-   ======= =================== =================== ===========================
+   ======= ==============================================
+   Element Description
+   ======= ==============================================
+   fP      :term:`Functional position`
+   fS      :term:`Functional state`
+   se      Array of eight booleans. See :ref:`state-bits`
+   ======= ==============================================
 
 ``fP`` and ``fS`` is set to ``null`` or empty string if no value is defined
 in the SXL.
 
-State
-~~~~~
+.. _state-bits:
 
-* **State** ``se`` is an array of eight booleans. The boolean elements defines
+State bits
+~~~~~~~~~~
+
+* **State bits** ``se`` is an array of eight booleans. The boolean elements defines
   the status of the site to :term:`NTS`.
 
 * It is technically valid in RSMP to set the boolean elements to a nonsensical
@@ -884,23 +868,18 @@ once.
 
 The following table is describing the variable content of the message.
 
-The *SXL* columns describes the correlation between the JSon
-elements and the titles in the SXL.
-
 .. _table-statusrequest:
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
 
 .. table:: Status request
 
-   ============ ============ ===================== ===============================
-   Element      SXL (Excel)  SXL (YAML)            Description
-   ============ ============ ===================== ===============================
-   sCI          statusCodeId [statusCodeId] [#f3]_ :term:`Status code id`
-   n            Name         [argument id] [#f3]_  Unique reference of the value
-   ============ ============ ===================== ===============================
-
-.. [#f3] See :ref:`signal-exchange-list`
+   ============ ===============================
+   Element      Description
+   ============ ===============================
+   sCI          :term:`Status code id`
+   n            Name of the return value
+   ============ ===============================
 
 
 Structure for status response message
@@ -975,21 +954,18 @@ Return values ("sS") are always sent but can be empty if no return values exists
 
 .. _table-statusresponse-returnvalues:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|\Yl{0.55}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Return values (returnvalue)
+.. table:: Return values
 
-   =============   ============  ====================== ==============================================
-   Element         SXL (Excel)   SXL (YAML)             Description
-   =============   ============  ====================== ==============================================
-   sCI             statusCodeId  [statusCodeId] [#f4]_  :term:`Status code id`
-   n               Name          [argument id] [#f4]_   Unique reference of the value
-   *(not sent)*    Type          type                   The :ref:`data type<data_types>` of the value.
-   s               Value                                Value from equipment
-   *(not sent)*    Comment       description            Description for the status request.
-   =============   ============  ====================== ==============================================
+   =============   =================================
+   Element         Description
+   =============   =================================
+   sCI             :term:`Status code id`
+   n               Name of the return value
+   s               Value from equipment
+   =============   =================================
 
-.. [#f4] See :ref:`signal-exchange-list`
 
 The following table describes additional variable content of the message.
 
@@ -1384,25 +1360,18 @@ Values to send with the command (arguments)
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL* columns describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
-
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.25}|
+.. tabularcolumns:: |\Yl{0.25}|\Yl{0.65}|
 
 .. table:: Command arguments defined by SXL
 
-   =============  ============== ====================== ===============================================
-   Element        SXL (Excel)    SXL (YAML)             Description
-   =============  ============== ====================== ===============================================
-   cCI            commandCodeId  [commandCodeId] [#f5]_ :term:`Command code id`
-   *(not sent)*   Description    description            Description for the command request.
-   n              Name           [argument] [#f5]_      Unique reference of the value
-   cO             Command        command                Command
-   *(not sent)*   Type           type                   The :ref:`data type<data_types>` of the value.
-   v              Value                                 Value
-   =============  ============== ====================== ===============================================
-
-.. [#f5] See :ref:`signal-exchange-list`
+   =============  ========================================================
+   Element        Description
+   =============  ========================================================
+   cCI            :term:`Command code id`
+   n              Name of the argument
+   cO             Command. Optionally used for RPC (Remote Procedure Call)
+   v              Value
+   =============  ========================================================
 
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1485,23 +1454,19 @@ be empty if not return values are defined.
    ========= ========= =============
 
 The following table describes the variable content defined by the signal
-exchange list (SXL). The *SXL* columns describes the correlation
-between the JSon elements and the titles in the SXL.
+exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Command return value defined by SXL
+.. table:: Return values
 
-   =============  ============== ====================== ===============================================
-   Element        SXL (Excel)    SXL (YAML)             Description
-   =============  ============== ====================== ===============================================
-   cCI            commandCodeId  [commandCodeId] [#f6]_ :term:`Command code id`
-   n              Name           [argument id] [#f6]_   Unique reference of the value
-   *(not sent)*   Type           type                   The :ref:`data type<data_types>` of the value.
-   v              Value                                 Value
-   =============  ============== ====================== ===============================================
-
-.. [#f6] See :ref:`signal-exchange-list`
+   =============  ===============================================
+   Element        Description
+   =============  ===============================================
+   cCI            :term:`Command code id`
+   n              Name of the return value
+   v              Value from equipment
+   =============  ===============================================
 
 The following table describes additional variable content of the message.
 

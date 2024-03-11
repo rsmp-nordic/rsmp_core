@@ -52,7 +52,7 @@ A site consists of objects, identified by unique component ids (``cId``).
 
 Using the Excel format; objects are defined in it's own sheet - one for each
 site.
-Using the YAML format, each object is defined lite this:
+Using the YAML format, each object is defined like this:
 
 .. code-block:: yaml
 
@@ -72,6 +72,9 @@ Where:
 * ``site description``. Site description
 * ``object-type`` defines which object type the object belongs to
 * ``object-1`` is the name of the object. For instance "signal group 1"
+* ``componentId`` is the :term:`Component id`
+* ``ntsObjectId`` is the :term:`Component id` for the :term:`NTS object`
+* ``externalNtsId`` is the :term:`External NTS id`
 
 An object can either be categorized as a **single object** or **grouped
 object**, also known as the main component(s).
