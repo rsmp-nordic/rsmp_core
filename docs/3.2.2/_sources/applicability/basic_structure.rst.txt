@@ -1353,23 +1353,19 @@ be empty if not return values are defined.
    ========= ========= =============
 
 The following table describes the variable content defined by the signal
-exchange list (SXL). The *SXL* columns describes the correlation
-between the JSon elements and the titles in the SXL.
+exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Command return value defined by SXL
+.. table:: Return values
 
-   =============  ============== ====================== ===============================================
-   Element        SXL (Excel)    SXL (YAML)             Description
-   =============  ============== ====================== ===============================================
-   cCI            commandCodeId  [commandCodeId] [#f6]_ :term:`Command code id`
-   n              Name           [argument id] [#f6]_   Unique reference of the value
-   *(not sent)*   Type           type                   The :ref:`data type<data_types>` of the value.
-   v              Value                                 Value
-   =============  ============== ====================== ===============================================
-
-.. [#f6] See :ref:`signal-exchange-list`
+   =============  ===============================================
+   Element        Description
+   =============  ===============================================
+   cCI            :term:`Command code id`
+   n              Name of the return value
+   v              Value from equipment
+   =============  ===============================================
 
 The following table describes additional variable content of the message.
 
