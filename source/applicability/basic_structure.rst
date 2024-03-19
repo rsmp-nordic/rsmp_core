@@ -680,6 +680,12 @@ The signal exchange list (SXL) may define a more detailed definition.
 .. image:: /img/msc/agg_state_array.png
    :align: center
 
+* Bit 3 is true if there are any active alarms with priority 1
+* Bit 4 is true if there are any active alarms with priority 2
+* Bit 5 is true if there are any active alarms with priority 3
+
+Please see section :ref:`alarm-priority`.
+
 .. _aggregated-status-req:
 
 Aggregated status request message
