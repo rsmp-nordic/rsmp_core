@@ -16,8 +16,9 @@ The specification is available the following formats:
 * [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.2.2/rsmp-spec-3.2.2.pdf)
 
 
-## FAQ
-Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
+## Wiki
+Please see the RSMP Core [Wiki](https://github.com/rsmp-nordic/rsmp_core/wiki)
+for best practices and frequently asked questions.
 
 ## Generating the specification from source
 
