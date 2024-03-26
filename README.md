@@ -37,18 +37,26 @@ On Ubuntu:
   librsvg2-bin latexmk graphviz python3-sphinx-rtd-theme
 ```
 
-On MacOS using MacTex and Homebrew:
+On MacOS:
 
-Download MacTeX and install from http://www.tug.org/mactex
+1. Download MacTeX and install from http://www.tug.org/mactex
+2. Install Homebrew
+3. Install Python3 using homebrew
+4. Install Sphinx
 
 ```
-$ pip3 install -U sphinx sphinx_rtd_theme
-$ brew install gts
-$ brew install graphwiz
-# wget http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+python3 -m venv .venv
+source .venc/bin/activate
+python3 -m pip install sphinx sphinx_rtd_thenme
 ```
 
-Install mscgen
+5. Install Graphwiz using homebrew
+```
+brew install gts
+brew install graphwiz
+```
+
+6. Install mscgen
 
 ```
 curl -O http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
@@ -63,8 +71,8 @@ sudo make install
 Then:
 
 ```
-$ make latexpdf # For generating pdf
-$ make html # For generating a hierarchy of html pages
-$ make singlehtml # For generating a single html page
+make latexpdf # For generating pdf
+make html # For generating a hierarchy of html pages
+make singlehtml # For generating a single html page
 ```
 
