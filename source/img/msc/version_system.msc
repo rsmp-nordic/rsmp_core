@@ -6,6 +6,6 @@ msc {
   Site, "Supervision system";
 
   |||;
-  Site<="Supervision system" [ label = "Version message" ];
+  Site<="Supervision system" [ label = "Version" ];
   |||;
 }

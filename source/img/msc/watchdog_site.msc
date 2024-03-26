@@ -6,6 +6,6 @@ msc {
   Site, "Supervision system";
 
   |||;
-  Site=>"Supervision system" [ label = "Watchdog message" ];
+  Site=>"Supervision system" [ label = "Watchdog" ];
   |||;
 }

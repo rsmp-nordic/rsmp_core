@@ -8,6 +8,6 @@ msc {
   |||;
   site abox site [ label = "An alarm changes status" ];
   |||;
-  site=>system [ label = "Alarm message" ];
+  site=>system [ label = "Alarm" ];
   |||;
 }
