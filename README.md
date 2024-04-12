@@ -5,15 +5,15 @@ for communication between road side equipment and supervision systems.
 
 RSMP uses signal exchange lists (SXL) to define the message exchange, e.g.
 alarms, status and commands to be used for a specific road side equipment.
-Please [see the specification](https://rsmp-nordic.github.io/rsmp_core/applicability/sxl.html)
+Please [see the specification](https://rsmp-nordic.github.io/rsmp_core/3.1.5/applicability/sxl.html)
 for more in-depth technical information
 
 The following branch defines RSMP version **3.1.5**.
 
 The specification is available the following formats:
 
-* [View the core specification online](http://rsmp-nordic.github.io/rsmp_core)
-* [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.1.4/rsmp-spec-3.1.4.pdf)
+* [View the core specification online](http://rsmp-nordic.github.io/rsmp_core/3.1.5)
+* [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.1.5/rsmp-spec-3.1.5.pdf)
 
 ## FAQ
 Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
