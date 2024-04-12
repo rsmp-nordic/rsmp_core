@@ -82,7 +82,10 @@ todo_include_todos = False
 
 # Github issues
 
-extlinks = {'issue': ('https://github.com/rsmp-nordic/rsmp_core/issues/%s', '[%s]')}
+extlinks = {
+    'issue': ('https://github.com/rsmp-nordic/rsmp_core/issues/%s', '[%s]'),
+    'compare': ('https://github.com/rsmp-nordic/rsmp_core/compare/%s', '[%s]')
+}
 
 # -- Options for HTML output ----------------------------------------------
 
