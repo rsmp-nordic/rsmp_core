@@ -46,7 +46,7 @@ On MacOS:
 
 ```
 python3 -m venv .venv
-source .venc/bin/activate
+source .venv/bin/activate
 python3 -m pip install sphinx sphinx_rtd_thenme
 ```
 
