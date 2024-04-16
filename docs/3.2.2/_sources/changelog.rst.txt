@@ -26,6 +26,7 @@ The full list of changes between version 3.2.2 and 3.2.1 can be viewed on github
 - Clarify communication establishment between sites. :issue:`156`
 - Update tables to include SXL/site configuration in YAML format. :issue:`159`
 - Clarify that alarm priority affects state bits 3,4 and 5. :issue:`162`
+- Clarify the error case when object type doesn't match the signal :issue:`164`
 
 Version 3.2.1
 -------------
