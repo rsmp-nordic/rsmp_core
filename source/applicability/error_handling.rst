@@ -36,9 +36,9 @@ MessageNotAck.
 
 This includes:
 
-* unknown alarm code id (``aCId``)
-* unknown status code id (``sCI``)
-* unknown command code id (``cCI``)
+* unknown alarm/status/command code id (``aCId``, ``sCI``, ``cCI``) for the
+  corresponding object type
+
 * unknown name (``n``) in arguments or return values
 
 Unimplemented statuses or commands
