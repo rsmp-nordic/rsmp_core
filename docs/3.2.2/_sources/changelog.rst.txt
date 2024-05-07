@@ -5,7 +5,7 @@ Change log
 
 Version 3.2.2
 -------------
-Release date: 2024-05-01
+Release date: 2024-06-01
 
 The full list of changes between version 3.2.2 and 3.2.1 can be viewed on github.
 :compare:`v3.2.1...v3.2.2`
