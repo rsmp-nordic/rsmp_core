@@ -13,4 +13,5 @@ Applicability
    applicability/error_handling
    applicability/data_types
    applicability/sxl
+   applicability/site_configuration
 

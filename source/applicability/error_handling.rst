@@ -9,17 +9,22 @@ Unknown component
 ^^^^^^^^^^^^^^^^^
 
 If the component (``cId``) is not known, then the site must answer with
-CommandResponse/StatusResponse where ``q`` or ``age`` is set according to the
-table below. ``v`` should be set to ``null``.
+CommandResponse/StatusResponse where the values are set according to the
+table below.
 
 .. table:: ComponentId unknown
 
-   =============== =================
-   Message type    Content
-   =============== =================
-   StatusResponse  q=undefined
-   CommandResponse age=undefined
-   =============== =================
+   +-----------------+---------+-----------+
+   | Message type    | Element | Value     |
+   +=================+=========+===========+
+   | StatusResponse  | q       | undefined |
+   |                 +---------+-----------+
+   |                 | s       | ``null``  |
+   +-----------------+---------+-----------+
+   | CommandResponse | age     | undefined |
+   |                 +---------+-----------+
+   |                 | v       | ``null``  |
+   +-----------------+---------+-----------+
 
 SXL mismatch
 ^^^^^^^^^^^^
@@ -31,27 +36,33 @@ MessageNotAck.
 
 This includes:
 
-* unknown alarm code id (``aCId``)
-* unknown status code id (``sCI``)
-* unknown command code id (``cCI``)
+* unknown alarm/status/command code id (``aCId``, ``sCI``, ``cCI``) for the
+  corresponding object type
+
 * unknown name (``n``) in arguments or return values
 
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a status (``sCI``) or command (``cCI``) is unimplemented, the site answers
-with CommandResponse/Response where ``q`` or ``age`` is set according to the
-table below. ``v`` should be set to ``null``.
+If a status (``sCI``) or command (``cCI``) is recognized in relation to its SXL
+but not unimplemented, the site answers with CommandResponse/StatusResponse where
+the values are set according to the table below.
 
 .. table:: Unimplemented
 
-   =============== =================
-   Message type    Content
-   =============== =================
-   StatusResponse  q=unknown
-   CommandResponse age=unknown
-   =============== =================
+   +-----------------+---------+-----------+
+   | Message type    | Element | Value     |
+   +=================+=========+===========+
+   | StatusResponse  | q       | unknown   |
+   |                 +---------+-----------+
+   |                 | s       | ``null``  |
+   +-----------------+---------+-----------+
+   | CommandResponse | age     | unknown   |
+   |                 +---------+-----------+
+   |                 | v       | ``null``  |
+   +-----------------+---------+-----------+
 
+.. _incomplete-commands:
 
 Incomplete commands
 ^^^^^^^^^^^^^^^^^^^

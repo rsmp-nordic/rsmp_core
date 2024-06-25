@@ -3,12 +3,37 @@
 Change log
 ==========
 
+Version 3.2.2
+-------------
+Release date: 2024-06-25
+
+The full list of changes between version 3.2.2 and 3.2.1 can be viewed on github.
+:compare:`v3.2.1...v3.2.2`
+
+**Minor changes**
+
+- Clarify use of TLS 1.3 for encrypted communication. :issue:`149`
+- Reset timer for updateRate when sendOnChange is triggered. :issue:`157`
+
+**Clarifications**
+
+- Use the term "status"/"command" instead of "object". :issue:`131`
+- Clarify that every message should have a unique GUID. :issue:`134`
+- Clarify description of unimplemented status/commands. :issue:`136`
+- Clarify that all commands arguments need to be present. :issue:`137`
+- Update section about SXL. :issue:`138`
+- Clarify transport section. :issue:`155`
+- Clarify communication establishment between sites. :issue:`156`
+- Update tables to include SXL/site configuration in YAML format. :issue:`159`
+- Clarify that alarm priority affects state bits 3,4 and 5. :issue:`162`
+- Clarify the error case when object type doesn't match the signal :issue:`164`
+
 Version 3.2.1
 -------------
 Release date: 2023-10-03
 
-The full list of changes between version 3.2.1 and 3.2
-`can be viewed on github <https://github.com/rsmp-nordic/rsmp_core/compare/v3.2...v3.2.1>`_.
+The full list of changes between version 3.2.1 and 3.2 can be viewed on github.
+:compare:`v3.2...v3.2.1`
 
 **Important changes**
 

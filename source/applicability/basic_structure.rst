@@ -92,36 +92,35 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
-   | mId     | *(GUID)*                | Message identity. Generated as a GUID |
-   | *(or)*  |                         | (Globally unique identifier) in the   |
-   | oMId    |                         | equipment that sent the message. Only |
-   |         |                         | version 4 of Leach-Salz UUID is used. |
-   |         |                         |                                       |
-   |         |                         | * **mId** is used i all messages as a |
-   |         |                         |   reference for the message ack       |
-   |         |                         | * **oMId** is used in the message ack |
-   |         |                         |   to refer to the message which is    |
-   |         |                         |   being acked                         |
+   | mId     | *(GUID)*                | Message identity                      |
+   | *(or)*  |                         |                                       |
+   | oMId    |                         |                                       |
    +---------+-------------------------+---------------------------------------+
+
+.. note::
+   * **mId** is generated as GUID (Globally unique identifier) in the equipment
+     that sent the message
+   * **mId** is used in all messages as a reference for the message ack
+   * **oMId** is used in the message ack to refer to the message which is being acked
+   * Only version 4 of Leach-Salz UUID is used for the GUID
+   * Each message sent should have a new GUID, even if the message is resent or the
+     content is the same
 
 The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the SXL.
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+.. table:: Variable content
 
-.. table:: Variable content defined by SXL
-
-   ============ ============== ===================
-   Element      SXL element    Description
-   ============ ============== ===================
-   ntsOId       NTSObjectId    Component id for the NTS object which the  message is referring to.
-   xNId         externalNtsId  Identity for the NTS object in communication between NTS and other systems. The format is 5 integers. Defined in cooperation with representatives from NTS. Unique for the site.
-   cId          componentId    Component id for the object which the message is referring to.
-   ============ ============== ===================
+   ============ ================================================
+   Element      Description
+   ============ ================================================
+   ntsOId       :term:`Component id` for the :term:`NTS object`
+   xNId         :term:`External NTS id`
+   cId          :term:`Component id`
+   ============ ================================================
 
 .. _alarm-messages:
 
@@ -165,10 +164,10 @@ element 'aSp'.
 Message structure
 """""""""""""""""
 
-.. _structure-for-an-alarm-message:
+.. _structure-of-an-alarm-message:
 
-Structure for an alarm message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of an alarm message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm message has the structure according to the example below.
 
@@ -205,20 +204,18 @@ JSon code 3: An alarm message
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.30}|\Yl{0.55}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Alarm message
 
-   ============ ====================== =============
-   Element      SXL element            Description
-   ============ ====================== =============
-   aCId         alarmCodeId            Alarm suffix with in combination with the component id identifies an alarm. The examples in this document are defined according to the following format: *Ayyyy*, where *yyyy* is a unique number.
-   xACId        externalAlarmCodeId    Manufacturer specific alarm code and alarm description. Manufacturer, model, alarm code och additional alarm description.
-   xNACId       externalNtsAlarmCodeId Alarm code in order to identify alarm type during communication with NTS
-   ============ ====================== =============
+   ============ ==================================
+   Element      Description
+   ============ ==================================
+   aCId         :term:`Alarm code id`
+   xACId        :term:`External alarm code id`
+   xNACId       :term:`External NTS alarm code id`
+   ============ ==================================
 
 The following table describes additional variable content of the message.
 
@@ -307,52 +304,16 @@ Alarms should not be sent unless:
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
-
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Alarm status details defined by SXL
 
-   +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | Element           | SXL element        | Description                                                                        |
-   +===================+====================+====================================================================================+
-   | cat               | category           | A character, either **T** or **D**.                                                |
-   |                   |                    |                                                                                    |
-   |                   |                    | | An alarm belongs to one of these categories:                                     |
-   |                   |                    | | - T. Traffic alarm                                                               |
-   |                   |                    | | - D. Technical alarm                                                             |
-   |                   |                    |                                                                                    |
-   |                   |                    | **Traffic alarm:**                                                                 |
-   |                   |                    | Traffic alarms indicate events in the traffic related functions or the technical   |
-   |                   |                    | processes that effects traffic.                                                    |
-   |                   |                    |                                                                                    |
-   |                   |                    | | A couple of examples from a tunnel:                                              |
-   |                   |                    | | - Stopped vehicle                                                                |
-   |                   |                    | | - Fire alarm                                                                     |
-   |                   |                    | | - Error which affects message to motorists                                       |
-   |                   |                    | | - High level of :math:`CO_{2}` in traffic room                                   |
-   |                   |                    | | - Etc.                                                                           |
-   |                   |                    |                                                                                    |
-   |                   |                    | **Technical alarm:**                                                               |
-   |                   |                    | Technical alarms are alarms that do not directly affect the traffic. One example   |
-   |                   |                    | of a technical alarm is when an impulse fan stops working.                         |
-   +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | *(not sent)*      | description        | Description of the alarm. Defined in SXL but is never actually sent.               |
-   |                   |                    | The format of the description is free of choice but has the following              |
-   |                   |                    | requirements:                                                                      |
-   |                   |                    |                                                                                    |
-   |                   |                    | - The text is unique for the object type                                           |
-   |                   |                    | - The text is defined in cooperation with the Purchaser before use                 |
-   +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | pri               | priority           | The priority of the alarm.                                                         |
-   |                   |                    | The following values are defined:                                                  |
-   |                   |                    |                                                                                    |
-   |                   |                    | 1. Alarm that requires immediate action.                                           |
-   |                   |                    | 2. Alarm that does not require immediate action, but action is planned during      |
-   |                   |                    |    the next work shift.                                                            |
-   |                   |                    | 3. Alarm that will be corrected during the next planned maintenance shift.         |
-   +-------------------+--------------------+------------------------------------------------------------------------------------+
+   ============= ========================
+   Element       Description
+   ============= ========================
+   cat           :ref:`alarm-category`
+   pri           :ref:`alarm-priority`
+   ============= ========================
 
 .. _return-values:
 
@@ -376,23 +337,16 @@ be empty (i.e. **[]**) if no return values are defined.
 The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the SXL.
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. table:: Return values
 
-.. table::
-
-   +-----------------+--------------------+-----------------------------------------------+
-   | Element         | SXL element        | Description                                   |
-   +=================+====================+===============================================+
-   | n               | name               | Unique reference of the value                 |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | type               | The :ref:`data type<data_types>` of the value.|
-   |                 |                    | Defined in the SXL but is not actually sent   |
-   +-----------------+--------------------+-----------------------------------------------+
-   | v               | value              | Value from equipment                          |
-   +-----------------+--------------------+-----------------------------------------------+
+   =============  ========================
+   Element        Description
+   =============  ========================
+   n              Name of the return value
+   v              Value from equipment
+   =============  ========================
 
 .. _alarmmessages-req:
 
@@ -582,7 +536,7 @@ JSon code 9: Resuming an alarm using an alarm suspend message
 JSon code 10: Response of a resume message
 
 Allowed content in alarm suspend message is the same as for alarm messages
-(See :ref:`structure-for-an-alarm-message`) with the exception for alarm status
+(See :ref:`structure-of-an-alarm-message`) with the exception for alarm status
 (See :ref:`alarm-status`) and (See :ref:`return-values`).
 
 Message exchange between site and supervision system
@@ -691,27 +645,29 @@ The following tables are describing the variable content of the message:
    ======= ============= =====================================================================
 
 The following table describes the variable content defined by the signal
-exchange list (SXL). The *SXL element* column describes the correlation
-between the JSon elements and the titles in the SXL.
+exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.25}|\Yl{0.60}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
 .. table:: Aggregated status SXL content
 
-   ======= =================== =============================================================
-   Element SXL element         Description
-   ======= =================== =============================================================
-   fP      functionalPosition  Functional position. |br|
-                               Is ``null`` or empty string if no value is defined in SXL.
-   fS      functionalState     Functional state. |br|
-                               Is ``null`` or empty string if no value is defined in SXL.
-   se      State               Array of eight booleans.
-   ======= =================== =============================================================
+   ======= ==============================================
+   Element Description
+   ======= ==============================================
+   fP      :term:`Functional position`
+   fS      :term:`Functional state`
+   se      Array of eight booleans. See :ref:`state-bits`
+   ======= ==============================================
 
-State
-~~~~~
+``fP`` and ``fS`` is set to ``null`` or empty string if no value is defined
+in the SXL.
 
-* **State** ``se`` is an array of eight booleans. The boolean elements defines
+.. _state-bits:
+
+State bits
+~~~~~~~~~~
+
+* **State bits** ``se`` is an array of eight booleans. The boolean elements defines
   the status of the site to :term:`NTS`.
 
 * It is technically valid in RSMP to set the boolean elements to a nonsensical
@@ -723,6 +679,12 @@ The signal exchange list (SXL) may define a more detailed definition.
 
 .. image:: /img/msc/agg_state_array.png
    :align: center
+
+* Bit 3 is true if there are any active alarms with priority 1
+* Bit 4 is true if there are any active alarms with priority 2
+* Bit 5 is true if there are any active alarms with priority 3
+
+Please see section :ref:`alarm-priority`.
 
 .. _aggregated-status-req:
 
@@ -780,9 +742,9 @@ site**
 Status Messages
 ^^^^^^^^^^^^^^^
 
-The status message is a type of message that is sent to the
-supervision system or other equipment with the status of one or more
-requested objects.
+The status message is a type of message that is sent to the supervision
+system or other equipment with the value of one or more requested
+statuses, for the referenced object.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -794,8 +756,8 @@ can be sent during the following prerequisites:
 Message structure
 """""""""""""""""
 
-Structure for a request of a status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a status request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status request message has the structure according to the example
 below.
@@ -829,28 +791,24 @@ once.
 
 The following table is describing the variable content of the message.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the SXL.
-
 .. _table-statusrequest:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
 
 .. table:: Status request
 
-   ============ ============ ===================
-   Element      SXL element  Description
-   ============ ============ ===================
-   sCI          statusCodeId The Status code id. The examples is this document are defined according to the following format: *Syyyy*, where *yyyy* is a unique number.
-   n            name         Unique reference of the value
-   ============ ============ ===================
+   ============ ===============================
+   Element      Description
+   ============ ===============================
+   sCI          :term:`Status code id`
+   n            Name of the return value
+   ============ ===============================
 
 
-Structure for a message with status of one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A message with status of one or several objects has the structure
-according to the example below.
+A status response message has the structure according to the example below.
 
 The status code id (``sCI``) and name (``n``) are placed in an array
 (``sS``) in order to enable support for responding to multiple statuses at once.
@@ -892,14 +850,15 @@ The following table is describing the variable content of the message:
 
 .. table:: Status response
 
-   ======= ============= ======================================================================
+   ======= ============= ==============
    Element Value         Description
-   ======= ============= ======================================================================
-   sTs     *(timestamp)* Timestamp for the status.
-                         All timestamps are set at the site (and not in the supervision
-                         system) when the status is fetched (and not when the message is sent).
-                         See also the :ref:`data type<data_types>` section.
-   ======= ============= ======================================================================
+   ======= ============= ==============
+   sTs     *(timestamp)* Timestamp
+   ======= ============= ==============
+
+All timestamps are set at the site (and not in the supervision system) when
+the status is fetched (and not when the message is sent).
+See also the :ref:`data type<data_types>` section.
 
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -918,29 +877,18 @@ Return values ("sS") are always sent but can be empty if no return values exists
 
 .. _table-statusresponse-returnvalues:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Return values (returnvalue)
+.. table:: Return values
 
-   +-----------------+--------------------+-----------------------------------------------+
-   | Element         | SXL element        | Description                                   |
-   +=================+====================+===============================================+
-   | sCI             | statusCodeId       | The Status code id.                           |
-   |                 |                    | The examples in this document are defined     |
-   |                 |                    | according to the following format: *Syyyy*,   |
-   |                 |                    | where *yyyy* is a unique number.              |
-   +-----------------+--------------------+-----------------------------------------------+
-   | n               | Name               | Unique reference of the value                 |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
-   |                 |                    | Defined in the SXL but is not actually sent   |
-   +-----------------+--------------------+-----------------------------------------------+
-   | s               | Value              | Value                                         |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Comment            | Description for the status request.           |
-   |                 |                    | Defined in the SXL but is not actually        |
-   |                 |                    | sent.                                         |
-   +-----------------+--------------------+-----------------------------------------------+
+   =============   =================================
+   Element         Description
+   =============   =================================
+   sCI             :term:`Status code id`
+   n               Name of the return value
+   s               Value from equipment
+   =============   =================================
+
 
 The following table describes additional variable content of the message.
 
@@ -968,8 +916,8 @@ If the component does not exist or the value ``s`` is unknown then:
 * ``s`` must be set to ``null``
 
 
-Structure for a status subscription request message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status subscription request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of subscription to a status has the
 structure according to the example below. The message is used for
@@ -1020,23 +968,21 @@ The following table is describing the variable content of the message:
 
 .. table:: Status Request
 
-   +------------+------------+--------------------------------------------------------+
-   | Element    | Value      | Description                                            |
-   +============+============+========================================================+
-   | uRt        | *(string)* | updateRate. Determines the interval of which the       |
-   |            |            | message should be sent.                                |
-   |            |            | Defined in seconds with decimals, e.g. ”2.5” for       |
-   |            |            | 2.5 seconds. Dot (.) is used as decimal point.         |
-   +------------+------------+--------------------------------------------------------+
-   | sOc        | boolean    | sendOnChange. Determines if the message should be sent |
-   |            |            | when the value changes.                                |
-   +------------+------------+--------------------------------------------------------+
+   ======== ========== =============
+   Element  Value      Description
+   ======== ========== =============
+   uRt      *(string)* updateRate
+   sOc      boolean    sendOnChange
+   ======== ========== =============
+
+The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
+status update should be sent.
 
 The following applies:
 
-* The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
-  status update should be sent. **updateRate** defines a specific interval
-  when to send updates.
+* **updateRate** defines a specific interval when to send updates.
+  Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
+  Dot (.) is used as a decimal point.
 
 * If **updateRate** is set to "0" it means that no update is sent using an
   interval.
@@ -1048,6 +994,12 @@ The following applies:
   update when the value changes and at the same time using a specific
   interval.
 
+* If **updateRate** and **sendOnChange=true** are combined, the updateRate
+  timer is reset when the value changes.
+  For example, if updateRate is set to 5 seconds but the value changes after
+  2 seconds (triggering sendOnChange) the updateRate timer starts over and
+  waits another 5 seconds to trigger.
+
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
 
@@ -1055,11 +1007,11 @@ The following applies:
   new StatusSubscribe during an active subscription.
 
 
-Structure for a response message with answer to a request for status subscription for one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status update message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A response message with answer to a request for status subscription
-has the structure according to the example below.
+The status update message is an answer to a request for status subscription.
+It has the structure according to the example below.
 
 The following applies:
 
@@ -1169,12 +1121,12 @@ JSon code 17: A subscription request to subscribe to statues with different upda
 JSon code 18: A partial status update. Only a single status is updated
 
 
-Structure for a status unsubscription message on one or several objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status unsubscription message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
-objects. No particular answer is sent for this request, other than the
+statuses. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
 .. code-block:: json
@@ -1218,8 +1170,8 @@ implicit in the following figure.
 .. image:: /img/msc/status_request_response.png
    :align: center
 
-1. Request of status for an object
-2. Response with status of an object
+1. Status request
+2. Status response
 
 Message exchange between site and supervision system/other equipment - subscription
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1235,8 +1187,12 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to one or more requested objects.
+Command messages are used to give order using one or more commands, for the
+referenced object.
 The site responds with a command acknowledgement.
+
+All arguments needs to included in a command, otherwise it results a serious
+error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
 
 Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment
@@ -1244,8 +1200,8 @@ requested on any given object by the supervision system or other equipment
 Message structure
 """""""""""""""""
 
-Structure of a command for one or more objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
@@ -1309,37 +1265,21 @@ Values to send with the command (arguments)
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
-
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.25}|\Yl{0.65}|
 
 .. table:: Command arguments defined by SXL
 
-   +-----------------+--------------------+-----------------------------------------------+
-   | Element         | SXL element        | Description                                   |
-   +=================+====================+===============================================+
-   | cCI             | commandCodeId      | The unique code of a command request.         |
-   |                 |                    | The examples in this document are defined     |
-   |                 |                    | according to the following format: *Myyyy*,   |
-   |                 |                    | where *yyyy* is a unique number.              |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Description        | Description for the command request.          |
-   |                 |                    | Defined in the SXL but is not actually        |
-   |                 |                    | sent.                                         |
-   +-----------------+--------------------+-----------------------------------------------+
-   | n               | Name               | Unique reference of the value                 |
-   +-----------------+--------------------+-----------------------------------------------+
-   | cO              | Command            | Command                                       |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
-   |                 |                    | Defined in the SXL but is not actually sent   |
-   +-----------------+--------------------+-----------------------------------------------+
-   | v               | Value              | Value                                         |
-   +-----------------+--------------------+-----------------------------------------------+
+   =============  ========================================================
+   Element        Description
+   =============  ========================================================
+   cCI            :term:`Command code id`
+   n              Name of the argument
+   cO             Command. Optionally used for RPC (Remote Procedure Call)
+   v              Value
+   =============  ========================================================
 
-Structure of command response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure of a command response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
@@ -1419,28 +1359,19 @@ be empty if not return values are defined.
    ========= ========= =============
 
 The following table describes the variable content defined by the signal
-exchange list (SXL). The *SXL element* column describes the correlation
-between the JSon elements and the titles in the SXL.
+exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Command return value defined by SXL
+.. table:: Return values
 
-   +-----------------+--------------------+-----------------------------------------------+
-   | Element         | SXL element        | Description                                   |
-   +=================+====================+===============================================+
-   | cCI             | commandCodeId      | The unique code of a command.                 |
-   |                 |                    | The examples in this document are defined     |
-   |                 |                    | according to the following format: *Myyyy*,   |
-   |                 |                    | where *yyyy* is a unique number.              |
-   +-----------------+--------------------+-----------------------------------------------+
-   | n               | Name               | Unique reference of the value                 |
-   +-----------------+--------------------+-----------------------------------------------+
-   | *(not sent)*    | Type               | The :ref:`data type<data_types>` of the value.|
-   |                 |                    | Defined in the SXL but is not actually sent   |
-   +-----------------+--------------------+-----------------------------------------------+
-   | v               | Value              | Value                                         |
-   +-----------------+--------------------+-----------------------------------------------+
+   =============  ===============================================
+   Element        Description
+   =============  ===============================================
+   cCI            :term:`Command code id`
+   n              Name of the return value
+   v              Value from equipment
+   =============  ===============================================
 
 The following table describes additional variable content of the message.
 
@@ -1471,8 +1402,8 @@ implicit in the following figure.
 .. image:: /img/msc/command_request_response.png
    :align: center
 
-1. Command request for an object
-2. Command response of an object
+1. Command request
+2. Command response
 
 .. _message-acknowledgement:
 
@@ -1638,33 +1569,23 @@ JSon code 24: A RSMP / SXL message
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-The *SXL element* column describes the correlation between the JSon
-elements and the titles in the signal exchange list (SXL).
+The *Site config* columns describes the correlation between the JSon
+elements and the titles in the site configuration.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
 
-.. table:: Version information defined by SXL
+.. table:: Version information defined by site configuration
 
-   +-------------+--------------------+--------------------------------------------------------------------+
-   | Element     | SXL element        | Description                                                        |
-   +=============+====================+====================================================================+
-   | sId         | SiteId             | Site identity. Used in order to refer to a “logical” identity of a |
-   |             |                    | site.                                                              |
-   |             |                    |                                                                    |
-   |             |                    | At the STA, the following formats can be used:                     |
-   |             |                    |                                                                    |
-   |             |                    | - The site id from the STAs component id standard TDOK 2012:1171   |
-   |             |                    |   e.g. ”40100”.                                                    |
-   |             |                    | - It is also possible to use the full component id (TDOK 2012:1171)|
-   |             |                    |   of the grouped object in the site in case the site id part of    |
-   |             |                    |   the component id is insufficient in order to uniquely identify a |
-   |             |                    |   site.                                                            |
-   |             |                    |                                                                    |
-   |             |                    | All the site ids that are used in the RSMP connection are sent     |
-   |             |                    | in the message using an array (**siteId**)                         |
-   +-------------+--------------------+--------------------------------------------------------------------+
-   | SXL         | SXL revision       | Revision of SXL. E.g ”1.3”                                         |
-   +-------------+--------------------+--------------------------------------------------------------------+
+   ======= ==================== ================== ===========================
+   Element Site config (Excel)  Site config (YAML) Description
+   ======= ==================== ================== ===========================
+   sId     SiteId                                  :term:`Site id`
+   SXL     SXL revision         version            Revision of SXL. E.g ”1.3”
+   ======= ==================== ================== ===========================
+
+It is possible to use more than one site id in a single RSMP connection.
+Therefore the site ids that are used in the RSMP connection are sent
+in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 

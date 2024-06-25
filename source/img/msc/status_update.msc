@@ -6,22 +6,22 @@ msc {
   Site, "Supervision system";
 
   |||;
-  Site<="Supervision system" [ label = "Status subscription message" ];
+  Site<="Supervision system" [ label = "Status subscription" ];
   |||;
-  Site>>"Supervision system" [ label = "Status update message" ];
+  Site>>"Supervision system" [ label = "Status update" ];
   |||;
   ...;
   |||;
   Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
   |||;
-  Site>>"Supervision system" [ label = "Status update message" ];
+  Site>>"Supervision system" [ label = "Status update" ];
   ...;
   |||;
   Site abox Site [ label = "Status changed (sOc) or interval time reached (uRt)" ];
   ...;
-  Site>>"Supervision system" [ label = "Status update message" ];
+  Site>>"Supervision system" [ label = "Status update" ];
   ...;
   |||;
-  Site<="Supervision system" [ label = "Status unsubscription message" ];
+  Site<="Supervision system" [ label = "Status unsubscription" ];
   |||;
 }

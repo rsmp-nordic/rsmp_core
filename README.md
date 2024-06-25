@@ -5,19 +5,20 @@ for communication between road side equipment and supervision systems.
 
 RSMP uses signal exchange lists (SXL) to define the message exchange, e.g.
 alarms, status and commands to be used for a specific road side equipment.
-Please [see the specification](https://rsmp-nordic.org/rsmp_specifications/core/3.2/applicability/sxl.html)
+Please [see the specification](https://rsmp-nordic.github.io/rsmp_core/3.2.2/applicability/sxl.html)
 for more in-depth technical information
 
-The following branch defines RSMP version **3.2.1**.
+The following branch defines RSMP version **3.2.2**.
 
 The specification is available the following formats:
 
-* [View the core specification online](https://rsmp-nordic.org/rsmp_specifications/core/3.2.1)
-* [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.2/rsmp-spec-3.2.1.pdf)
+* [View the core specification online](https://rsmp-nordic.github.io/rsmp_core/3.2.2/)
+* [View the core specification as a PDF](https://github.com/rsmp-nordic/rsmp_core/releases/download/v3.2.2/rsmp-spec-3.2.2.pdf)
 
 
-## FAQ
-Please see the <a href="faq.md">faq.md</a> for frequently asked questions.
+## Wiki
+Please see the RSMP Core [Wiki](https://github.com/rsmp-nordic/rsmp_core/wiki)
+for best practices and frequently asked questions.
 
 ## Generating the specification from source
 
@@ -36,18 +37,26 @@ On Ubuntu:
   librsvg2-bin latexmk graphviz python3-sphinx-rtd-theme
 ```
 
-On MacOS using MacTex and Homebrew:
+On MacOS:
 
-Download MacTeX and install from http://www.tug.org/mactex
+1. Download MacTeX and install from http://www.tug.org/mactex
+2. Install Homebrew
+3. Install Python3 using homebrew
+4. Install Sphinx
 
 ```
-$ pip3 install -U sphinx sphinx_rtd_theme
-$ brew install gts
-$ brew install graphwiz
-# wget http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install sphinx sphinx_rtd_thenme
 ```
 
-Install mscgen
+5. Install Graphwiz using homebrew
+```
+brew install gts
+brew install graphwiz
+```
+
+6. Install mscgen
 
 ```
 curl -O http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
@@ -62,8 +71,8 @@ sudo make install
 Then:
 
 ```
-$ make latexpdf # For generating pdf
-$ make html # For generating a hierarchy of html pages
-$ make singlehtml # For generating a single html page
+make latexpdf # For generating pdf
+make html # For generating a hierarchy of html pages
+make singlehtml # For generating a single html page
 ```
 

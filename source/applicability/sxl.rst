@@ -3,73 +3,220 @@
 Signal Exchange List
 ====================
 
-The signal exchange list an important functional part of RSMP.
+The signal exchange list is an important functional part of RSMP.
 Since the contents of every message using RSMP is dynamic, a predefined
 signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
-The signal exchange list defines which message types (signals) which is possible
-to send to a specific equipment or object. It is formatted according to
-predefined principles which is defined below.
+The signal exchange list defines the alarms, commands and statuses which is
+possible to send and receive for each object type.
 
-Structure
----------
-The following sections presents the format and contents of the SXL. Each
-section corresponds to the names of each sheet in the SXL.
+The SXL can be defined by either a YAML file or an Excel file using predefined
+principles which is defined below.
 
-First page
-^^^^^^^^^^
-The sheet "First page" defines site(s), revision and date of the SXL.
+Object types
+------------
 
-Object types and object
-^^^^^^^^^^^^^^^^^^^^^^^
-The "object types" sheet defines the types of object that can exist in a
-site, i.e. "LED".
+An **object type** defines a type of object that can exist in a site,
+i.e. "LED". Each object type can have a set of alarms, statuses and
+commands associated with it.
 
-The object sheet defines the number of each type of object that exists in
-the site. If more that one site is defined in the SXL; then one object
-sheet needs to be defined for each site.
+Using the Excel format; objects types are defined in it's own sheet.
+Using the YAML format; each object type is defined like this:
 
-If more that one site is defined in the same SXL; then the object sheet
-is renamed to the name of the site.
+.. code-block:: yaml
 
-The status for an object is suitable to be transmitted to NTS if the
-NTS identity (externalNtsId) is defined.
+   objects:
+     object-type:
 
-Object definitions
-^^^^^^^^^^^^^^^^^^
+Where ``object-type`` is the name of the object type. For instance,
+"Traffic Light Controller".
+
 Depending on applicability, each object type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
 
-Single and grouped objects
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-An object can either be categorized as a **single object** or **grouped
-object**.
+Message types
+-------------
 
-An object is defined under the title **group object** if the object is a
-component group according to TDOK 2012:1171. Other objects are defined
-under **single object**.
+The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
+are defined in the SXL.
 
-If the **externalNtsId** field is used; it means that the object is adapted
-to be sent to NTS.
+Using the Excel format; alarms, aggregated status, status and commands are
+defined in their own sheet.
 
-Other sheets
-^^^^^^^^^^^^
-The sheets **Alarm**, **Aggregated status**, **Status** and **Command**
-corresponds to the respective message type which is defined in the RSMP
-specification.
+Using the YAML format; each message type is defined like this:
 
-- Italic text which is used as title in columns is not part of the
-  protocol, but is only used as a guiding explanation text.
-- Return values and argument are optional and there is no limitation on
-  how many return values and arguments which can be used for a single
-  message.
+.. code-block:: yaml
 
-Overview on functional differences between different message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following table defines the functional differences between
-different message types.
+  objects:
+    object-type:
+      aggregated_status:
+        1:
+          title: Local mode
+          description: In local mode
+        2:
+          title: No Communications
+        3:
+          title: High priority fault
+          description: Fail safe mode
+        4:
+          title: Medium Priority Fault
+          description: Medium priority fault, but not in fail safe mode
+        5:
+          title: Low Priority Fault
+        6:
+          title: Connected / Normal - In Use
+        7:
+          title: Connected / Normal - Idle
+        8:
+          title: Not Connected
+      functional_position:
+        position-1: start
+        position-2: stop
+      alarms:
+        A0001:
+          description: alarm description text
+          priority: 1
+          category: D
+          externalAlarmCodeId: manufacturer specific alarm text
+          externalNtsAlarmCodeId: 0000
+          arguments:
+            argument-1:
+              type: integer
+              min: 0
+              max: 10
+              description: A0001 argument 1
+      statuses:
+        S0001:
+          description: status description text
+          arguments:
+            argument-1:
+              type: string
+              description: S0001 argument 1
+      commands:
+        M0001:
+          description: command description text
+          command: setStatus
+          arguments:
+            argument-1:
+              type: boolean
+              description: M0001 argument 1
+
+  ..
+
+This example defines:
+
+- An alarm with the :term:`alarm code id` ``A0001``
+- A status with the :term:`status code id` ``S0001``
+- A command with the :term:`command code id` ``M0001``
+
+Each with one argument named ``argument-1`` using integer, string and boolean
+data types.
+
+The alarm contains the fields:
+
+- ``description`` is the alarm description
+- ``category`` is the alarm category
+- ``priority`` is the alarm priority
+- ``externalAlarmCodeId`` is the :term:`External alarm code id`
+- ``externalNtsAlarmCodeId`` is the :term:`External NTS alarm code id`
+
+The status contains the fields:
+
+- ``description`` is the status description
+
+The command contains the fields:
+
+- ``description`` is the command description
+- ``command`` is optionally used for RPC (Remote Procedure Call)
+
+An argument contains the fields:
+
+- ``description`` is the argument description
+- ``min`` is the minimum value (only for *number* or *integer* data types)
+- ``max`` is the maximum value (only for *number* or *integer* data types)
+- ``type`` is the :ref:`data type<data_types>`
+
+At least one argument are required for command and statuses, but they are
+optional in alarms.
+
+
+.. note::
+
+    In the Excel version of the SXL, there is no separate min and max columns.
+    Instead, allowed values can be defined using the Value column according
+    to the following example: [0-100], where 0 is the minimum value and 100 is
+    the maximum value.
+
+The aggregated status contains the fields:
+
+- ``functional_position`` is the :term:`Functional position`
+
+- ``functional_state`` is the :term:`Functional state`
+
+- ``1-8`` is an array of eight booleans. Each with a title and optional
+  description. See :ref:`state-bits`
+
+
+.. _alarm-description:
+
+Alarm description
+^^^^^^^^^^^^^^^^^
+The format of the description is free of choice but has the following
+requirements:
+
+- Description is unique for the object type
+- Description is defined in cooperation with the Purchaser before use
+
+.. _alarm-category:
+
+Alarm category
+^^^^^^^^^^^^^^
+The alarm category is defined in by a single character, either ``T`` or ``D``.
+
+==========  ===============
+Value       Description
+==========  ===============
+T           Traffic alarm
+D           Technical alarm
+==========  ===============
+
+A **traffic alarm** indicates events in the traffic related functions or the
+technical processes that affects traffic.
+
+A couple of examples from a tunnel:
+
+- Stopped vehicle
+- Fire alarm
+- Error which affects message to motorists
+- High level of :math:`CO_{2}` in traffic room
+- etc.
+
+**Technical alarms** are alarms that do not directly affect the traffic.
+One example of technical alarm is when an impulse fan stops working.
+
+.. _alarm-priority:
+
+Alarm priority
+^^^^^^^^^^^^^^
+The priority of the alarm.
+
+Defined in the SXL as a single character, ``1``, ``2`` or ``3``.
+
+The following values are defined:
+
+=====  ==============================
+Value  Description
+=====  ==============================
+1      Alarm that requires immediate action.
+2      Alarm that does not require immediate action, but action is planned during the next work shift.
+3      Alarm that will be corrected during the next planned maintenance shift.
+=====  ==============================
+
+Functional differences between message types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The following table defines the functional differences between message types.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
 
@@ -84,46 +231,11 @@ different message types.
    Command            On request                                 Yes, partly (functional status)
    =================  =========================================  ================================
 
-Definitions
------------
-The following notions are used as titles from the columns in the SXL. All
-the notions corresponds to the element with the same name in the
-basic structure.
-
-The following table defines the different versions of command messages.
-
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.75}|
-
-.. table:: Commands - different versions
-
-   +------------------------+-----------------------------------------------+
-   | Notion                 | Description                                   |
-   +========================+===============================================+
-   | Functional position    | Designed for NTS. Provides command options    |
-   |                        | for an NTS object. In order to get the status |
-   |                        | the corresponding status functionalPosition   |
-   |                        | in Aggregated status is used.                 |
-   +------------------------+-----------------------------------------------+
-   | Functional state       | Not used                                      |
-   +------------------------+-----------------------------------------------+
-   | Maneuver               | Possible command options for individual       |
-   |                        | objects for groups of objects from management |
-   |                        | system (not NTS). May also apply to automatic |
-   |                        | control. For instance, "start" or "stop"      |
-   +------------------------+-----------------------------------------------+
-   | Parameter              | Used for modification of technical or         |
-   |                        | autonomous traffic parameters of the equipment|
-   +------------------------+-----------------------------------------------+
-
-Functional relationships in the signal exchange list
-----------------------------------------------------
-
-Functional states
-^^^^^^^^^^^^^^^^^
-The functional states which an object can enter should also be possible to
-control. The commands which are defined in **"Functional states**
-in the **Commands** sheet should correlate to the functional states
-which are defined in **functionalPosition** in "**Aggregated status**".
+.. note::
+   In addition of :term:`functional position`, the Excel version of the SXL
+   can also differentiate between different kinds of command messages using
+   :term:`maneuver` and :term:`parameter` sections. However, their use has no
+   functional significance from a protocol point of view.
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -156,64 +268,6 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-Version management
-------------------
-
-Version of RSMP
-^^^^^^^^^^^^^^^
-The version of RSMP defines the overall version of RSMP. All documents
-which are part of the RSMP specification refers to version of RSMP. The
-following table defines the principles for version numbering for each
-document.
-
-.. tabularcolumns:: |\Yl{0.30}|\Yl{0.40}|
-
-.. table:: Version management
-
-   =================================  ========================
-   Document                           Principles of versioning
-   =================================  ========================
-   RSMP specification                 Version of RSMP
-   Signal exchange list (SXL)         Own version *and* version of RSMP
-   =================================  ========================
-
-The document "RSMP specification" uses the version of RSMP, for instance, "1.0".
-
-The signal exchange list (SXL) has it's own version but which version RSMP
-that the SXL uses must de defined.
-
-When a new version RSMP is established all associated documents need to be
-updated to reflect this.
-
-Revision of SXL
-^^^^^^^^^^^^^^^
-Revision of SXL is unique for a site. In order to uniquely identify a SXL
-for a supervision system the identity of the site (siteId) and it's
-version of SXL (SXL Revision) needs to be known. In each SXL there must
-defined which version of RSMP which it is conforms to.
-
-In order to support a common SXL for many sites where the alarms, status,
-and command message types are mostly shared - but there is a risk of
-differences can emerge; it is recommended that a table is added on the
-front page of each SXL the sites are using. The following table defines
-an example for the design of the table.
-
-.. tabularcolumns:: |\Yl{0.10}|\Yl{0.30}|
-
-.. table:: Revision of SXL
-
-   ======  =============================
-   Site    Revision of SXL which is used
-   ======  =============================
-   Site 1  1.1
-   Site 2  1.0
-   Site 3  1.1
-   ======  =============================
-
-The purpose is to be able to update the SXL with a new revision and at the
-same time inform about which sites which the revision applies to.
-
-
 Required signals
 ----------------
 
@@ -242,69 +296,4 @@ Change date and time
 If the automatic time synchronization is missing or disabled there should
 be a possibility to set the date and time using a special command. Please
 note that UTC should be used.
-
-Best practices
---------------
-In order to fit as many technical areas as possible there some flexibility
-while designing a signal exchange list. Below are some suggested
-recommendations.
-
-Definition of object types
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-The level of detail in the definition of object types determines the level
-of detail of which:
-
-- Messages can be sent, e.g. alarms and status
-- Commands of individual object can be performed
-- Information can be presented about the site for maintenance engineers in
-  supervision system.
-
-The benefits with a high level of details is:
-
-- Provides the possibility to directly with the component identity be able
-  to identify which object the status/alarm is relevant to, which help when
-  troubleshooting equipment
-- Provides the possibility to block alarm for each object identity
-
-The benefit with a low level of detail is:
-
-- Reduced need to update the signal exchange list due to changes at the
-  site
-  
-The disadvantage with the being able to determine to component identity due
-to a lower level of detail can be compensated with arguments and return
-values.
-
-Reading and writing data
-^^^^^^^^^^^^^^^^^^^^^^^^
-Read and write operations uses different message types in RSMP.
-
-Read operation
-""""""""""""""
-Status messages are used for read operations. Read operations works
-as "Process value".
-
-Sequence for a read operation:
-
-1. When data is about to be read a status request is sent from supervision
-   system or other site to the relevant site.
-2. The site responds by sending the value from the equipment. The value
-   is attached as a return value.
-
-Write operation
-"""""""""""""""
-Commands messages are used for write operations. Write operations works as
-"Set point"/Desired value.
-
-Sequence for a write operation:
-
-1. When data is about be written a command request is sent from
-   supervision system or other site the relevant site. The new value
-   is attached as an argument.
-2. The site is responding with returning the new value from the site,
-   using the corresponding command response. The value from the site is
-   attached as a return value.
-3. The supervision system/other site compares the sent value (desired)
-   with the new value from the site (actual value/process value) and can
-   determine if the new value could be set or or not.
 
