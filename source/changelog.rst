@@ -5,7 +5,7 @@ Change log
 
 Version 3.2.2
 -------------
-Release date: 2024-06-01
+Release date: 2024-06-25
 
 The full list of changes between version 3.2.2 and 3.2.1 can be viewed on github.
 :compare:`v3.2.1...v3.2.2`
@@ -13,7 +13,7 @@ The full list of changes between version 3.2.2 and 3.2.1 can be viewed on github
 **Minor changes**
 
 - Clarify use of TLS 1.3 for encrypted communication. :issue:`149`
-- Reset timer for updateRate when sendOnChange is trigged. :issue:`157`
+- Reset timer for updateRate when sendOnChange is triggered. :issue:`157`
 
 **Clarifications**
 
