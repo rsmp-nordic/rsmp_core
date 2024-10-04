@@ -69,3 +69,13 @@ Incomplete commands
 
 If not all arguments are included in a CommandRequest, then this is considered
 a serious error resulting in MessageNotAck.
+
+
+.. _more-than-one-command:
+
+More than one command
+^^^^^^^^^^^^^^^^^^^^^
+
+If more than one command is included in a single CommandRequest, than this is
+considered a serious error resulting in MessageNotAck.
+
