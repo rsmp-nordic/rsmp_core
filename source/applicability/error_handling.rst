@@ -76,6 +76,6 @@ a serious error resulting in MessageNotAck.
 More than one command
 ^^^^^^^^^^^^^^^^^^^^^
 
-If more than one command is included in a single CommandRequest, than this is
+If more than one command is included in a single CommandRequest, then this is
 considered a serious error resulting in MessageNotAck.
 
