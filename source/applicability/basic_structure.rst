@@ -1187,12 +1187,15 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order using one or more commands, for the
-referenced object.
+Command messages are used to give order to the referenced object.
 The site responds with a command acknowledgement.
 
 All arguments needs to included in a command, otherwise it results a serious
 error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
+
+Only a single command is allowed in single CommandRequest, otherwise any
+resulting MessageAck or MessageNotAck is ambiguous.
+See section about :ref:`more-than-one-command`.
 
 Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment
@@ -1244,9 +1247,7 @@ requested object
 
 JSon code 20: A command request message
 
-The command code (``cCI``) and name (``n``) are placed in an array
-(``arg``) in order to enable support for requesting multiple commands at
-once.
+The command code (``cCI``) and name (``n``) are placed in an array (``arg``).
 
 The following table is describing the variable content of the message:
 
