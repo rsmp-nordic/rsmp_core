@@ -1193,7 +1193,7 @@ The site responds with a command acknowledgement.
 
 All arguments are considered required to be included in a CommandRequest unless
 they are specifically marked as optional in the SXL. If a required argument is
-missing in CommandRequest it it be considered as a serious error resulting in
+missing in CommandRequest it is be considered as a serious error resulting in
 MessageNotAck. See section about :ref:`incomplete-commands`.
 
 Command messages are interaction driven and are sent when command are
