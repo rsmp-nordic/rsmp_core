@@ -37,7 +37,7 @@ Definitions
        Used to identify a :term:`component`.
        A component id is a string in format A or B:.
        
-   Component id format A
+   Component id, format A
        This is the original component format.
        It includes the site id as part of the component id
        
@@ -53,9 +53,9 @@ Definitions
        FF identifies the type of component.
        GGG is the component index.
 
-   Component id format B
-       A newer component id format that can be used to organize componets in a 
-       hierachical structure, akin to a file path.
+   Component id, format B
+       A newer component id format that can be used to organize components in a 
+       hierachical structure, akin to file paths.
        It does not include the site id as part of the component id.
 
        Structure:
@@ -68,16 +68,15 @@ Definitions
 
 
        Details:
-       The format starts with a forward slagh "/", and consist of
+       The format starts with a forward slash "/", and consist of
        levels seperated by slashes.
        The full component id points to a single component.
        But you can point to intermediate levels in the hierachy, for example 
        to reference all components of a specific type. This is akin
-       to a folder path.
-       You can use "/" to refer to all components
+       path to a folder in a file system.
 
-       The type of component is identified by some level before c. 
-       The last part is an identifier that's unique for the type of component.
+       type: identified by some level before c. 
+       id: identifier that's unique for the type of component.
 
        In simple cases, a component id can consists of just the type and an id:
 
@@ -87,9 +86,10 @@ Definitions
        /dl/3 
        /dl/4 
 
-       For more complex setups, you can use intermediate levels to organize
-       components, in which the type and the id might be separated 
+       For more complex setups you can use intermediate levels to organize
+       components, in which case the type and the id might be separated 
        by intermediate levels.
+
        For example, detector logics can be organized into radars and video
        detectors:
 
@@ -121,7 +121,8 @@ Definitions
        /sg/b1_bike (index 3)
        /sg/b2_car  (index 4)
 
-       Regardless of ids, componenets will always have indexes.
+       Regardless of what's used for the id part, componenets will always
+       have integer ndexes.
 
    Component index
        Index of a :term:`component` of a specific type.
