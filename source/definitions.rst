@@ -31,12 +31,104 @@ Definitions
 
    Component
        A component is an :term:`object` or :term:`NTS object`.
-
        A component is identified using a component id.
 
    Component id
-       Identity of a :term:`component`.
-        A component id is a string, e.g. KK+AG0503=001DL001 or DL1.
+       Used to identify a :term:`component`.
+       A component id is a string in format A or B:.
+       
+   Component id format A
+       This is the original component format.
+       It includes the site id as part of the component id
+       
+       Structure:
+       AA+BBCDD=EEEFFGGG
+
+       Examples:
+       KK+AG0503=001DL001
+       KK+AG0503=001SG005
+
+       Details:
+       AA+BBCDD is the site id.
+       FF identifies the type of component.
+       GGG is the component index.
+
+   Component id format B
+       A newer component id format that can be used to organize componets in a 
+       hierachical structure, akin to a file path.
+       It does not include the site id as part of the component id.
+
+       Structure:
+       /.../type/.../id
+
+       Examples:
+       /tc
+       /sg/1
+       /in/1/sg/6
+
+
+       Details:
+       The format starts with a forward slagh "/", and consist of
+       levels seperated by slashes.
+       The full component id points to a single component.
+       But you can point to intermediate levels in the hierachy, for example 
+       to reference all components of a specific type. This is akin
+       to a folder path.
+       You can use "/" to refer to all components
+
+       The type of component is identified by some level before c. 
+       The last part is an identifier that's unique for the type of component.
+
+       In simple cases, a component id can consists of just the type and an id:
+
+       /sg/1
+       /dl/1
+       /dl/2 
+       /dl/3 
+       /dl/4 
+
+       For more complex setups, you can use intermediate levels to organize
+       components, in which the type and the id might be separated 
+       by intermediate levels.
+       For example, detector logics can be organized into radars and video
+       detectors:
+
+       /dl/radar/1
+       /dl/radar/2
+       /dl/video/1
+       /dl/video/2
+
+       Components of the same type must have unique indexes. If you organize
+       into subtypes and reuse ids between the subtypes, ids will not match
+       indexes. This is ok, but something to keep in mind:
+
+       /dl/radar/1 (index 1)
+       /dl/radar/2 (index 2)
+       /dl/video/1 (index 3)
+       /dl/video/2 (index 4)
+
+       Indexes are used to send data for all components of a specific type 
+       in a compact format, which is why they must be unique per type.
+
+       The id at the end does not have to be an integer, e.g:
+
+       /dl/north (index 1)
+       /dl/east  (index 2)
+       /dl/south (index 3)
+       /dl/west  (index 3)
+       /sg/a1_bike (index 1)
+       /sg/a1_car  (index 2)
+       /sg/b1_bike (index 3)
+       /sg/b2_car  (index 4)
+
+       Regardless of ids, componenets will always have indexes.
+
+   Component index
+       Index of a :term:`component` of a specific type.
+        A component index is an positive integer.
+        Component indexes must be unique per site and component type.
+        In other words, on a site, two components of the same type cannot have the same
+        index, while components of different types can.
 
    DATEX II
        European standard for message exchange between traffic systems
