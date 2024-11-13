@@ -1000,8 +1000,10 @@ The following applies:
   2 seconds (triggering sendOnChange) the updateRate timer starts over and
   waits another 5 seconds to trigger.
 
-* It is not valid to set **updateRate=0** and **sendOnChange=false** since
-  it means that no subscription updates will be sent.
+* If **updateRate=0** and **sendOnChange=false** the attribute is treated as
+  metadata. A change of the attribute will not trigger a status update, but
+  the attribute will be included whenever another attribute changes and
+  triggers an update.
 
 * It is allowed to change **updateRate** and **sendOnChange** by sending a
   new StatusSubscribe during an active subscription.
