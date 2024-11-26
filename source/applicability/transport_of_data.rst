@@ -369,13 +369,28 @@ The following principles applies:
 Transport between site and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+By default the following applies:
+
 * The supervision system implements a socket server and waits for the site
   to connect
 * The site initiates the connection to the supervision system
-* The supervision system can request commands, statuses (with optional
-  subscription) and alarms
 * If the communication were to fail it is the site’s responsibility to
   reconnect
+
+Optionally the opposite can be used:
+
+* The site implements a socket server and waits for the supervision system to
+  connect
+* The supervision system initiates the connection to the site
+* If the communication were to fail it is the supervision system's
+  responsibility to reconnect
+
+In both cases it is the supervision system which has the ability to request
+commands, statuses (with optional subscription) and alarms.
+
+.. note::
+   Regardless who implements the socket server and client, the message flow is
+   unaffected
 
 Transport between sites
 ^^^^^^^^^^^^^^^^^^^^^^^
