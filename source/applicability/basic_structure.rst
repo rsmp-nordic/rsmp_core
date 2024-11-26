@@ -1247,7 +1247,8 @@ requested object
 
 JSon code 20: A command request message
 
-The command code (``cCI``) and name (``n``) are placed in an array (``arg``).
+The command code (``cCI``) and name of the argument (``n``) are placed in an
+array (``arg``).
 
 The following table is describing the variable content of the message:
 
