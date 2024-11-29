@@ -14,7 +14,7 @@ follow up on the message exchange.
 
 To communicate between sites and supervision systems a pure TCP connection
 is used (TCP/IP), and the data sent is based on the JSon format, i.e.
-formatted text.
+formatted text. The default port for RSMP is 12111.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
@@ -83,10 +83,18 @@ If encryption is used then the following applies:
 
 * Encryption settings needs to be configurable in both the supervision system as
   well as the site.
+
 * For the encrypted communication, TLS 1.3 or later is used.
-* Certificates should be used to verify the identities of equipments.
+
+* Encrypted communication should use a separate port number.
+  By default this should be port 12112.
+
+* If both the supervision system and site are configured to use encryption,
+  certificates should be used to verify the identities of each other.
+
 * Equipment which uses RSMP should contain a user interface for easy management
   of certificates.
+
 * The issuing and renewal of certificates should should be made in cooperation
   with the purchaser unless other arrangement is agreed upon.
 
