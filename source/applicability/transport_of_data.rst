@@ -73,7 +73,7 @@ Each site needs to support the following:
   are served on a first-come basis, without any concept of priority.
 
 * Supervisor connections are handled separately. When a supervisor sends a
-  command or status request, the response is send only to that particular
+  command or status request, the response is sent only to that particular
   supervisor.
 
 Security
