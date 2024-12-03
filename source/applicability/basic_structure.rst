@@ -1191,7 +1191,7 @@ Command messages are used to give order using one or more commands, for the
 referenced object.
 The site responds with a command acknowledgement.
 
-All arguments are considered required to be included in a CommandRequest unless
+All arguments in a CommandRequest are considered required unless
 they are specifically marked as optional in the SXL. If a required argument is
 missing in CommandRequest it is considered as a serious error resulting in
 MessageNotAck. See section about :ref:`incomplete-commands`.
