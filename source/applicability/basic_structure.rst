@@ -1193,9 +1193,9 @@ The site responds with a command acknowledgement.
 All arguments needs to included in a command, otherwise it results a serious
 error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
 
-Only a single command is allowed in a single CommandRequest, otherwise any
-resulting MessageAck or MessageNotAck is ambiguous.
-See section about :ref:`more-than-one-command`.
+Only a single command (``cCI``) is allowed in each CommandRequest and
+CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
+be ambiguous. See section about :ref:`more-than-one-command`.
 
 Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment
