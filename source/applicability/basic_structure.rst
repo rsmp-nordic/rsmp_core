@@ -673,8 +673,6 @@ way up the national traffic center. But some of the state bits are only meant
 to be used internally in the supervision system and can not be sent with RSMP
 (bit 2 and 8).
 
-The state bits are specifically designed for :term:`NTS`.
-
 A definition of each boolean element (1-8) is presented in the figure below.
 The signal exchange list (SXL) may define a more detailed definition.
 
