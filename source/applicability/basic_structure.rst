@@ -670,7 +670,7 @@ State bits
 The **State bits** ``se`` is an array of eight booleans. They are defined from
 the supervision system point of view and are meant to stay unmodified all the
 way up the national traffic center. But some of the state bits are only meant
-to be used internally in the supervision system and is always set to false in
+to be used internally in the supervision system and are always set to false in
 RSMP.
 
 A definition of each boolean element (1-8) is presented in the figure below.
