@@ -51,6 +51,10 @@ Each site needs to support the following:
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
 
+* It must be possible to configure to either initiate the RSMP connection
+  or to implement the socket server according to section
+  :ref:`transport-between-site-and-supervision-system`.
+
 * It must be possible to configure supervisors as primary or secondary.
 
 * There can be multiple secondary supervisors, but only one primary.
@@ -71,7 +75,6 @@ Each site needs to support the following:
 * Supervisor connections are handled separately. When a supervisor sends a
   command or status request, the response is send only to that particular
   supervisor.
-
 
 Security
 ^^^^^^^^
@@ -365,6 +368,7 @@ The following principles applies:
 * FF (formeed) in the beginning of the data exchange (after connection
   establishment) must not be sent, but must be handled
 
+.. _transport-between-site-and-supervision-system:
 
 Transport between site and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
