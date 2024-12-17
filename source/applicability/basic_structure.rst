@@ -1192,8 +1192,10 @@ Command messages
 Command messages are used to give order to the referenced object.
 The site responds with a command acknowledgement.
 
-All arguments needs to included in a command, otherwise it results a serious
-error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
+All arguments in a CommandRequest are considered required unless
+they are specifically marked as optional in the SXL. If a required argument is
+missing in a CommandRequest it is considered as a serious error resulting in
+MessageNotAck. See section about :ref:`incomplete-commands`.
 
 Only a single command (``cCI``) is allowed in each CommandRequest and
 CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
