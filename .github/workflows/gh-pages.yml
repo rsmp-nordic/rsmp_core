@@ -4,7 +4,7 @@ name: Build Core
 
 on:
   push:
-    branches: [ 3.2.2 ]
+    branches: [ 3.3.0 ]
   workflow_dispatch:
   repository_dispatch:
 
@@ -16,11 +16,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: gh-pages
-    - name: Check out rsmp_core repository (3.2.2 branch)
+    - name: Check out rsmp_core repository (3.3.0 branch)
       uses: actions/checkout@v4
       with:
-        path: 3.2.2
-        ref: 3.2.2
+        path: 3.3.0
+        ref: 3.3.0
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -38,7 +38,7 @@ jobs:
               mscgen
     - name: Build rsmp_core repository
       run: |
-        cd 3.2.2
+        cd 3.3.0
         make html latexpdf
     - name: Setup git
       run: |
@@ -46,10 +46,10 @@ jobs:
         git config --local user.name "GitHub Action"
     - name: Commit documentation changes
       run: |
-        mkdir -p docs/3.2.2
-        cp -r 3.2.2/build/html/* docs/3.2.2
+        mkdir -p docs/3.3.0
+        cp -r 3.3.0/build/html/* docs/3.3.0
         git pull -q
-        git add docs/3.2.2
+        git add docs/3.3.0
         git commit -m "Update documentation" -a || true
         # The above will fail if no changes were present, so
         # we ignore the return code.
@@ -62,4 +62,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: rsmp-spec.pdf
-        path: 3.2.2/build/latex/rsmp-spec.pdf
+        path: 3.3.0/build/latex/rsmp-spec.pdf
