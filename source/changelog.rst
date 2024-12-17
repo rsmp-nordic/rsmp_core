@@ -3,12 +3,12 @@
 Change log
 ==========
 
-Version 3.3
+Version 3.3.0
 -------------
 Release date: 
 
-The full list of changes between version 3.3 and 3.2.2 can be viewed on github.
-:compare:`v3.2.2...v3.3`
+The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github.
+:compare:`v3.2.2...v3.3.0`
 
 Version 3.2.2
 -------------
