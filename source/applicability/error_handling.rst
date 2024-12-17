@@ -69,3 +69,14 @@ Incomplete commands
 
 If not all arguments are included in a CommandRequest, then this is considered
 a serious error resulting in MessageNotAck.
+
+
+.. _more-than-one-command:
+
+More than one command
+^^^^^^^^^^^^^^^^^^^^^
+
+If more than one command (``cCI``) is included in a single CommandRequest or
+CommandResponse, then this is considered a serious error resulting in
+MessageNotAck.
+
