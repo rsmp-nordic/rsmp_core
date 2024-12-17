@@ -667,12 +667,11 @@ in the SXL.
 State bits
 ~~~~~~~~~~
 
-* **State bits** ``se`` is an array of eight booleans. The boolean elements defines
-  the status of the site to :term:`NTS`.
-
-* It is technically valid in RSMP to set the boolean elements to a nonsensical
-  values, e.g. all boolean elements to ``false``, but it is not defined how to
-  interpret it at the receiving end
+The **State bits** ``se`` is an array of eight booleans. They are defined from
+the supervision system point of view and are meant to stay unmodified all the
+way up the national traffic center. But some of the state bits are only meant
+to be used internally in the supervision system and are always set to false in
+RSMP.
 
 A definition of each boolean element (1-8) is presented in the figure below.
 The signal exchange list (SXL) may define a more detailed definition.
@@ -680,9 +679,12 @@ The signal exchange list (SXL) may define a more detailed definition.
 .. image:: /img/msc/agg_state_array.png
    :align: center
 
+* Bit 2 is unused and is always set to false
 * Bit 3 is true if there are any active alarms with priority 1
 * Bit 4 is true if there are any active alarms with priority 2
 * Bit 5 is true if there are any active alarms with priority 3
+* Bit 6 and bit 7 can not be set to true simultaneously
+* Bit 8 is unused and is always set to false
 
 Please see section :ref:`alarm-priority`.
 
