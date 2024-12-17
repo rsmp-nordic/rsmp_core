@@ -51,6 +51,10 @@ Each site needs to support the following:
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
 
+* It must be possible to configure to either initiate the RSMP connection
+  or to implement the socket server according to section
+  :ref:`transport-between-site-and-supervision-system`.
+
 * It must be possible to configure supervisors as primary or secondary.
 
 * There can be multiple secondary supervisors, but only one primary.
@@ -69,9 +73,8 @@ Each site needs to support the following:
   are served on a first-come basis, without any concept of priority.
 
 * Supervisor connections are handled separately. When a supervisor sends a
-  command or status request, the response is send only to that particular
+  command or status request, the response is sent only to that particular
   supervisor.
-
 
 Security
 ^^^^^^^^
@@ -365,17 +368,33 @@ The following principles applies:
 * FF (formeed) in the beginning of the data exchange (after connection
   establishment) must not be sent, but must be handled
 
+.. _transport-between-site-and-supervision-system:
 
 Transport between site and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+By default the following applies:
+
 * The supervision system implements a socket server and waits for the site
   to connect
 * The site initiates the connection to the supervision system
-* The supervision system can request commands, statuses (with optional
-  subscription) and alarms
 * If the communication were to fail it is the site’s responsibility to
   reconnect
+
+Optionally the opposite can be used:
+
+* The site implements a socket server and waits for the supervision system to
+  connect
+* The supervision system initiates the connection to the site
+* If the communication were to fail it is the supervision system's
+  responsibility to reconnect
+
+In both cases it is the supervision system which has the ability to request
+commands, statuses (with optional subscription) and alarms.
+
+.. note::
+   Regardless who implements the socket server and client, the message flow is
+   unaffected
 
 Transport between sites
 ^^^^^^^^^^^^^^^^^^^^^^^
