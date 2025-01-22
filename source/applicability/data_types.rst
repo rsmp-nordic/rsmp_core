@@ -41,18 +41,18 @@ Encoded as a JSON string.
 
 Legacy types
 -------------------
-For historical reasons, basic types are sometimes encoded as JSON strings using these specialized types.
-Whitespace is not allowed in any of these legecy types.
+For historical reasons, basic types are sometimes encoded as JSON strings using these types.
+Whitespace is not allowed in any of these legacy types.
 
-**number_string**
-An integer or float represented as a string, e.g. "12" or "0.5".
+**number_as_string**
+An integer or float represented as a string, e.g. "12", "-4", 0.5" or "-2.4".
 Follows sthe ECMA standard. A dot "." is used as decimal point for floating point numbers.
 
-**integer_string**
-An integer represented as a string, e.g. "12".
+**integer_as_string**
+An integer represented as a string, e.g. "12" or "-7".
 Follows the ECMA standard, but a dot "." is not allowed.
 
-**boolean_string**
+**boolean_as_string**
 A boolean represented as a string, either "true" or "false".
 Alternative casing is not allowed.
 
@@ -60,14 +60,14 @@ Alternative casing is not allowed.
 A comma-separated list of strings, e.g. "high,medium,low".
 Commas are not allowed as part of the strings.
 
-**boolean_string_list**
+**number_list_as_string**
+**comma_separated_numbers**
+A comma-separated list of number_strings, e.g. "1.0,2".
+
+**integer_list_as_string**
+**comma_separated_integers**
+A comma-separated list of integer_strings, e.g. "2,-4,0".
+
+**boolean_list_as_string**
 **comma_separated_string**
 A comma-separated list of boolean_strings, e.g. "true,false".
-
-**number_string_list**
-**comma_separated_numbers**
-A comma-separated list of number_strings, e.g. "1.0,2.5,3".
-
-**integer_string_list**
-**comma_separated_integers**
-A comma-separated list of integer_strings, e.g. "1,2,3".
