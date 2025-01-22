@@ -56,18 +56,15 @@ Follows the ECMA standard, but a dot "." is not allowed.
 A boolean represented as a string, either "true" or "false".
 Alternative casing is not allowed.
 
-**string_list**
+**string_list_as_string**
 A comma-separated list of strings, e.g. "high,medium,low".
 Commas are not allowed as part of the strings.
 
 **number_list_as_string**
-**comma_separated_numbers**
-A comma-separated list of number_strings, e.g. "1.0,2".
+A comma-separated list of number_as_strings, e.g. "1.0,2".
 
 **integer_list_as_string**
-**comma_separated_integers**
-A comma-separated list of integer_strings, e.g. "2,-4,0".
+A comma-separated list of integer_as_strings, e.g. "2,-4,0".
 
 **boolean_list_as_string**
-**comma_separated_string**
-A comma-separated list of boolean_strings, e.g. "true,false".
+A comma-separated list of boolean_as_strings, e.g. "true,false".
