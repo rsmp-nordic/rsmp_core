@@ -5,7 +5,7 @@ Data types
 
 The following data types are used in the core spec, and also in Signal Exchange Lists (SXLs).
 
-Signal Exchange Lists (SXLs) specifiy which types are allowed in particular statuses, alarms and commands, and can also define additional specialized types.
+Signal Exchange Lists (SXLs) specify which types are allowed in particular statuses, alarms and commands, and can also define additional specialized types.
 
 
 JSON types
@@ -46,7 +46,7 @@ Whitespace is not allowed in any of these legacy types.
 
 **number_as_string**
 An integer or float represented as a string, e.g. "12", "-4", 0.5" or "-2.4".
-Follows sthe ECMA standard. A dot "." is used as decimal point for floating point numbers.
+Follows the ECMA standard. A dot "." is used as decimal point for floating point numbers.
 
 **integer_as_string**
 An integer represented as a string, e.g. "12" or "-7".
