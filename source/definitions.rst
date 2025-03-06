@@ -108,7 +108,7 @@ Definitions
        and refer to each using a short index starting from 0.
 
        For example, consider a status message that provides the status of all signal
-       groups. You initially get a list of relevant compoents and their indexes, e.g.:
+       groups:
 
        2: /sg/1
        3: /sg/2
@@ -119,17 +119,18 @@ Definitions
        0: /sg/1
        1: /sg/2
 
-       Normalized indexes can be used when efficiently send data for a set of components,
+       Normalized indexes can be used to efficiently send data,
        by using a  structure where the first element refers to the component with
        normalized index 0, element 1 refers to the component with normalized index 1, etc.
 
-       For example, let's assume the status string "AB" is sent.
+       For example, let's assume the status string "AB" is sent to indicate the status
+       of all signal groups.
        
-       The first character (index 0) in the string is A.
-       The component with normalized index 0 is /sg/1, so that component has status A.
+       The characterat index 0 in the string is A.
+       The component with normalized index 0 is /sg/1, and thus has status A.
        
-       The second character (index 1) in the status string is B.
-       The component with normalized index 1 is /sg/2, so that componet has status B.
+       The character at index 1 in the status string is B.
+       The component with normalized index 1 is /sg/2, and thus has status B.
 
        The result is:
 
@@ -137,10 +138,9 @@ Definitions
        /sg/2: B
 
     Main components
-       Each site must have exactly one component designated as the main component.
+       Each site must have exactly one designated main component.
        You can refer to the main component using it's component id.
        Or, as a short-hand, you can use null to refer to the main component.
-       This is especially useful when you don't yet know the component ids of the site.
 
    DATEX II
        European standard for message exchange between traffic systems
