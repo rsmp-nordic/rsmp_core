@@ -965,7 +965,7 @@ The following table is describing the variable content of the message:
    Element  Type               Description
    ======== ================== =============
    uRt      number_as_string   updateRate
-   sOc      boolean_as_string  sendOnChange
+   sOc      boolean.           sendOnChange
    ======== ================== =============
 
 The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
