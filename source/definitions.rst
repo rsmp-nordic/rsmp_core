@@ -56,7 +56,7 @@ Definitions
    Component id, format B
        A newer component id format that can be used to organize components in a 
        hierachical structure.
-       It does not include the site id as part of the component id.
+       The site id is not included as part of the component id.
 
        Structure:
        /.../...
@@ -72,15 +72,14 @@ Definitions
        The format starts with a forward slash "/", and consist of
        levels seperated by forward slashes. It cannot end end with a slash.
 
-       The compoent id does not have to indicate the component type, although
+       The component id does not have to indicate the component type, although
        this is often useful.
 
-       You can point to intermediate levels in the hierachy to reference 
-       groups of components, e.g. all components of a specific type.
+       You can point to intermediate levels in the hierarchy to reference 
+       groups of components.
 
-       A single forward slash "/" to refer to all components.
-
-       See below for how to refer to the main component.
+       A single forward slash "/" refers to all components.
+       An empty string "" or null refers to the main component (see below for details).
 
    Component indexes
        Each component must have an integer index that's unique on the site.
@@ -100,11 +99,11 @@ Definitions
        3: /sg/2
 
        Even though component ids might include integer parts
-       (e.g. '001' in KK+AG0503=001DL001 or '/1' in sg/1) you cannot expect this
-       to match the index, since components of different types might use the same
+       (e.g. '001' in KK+AG0503=001DL001 or '/1' in sg/1) you cannot expect these
+       to match the indexes, since components of different types might use the same
        integer parts, while indexes must be unqiue on the site across types.
 
-       Component indexes provides a clear way to order any subset of components
+       Component indexes provides a clear way to order subset of components
        and refer to each using a short index starting from 0.
 
        For example, consider a status message that provides the status of all signal
@@ -126,7 +125,7 @@ Definitions
        For example, let's assume the status string "AB" is sent to indicate the status
        of all signal groups.
        
-       The characterat index 0 in the string is A.
+       The character at index 0 in the string is A.
        The component with normalized index 0 is /sg/1, and thus has status A.
        
        The character at index 1 in the status string is B.
@@ -139,8 +138,8 @@ Definitions
 
     Main components
        Each site must have exactly one designated main component.
-       You can refer to the main component using it's component id.
-       Or, as a short-hand, you can use null to refer to the main component.
+       You can of course refer to the main component using it's component id.
+       Or, as a short-hand, you can use an empty string "" or null to refer to the main component.
 
    DATEX II
        European standard for message exchange between traffic systems
