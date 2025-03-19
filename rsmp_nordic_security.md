@@ -34,13 +34,13 @@ However, the RSMP Nordic partnership does have a role in supporting road authori
 - Ensuring that RSMP fits well with security best practices
 - Establishing and maintaining shared services/resources if needed
 
-## RSMP Nordic is responsible for:
+## What RSMP Nordic is responsible
 - Maintaining a specification that fits well with security best practices
 - Providing guidelines and examples of how to use RSMP
 - Maintaining test tools for verifying RSMP implementations
 - Ensuring that test tools can be used together with security best practices like TLS
 
-## RSMP Nordic is not responsible for:
+## What RSMP Nordic is not responsible for
 - Collecting or describing security best practices
 - Ensuring that road authorities or suppliers follow best practices
 - Implementation of networks or embedded devices
