@@ -70,15 +70,15 @@ Definitions
 
        Details:
        The format starts with a forward slash "/", and consist of
-       levels seperated by forward slashes. It cannot end end with a slash.
+       levels seperated by forward slashes.
+       
+       A component id cannot end end with a slash. However, you can point to intermediate levels in the hierarchy to reference 
+       groups of components, by using a component string ending with a slash, e.g. "/sg/" to refer to all signal groups.
 
-       The component id does not have to indicate the component type, although
-       this is often useful.
-
-       You can point to intermediate levels in the hierarchy to reference 
-       groups of components.
+       The component id does not have to indicate the component type, although this is often useful.
 
        A single forward slash "/" refers to all components.
+       
        An empty string "" or null refers to the main component (see below for details).
 
    Component indexes
