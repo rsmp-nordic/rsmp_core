@@ -119,7 +119,7 @@ Definitions
        1: /sg/2
 
        Normalized indexes can be used to efficiently send data,
-       by using a  structure where the first element refers to the component with
+       by using a compact structure where the first element refers to the component with
        normalized index 0, the second element refers to the component with normalized index 1, etc.
 
        For example, let's assume the status string "AB" is sent to indicate the status
