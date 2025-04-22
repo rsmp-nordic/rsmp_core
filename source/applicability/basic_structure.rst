@@ -1000,7 +1000,7 @@ The following applies:
   2 seconds (triggering sendOnChange) the updateRate timer starts over and
   waits another 5 seconds to trigger.
 
-* If **updateRate=0** and **sendOnChange=false** lean updating is used.
+* If **updateRate="0"** and **sendOnChange=false** lean updating is used.
   A change of the attribute will not trigger a status update, but
   the attribute will be included whenever another attribute with the same
   sCI triggers an update.
