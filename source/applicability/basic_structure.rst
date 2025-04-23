@@ -839,7 +839,7 @@ The following table is describing the variable content of the message:
 
 .. _table-statusresponse:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|
 
 .. table:: Status response
 
@@ -957,7 +957,7 @@ JSon code 15: A status subscribe message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.50}|
 
 .. table:: Status Request
 
@@ -1257,7 +1257,7 @@ Values to send with the command (arguments)
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.25}|\Yl{0.50}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
 
 .. table:: Command arguments defined by SXL
 
