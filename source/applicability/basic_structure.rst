@@ -1641,7 +1641,7 @@ The following table is describing the variable content of the message:
 .. table:: Watchdog
 
    ======= ============= =====================================================================
-   Element Type         Description
+   Element Type          Description
    ======= ============= =====================================================================
    wTs     *(timestamp)* Timestamp for the watchdog.
                          See also the :ref:`data type<data_types>` section.
