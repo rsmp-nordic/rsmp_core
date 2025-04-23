@@ -1257,7 +1257,7 @@ Values to send with the command (arguments)
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.25}|\Yl{0.25}|\Yl{0.50}|
 
 .. table:: Command arguments defined by SXL
 
@@ -1353,7 +1353,7 @@ be empty if not return values are defined.
 The following table describes the variable content defined by the signal
 exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.60}|
 
 .. table:: Return values
 
@@ -1564,7 +1564,7 @@ defined by the SXL.
 The *Site config* columns describes the correlation between the JSon
 elements and the titles in the site configuration.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.30}|
 
 .. table:: Version information defined by site configuration
 
@@ -1581,7 +1581,7 @@ in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.85}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: Version information
 
