@@ -1363,7 +1363,7 @@ exchange list (SXL).
    cCI           string           :term:`Command code id`
    n             string           Name of the return value
    v             (defined in SXL) (defined in SXL)
-   ============= ==================
+   ============= ================ ============
 
 The following table describes additional variable content of the message.
 
