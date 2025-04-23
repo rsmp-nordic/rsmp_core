@@ -786,7 +786,7 @@ The following table is describing the variable content of the message.
 
 .. _table-statusrequest:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.40}|
 
 .. table:: Status request
 
