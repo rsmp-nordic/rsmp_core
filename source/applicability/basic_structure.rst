@@ -1268,7 +1268,7 @@ defined by the SXL.
    n             string           Name of the argument
    cO            string           Command. Optionally used for RPC (Remote Procedure Call)
    v             (defined in SXL) (defined in SXL)
-   ============= ==================
+   ============= ================ ============
 
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
