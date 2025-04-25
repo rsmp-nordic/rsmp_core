@@ -59,6 +59,8 @@ A single forward slash ``/`` refers to all components.
        
 An empty string ``""`` or ``null`` refers to the `main component`_.
 
+The concrete layout of component types and paths is defined in the SXL.
+
 Component indexes
 -----------------
 
