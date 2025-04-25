@@ -64,7 +64,7 @@ Definitions
        Designed to be used with NTS.
 
    NTS
-      National Traffic management system in Sweden.
+      National Traffic management system at the Swedish Transport Administration
 
    NTS object
        Used for objects in :term:`NTS`
