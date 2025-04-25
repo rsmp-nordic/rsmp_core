@@ -91,7 +91,7 @@ The following table is describing the variable content of all message types.
    +---------+-------------------------+---------------------------------------+
 
 .. note::
-   * **mId** is a generated as GUID (Globally unique identifier) in the equipment
+   * **mId** is a generated GUID (Globally unique identifier) in the equipment
      that sent the message
    * **mId** is used in all messages as a reference for the message ack
    * **oMId** is used in the message ack to refer to the message which is being acked
@@ -965,7 +965,7 @@ The following table is describing the variable content of the message:
    Element  Type               Description
    ======== ================== =============
    uRt      number_as_string   updateRate
-   sOc      boolean.           sendOnChange
+   sOc      boolean            sendOnChange
    ======== ================== =============
 
 The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
