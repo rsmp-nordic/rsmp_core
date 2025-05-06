@@ -72,8 +72,8 @@ Where:
 * ``site description``. Site description
 * ``object-type`` defines which object type the object belongs to
 * ``object-1`` is the name of the object. For instance "signal group 1"
-* ``componentId`` is the :term:`Component id`
-* ``ntsObjectId`` is the :term:`Component id` for the :term:`NTS object`
+* ``componentId`` is the :ref:`Component-id`
+* ``ntsObjectId`` is the :ref:`Component-id` for the :term:`NTS object`
 * ``externalNtsId`` is the :term:`External NTS id`
 
 An object can either be categorized as a **single object** or **grouped
@@ -89,6 +89,6 @@ their main component.
 object is intended to be sent to :term:`NTS`.
 
 .. note::
-   :term:`NTS` is used at the :term:`STA`. Other road authorities typically
-   leaves the `xNid` and `ntsOid` as empty strings.
+   :term:`NTS` is used at the Swedish Transport Administration. Other road
+   authorities typically leaves the `xNid` and `ntsOid` as empty strings.
 
