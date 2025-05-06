@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.7. Signal Exchange List &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.8. Signal Exchange List &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.8. Site configuration" href="site_configuration.html" />
-    <link rel="prev" title="4.6. Data types" href="data_types.html" /> 
+    <link rel="next" title="4.9. Site configuration" href="site_configuration.html" />
+    <link rel="prev" title="4.7. Component ID" href="component_id.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,24 +57,25 @@
 <li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Signal Exchange List</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#object-types">4.7.1. Object types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#message-types">4.7.2. Message types</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.7.2.1. Alarm description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.7.2.2. Alarm category</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-priority">4.7.2.3. Alarm priority</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#functional-differences-between-message-types">4.7.2.4. Functional differences between message types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.7.2.5. Arguments and return values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="component_id.html">4.7. Component ID</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. Signal Exchange List</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#object-types">4.8.1. Object types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#message-types">4.8.2. Message types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.8.2.1. Alarm description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.8.2.2. Alarm category</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-priority">4.8.2.3. Alarm priority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functional-differences-between-message-types">4.8.2.4. Functional differences between message types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.8.2.5. Arguments and return values</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#required-signals">4.7.3. Required signals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#status-messages">4.7.3.1. Status messages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#command-messages">4.7.3.2. Command messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#required-signals">4.8.3. Required signals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#status-messages">4.8.3.1. Status messages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#command-messages">4.8.3.2. Command messages</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.8. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.9. Site configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -95,7 +96,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.7. </span>Signal Exchange List</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.8. </span>Signal Exchange List</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/sxl.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -106,7 +107,7 @@
            <div itemprop="articleBody">
              
   <section id="signal-exchange-list">
-<span id="id1"></span><h1><span class="section-number">4.7. </span>Signal Exchange List<a class="headerlink" href="#signal-exchange-list" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.8. </span>Signal Exchange List<a class="headerlink" href="#signal-exchange-list" title="Link to this heading"></a></h1>
 <p>The signal exchange list is an important functional part of RSMP.
 Since the contents of every message using RSMP is dynamic, a predefined
 signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) is prerequisite in order to be able to
@@ -116,7 +117,7 @@ possible to send and receive for each object type.</p>
 <p>The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.</p>
 <section id="object-types">
-<h2><span class="section-number">4.7.1. </span>Object types<a class="headerlink" href="#object-types" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.8.1. </span>Object types<a class="headerlink" href="#object-types" title="Link to this heading"></a></h2>
 <p>An <strong>object type</strong> defines a type of object that can exist in a site,
 i.e. “LED”. Each object type can have a set of alarms, statuses and
 commands associated with it.</p>
@@ -133,7 +134,7 @@ series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).</p>
 </section>
 <section id="message-types">
-<h2><span class="section-number">4.7.2. </span>Message types<a class="headerlink" href="#message-types" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.8.2. </span>Message types<a class="headerlink" href="#message-types" title="Link to this heading"></a></h2>
 <p>The message types <strong>Alarm</strong>, <strong>Aggregated status</strong>, <strong>Status</strong> and <strong>Commands</strong>
 are defined in the SXL.</p>
 <p>Using the Excel format; alarms, aggregated status, status and commands are
@@ -245,7 +246,7 @@ the maximum value.</p>
 description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
 </ul>
 <section id="alarm-description">
-<span id="id2"></span><h3><span class="section-number">4.7.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
+<span id="id2"></span><h3><span class="section-number">4.8.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
 <p>The format of the description is free of choice but has the following
 requirements:</p>
 <ul class="simple">
@@ -254,7 +255,7 @@ requirements:</p>
 </ul>
 </section>
 <section id="alarm-category">
-<span id="id3"></span><h3><span class="section-number">4.7.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h3>
+<span id="id3"></span><h3><span class="section-number">4.8.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h3>
 <p>The alarm category is defined in by a single character, either <code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
 <table class="docutils align-default">
 <thead>
@@ -285,7 +286,7 @@ technical processes that affects traffic.</p>
 One example of technical alarm is when an impulse fan stops working.</p>
 </section>
 <section id="alarm-priority">
-<span id="id4"></span><h3><span class="section-number">4.7.2.3. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h3>
+<span id="id4"></span><h3><span class="section-number">4.8.2.3. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h3>
 <p>The priority of the alarm.</p>
 <p>Defined in the SXL as a single character, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> or <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 <p>The following values are defined:</p>
@@ -309,7 +310,7 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </table>
 </section>
 <section id="functional-differences-between-message-types">
-<h3><span class="section-number">4.7.2.4. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.8.2.4. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h3>
 <p>The following table defines the functional differences between message types.</p>
 <table class="docutils align-default" id="id5">
 <caption><span class="caption-number">Table 4.30 </span><span class="caption-text">Functional differences</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
@@ -347,7 +348,7 @@ functional significance from a protocol point of view.</p>
 </div>
 </section>
 <section id="arguments-and-return-values">
-<h3><span class="section-number">4.7.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.8.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
 <p>Argument and return values makes it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
 pictures or other data, both to a site and to supervision system. The
@@ -393,17 +394,17 @@ return values.</p>
 </section>
 </section>
 <section id="required-signals">
-<h2><span class="section-number">4.7.3. </span>Required signals<a class="headerlink" href="#required-signals" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.8.3. </span>Required signals<a class="headerlink" href="#required-signals" title="Link to this heading"></a></h2>
 <section id="status-messages">
-<h3><span class="section-number">4.7.3.1. </span>Status messages<a class="headerlink" href="#status-messages" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.8.3.1. </span>Status messages<a class="headerlink" href="#status-messages" title="Link to this heading"></a></h3>
 <section id="version-of-component">
-<h4><span class="section-number">4.7.3.1.1. </span>Version of component<a class="headerlink" href="#version-of-component" title="Link to this heading"></a></h4>
+<h4><span class="section-number">4.8.3.1.1. </span>Version of component<a class="headerlink" href="#version-of-component" title="Link to this heading"></a></h4>
 <p>To make sure that the site is equipped with the correct version of
 components and to simplify troubleshooting there need to exists a special
 status to request version of a component.</p>
 </section>
 <section id="current-date-and-time">
-<h4><span class="section-number">4.7.3.1.2. </span>Current date and time<a class="headerlink" href="#current-date-and-time" title="Link to this heading"></a></h4>
+<h4><span class="section-number">4.8.3.1.2. </span>Current date and time<a class="headerlink" href="#current-date-and-time" title="Link to this heading"></a></h4>
 <p>To make sure that the site is configured with the correct date and time
 there needs to be a special status to request this. This type of status is
 especially important for those implementations where the equipment’s
@@ -412,9 +413,9 @@ clock. Please note that UTC should be used.</p>
 </section>
 </section>
 <section id="command-messages">
-<h3><span class="section-number">4.7.3.2. </span>Command messages<a class="headerlink" href="#command-messages" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.8.3.2. </span>Command messages<a class="headerlink" href="#command-messages" title="Link to this heading"></a></h3>
 <section id="change-date-and-time">
-<h4><span class="section-number">4.7.3.2.1. </span>Change date and time<a class="headerlink" href="#change-date-and-time" title="Link to this heading"></a></h4>
+<h4><span class="section-number">4.8.3.2.1. </span>Change date and time<a class="headerlink" href="#change-date-and-time" title="Link to this heading"></a></h4>
 <p>If the automatic time synchronization is missing or disabled there should
 be a possibility to set the date and time using a special command. Please
 note that UTC should be used.</p>
@@ -427,8 +428,8 @@ note that UTC should be used.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="data_types.html" class="btn btn-neutral float-left" title="4.6. Data types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="site_configuration.html" class="btn btn-neutral float-right" title="4.8. Site configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="component_id.html" class="btn btn-neutral float-left" title="4.7. Component ID" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="site_configuration.html" class="btn btn-neutral float-right" title="4.9. Site configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

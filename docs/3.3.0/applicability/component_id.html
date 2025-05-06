@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.7. Component ID &mdash; RSMP Specification 3.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=3eb8911e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.8. Signal Exchange List" href="sxl.html" />
+    <link rel="prev" title="4.6. Data types" href="data_types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RSMP Specification
+          </a>
+              <div class="version">
+                3.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Component ID</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#format-a">4.7.1. Format A</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#format-b">4.7.2. Format B</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-indexes">4.7.3. Component indexes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#main-component">4.7.3.1. Main component</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.9. Site configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RSMP Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.7. </span>Component ID</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/applicability/component_id.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="component-id">
+<span id="id1"></span><h1><span class="section-number">4.7. </span>Component ID<a class="headerlink" href="#component-id" title="Link to this heading"></a></h1>
+<p>Component ID’s are used to identify a <a class="reference internal" href="../definitions.html#term-Component"><span class="xref std std-term">component</span></a>. There are two
+formats that can be used, either format A or format B.</p>
+<section id="format-a">
+<h2><span class="section-number">4.7.1. </span>Format A<a class="headerlink" href="#format-a" title="Link to this heading"></a></h2>
+<p>This is the original component format.
+It includes the <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a> as part of the component id.</p>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AA</span><span class="o">+</span><span class="n">BBCDD</span><span class="o">=</span><span class="n">EEEFFGGG</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AA+BBCDD</span></code> is the <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a>, typically the geographical location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EEE</span></code> identifies the site type, e.g. traffic lights</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FF</span></code> identifies the type of component, e.g. signal group</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GGG</span></code> is the component index.</p></li>
+</ul>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">DL001</span>
+<span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">SG005</span>
+</pre></div>
+</div>
+</section>
+<section id="format-b">
+<h2><span class="section-number">4.7.2. </span>Format B<a class="headerlink" href="#format-b" title="Link to this heading"></a></h2>
+<p>This is a newer component id format that can be used to organize components
+in a hierachical structure. The <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a> is not included as part of
+the component id.</p>
+<p>Structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/.../...</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">tc</span>
+<span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
+<span class="o">/</span><span class="ow">in</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">6</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">1</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>The format starts with a forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code>, and consist of levels separated
+by forward slashes.</p>
+<p>A component id cannot end with a slash. However, you can point to
+intermediate levels in the hierarchy to reference groups of components,
+by using a component string ending with a slash, e.g. <code class="docutils literal notranslate"><span class="pre">/sg/</span></code> to refer to
+all signal groups.</p>
+<p>The component id does not have to indicate the component type, although this
+is often useful.</p>
+<p>A single forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> refers to all components.</p>
+<p>An empty string <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">null</span></code> refers to the <a class="reference internal" href="#main-component">main component</a>.</p>
+<p>The concrete layout of component types and paths is defined in the SXL.</p>
+</section>
+<section id="component-indexes">
+<h2><span class="section-number">4.7.3. </span>Component indexes<a class="headerlink" href="#component-indexes" title="Link to this heading"></a></h2>
+<p>Each component must have an integer index that’s unique on the site.</p>
+<p>For example, a device might have these format A component id, and indexes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">:</span> <span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">DL001</span>
+<span class="mi">1</span><span class="p">:</span> <span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">DL002</span>
+<span class="mi">2</span><span class="p">:</span> <span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">SG001</span>
+<span class="mi">3</span><span class="p">:</span> <span class="n">KK</span><span class="o">+</span><span class="n">AG0503</span><span class="o">=</span><span class="mi">001</span><span class="n">SG002</span>
+</pre></div>
+</div>
+<p>Or using format B component ids:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">:</span> <span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">north</span>
+<span class="mi">1</span><span class="p">:</span> <span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">south</span>
+<span class="mi">2</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
+<span class="mi">3</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Even though component ids might include integer parts
+(e.g. <code class="docutils literal notranslate"><span class="pre">001</span></code> in <code class="docutils literal notranslate"><span class="pre">KK+AG0503=001DL001</span></code> or <code class="docutils literal notranslate"><span class="pre">/1</span></code> in <code class="docutils literal notranslate"><span class="pre">sg/1</span></code>) you cannot
+expect these to match the indexes, since components of different types might
+use the same integer parts, while indexes must be unique on the site across
+types.</p>
+<p>Component indexes provides a clear way to order subset of components and
+refer to each using a short index starting from 0.</p>
+<p>For example, consider a status message that provides the status of all signal
+groups:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
+<span class="mi">3</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Because it’s subset of components, indexes might not start from 0 and might contain
+gaps, but can easily be normalized by simply counting from 0:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
+<span class="mi">1</span><span class="p">:</span> <span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Normalized indexes can be used to efficiently send data,
+by using a compact structure where the first element refers to the component
+with normalized index 0, the second element refers to the component with
+normalized index 1, etc.</p>
+<p>For example, let’s assume the status string “AB” is sent to indicate the status
+of all signal groups.</p>
+<p>The character at index 0 in the string is A.
+The component with normalized index 0 is <code class="docutils literal notranslate"><span class="pre">/sg/1</span></code>, and thus has status A.</p>
+<p>The character at index 1 in the status string is B.
+The component with normalized index 1 is <code class="docutils literal notranslate"><span class="pre">/sg/2</span></code>, and thus has status B.</p>
+<p>The result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span><span class="p">:</span> <span class="n">A</span>
+<span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">2</span><span class="p">:</span> <span class="n">B</span>
+</pre></div>
+</div>
+<section id="main-component">
+<h3><span class="section-number">4.7.3.1. </span>Main component<a class="headerlink" href="#main-component" title="Link to this heading"></a></h3>
+<p>Each site must have exactly one designated main component.
+You can of course refer to the main component using it’s component id.
+Or, as a short-hand, you can use an empty string <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">null</span></code> to refer
+to the main component.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data_types.html" class="btn btn-neutral float-left" title="4.6. Data types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sxl.html" class="btn btn-neutral float-right" title="4.8. Signal Exchange List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright RSMP Nordic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
