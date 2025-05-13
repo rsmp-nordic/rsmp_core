@@ -7,6 +7,23 @@ Version 3.3.0
 -------------
 Release date: 
 
+**Important changes**
+
+- Allow all JSON types. :issue:`195`
+- Component id format B, remove references to STA. :issue:`178`
+- Allow optional commands. :issue:`181`
+
+**Minor changes**
+
+- Add option to select the site or supervision system to act server/client.
+  :issue:`199`
+- Disallow multiple commands in a single CommandRequest. :issue:`180`
+
+**Clarifications**
+
+- Remove reference to Datex II. :issue:`185`
+- Clarify aggregated status. :issue:`200`
+
 The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github.
 :compare:`v3.2.2...v3.3.0`
 
