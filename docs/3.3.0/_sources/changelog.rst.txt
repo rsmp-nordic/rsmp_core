@@ -7,6 +7,9 @@ Version 3.3.0
 -------------
 Release date: 
 
+The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github.
+:compare:`v3.2.2...v3.3.0`
+
 **Important changes**
 
 - Allow all JSON types. :issue:`195`
@@ -23,9 +26,6 @@ Release date:
 
 - Remove reference to Datex II. :issue:`185`
 - Clarify aggregated status. :issue:`200`
-
-The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github.
-:compare:`v3.2.2...v3.3.0`
 
 Version 3.2.2
 -------------
