@@ -1009,7 +1009,7 @@ attribute changes. However, the SXL can define when a particular attribute
 is updated.
 For example, a traffic light that report changes to signal groups might
 need to include a precise timestamp that indicates when in the cycle the
-change happened. But even though the cycle counter updates continuously, the
+change happened. But even though the cycle counter updates continuously,
 this should not in itself trigger an update. Instead the cycle counter
 should be sent along when the signal group state changes.
 In this case the SXL can define that the cycle counter is updated only
