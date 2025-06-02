@@ -70,7 +70,7 @@ Where:
 
 * ``site-id`` is the site id. This is needed during initial handshake
 * ``site description``. Site description
-* ``component-type`` defines which object type the component belongs to
+* ``component-type`` defines which component type the component belongs to
 * ``component-1`` is the name of the component. For instance "signal group 1"
 * ``componentId`` is the :term:`Component id`
 * ``ntsObjectId`` is the :term:`Component id` for the :term:`NTS object`
