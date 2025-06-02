@@ -50,7 +50,7 @@ Using the YAML format; each message type is defined like this:
 .. code-block:: yaml
 
   components:
-    comnponent-type:
+    component-type:
       aggregated_status:
         1:
           title: Local mode
