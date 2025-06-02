@@ -293,7 +293,6 @@ Command messages
 
 Change date and time
 """"""""""""""""""""
-If the automatic time synchronization is missing or disabled there should
+If the automatic time synchronization using NTP is missing or disabled there should
 be a possibility to set the date and time using a special command. Please
 note that UTC should be used.
-
