@@ -9,30 +9,30 @@ signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
 The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each object type.
+possible to send and receive for each component type.
 
 The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.
 
-Object types
+Component types
 ------------
 
-An **object type** defines a type of object that can exist in a site,
-i.e. "LED". Each object type can have a set of alarms, statuses and
+A **component type** defines a type of component that can exist in a site,
+i.e. "LED". Each component type can have a set of alarms, statuses and
 commands associated with it.
 
-Using the Excel format; objects types are defined in it's own sheet.
-Using the YAML format; each object type is defined like this:
+Using the Excel format; components types are defined in it's own sheet.
+Using the YAML format; each component type is defined like this:
 
 .. code-block:: yaml
 
-   objects:
-     object-type:
+   components:
+     component-type:
 
-Where ``object-type`` is the name of the object type. For instance,
+Where ``component-type`` is the name of the component type. For instance,
 "Traffic Light Controller".
 
-Depending on applicability, each object type can either have it's own
+Depending on applicability, each component type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
 
@@ -49,8 +49,8 @@ Using the YAML format; each message type is defined like this:
 
 .. code-block:: yaml
 
-  objects:
-    object-type:
+  components:
+    component-type:
       aggregated_status:
         1:
           title: Local mode
@@ -166,7 +166,7 @@ Alarm description
 The format of the description is free of choice but has the following
 requirements:
 
-- Description is unique for the object type
+- Description is unique for the component type
 - Description is defined in cooperation with the Purchaser before use
 
 .. _alarm-category:
