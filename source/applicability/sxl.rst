@@ -29,7 +29,7 @@ Using the YAML format; each object type is defined like this:
    components:
      component-type:
 
-Where ``commponent-type`` is the name of the object type. For instance,
+Where ``component-type`` is the name of the object type. For instance,
 "Traffic Light Controller".
 
 Depending on applicability, each object type can either have it's own
