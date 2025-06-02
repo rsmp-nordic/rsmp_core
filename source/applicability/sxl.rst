@@ -14,10 +14,10 @@ possible to send and receive for each object type.
 The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.
 
-Object types
+Component types
 ------------
 
-An **object type** defines a type of object that can exist in a site,
+An **component type** defines a type of component that can exist in a site,
 i.e. "LED". Each object type can have a set of alarms, statuses and
 commands associated with it.
 
@@ -26,10 +26,10 @@ Using the YAML format; each object type is defined like this:
 
 .. code-block:: yaml
 
-   objects:
-     object-type:
+   components:
+     component-type:
 
-Where ``object-type`` is the name of the object type. For instance,
+Where ``commponent-type`` is the name of the object type. For instance,
 "Traffic Light Controller".
 
 Depending on applicability, each object type can either have it's own
@@ -49,8 +49,8 @@ Using the YAML format; each message type is defined like this:
 
 .. code-block:: yaml
 
-  objects:
-    object-type:
+  components:
+    comnponent-type:
       aggregated_status:
         1:
           title: Local mode

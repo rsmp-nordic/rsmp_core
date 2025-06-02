@@ -48,20 +48,20 @@ It contains:
 Objects
 -------
 
-A site consists of objects, identified by unique component ids (``cId``).
+A site consists of components, identified by unique component ids (``cId``).
 
-Using the Excel format; objects are defined in it's own sheet - one for each
+Using the Excel format; components are defined in it's own sheet - one for each
 site.
-Using the YAML format, each object is defined like this:
+Using the YAML format, each component is defined like this:
 
 .. code-block:: yaml
 
   sites:
     site-id:
       description: site description
-      objects:
-        object-type:
-          object-1:
+      components:
+        component-type:
+          component-1:
             componentId: AA+BBCCC=DDDEEFFF
             ntsObjectId: AA+BBCCC=DDDEEFFF
             externalNtsId: 00000
@@ -70,23 +70,23 @@ Where:
 
 * ``site-id`` is the site id. This is needed during initial handshake
 * ``site description``. Site description
-* ``object-type`` defines which object type the object belongs to
-* ``object-1`` is the name of the object. For instance "signal group 1"
+* ``component-type`` defines which object type the component belongs to
+* ``component-1`` is the name of the component. For instance "signal group 1"
 * ``componentId`` is the :term:`Component id`
 * ``ntsObjectId`` is the :term:`Component id` for the :term:`NTS object`
 * ``externalNtsId`` is the :term:`External NTS id`
 
-An object can either be categorized as a **single object** or **grouped
-object**, also known as the main component(s).
+A component can either be categorized as a **single component** or **grouped
+component**, also known as the main component(s).
 
 The main component(s) is defined by **componentId** and **ntsObjectId** are
-being set equal. This means that the object is visible from NTS.
+being set equal. This means that the component is visible from NTS.
 
-Single objects have a unique **componentId** but uses the **ntsObjectId** of
+Single components have a unique **componentId** but uses the **ntsObjectId** of
 their main component.
 
 **externalNtsId** and **ntsObjectId** are optional and only used if the
-object is intended to be sent to :term:`NTS`.
+component is intended to be sent to :term:`NTS`.
 
 .. note::
    :term:`NTS` is used at the :term:`STA`. Other road authorities typically
