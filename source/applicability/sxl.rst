@@ -15,7 +15,7 @@ The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.
 
 Component types
-------------
+---------------
 
 A **component type** defines a type of component that can exist in a site,
 i.e. "LED". Each component type can have a set of alarms, statuses and

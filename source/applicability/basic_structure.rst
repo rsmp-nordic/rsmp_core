@@ -801,7 +801,7 @@ The following table is describing the variable content of the message.
 
 
 Structure for a status response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status response message has the structure according to the example below.
 
