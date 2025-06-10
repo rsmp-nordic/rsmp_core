@@ -46,7 +46,7 @@ It contains:
 
 
 Components
--------
+----------
 
 A site consists of components, identified by unique component ids (``cId``).
 
