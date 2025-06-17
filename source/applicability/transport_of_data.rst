@@ -51,30 +51,29 @@ Each site needs to support the following:
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses.
 
-* It must be possible to configure to either initiate the RSMP connection
+* It must be possible to configure whether to initiate the RSMP connection
   or to implement the socket server according to section
   :ref:`transport-between-site-and-supervision-system`.
 
-* It must be possible to configure supervisors as primary or secondary.
-
-* There can be multiple secondary supervisors, but only one primary.
-
-* A secondary supervisor does not receive alarms.
-
-* A secondary supervisor receives aggregated status and can request,
+* All supervisors receives aggregated statuses and can request,
   subscribe and receive statuses.
 
-* Watchdog messages from a secondary supervisor does not adjust the clock.
-  See section :ref:`watchdog`.
+* A site must handle all types of messages from all supervisors, including
+  command requests, status requests and status subscriptions.
 
-* Except from not sending alarms to secondary supervisors, a site must
-  handle all types of message from all supervisors, including command requests,
-  status requests and status subscriptions. Commands from multiple supervisors
-  are served on a first-come basis, without any concept of priority.
+* Status subscribtions are handled per supervisor.
 
-* Supervisor connections are handled separately. When a supervisor sends a
-  command or status request, the response is sent only to that particular
-  supervisor.
+* Commands from multiple supervisors are served on a first-come basis,
+  without any concept of priority.
+
+* Alarms are sent to all supervisor, except those that set the `wants_alarms`
+  flag in their Version reponses to false.
+
+* If an Alarm is blocked, suspended or acknowledged by a supervisor, this
+  affects all supervisors. The updated alarm is send to all supervisors.
+
+* When a site receives a command or status request from a supervisor, the
+  response is sent only to that particular supervisor.
 
 Security
 ^^^^^^^^
