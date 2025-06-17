@@ -1610,7 +1610,8 @@ alarms are used instead.
 The secondary purpose of watchdog messages is to provide a timestamp
 that can be used to check time synchronization. However watchdog
 messages should not be used to adjust the clock. Instead
-NTP (Network Time Protocol) should be used to synchronize clocks.
+mroe robust synchronization methods, e.g. NTP or GPS, should be used to
+synchronize clocks.
 
 The interval duration for sending watchdog messages should be
 configurable at both the site and the supervision system. The default
