@@ -66,8 +66,8 @@ Each site needs to support the following:
 * Commands from multiple supervisors are served on a first-come basis,
   without any concept of priority.
 
-* Alarms are sent to all supervisor, except those that set the `wants_alarms`
-  flag in their Version reponses to false.
+* Alarms are sent to all supervisor, except those that set the `wantAlarms`
+  flag in their Version message to false.
 
 * If an Alarm is blocked, suspended or acknowledged by a supervisor, this
   affects all supervisors. The updated alarm is send to all supervisors.
