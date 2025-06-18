@@ -46,54 +46,55 @@ Multiple supervisors
   stated in the :term:`SXL`.
 
 Supervisor configuration:
+
 * It must be possible to configure the list of supervisors as part of the
   RSMP configuration in the site. In the configuration, supervisors are
   identified by their IP addresses or domain names.
-
 * It must be possible to configure whether to initiate the RSMP connection
   or to implement the socket server according to section
   :ref:`transport-between-site-and-supervision-system`.
 
 Message IDs:
+
 * All messages must have unique message ids. Even when otherwise identical
   messages are sent to multiple supervisors, (e.g. an alarm or status update)
   different messages IDs must be used.
 
 Message Acknowledgements:
+
 * Message acknowledgements are send only to the supervisor that send the
   original message.
 
 Connection:
+
 * Connections to supervisor are handled in parallel, with messages procesesed
   in the order they arrive.
-
 * Depending on how core/SXL version are set in Version messages, the
   connections to supervisor can use different core/SXL versions.
 
 Aggregated status:
+
 * Aggregated status is send to all supervisors.
 
 Status:
+
 * All supervisor and can request, subscribe to and receive statuses.
-
 * Status subscribtions are handled separate per supervisor.
-
 * A status response is sent only to the supervisor that sent the
   initiating status request.
 
 Commands:
-* All supervisors can send commands.
 
+* All supervisors can send commands.
 * Commands from multiple supervisors are served on a first-come basis,
   without any concept of priority.
-
 * A command response is sent only to the supervisor that send the
   initiating command.
 
 Alarms:
+
 * Alarms are sent to all supervisors, except those that set the `wantAlarms`
   flag in their Version message to false.
-
 * If an Alarm is blocked, suspended or acknowledged by a supervisor by a
   supervisor this affects all supervisors.
 
