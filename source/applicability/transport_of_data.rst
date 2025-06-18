@@ -68,7 +68,7 @@ Connection:
   in the order they arrive.
 
 * Depending on how core/SXL version are set in Version messages, the
- connections to supervisor can use different core/SXL versions.
+  connections to supervisor can use different core/SXL versions.
 
 Aggregated status:
 * Aggregated status is send to all supervisors.
