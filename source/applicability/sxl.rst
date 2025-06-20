@@ -268,32 +268,3 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-Required signals
-----------------
-
-Status messages
-^^^^^^^^^^^^^^^
-
-Version of component
-""""""""""""""""""""
-To make sure that the site is equipped with the correct version of
-components and to simplify troubleshooting there need to exists a special
-status to request version of a component.
-
-Current date and time
-"""""""""""""""""""""
-To make sure that the site is configured with the correct date and time
-there needs to be a special status to request this. This type of status is
-especially important for those implementations where the equipment's
-protocol interface and the rest of it's logic doesn't share the same
-clock. Please note that UTC should be used.
-
-Command messages
-^^^^^^^^^^^^^^^^
-
-Change date and time
-""""""""""""""""""""
-If the automatic time synchronization is missing or disabled there should
-be a possibility to set the date and time using a special command. Please
-note that UTC should be used.
-
