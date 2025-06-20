@@ -1560,12 +1560,12 @@ the example below the system has support for RSMP version **3.1.1**,
             }
         ],
         "SXL": "1.0.13",
-        "wantAlarms": false
+        "alarms": false
    }
 
 JSon code 24: A RSMP / SXL message
 
-Note that `wantAlarms` is optional and can only be set by supervisors, not
+Note that `alarms` is optional and can only be set by supervisors, not
 sites. If a site receives a Version message from a supervisor with the flag
 set to false, it should not send any Alarm message to that supervisor.
 
@@ -1596,12 +1596,12 @@ The following table describes additional variable content of the message.
 
 .. table:: Version information
 
-   =========== ======== ===============
-   Element     Type     Description
-   =========== ======== ===============
-   vers        string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   wantAlarms  boolean  Supervisors can set this to false if they do not want to receive alarms.
-   =========== ======== ===============
+   ======== ======== ===============
+   Element  Type     Description
+   ======== ======== ===============
+   vers     string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   alarms   boolean  Supervisors set this to false if they do not want to receive alarms.
+   ======== ======== ===============
 
 
 .. _watchdog:

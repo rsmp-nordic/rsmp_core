@@ -93,8 +93,8 @@ Commands:
 
 Alarms:
 
-* Alarms are sent to all supervisors, except those that set the `wantAlarms`
-  flag in their Version message to false.
+* Alarms are sent to all supervisors, except those that set `alarms`
+  to false in their Version message.
 * If an Alarm is blocked, suspended or acknowledged by a supervisor by a
   supervisor this affects all supervisors.
 
