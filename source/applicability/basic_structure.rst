@@ -1607,17 +1607,15 @@ communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
 alarms are used instead.
 
-The secondary purpose of watchdog messages is to provide a timestamp that can
-be used for simple time synchronization.
+The secondary purpose of watchdog messages is to provide a timestamp
+that can be used to check time synchronization. However watchdog
+messages should not be used to adjust the clock. Instead
+more robust synchronization methods, e.g. NTP or GPS, should be used to
+synchronize clocks.
 
-* Time synchronization using the watchdog message should be configurable at the
-  site (enabled/disabled)
-* If time synchronization is enabled, the site should synchronize its clock
-  using the timestamp from watchdog messages – at communication establishment and
-  then at least once every 24 hours.
-* The interval duration for sending watchdog messages should be
-  configurable at both the site and the supervision system. The default
-  setting should be (1) once a minute.
+The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.
 
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
