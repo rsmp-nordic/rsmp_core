@@ -68,11 +68,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.8.2.5. Arguments and return values</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#required-signals">4.8.3. Required signals</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#status-messages">4.8.3.1. Status messages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#command-messages">4.8.3.2. Command messages</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.9. Site configuration</a></li>
@@ -391,35 +386,6 @@ return values.</p>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="required-signals">
-<h2><span class="section-number">4.8.3. </span>Required signals<a class="headerlink" href="#required-signals" title="Link to this heading"></a></h2>
-<section id="status-messages">
-<h3><span class="section-number">4.8.3.1. </span>Status messages<a class="headerlink" href="#status-messages" title="Link to this heading"></a></h3>
-<section id="version-of-component">
-<h4><span class="section-number">4.8.3.1.1. </span>Version of component<a class="headerlink" href="#version-of-component" title="Link to this heading"></a></h4>
-<p>To make sure that the site is equipped with the correct version of
-components and to simplify troubleshooting there need to exists a special
-status to request version of a component.</p>
-</section>
-<section id="current-date-and-time">
-<h4><span class="section-number">4.8.3.1.2. </span>Current date and time<a class="headerlink" href="#current-date-and-time" title="Link to this heading"></a></h4>
-<p>To make sure that the site is configured with the correct date and time
-there needs to be a special status to request this. This type of status is
-especially important for those implementations where the equipment’s
-protocol interface and the rest of it’s logic doesn’t share the same
-clock. Please note that UTC should be used.</p>
-</section>
-</section>
-<section id="command-messages">
-<h3><span class="section-number">4.8.3.2. </span>Command messages<a class="headerlink" href="#command-messages" title="Link to this heading"></a></h3>
-<section id="change-date-and-time">
-<h4><span class="section-number">4.8.3.2.1. </span>Change date and time<a class="headerlink" href="#change-date-and-time" title="Link to this heading"></a></h4>
-<p>If the automatic time synchronization is missing or disabled there should
-be a possibility to set the date and time using a special command. Please
-note that UTC should be used.</p>
-</section>
 </section>
 </section>
 </section>
