@@ -1565,9 +1565,11 @@ the example below the system has support for RSMP version **3.1.1**,
 
 JSon code 24: A RSMP / SXL message
 
-Note that `alarms` is optional and can only be set by supervisors, not
-sites. If a site receives a Version message from a supervisor with the flag
-set to false, it should not send any Alarm message to that supervisor.
+Note that `alarms` is optional and must only be set by supervisors. If a
+site receives a Version message from a supervisor with the flag
+set to false, it must not send any Alarm message to that supervisor, and
+the supervisor is not allowed to send any alarm requests or state changes
+to the site. I.e. no Alarm messages can be send betweeen them.
 
 The following table describes the variable content of the message which is
 defined by the SXL.
