@@ -67,7 +67,7 @@ Message Acknowledgements:
 
 Connection:
 
-* Connections to supervisor are handled in parallel, with messages procesesed
+* Connections to supervisor are handled in parallel, with messages processed
   in the order they arrive.
 * Depending on how core/SXL version are set in Version messages, the
   connections to supervisor can use different core/SXL versions.
@@ -78,7 +78,7 @@ Aggregated status:
 
 Status:
 
-* All supervisor and can request, subscribe to and receive statuses.
+* All supervisor can request, subscribe to and receive statuses.
 * Status subscribtions are handled separate per supervisor.
 * A status response is sent only to the supervisor that sent the
   initiating status request.
