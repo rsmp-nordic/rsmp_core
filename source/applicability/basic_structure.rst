@@ -675,7 +675,10 @@ State bits
   interpret it at the receiving end
 
 A definition of each boolean element (1-8) is presented in the figure below.
-The signal exchange list (SXL) may define a more detailed definition.
+
+The signal exchange list (SXL) for a particular type of equipment can define a
+more detailed interpretation of each bit, but is not allowed to change
+the fundamental meaning.
 
 .. image:: /img/msc/agg_state_array.png
    :align: center
