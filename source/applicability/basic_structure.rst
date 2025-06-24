@@ -666,28 +666,78 @@ in the SXL.
 
 State bits
 ~~~~~~~~~~
+**State bits** ``se`` is an array of eight booleans,. defined below.
+The signal exchange list (SXL) for a particular type of equipment can detail the
+interpretation of each bit, but is not allowed to change the fundamental meaning,
+not is an SXL allowed to modify the rules for which bits can or must be set together.
 
-* **State bits** ``se`` is an array of eight booleans. The boolean elements defines
-  the status of the site to :term:`NTS`.
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.22}|\Yl{0.45}|\Yl{0.25}|
 
-* It is technically valid in RSMP to set the boolean elements to a nonsensical
-  values, e.g. all boolean elements to ``false``, but it is not defined how to
-  interpret it at the receiving end
+.. table:: State bits
 
-A definition of each boolean element (1-8) is presented in the figure below.
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | Bit | Status            | Description                                             | Color     |
+   +=====+===================+=========================================================+===========+
+   | 1   | Local             | The site is controlled locally                          | 🟦 cyan   |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 2   | Network           | The site has network problems                           | 🟪 purple |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 3   | Error             | The site has one or more alarm with priority 1          | 🟥 red    |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 4   | Warning           | The site has one or more alarm with priority 2          | 🟨 yellow |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 5   | Notice            | The site has one or more alarm with priority 3          | 🟦 blue   |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 6   | Active            | The site is in active mode                              | 🟩 green  |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 7   | Idle              | The site is in idle mode                                | ⬛ black  |
+   +-----+-------------------+---------------------------------------------------------+-----------+
+   | 8   | Offline           | The site is not connected to a supervisor               | ⬜ grey   |
+   +-----+-------------------+---------------------------------------------------------+-----------+
 
-The signal exchange list (SXL) for a particular type of equipment can define a
-more detailed interpretation of each bit, but is not allowed to change
-the fundamental meaning.
+**Bit 1: Local**
+In case eqipment require on-street maintenance it might be necesseary to override operating modes
+for safety or testing purposes. For example, the site might be put in idle mode.
+When local overrides are active, the site is in local control and this bit is set.
 
-.. image:: /img/msc/agg_state_array.png
-   :align: center
+**Bit 2: Network**
+Set if the site experiences network problems, other than being disconnected from a supervisor.
+For example, it might have lost connection to the NTP server or sensor, or experience intermittent
+network errors.
+A disconnect from a supervisor should be indicated using bit 8.
 
-* Bit 3 is true if there are any active alarms with priority 1
-* Bit 4 is true if there are any active alarms with priority 2
-* Bit 5 is true if there are any active alarms with priority 3
+**Bit 3: Error**
+Set if one or more alarm with priority 1 is active.
 
-Please see section :ref:`alarm-priority`.
+**Bit 4: Warning**
+Set if one or more alarm with priority 2 is active.
+
+**Bit 5: Notice**
+Set if one or more alarm with priority 3 is active.
+
+**Bit 6: Active**
+Set if on the device is in active mode, i.e. _intended to operate normally.
+This bit is unaffected by alarms, so this bit and the alarm bits 3, 4 and 5 can be set at the same time.
+A site can be eiter in active or idle mode, not both, so bits 6 and 7 cannot both be set.
+
+**Bit 7: Idle**
+Set if on the device is in idle mode, meaning is turned on, but not in active use.
+For example, a traffic light controller might  have all lamps turned off or in flashing
+yellow when in idle mode.
+This bit is unaffected by alarms.
+A site can be eiter in active or idle mode, not both, so bits 6 and 7 cannot both be set.
+
+**Bit 8: Offline**
+This bit indicates that the connection to one or more supervisors has been lost.
+A supervisor will not immediatetly receive an aggregated status with this bit set since the connection is down,
+but it will see it later when it receives buffered (historic) messages.
+If only one of several supervisors is disconnected, other supervisor will receive this bit
+immediately, unless they opted out of receiving alarms.
+
+
+** Alarm priorities **
+For more details about alarm priorities, please see section :ref:`alarm-priority`.
+
 
 .. _aggregated-status-req:
 
