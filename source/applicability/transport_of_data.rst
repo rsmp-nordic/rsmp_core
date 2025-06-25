@@ -261,30 +261,29 @@ unless there is a communication disruption.
 
 Communication disruption
 ^^^^^^^^^^^^^^^^^^^^^^^^
+If the connection to a supervisor is lost, the site must try to reconnect.
 
-In the event of an communication disruption the following principles applies:
+The connection retry intervals must be configurable, with a default of 10 seconds.
 
-* If the equipment supports buffering of status messages, the status
-  subscriptions remains active regardless of communication disruption and the
-  status updates are stored in the equipment's outgoing communication buffer.
-* Active subscriptions to status messages which does not support buffering
-  ceases if communication disruption occurs.
-* Active subscriptions to status messages ceases if the equipment restarts.
-* Once communication is restored all the buffered messages are sent according to
-  the communication establishment sequence.
-* When sending buffered status messages, the ``q`` field should be set to ``old``
-* The communication buffer is stored and sent using the FIFO principle.
-* In the event of communications failure or power outage the contents of the
-  outgoing communication buffer must not be lost.
-* The internal communication buffer of the device must at a minimum be
-  sized to be able to store 10000 messages.
+It should be possible to configure exponential backoff, jitter and cap for the retry
+interval.
 
-The following message types should be buffered in the equipment's outgoing
-communication buffer in the event of an communication disruption.
+Exponential backoff and jitter prevents a high number of sites trying to connect
+the a supervisor at the same time, e.g. after a widespread network issue.
+
+.. _message-buffer:
+
+Message buffer
+^^^^^^^^^^^^^^^^^^^^^^^^
+Equipment must ensure that all outgoing messages are eventually send
+once to each relevant supervisor.
+
+If a message of the types specified below cannot be send due to a communication
+disruption, it must be stored in a message buffer:
 
 .. tabularcolumns:: |\Yl{0.30}|\Yl{0.50}|
 
-.. table:: Message types that should be buffered
+.. table:: Message types that must be buffered
 
    ================= ====================================
    Message type      Buffered during communication outage
@@ -298,15 +297,50 @@ communication buffer in the event of an communication disruption.
    MessageAck        No
    ================= ====================================
 
-The following configuration options should exist at the site:
+The buffer must be persistent and must survive loss of power, software
+crashes, etc.
 
-* It should be possible to configure which status messages that will be buffered
-  during communication outage
-* The site should try to reconnect to the supervision system/other site
-  during communications failure (yes/no). This configuration option should
-  be activated by default unless anything else is agreed upon.
-* The reconnect interval should be configurable. The default value should
-  be 10 seconds.
+It shown in the table it must be possible to configure which status messages
+will be buffered.
+
+If a status is configured as buffered, status
+subscriptions for that status remains active during communication loss
+and status updates are buffered.
+
+If a status is configured as not buffered, status subscriptions for that
+status ceases if communication is lost and status uddates are not
+buffered.
+
+When the connection is reestablished and the connection handshake is complete,
+messages in the buffer must be send one by one in first-in-first-out order.
+
+Buffered messages must be marked as such using the designated method for each mesage type.
+For example, a StatusUpdate message is marked as buffered by setting q=old.
+
+New messages have priority. Buffered messages are send when no new message needs to be send.
+If a new message arrives while a buffered message is being send, sending of the buffered
+message is completed, and the new mesasage is then send before other buffered messages.
+The transmission of a single message is never interrupted.
+
+If a buffered message cannot be send, it stays in the message buffer until
+succesfully sent at a later time.
+
+If a site is connected to more than one supervisor, the site must keep track
+of which supervisors a message was succesfully sent to to ensure each messages
+is send once to each relevant supervisor.
+
+The buffer must be able to store at least 10.000 message and should
+ be able to store the messages typically produced by the equipment
+over a period of one week.
+
+If the buffer is full and a new message needs to be stored, the oldest
+message in the buffer is deleted first.
+
+When sending a buffered message it must be encoded using the core and SXL
+versions of the current connection, not the version used when
+the message was buffered. This might require storing the original event
+to ensure the RSMP message can be reencoding if needed.
+
 
 
 Wrapping of packets
