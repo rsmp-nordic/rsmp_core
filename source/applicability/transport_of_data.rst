@@ -78,7 +78,7 @@ Aggregated status:
 
 Status:
 
-* All supervisor can request, subscribe to and receive statuses.
+* All supervisors can request, subscribe to and receive statuses.
 * Status subscribtions are handled separate per supervisor.
 * A status response is sent only to the supervisor that sent the
   initiating status request.
