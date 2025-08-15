@@ -1187,9 +1187,14 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order using one or more commands, for the
-referenced object.
-The site responds with a command acknowledgement.
+Command requests are used to send to a specific component to execute a command.
+
+When a site receives a ommand request with valid arguments, it immediately responds with a
+MessageAck and starts executing the Command. A CommandResponse is send as soon
+as the execution completes, fails or times out.
+
+If a command request with invalid arguments is received, a MessageNotAck is send but no
+CommandResponse.
 
 All arguments needs to included in a command, otherwise it results a serious
 error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
