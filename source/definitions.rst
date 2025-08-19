@@ -92,10 +92,6 @@ Definitions
        *Please note that a component is not necessarily the same thing as an
        NTS object.*
 
-   Aggregated component
-       An aggregated component consists of one or many other components.
-       E.g. Component group (CG)
-
    Component type
        A component type is a classification of components that controls the
        properties of all the components of the same component type. The
