@@ -718,7 +718,8 @@ Set if one or more alarm with priority 3 (low) is active.
 **Bit 6: Active**
 Set if the site is in active mode, i.e. intended to operate normally.
 This bit is unaffected by alarms and can be set at the same time as bits 3, 4 and 5.
-A site can be either in active or idle mode, not both, so bits 6 and 7 cannot both be set.
+A site can be either in active or idle mode, not both, so bits 6 and 7 cannot
+both be set at the same time.
 
 **Bit 7: Idle**
 Set if the site is in idle mode, meaning it is turned on but not in active use.
