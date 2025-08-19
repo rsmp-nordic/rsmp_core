@@ -343,8 +343,8 @@ defined by the signal exchange list (SXL).
 
 .. _alarmmessages-req:
 
-Structure for a alarm request message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm request message has the structure according to the example below.
 
