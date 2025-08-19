@@ -678,21 +678,21 @@ modify the rules for which bits can or must be set together.
    +-----+-------------------+-------------------------------------------------+-----------+
    | Bit | Status            | Description                                     | Color     |
    +=====+===================+=================================================+===========+
-   | 1   | Local             | The site is controlled locally                  | 🟦 cyan   |
+   | 1   | Local             | The site is controlled locally                  | |cyan|    |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 2   | Network           | The site has network problems                   | 🟪 purple |
+   | 2   | Network           | The site has network problems                   | |purple|  |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 3   | Error             | The site has one or more alarm with priority 1  | 🟥 red    |
+   | 3   | Error             | The site has one or more alarm with priority 1  | |red|     |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 4   | Warning           | The site has one or more alarm with priority 2  | 🟨 yellow |
+   | 4   | Warning           | The site has one or more alarm with priority 2  | |yellow|  |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 5   | Notice            | The site has one or more alarm with priority 3  | 🟦 blue   |
+   | 5   | Notice            | The site has one or more alarm with priority 3  | |blue|    |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 6   | Active            | The site is in active mode                      | 🟩 green  |
+   | 6   | Active            | The site is in active mode                      | |green|   |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 7   | Idle              | The site is in idle mode                        | ⬛ black  |
+   | 7   | Idle              | The site is in idle mode                        | |black|   |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 8   | Offline           | The site lost connected to a supervisor         | ⬜ grey   |
+   | 8   | Offline           | The site lost connected to a supervisor         | |grey|    |
    +-----+-------------------+-------------------------------------------------+-----------+
 
 **Bit 1: Local**
@@ -1726,6 +1726,15 @@ Supervision system/other equipment sends watchdog message
 .. image:: /img/msc/watchdog_system.png
 
 1. Watchdog message is sent from supervision system/other equipment
+
+.. |cyan| image:: /img/svg/cyan.svg
+.. |purple| image:: /img/svg/purple.svg
+.. |red| image:: /img/svg/red.svg
+.. |yellow| image:: /img/svg/yellow.svg
+.. |blue| image:: /img/svg/blue.svg
+.. |green| image:: /img/svg/green.svg
+.. |black| image:: /img/svg/black.svg
+.. |grey| image:: /img/svg/grey.svg
 
 .. |br| replace:: |br_html| |br_latex|
 
