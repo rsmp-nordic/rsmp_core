@@ -27,9 +27,9 @@ Using the YAML format; each component type is defined like this:
 .. code-block:: yaml
 
    components:
-     component-type:
+     <component-type>:
 
-Where ``component-type`` is the name of the component type. For instance,
+Where ``<component-type>`` is the name of the component type. For instance,
 "Traffic Light Controller".
 
 Depending on applicability, each component type can either have it's own
@@ -50,7 +50,7 @@ Using the YAML format; each message type is defined like this:
 .. code-block:: yaml
 
   components:
-    component-type:
+    <component-type>:
       aggregated_status:
         1:
           title: Local mode
@@ -72,8 +72,8 @@ Using the YAML format; each message type is defined like this:
         8:
           title: Not Connected
       functional_position:
-        position-1: start
-        position-2: stop
+        <position-1>: start
+        <position-2>: stop
       alarms:
         A0001:
           description: alarm description text
@@ -82,7 +82,7 @@ Using the YAML format; each message type is defined like this:
           externalAlarmCodeId: manufacturer specific alarm text
           externalNtsAlarmCodeId: 0000
           arguments:
-            argument-1:
+            <argument-1>:
               type: integer
               min: 0
               max: 10
@@ -91,7 +91,7 @@ Using the YAML format; each message type is defined like this:
         S0001:
           description: status description text
           arguments:
-            argument-1:
+            <argument-1>:
               type: string
               description: S0001 argument 1
       commands:
@@ -99,7 +99,7 @@ Using the YAML format; each message type is defined like this:
           description: command description text
           command: setStatus
           arguments:
-            argument-1:
+            <argument-1>:
               type: boolean
               description: M0001 argument 1
 
@@ -111,7 +111,7 @@ This example defines:
 - A status with the :term:`status code id` ``S0001``
 - A command with the :term:`command code id` ``M0001``
 
-Each with one argument named ``argument-1`` using integer, string and boolean
+Each with one argument named ``<argument-1>`` using integer, string and boolean
 data types.
 
 The alarm contains the fields:
