@@ -57,21 +57,21 @@ Using the YAML format, each component is defined like this:
 .. code-block:: yaml
 
   sites:
-    site-id:
+    <site-id>:
       description: site description
       components:
-        component-type:
-          component-1:
+        <component-type>:
+          <component-1>:
             componentId: AA+BBCCC=DDDEEFFF
             ntsObjectId: AA+BBCCC=DDDEEFFF
             externalNtsId: 00000
 
 Where:
 
-* ``site-id`` is the site id. This is needed during initial handshake
-* ``site description``. Site description
-* ``component-type`` defines which component type the component belongs to
-* ``component-1`` is the name of the component. For instance "signal group 1"
+* ``<site-id>`` is the site id. This is needed during initial handshake
+* ``description``. Site description
+* ``<component-type>`` defines which component type the component belongs to
+* ``<component-1>`` is the name of the component. For instance "signal group 1"
 * ``componentId`` is the :ref:`Component-id`
 * ``ntsObjectId`` is the :ref:`Component-id` for the :term:`NTS object`
 * ``externalNtsId`` is the :term:`External NTS id`
