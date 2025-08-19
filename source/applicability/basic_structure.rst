@@ -368,8 +368,8 @@ JSon code 4: An alarm request message
 
 .. _alarmmessages-ack:
 
-Structure for a alarm acknowledgement message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -427,8 +427,8 @@ JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
-Structure for a alarm suspend message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm suspend message has the structure according to the example below.
 
