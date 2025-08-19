@@ -343,8 +343,8 @@ defined by the signal exchange list (SXL).
 
 .. _alarmmessages-req:
 
-Structure for alarm request message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm request message has the structure according to the example below.
 
@@ -368,8 +368,8 @@ JSon code 4: An alarm request message
 
 .. _alarmmessages-ack:
 
-Structure for alarm acknowledgement message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -427,8 +427,8 @@ JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
-Structure for alarm suspend message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm suspend message has the structure according to the example below.
 
