@@ -3,17 +3,10 @@
 Basic structure
 ---------------
 
-Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
-the JSon elements are formatted as JSon string elements and not as JSon
-number elements or as JSon boolean elements, with the exception of the
-message type "aggregated status" and "status subscribe" where
-JSon boolean elements are used.
-
-The reason why JSon string elements are heavily used is to simplify
-deserialisation of values where the data type in unknown before casting is
-performed, for instance for the values in "return values".
+Unicode (ISO 10646) and UTF-8 are used for all messages.
 
 Parsing needs to be performed case sensitive.
+
 All enum values (e.g. :ref:`alarm-status`) must use the exact casing stated
 in this specification.
 
@@ -98,7 +91,7 @@ The following table is describing the variable content of all message types.
    +---------+-------------------------+---------------------------------------+
 
 .. note::
-   * **mId** is generated as GUID (Globally unique identifier) in the equipment
+   * **mId** is a generated GUID (Globally unique identifier) in the equipment
      that sent the message
    * **mId** is used in all messages as a reference for the message ack
    * **oMId** is used in the message ack to refer to the message which is being acked
@@ -117,9 +110,9 @@ messages, message acknowledgement messages and watchdog messages.
    ============ ================================================
    Element      Description
    ============ ================================================
-   ntsOId       :term:`Component id` for the :term:`NTS object`
+   ntsOId       :ref:`Component-id` for the :term:`NTS object`
    xNId         :term:`External NTS id`
-   cId          :term:`Component id`
+   cId          :ref:`Component-id`
    ============ ================================================
 
 .. _alarm-messages:
@@ -700,6 +693,7 @@ In case equipment require on-street maintenance it might be necessary to overrid
 for safety or testing purposes. For example, the site might be put in idle mode.
 When local overrides are active, the site is in local control and this bit is set.
 
+<<<<<<< HEAD
 **Bit 2: Network**
 Set if the site experiences network problems, other than being disconnected from a supervisor.
 For example, it might have lost connection to the NTP server or a sensor, or experience intermittent
@@ -738,7 +732,6 @@ immediately, unless they opted out of receiving alarms.
 
 ** Alarm priorities **
 For more details about alarm priorities, please see section :ref:`alarm-priority`.
-
 
 .. _aggregated-status-req:
 
@@ -847,7 +840,7 @@ The following table is describing the variable content of the message.
 
 .. _table-statusrequest:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.40}|
 
 .. table:: Status request
 
@@ -900,7 +893,7 @@ The following table is describing the variable content of the message:
 
 .. _table-statusresponse:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|
 
 .. table:: Status response
 
@@ -1018,16 +1011,16 @@ JSon code 15: A status subscribe message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.50}|
 
 .. table:: Status Request
 
-   ======== ========== =============
-   Element  Value      Description
-   ======== ========== =============
-   uRt      *(string)* updateRate
-   sOc      boolean    sendOnChange
-   ======== ========== =============
+   ======== ================== =============
+   Element  Type               Description
+   ======== ================== =============
+   uRt      number_as_string   updateRate
+   sOc      boolean            sendOnChange
+   ======== ================== =============
 
 The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
 status update should be sent.
@@ -1036,9 +1029,8 @@ The following applies:
 
 * **updateRate** defines a specific interval when to send updates.
   Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
-  Dot (.) is used as a decimal point.
 
-* If **updateRate** is set to "0" it means that no update is sent using an
+* If **updateRate** is set to 0 it means that no update is sent using an
   interval.
 
 * **sendOnChange** defines if an status update should be sent as soon as the
@@ -1241,12 +1233,17 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order using one or more commands, for the
-referenced object.
+Command messages are used to give order to the referenced object.
 The site responds with a command acknowledgement.
 
-All arguments needs to included in a command, otherwise it results a serious
-error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
+All arguments in a CommandRequest are considered required unless
+they are specifically marked as optional in the SXL. If a required argument is
+missing in a CommandRequest it is considered as a serious error resulting in
+MessageNotAck. See section about :ref:`incomplete-commands`.
+
+Only a single command (``cCI``) is allowed in each CommandRequest and
+CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
+be ambiguous. See section about :ref:`more-than-one-command`.
 
 Command messages are interaction driven and are sent when command are
 requested on any given object by the supervision system or other equipment
@@ -1298,9 +1295,8 @@ requested object
 
 JSon code 20: A command request message
 
-The command code (``cCI``) and name (``n``) are placed in an array
-(``arg``) in order to enable support for requesting multiple commands at
-once.
+The command code (``cCI``) and name of the argument (``n``) are placed in an
+array (``arg``).
 
 The following table is describing the variable content of the message:
 
@@ -1311,26 +1307,26 @@ Values to send with the command (arguments)
 .. table:: Command argument
 
    ============ ============ =============
-   Element      Value        Description
+   Element      Type         Description
    ============ ============ =============
-   arg          *(array)*    Argument. Contains the element **cCI**, **n**, **cO**, **v** in an array
+   arg          array        Arguments. Contains the elements **cCI**, **n**, **cO**, **v** in an array
    ============ ============ =============
 
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
 
 .. table:: Command arguments defined by SXL
 
-   =============  ========================================================
-   Element        Description
-   =============  ========================================================
-   cCI            :term:`Command code id`
-   n              Name of the argument
-   cO             Command. Optionally used for RPC (Remote Procedure Call)
-   v              Value
-   =============  ========================================================
+   ============= ================ ============
+   Element       Type             Description
+   ============= ================ ============
+   cCI           string           :term:`Command code id`
+   n             string           Name of the argument
+   cO            string           Command. Optionally used for RPC (Remote Procedure Call)
+   v             (defined in SXL) (defined in SXL)
+   ============= ================ ============
 
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1388,7 +1384,7 @@ The following table is describing the variable content of the message:
 .. table:: Command response
 
    ======= ============= =====================================================================
-   Element Value         Description
+   Element Type          Description
    ======= ============= =====================================================================
    cTS     *(timestamp)* Timestamp for the command reponse.
                          All timestamps are set at the site (and not in the supervision
@@ -1407,7 +1403,7 @@ be empty if not return values are defined.
 .. table:: Command return values
 
    ========= ========= =============
-   Element   Value     Description
+   Element   Type      Description
    ========= ========= =============
    rvs       *(array)* Return values. Contains the elements **cCI**, **v**, **n** and **q** in an array.
    ========= ========= =============
@@ -1415,17 +1411,17 @@ be empty if not return values are defined.
 The following table describes the variable content defined by the signal
 exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.60}|
 
 .. table:: Return values
 
-   =============  ===============================================
-   Element        Description
-   =============  ===============================================
-   cCI            :term:`Command code id`
-   n              Name of the return value
-   v              Value from equipment
-   =============  ===============================================
+   ============= ================ ============
+   Element       Type             Description
+   ============= ================ ============
+   cCI           string           :term:`Command code id`
+   n             string           Name of the return value
+   v             (defined in SXL) (defined in SXL)
+   ============= ================ ============
 
 The following table describes additional variable content of the message.
 
@@ -1537,11 +1533,11 @@ The following table is describing the variable content of the message:
 
 .. table:: Message not ack
 
-   ======== ============ ===============
-   Element  Value        Description
-   ======== ============ ===============
-   rea      *(optional)* Error message where all relevant information about the nature of the error can be provided.
-   ======== ============ ===============
+   ======== ======== ===============
+   Element  Type     Description
+   ======== ======== ===============
+   rea      string   (optional) Error message where all relevant information about the nature of the error can be provided.
+   ======== ======== ===============
 
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1626,16 +1622,16 @@ defined by the SXL.
 The *Site config* columns describes the correlation between the JSon
 elements and the titles in the site configuration.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.30}|
 
 .. table:: Version information defined by site configuration
 
-   ======= ==================== ================== ===========================
-   Element Site config (Excel)  Site config (YAML) Description
-   ======= ==================== ================== ===========================
-   sId     SiteId                                  :term:`Site id`
-   SXL     SXL revision         version            Revision of SXL. E.g ”1.3”
-   ======= ==================== ================== ===========================
+   ======= ======== ==================== ================== ===========================
+   Element Type     Site config (Excel)  Site config (YAML) Description
+   ======= ======== ==================== ================== ===========================
+   sId     string   SiteId                                  :term:`Site id`
+   SXL     string   SXL revision         version            Revision of SXL. E.g ”1.3”
+   ======= ======== ==================== ================== ===========================
 
 It is possible to use more than one site id in a single RSMP connection.
 Therefore the site ids that are used in the RSMP connection are sent
@@ -1643,15 +1639,15 @@ in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.85}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: Version information
 
-   ========= ===============
-   Element   Description
-   ========= ===============
-   vers      Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   ========= ===============
+   ========= ======= ===============
+   Element   Type    Description
+   ========= ======= ===============
+   vers      string  Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   ========= ======= ===============
 
 .. _watchdog:
 
@@ -1703,7 +1699,7 @@ The following table is describing the variable content of the message:
 .. table:: Watchdog
 
    ======= ============= =====================================================================
-   Element Value         Description
+   Element Type          Description
    ======= ============= =====================================================================
    wTs     *(timestamp)* Timestamp for the watchdog.
                          See also the :ref:`data type<data_types>` section.

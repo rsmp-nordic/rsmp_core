@@ -31,14 +31,7 @@ Definitions
 
    Component
        A component is an :term:`object` or :term:`NTS object`.
-
-       A component is identified using component id.
-
-   Component id
-       Identity of a :term:`component`
-
-       The format used for the STA’s sites is specified in the STA
-       publication TDOK 2012:1171, e.g. AA+BBCDD=EEEFFGGG.
+       A component is identified using a component id.
 
    DATEX II
        European standard for message exchange between traffic systems
@@ -70,11 +63,8 @@ Definitions
 
        Designed to be used with NTS.
 
-   Maximo
-      STA’s support system for maintenance
-
    NTS
-      National Traffic management system at the :term:`STA`.
+      National Traffic management system at the Swedish Transport Administration
 
    NTS object
        Used for objects in :term:`NTS`
@@ -106,7 +96,7 @@ Definitions
        An object can represent physical equipment or abstract concepts
        E.g. a camera, a control flow algorithm or a group of signs.
 
-       An object is identified using :term:`component id`.
+       An object is identified using :ref:`component-id`.
        *Please note that an object is not necessarily the same thing as an
        NTS object.*
 
@@ -135,19 +125,6 @@ Definitions
    Site id
        Site identity.
        Used in order to refer to a “logical” identity of a site.
-
-       At the STA, the following formats can be used:
-
-       - The site id from the STAs component id standard TDOK 2012:1171
-         e.g. ”40100”
-
-       - It is also possible to use the full component id (TDOK 2012:1171)
-         of the grouped object in the site in case the site id part of
-         the component id is insufficient in order to uniquely identify a
-         site.
-
-   STA
-       Swedish Transport Administration
 
    Supervision system
        Control and supervision system for regional and/or national
