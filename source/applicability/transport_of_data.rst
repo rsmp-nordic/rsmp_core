@@ -300,7 +300,7 @@ disruption, it must be stored in a message buffer:
 The buffer must be persistent and must survive loss of power, software
 crashes, etc.
 
-It shown in the table it must be possible to configure which status messages
+As shown in the table it must be possible to configure which status messages
 will be buffered.
 
 If a status is configured as buffered, status
@@ -317,20 +317,20 @@ messages in the buffer must be send one by one in first-in-first-out order.
 Buffered messages must be marked as such using the designated method for each mesage type.
 For example, a StatusUpdate message is marked as buffered by setting q=old.
 
-New messages have priority. Buffered messages are send when no new message needs to be send.
-If a new message arrives while a buffered message is being send, sending of the buffered
+Sending messages take priority. Buffered messages are send when no new message needs to be send.
+If a new message needs to be send while a buffered message is being send, sending of the buffered
 message is completed, and the new mesasage is then send before other buffered messages.
 The transmission of a single message is never interrupted.
 
 If a buffered message cannot be send, it stays in the message buffer until
-succesfully sent at a later time.
+succesfully send at a later time.
 
 If a site is connected to more than one supervisor, the site must keep track
 of which supervisors a message was succesfully sent to to ensure each messages
 is send once to each relevant supervisor.
 
 The buffer must be able to store at least 10.000 message and should
- be able to store the messages typically produced by the equipment
+be able to store the messages typically produced by the equipment
 over a period of one week.
 
 If the buffer is full and a new message needs to be stored, the oldest
@@ -340,7 +340,6 @@ When sending a buffered message it must be encoded using the core and SXL
 versions of the current connection, not the version used when
 the message was buffered. This might require storing the original event
 to ensure the RSMP message can be reencoding if needed.
-
 
 
 Wrapping of packets
