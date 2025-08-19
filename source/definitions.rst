@@ -78,12 +78,10 @@ Definitions
        are possible for the NTS object.
 
    Component
-       A component is an abstract term which is used in control and
-       supervision systems. A component can have one or more statuses
-       that may change depending on changes of circumstance of the
-       component or control of the component from external source.
-       Communication with the component is made using exchange of
-       signals, e.g. commands, status and alarms.
+       A component can have one or more statuses that may change depending on
+       changes of circumstance of the component or control of the component
+       from external source. Communication with the component is made using
+       exchange of signals, e.g. commands, statuses and alarms.
 
        A component can represent physical equipment or abstract concepts
        E.g. a camera, a control flow algorithm or a group of signs.
