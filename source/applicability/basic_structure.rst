@@ -688,49 +688,54 @@ modify the rules for which bits can or must be set together.
    | 8   | Offline           | The site lost connection to a supervisor        | |grey|    |
    +-----+-------------------+-------------------------------------------------+-----------+
 
-**Bit 1: Local**
-In case equipment require on-street maintenance it might be necessary to override operating modes
-for safety or testing purposes. For example, the site might be put in idle mode.
-When local overrides are active, the site is in local control and this bit is set.
+Bit 1: Local
+    In case equipment require on-street maintenance it might be necessary to
+    override operating modes for safety or testing purposes. For example, the
+    site might be put in idle mode. When local overrides are active, the site
+    is in local control and this bit is set.
 
-**Bit 2: Network**
-Set if the site experiences network problems, other than being disconnected from a supervisor.
-For example, it might have lost connection to the NTP server or a sensor, or experience intermittent
-network errors.
-A disconnect from a supervisor should be indicated using bit 8.
+Bit 2: Network
+    Set if the site experiences network problems, other than being
+    disconnected from a supervisor. For example, it might have lost connection
+    to the NTP server or a sensor, or experience intermittent network errors.
+    A disconnect from a supervisor should be indicated using bit 8.
 
-**Bit 3: Error**
-Set if one or more alarm with priority 1 (high) is active.
+Bit 3: Error
+    Set if one or more alarm with priority 1 (high) is active.
 
-**Bit 4: Warning**
-Set if one or more alarm with priority 2 (medium) is active.
+Bit 4: Warning
+    Set if one or more alarm with priority 2 (medium) is active.
 
-**Bit 5: Notice**
-Set if one or more alarm with priority 3 (low) is active.
+Bit 5: Notice
+    Set if one or more alarm with priority 3 (low) is active.
 
-**Bit 6: Active**
-Set if the site is in active mode, i.e. intended to operate normally.
-This bit is unaffected by alarms and can be set at the same time as bits 3, 4 and 5.
-A site can be either in active or idle mode, not both, so bits 6 and 7 cannot
-both be set at the same time.
+Bit 6: Active
+    Set if the site is in active mode, i.e. intended to operate normally.
+    This bit is unaffected by alarms and can be set at the same time as bits 3,
+    4 and 5.
+    A site can be either in active or idle mode, not both, so bits 6 and 7
+    cannot both be set at the same time.
 
-**Bit 7: Idle**
-Set if the site is in idle mode, meaning it is turned on but not in active use.
-For example, a traffic light controller in idle mode might have all lamps turned off
-or in flashing yellow. This bit is unaffected by alarms.
-A site can be either in active or idle mode, not both, so bits 6 and 7 cannot
-both be set at the same time.
+Bit 7: Idle
+    Set if the site is in idle mode, meaning it is turned on but not in active
+    use. For example, a traffic light controller in idle mode might have all
+    lamps turned off or in flashing yellow.
+    This bit is unaffected by alarms and can be set at the same time as bits 3,
+    4 and 5.
+    A site can be either in active or idle mode, not both, so bits 6 and 7
+    cannot both be set at the same time.
 
-**Bit 8: Offline**
-This bit indicates that the connection to one or more supervisors has been lost.
-The affected supervisor will not immediately receive an aggregated status with this bit
-set since the connection is down, but it will see it later when it receives buffered (historic) messages.
-If only one of several supervisors is disconnected, other supervisor will receive this bit
-immediately, unless they opted out of receiving alarms.
+Bit 8: Offline
+    This bit indicates that the connection to one or more supervisors has been
+    lost. The affected supervisor will not immediately receive an aggregated
+    status with this bit set since the connection is down, but it will see it
+    later when it receives buffered (historic) messages. If only one of several
+    supervisors is disconnected, other supervisor will receive this bit
+    immediately, unless they opted out of receiving alarms.
 
-
-**Alarm priorities**
-For more details about alarm priorities, please see section :ref:`alarm-priority`.
+Alarm priorities
+    For more details about alarm priorities, please see section
+    :ref:`alarm-priority`.
 
 .. _aggregated-status-req:
 
