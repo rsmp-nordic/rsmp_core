@@ -74,12 +74,12 @@ Connection:
 
 Aggregated status:
 
-* Aggregated status is send to all supervisors.
+* Aggregated status is sent to all supervisors.
 
 Status:
 
 * All supervisors can request, subscribe to and receive statuses.
-* Status subscribtions are handled separate per supervisor.
+* Status subscriptions are handled separate per supervisor.
 * A status response is sent only to the supervisor that sent the
   initiating status request.
 
@@ -95,7 +95,7 @@ Alarms:
 
 * Alarms are send to all supervisors, except those that set `receiveAlarms`
   to false in their Version message.
-* All supervisor can acknowledge and suspend/resume alarms, even if they
+* All supervisors can acknowledge and suspend/resume alarms, even if they
   set `receiveAlarms` to false in their Version message.
 * If an Alarm is blocked, suspended or acknowledged by one supervisor
   this affects all supervisors.
