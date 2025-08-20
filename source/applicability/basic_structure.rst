@@ -664,7 +664,7 @@ The signal exchange list (SXL) for a particular type of equipment can detail the
 interpretation of each bit, but is not allowed to change the fundamental meaning or
 modify the rules for which bits can or must be set together.
 
-.. tabularcolumns:: |\Yl{0.08}|\Yl{0.22}|\Yl{0.45}|\Yl{0.25}|
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
 
 .. table:: State bits
 
