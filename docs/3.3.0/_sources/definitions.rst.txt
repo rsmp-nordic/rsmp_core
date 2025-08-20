@@ -25,14 +25,6 @@ Definitions
    External NTS alarm code id
        Alarm code in order to identify alarm type during communication with NTS
 
-   Aggregated object
-       An aggregated object consists of one or many other objects.
-       E.g. Component group (CG)
-
-   Component
-       A component is an :term:`object` or :term:`NTS object`.
-       A component is identified using a component id.
-
    DATEX II
        European standard for message exchange between traffic systems
        (www.datex2.eu)
@@ -72,7 +64,7 @@ Definitions
        All control and supervision related functions in NTS consist of
        NTS objects.
 
-       An NTS object can represent one or many objects.
+       An NTS object can represent one or many components.
 
    External NTS id
        Identitiy for an :term:`NTS object` used in communication between NTS and other systems
@@ -85,28 +77,29 @@ Definitions
        Determines among other things which functional positions that
        are possible for the NTS object.
 
-   Object
-       An object is a abstract term which is used in control and
-       supervision systems. An object can have one or more statuses
-       that may change depending on changes of circumstance of the
-       object or control of the object from external source.
-       Communication with the object is made using exchange of
-       signals, e.g. commands, status and alarms.
+   Component
+       A component can have one or more statuses that may change depending on
+       changes of circumstance of the component or control of the component
+       from external source. Communication with the component is made using
+       exchange of signals, e.g. commands, statuses and alarms.
 
-       An object can represent physical equipment or abstract concepts
+       A component can represent physical equipment or abstract concepts
        E.g. a camera, a control flow algorithm or a group of signs.
 
-       An object is identified using :ref:`component-id`.
-       *Please note that an object is not necessarily the same thing as an
+       A component is identified using :ref:`component-id`.
+       *Please note that a component is not necessarily the same thing as an
        NTS object.*
 
-   Object type
-       An object type is a classification of objects that controls the
-       properties of all the objects of the same object type. The
-       object type determines how the object is presented in
+   Component type
+       A component type is a classification of components that controls the
+       properties of all the components of the same component type. The
+       component type determines how the component is presented in
        supervision system, how it is grouped and which functional
        positions, alarm codes, commands and statuses that exists for that
-       object type.
+       component type.
+
+   Component id
+       Identifies a :term:`component`.
 
    Parameter
        Used for modification of technical or autonomous traffic parameters
@@ -132,7 +125,7 @@ Definitions
 
    SXL
       Signal exchange list. Defines which messages types (signals)
-      which is possible to send to a specific equipment or object.
+      which is possible to send to a specific equipment or component.
       E.g. alarms, statuses and commands
 
    Status code id

@@ -277,13 +277,13 @@ messages, message acknowledgement messages and watchdog messages.</p>
 <li><p>An alarm is being suspended / un-suspended</p></li>
 </ul>
 <p>An acknowledgment of an alarm does not cause a single alarm event to
-be acknowledged but all alarm events for the specific object with the
+be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.</p>
 <p>The ability to request an alarms is used in case the supervision system
 looses track of the latest state of the alarms.</p>
-<p>A suspend of an alarm causes all alarms from the specific object with
+<p>A suspend of an alarm causes all alarms from the specific component with
 the associated alarm code id to be suspended. This means that alarm messages
 stops being sent from the site as long as the suspension is active. As soon
 as the suspension is inactivated alarms can be sent again.</p>
@@ -455,7 +455,7 @@ and dashed lines defines possible changes controlled by user.</p>
 <li><p>Alarms are unblocked and it’s state changes</p></li>
 <li><p>Alarms are sent as part of
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a></p></li>
-<li><p>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for alarm request message</span></a></p></li>
+<li><p>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for an alarm request message</span></a></p></li>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
@@ -515,8 +515,8 @@ defined by the signal exchange list (SXL).</p>
 </tbody>
 </table>
 </section>
-<section id="structure-for-alarm-request-message">
-<span id="alarmmessages-req"></span><h4><span class="section-number">4.4.1.1.4. </span>Structure for alarm request message<a class="headerlink" href="#structure-for-alarm-request-message" title="Link to this heading"></a></h4>
+<section id="structure-for-an-alarm-request-message">
+<span id="alarmmessages-req"></span><h4><span class="section-number">4.4.1.1.4. </span>Structure for an alarm request message<a class="headerlink" href="#structure-for-an-alarm-request-message" title="Link to this heading"></a></h4>
 <p>An alarm request message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-req"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -534,8 +534,8 @@ defined by the signal exchange list (SXL).</p>
 </div>
 <p>JSon code 4: An alarm request message</p>
 </section>
-<section id="structure-for-alarm-acknowledgement-message">
-<span id="alarmmessages-ack"></span><h4><span class="section-number">4.4.1.1.5. </span>Structure for alarm acknowledgement message<a class="headerlink" href="#structure-for-alarm-acknowledgement-message" title="Link to this heading"></a></h4>
+<section id="structure-for-an-alarm-acknowledgement-message">
+<span id="alarmmessages-ack"></span><h4><span class="section-number">4.4.1.1.5. </span>Structure for an alarm acknowledgement message<a class="headerlink" href="#structure-for-an-alarm-acknowledgement-message" title="Link to this heading"></a></h4>
 <p>An alarm acknowledgement message has the structure according to the example
 below.</p>
 <div class="highlight-json notranslate" id="json-alarm-ack"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -583,8 +583,8 @@ example below.</p>
 </div>
 <p>JSon code 6: Response of an alarm acknowledgement message</p>
 </section>
-<section id="structure-for-alarm-suspend-message">
-<span id="alarmmessages-suspend"></span><h4><span class="section-number">4.4.1.1.6. </span>Structure for alarm suspend message<a class="headerlink" href="#structure-for-alarm-suspend-message" title="Link to this heading"></a></h4>
+<section id="structure-for-an-alarm-suspend-message">
+<span id="alarmmessages-suspend"></span><h4><span class="section-number">4.4.1.1.6. </span>Structure for an alarm suspend message<a class="headerlink" href="#structure-for-an-alarm-suspend-message" title="Link to this heading"></a></h4>
 <p>An alarm suspend message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-alarm-suspend"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -717,8 +717,8 @@ implicit in the following figures.</p>
 <section id="aggregated-status-message">
 <span id="id6"></span><h2><span class="section-number">4.4.2. </span>Aggregated status message<a class="headerlink" href="#aggregated-status-message" title="Link to this heading"></a></h2>
 <p>This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the object which is
-defined by <strong>ObjectType</strong> in the signal exchange list. If no object is defined
+status of the site. The aggregated status applies to the component which is
+defined by <strong>ComponentType</strong> in the signal exchange list. If no component is defined
 then no aggregated status message is sent.</p>
 <p>Aggregated status message are interaction driven and are sent if state,
 functional position or functional status are changed at the site.</p>
@@ -850,7 +850,7 @@ site</strong></p>
 <h2><span class="section-number">4.4.4. </span>Status Messages<a class="headerlink" href="#status-messages" title="Link to this heading"></a></h2>
 <p>The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
-statuses, for the referenced object.</p>
+statuses, for the referenced component.</p>
 <p>The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:</p>
 <ul class="simple">
@@ -885,7 +885,7 @@ below.</p>
 </div>
 <p>JSon code 13: A status request message</p>
 <p>The status code id (<code class="docutils literal notranslate"><span class="pre">sCI</span></code>) and name (<code class="docutils literal notranslate"><span class="pre">n</span></code>) are placed in an array
-(<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple status at
+(<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple statuses at
 once.</p>
 <p>The following table is describing the variable content of the message.</p>
 <table class="docutils align-default" id="id30">
@@ -905,8 +905,8 @@ once.</p>
 </tbody>
 </table>
 </section>
-<section id="structure-for-status-response-message">
-<h4><span class="section-number">4.4.4.1.2. </span>Structure for status response message<a class="headerlink" href="#structure-for-status-response-message" title="Link to this heading"></a></h4>
+<section id="structure-for-a-status-response-message">
+<h4><span class="section-number">4.4.4.1.2. </span>Structure for a status response message<a class="headerlink" href="#structure-for-a-status-response-message" title="Link to this heading"></a></h4>
 <p>A status response message has the structure according to the example below.</p>
 <p>The status code id (<code class="docutils literal notranslate"><span class="pre">sCI</span></code>) and name (<code class="docutils literal notranslate"><span class="pre">n</span></code>) are placed in an array
 (<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for responding to multiple statuses at once.
@@ -1164,7 +1164,7 @@ a new subscription but use the existing one. It’s allowed to change
 <p>The allowed content is described in Table
 <a class="reference internal" href="#table-statusresponse"><span class="std std-ref">Status response</span></a> and
 <a class="reference internal" href="#table-statusresponse-returnvalues"><span class="std std-ref">Return values</span></a>.</p>
-<p>Since different UpdateRate can be defined for different objects it means that
+<p>Since different UpdateRate can be defined for different components it means that
 partial StatusUpdates can be sent.</p>
 <div class="highlight-json notranslate" id="json-status-request-partial"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -1267,7 +1267,7 @@ implicit in the following figure.</p>
 </section>
 <section id="command-messages">
 <h2><span class="section-number">4.4.5. </span>Command messages<a class="headerlink" href="#command-messages" title="Link to this heading"></a></h2>
-<p>Command messages are used to give order to the referenced object.
+<p>Command messages are used to give order to the referenced component.
 The site responds with a command acknowledgement.</p>
 <p>All arguments in a CommandRequest are considered required unless
 they are specifically marked as optional in the SXL. If a required argument is
@@ -1277,14 +1277,14 @@ MessageNotAck. See section about <a class="reference internal" href="error_handl
 CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
 be ambiguous. See section about <a class="reference internal" href="error_handling.html#more-than-one-command"><span class="std std-ref">More than one command</span></a>.</p>
 <p>Command messages are interaction driven and are sent when command are
-requested on any given object by the supervision system or other equipment</p>
+requested on any given component by the supervision system or other equipment</p>
 <section id="id12">
 <h3><span class="section-number">4.4.5.1. </span>Message structure<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <section id="structure-of-a-command-request">
 <h4><span class="section-number">4.4.5.1.1. </span>Structure of a command request<a class="headerlink" href="#structure-of-a-command-request" title="Link to this heading"></a></h4>
 <p>A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
-requested object</p>
+requested component.</p>
 <div class="highlight-json notranslate" id="json-command-req"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CommandRequest&quot;</span><span class="p">,</span>
@@ -1372,7 +1372,7 @@ defined by the SXL.</p>
 <h4><span class="section-number">4.4.5.1.2. </span>Structure of a command response message<a class="headerlink" href="#structure-of-a-command-response-message" title="Link to this heading"></a></h4>
 <p>A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
-requested object.</p>
+requested component.</p>
 <p>The command code (<code class="docutils literal notranslate"><span class="pre">cCI</span></code>) and name (<code class="docutils literal notranslate"><span class="pre">n</span></code>) are placed in an array
 (<code class="docutils literal notranslate"><span class="pre">rvs</span></code>) in order to enable support for responding to multiple commands at
 once.</p>
@@ -1705,18 +1705,14 @@ in the message using an array with <code class="docutils literal notranslate"><s
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
 alarms are used instead.</p>
-<p>The secondary purpose of watchdog messages is to provide a timestamp that can
-be used for simple time synchronization.</p>
-<ul class="simple">
-<li><p>Time synchronization using the watchdog message should be configurable at the
-site (enabled/disabled)</p></li>
-<li><p>If time synchronization is enabled, the site should synchronize its clock
-using the timestamp from watchdog messages – at communication establishment and
-then at least once every 24 hours.</p></li>
-<li><p>The interval duration for sending watchdog messages should be
+<p>The secondary purpose of watchdog messages is to provide a timestamp
+that can be used to check time synchronization. However watchdog
+messages should not be used to adjust the clock. Instead
+more robust synchronization methods, e.g. NTP or GPS, should be used to
+synchronize clocks.</p>
+<p>The interval duration for sending watchdog messages should be
 configurable at both the site and the supervision system. The default
-setting should be (1) once a minute.</p></li>
-</ul>
+setting should be (1) once a minute.</p>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>

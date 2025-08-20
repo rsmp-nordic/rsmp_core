@@ -60,7 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.9. Site configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#meta-data">4.9.1. Meta data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#objects">4.9.2. Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#components">4.9.2. Components</a></li>
 </ul>
 </li>
 </ul>
@@ -95,8 +95,8 @@
              
   <section id="site-configuration">
 <span id="id1"></span><h1><span class="section-number">4.9. </span>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h1>
-<p>A site configuration defines the individual objects (or components) that exists
-in a specific site. It also defines the relationship between those objects.</p>
+<p>A site configuration defines the individual components that exists
+in a specific site. It also defines the relationship between those components.</p>
 <p>The site configuration can either be defined as a separate YAML file or be
 combined with the YAML file of the SXL when needed. The Excel file always
 combines the SXL and the site configuration.</p>
@@ -109,7 +109,7 @@ needed to provide the SXL version.</p>
 <p>The site configuration may define a set of meta data of a specific site.
 It is defined in the first sheet named “Version” in in the Excel version and at
 the very top of the YAML version.</p>
-<p>In each SXL there must defined which version of RSMP which it is conforms to.</p>
+<p>In each SXL it must defined which version of RSMP it conforms to.</p>
 <p>It contains:</p>
 <table class="docutils align-default" id="id4">
 <caption><span class="caption-number">Table 4.32 </span><span class="caption-text">meta data</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
@@ -153,18 +153,18 @@ the very top of the YAML version.</p>
 </aside>
 </aside>
 </section>
-<section id="objects">
-<h2><span class="section-number">4.9.2. </span>Objects<a class="headerlink" href="#objects" title="Link to this heading"></a></h2>
-<p>A site consists of objects, identified by unique component ids (<code class="docutils literal notranslate"><span class="pre">cId</span></code>).</p>
-<p>Using the Excel format; objects are defined in it’s own sheet - one for each
+<section id="components">
+<h2><span class="section-number">4.9.2. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<p>A site consists of components, identified by unique component ids (<code class="docutils literal notranslate"><span class="pre">cId</span></code>).</p>
+<p>Using the Excel format; components are defined in it’s own sheet - one for each
 site.
-Using the YAML format, each object is defined like this:</p>
+Using the YAML format, each component is defined like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sites</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">site-id</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;site-id&gt;</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">site description</span>
-<span class="w">    </span><span class="nt">objects</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">object-type</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">object-1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">components</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">&lt;component-1&gt;</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">componentId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AA+BBCCC=DDDEEFFF</span>
 <span class="w">          </span><span class="nt">ntsObjectId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AA+BBCCC=DDDEEFFF</span>
 <span class="w">          </span><span class="nt">externalNtsId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00000</span>
@@ -172,22 +172,22 @@ Using the YAML format, each object is defined like this:</p>
 </div>
 <p>Where:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">site-id</span></code> is the site id. This is needed during initial handshake</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">site</span> <span class="pre">description</span></code>. Site description</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">object-type</span></code> defines which object type the object belongs to</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">object-1</span></code> is the name of the object. For instance “signal group 1”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;site-id&gt;</span></code> is the site id. This is needed during initial handshake</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>. Site description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;component-type&gt;</span></code> defines which component type the component belongs to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;component-1&gt;</span></code> is the name of the component. For instance “signal group 1”</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">componentId</span></code> is the <a class="reference internal" href="component_id.html#component-id"><span class="std std-ref">Component ID</span></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ntsObjectId</span></code> is the <a class="reference internal" href="component_id.html#component-id"><span class="std std-ref">Component ID</span></a> for the <a class="reference internal" href="../definitions.html#term-NTS-object"><span class="xref std std-term">NTS object</span></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">externalNtsId</span></code> is the <a class="reference internal" href="../definitions.html#term-External-NTS-id"><span class="xref std std-term">External NTS id</span></a></p></li>
 </ul>
-<p>An object can either be categorized as a <strong>single object</strong> or <strong>grouped
-object</strong>, also known as the main component(s).</p>
-<p>The main component(s) is defined by <strong>componentId</strong> and <strong>ntsObjectId</strong> are
-being set equal. This means that the object is visible from NTS.</p>
-<p>Single objects have a unique <strong>componentId</strong> but uses the <strong>ntsObjectId</strong> of
+<p>A component can either be categorized as a <strong>single component</strong> or <strong>grouped
+component</strong>, also known as the main component(s).</p>
+<p>The main component(s) is defined by <strong>componentId</strong> and <strong>ntsObjectId</strong> which are
+being set equal. This means that the component is visible from NTS.</p>
+<p>Single components have a unique <strong>componentId</strong> but uses the <strong>ntsObjectId</strong> of
 their main component.</p>
 <p><strong>externalNtsId</strong> and <strong>ntsObjectId</strong> are optional and only used if the
-object is intended to be sent to <a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a>.</p>
+component is intended to be sent to <a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a> is used at the Swedish Transport Administration. Other road

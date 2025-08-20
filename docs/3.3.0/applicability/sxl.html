@@ -59,7 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="component_id.html">4.7. Component ID</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. Signal Exchange List</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#object-types">4.8.1. Object types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-types">4.8.1. Component types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#message-types">4.8.2. Message types</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.8.2.1. Alarm description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.8.2.2. Alarm category</a></li>
@@ -108,23 +108,23 @@ Since the contents of every message using RSMP is dynamic, a predefined
 signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) is prerequisite in order to be able to
 establish communication.</p>
 <p>The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each object type.</p>
+possible to send and receive for each component type.</p>
 <p>The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.</p>
-<section id="object-types">
-<h2><span class="section-number">4.8.1. </span>Object types<a class="headerlink" href="#object-types" title="Link to this heading"></a></h2>
-<p>An <strong>object type</strong> defines a type of object that can exist in a site,
-i.e. “LED”. Each object type can have a set of alarms, statuses and
+<section id="component-types">
+<h2><span class="section-number">4.8.1. </span>Component types<a class="headerlink" href="#component-types" title="Link to this heading"></a></h2>
+<p>A <strong>component type</strong> defines a type of component that can exist in a site,
+i.e. “LED”. Each component type can have a set of alarms, statuses and
 commands associated with it.</p>
-<p>Using the Excel format; objects types are defined in it’s own sheet.
-Using the YAML format; each object type is defined like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">objects</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">object-type</span><span class="p">:</span>
+<p>Using the Excel format; components types are defined in it’s own sheet.
+Using the YAML format; each component type is defined like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">object-type</span></code> is the name of the object type. For instance,
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;component-type&gt;</span></code> is the name of the component type. For instance,
 “Traffic Light Controller”.</p>
-<p>Depending on applicability, each object type can either have it’s own
+<p>Depending on applicability, each component type can either have it’s own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).</p>
 </section>
@@ -135,8 +135,8 @@ are defined in the SXL.</p>
 <p>Using the Excel format; alarms, aggregated status, status and commands are
 defined in their own sheet.</p>
 <p>Using the YAML format; each message type is defined like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">objects</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">object-type</span><span class="p">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">aggregated_status</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">1</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local mode</span>
@@ -158,8 +158,8 @@ defined in their own sheet.</p>
 <span class="w">      </span><span class="nt">8</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Not Connected</span>
 <span class="w">    </span><span class="nt">functional_position</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">position-1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
-<span class="w">      </span><span class="nt">position-2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span>
+<span class="w">      </span><span class="nt">&lt;position-1&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
+<span class="w">      </span><span class="nt">&lt;position-2&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span>
 <span class="w">    </span><span class="nt">alarms</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">A0001</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alarm description text</span>
@@ -168,7 +168,7 @@ defined in their own sheet.</p>
 <span class="w">        </span><span class="nt">externalAlarmCodeId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manufacturer specific alarm text</span>
 <span class="w">        </span><span class="nt">externalNtsAlarmCodeId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0000</span>
 <span class="w">        </span><span class="nt">arguments</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">argument-1</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">&lt;argument-1&gt;</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
 <span class="w">            </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="w">            </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
@@ -177,7 +177,7 @@ defined in their own sheet.</p>
 <span class="w">      </span><span class="nt">S0001</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status description text</span>
 <span class="w">        </span><span class="nt">arguments</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">argument-1</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">&lt;argument-1&gt;</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">            </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">S0001 argument 1</span>
 <span class="w">    </span><span class="nt">commands</span><span class="p">:</span>
@@ -185,7 +185,7 @@ defined in their own sheet.</p>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">command description text</span>
 <span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">setStatus</span>
 <span class="w">        </span><span class="nt">arguments</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">argument-1</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">&lt;argument-1&gt;</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
 <span class="w">            </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M0001 argument 1</span>
 
@@ -198,7 +198,7 @@ defined in their own sheet.</p>
 <li><p>A status with the <a class="reference internal" href="../definitions.html#term-Status-code-id"><span class="xref std std-term">status code id</span></a> <code class="docutils literal notranslate"><span class="pre">S0001</span></code></p></li>
 <li><p>A command with the <a class="reference internal" href="../definitions.html#term-Command-code-id"><span class="xref std std-term">command code id</span></a> <code class="docutils literal notranslate"><span class="pre">M0001</span></code></p></li>
 </ul>
-<p>Each with one argument named <code class="docutils literal notranslate"><span class="pre">argument-1</span></code> using integer, string and boolean
+<p>Each with one argument named <code class="docutils literal notranslate"><span class="pre">&lt;argument-1&gt;</span></code> using integer, string and boolean
 data types.</p>
 <p>The alarm contains the fields:</p>
 <ul class="simple">
@@ -245,7 +245,7 @@ description. See <a class="reference internal" href="basic_structure.html#state-
 <p>The format of the description is free of choice but has the following
 requirements:</p>
 <ul class="simple">
-<li><p>Description is unique for the object type</p></li>
+<li><p>Description is unique for the component type</p></li>
 <li><p>Description is defined in cooperation with the Purchaser before use</p></li>
 </ul>
 </section>

@@ -94,12 +94,6 @@ alarm description.</p>
 </dd>
 <dt id="term-External-NTS-alarm-code-id">External NTS alarm code id<a class="headerlink" href="#term-External-NTS-alarm-code-id" title="Link to this term"></a></dt><dd><p>Alarm code in order to identify alarm type during communication with NTS</p>
 </dd>
-<dt id="term-Aggregated-object">Aggregated object<a class="headerlink" href="#term-Aggregated-object" title="Link to this term"></a></dt><dd><p>An aggregated object consists of one or many other objects.
-E.g. Component group (CG)</p>
-</dd>
-<dt id="term-Component">Component<a class="headerlink" href="#term-Component" title="Link to this term"></a></dt><dd><p>A component is an <a class="reference internal" href="#term-Object"><span class="xref std std-term">object</span></a> or <a class="reference internal" href="#term-NTS-object"><span class="xref std std-term">NTS object</span></a>.
-A component is identified using a component id.</p>
-</dd>
 <dt id="term-DATEX-II">DATEX II<a class="headerlink" href="#term-DATEX-II" title="Link to this term"></a></dt><dd><p>European standard for message exchange between traffic systems
 (www.datex2.eu)</p>
 </dd>
@@ -127,7 +121,7 @@ message.</p>
 <dt id="term-NTS-object">NTS object<a class="headerlink" href="#term-NTS-object" title="Link to this term"></a></dt><dd><p>Used for objects in <a class="reference internal" href="#term-NTS"><span class="xref std std-term">NTS</span></a></p>
 <p>All control and supervision related functions in NTS consist of
 NTS objects.</p>
-<p>An NTS object can represent one or many objects.</p>
+<p>An NTS object can represent one or many components.</p>
 </dd>
 <dt id="term-External-NTS-id">External NTS id<a class="headerlink" href="#term-External-NTS-id" title="Link to this term"></a></dt><dd><p>Identitiy for an <a class="reference internal" href="#term-NTS-object"><span class="xref std std-term">NTS object</span></a> used in communication between NTS and other systems</p>
 <p>The format is 5 integers and is unique for the site.
@@ -137,24 +131,24 @@ It is defined in cooperation with representatives from NTS.</p>
 Determines among other things which functional positions that
 are possible for the NTS object.</p>
 </dd>
-<dt id="term-Object">Object<a class="headerlink" href="#term-Object" title="Link to this term"></a></dt><dd><p>An object is a abstract term which is used in control and
-supervision systems. An object can have one or more statuses
-that may change depending on changes of circumstance of the
-object or control of the object from external source.
-Communication with the object is made using exchange of
-signals, e.g. commands, status and alarms.</p>
-<p>An object can represent physical equipment or abstract concepts
+<dt id="term-Component">Component<a class="headerlink" href="#term-Component" title="Link to this term"></a></dt><dd><p>A component can have one or more statuses that may change depending on
+changes of circumstance of the component or control of the component
+from external source. Communication with the component is made using
+exchange of signals, e.g. commands, statuses and alarms.</p>
+<p>A component can represent physical equipment or abstract concepts
 E.g. a camera, a control flow algorithm or a group of signs.</p>
-<p>An object is identified using <a class="reference internal" href="applicability/component_id.html#component-id"><span class="std std-ref">Component ID</span></a>.
-<em>Please note that an object is not necessarily the same thing as an
+<p>A component is identified using <a class="reference internal" href="applicability/component_id.html#component-id"><span class="std std-ref">Component ID</span></a>.
+<em>Please note that a component is not necessarily the same thing as an
 NTS object.</em></p>
 </dd>
-<dt id="term-Object-type">Object type<a class="headerlink" href="#term-Object-type" title="Link to this term"></a></dt><dd><p>An object type is a classification of objects that controls the
-properties of all the objects of the same object type. The
-object type determines how the object is presented in
+<dt id="term-Component-type">Component type<a class="headerlink" href="#term-Component-type" title="Link to this term"></a></dt><dd><p>A component type is a classification of components that controls the
+properties of all the components of the same component type. The
+component type determines how the component is presented in
 supervision system, how it is grouped and which functional
 positions, alarm codes, commands and statuses that exists for that
-object type.</p>
+component type.</p>
+</dd>
+<dt id="term-Component-id">Component id<a class="headerlink" href="#term-Component-id" title="Link to this term"></a></dt><dd><p>Identifies a <a class="reference internal" href="#term-Component"><span class="xref std std-term">component</span></a>.</p>
 </dd>
 <dt id="term-Parameter">Parameter<a class="headerlink" href="#term-Parameter" title="Link to this term"></a></dt><dd><p>Used for modification of technical or autonomous traffic parameters
 of the equipment. Can be implemented using commands and statuses.</p>
@@ -173,7 +167,7 @@ Used in order to refer to a “logical” identity of a site.</p>
 level</p>
 </dd>
 <dt id="term-SXL">SXL<a class="headerlink" href="#term-SXL" title="Link to this term"></a></dt><dd><p>Signal exchange list. Defines which messages types (signals)
-which is possible to send to a specific equipment or object.
+which is possible to send to a specific equipment or component.
 E.g. alarms, statuses and commands</p>
 </dd>
 <dt id="term-Status-code-id">Status code id<a class="headerlink" href="#term-Status-code-id" title="Link to this term"></a></dt><dd><p>Identitiy for a status</p>
