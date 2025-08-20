@@ -673,7 +673,7 @@ modify the rules for which bits can or must be set together.
    +=====+===================+=================================================+===========+
    | 1   | Local             | The site is controlled locally                  | |cyan|    |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 2   | Network           | The site has network problems                   | |purple|  |
+   | 2   | Disconnected      | Connection lost (not used by sites)             | |purple|  |
    +-----+-------------------+-------------------------------------------------+-----------+
    | 3   | Error             | The site has one or more alarm with priority 1  | |red|     |
    +-----+-------------------+-------------------------------------------------+-----------+
@@ -685,7 +685,7 @@ modify the rules for which bits can or must be set together.
    +-----+-------------------+-------------------------------------------------+-----------+
    | 7   | Idle              | The site is in idle mode                        | |black|   |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 8   | Offline           | The site lost connection to a supervisor        | |grey|    |
+   | 8   | Not configured    | Connection not configured (not used by sites)   | |grey|    |
    +-----+-------------------+-------------------------------------------------+-----------+
 
 Bit 1: Local
@@ -694,11 +694,9 @@ Bit 1: Local
     site might be put in idle mode. When local overrides are active, the site
     is in local control and this bit is set.
 
-Bit 2: Network
-    Set if the site experiences network problems, other than being
-    disconnected from a supervisor. For example, it might have lost connection
-    to the NTP server or a sensor, or experience intermittent network errors.
-    A disconnect from a supervisor should be indicated using bit 8.
+Bit 2: Disconnected (not used by sites)
+    Set by supervisor when reporting that connection to a site was lost.
+    Not used by sites, which must always clear this bit.
 
 Bit 3: Error
     Set if one or more alarm with priority 1 (high) is active.
@@ -725,13 +723,9 @@ Bit 7: Idle
     A site can be either in active or idle mode, not both, so bits 6 and 7
     cannot both be set at the same time.
 
-Bit 8: Offline
-    This bit indicates that the connection to one or more supervisors has been
-    lost. The affected supervisor will not immediately receive an aggregated
-    status with this bit set since the connection is down, but it will see it
-    later when it receives buffered (historic) messages. If only one of several
-    supervisors is disconnected, other supervisor will receive this bit
-    immediately, unless they opted out of receiving alarms.
+Bit 8: Not configured
+    Set by supervisors when reporting that connection to a site is not configured.
+    Not used by sites, which must always clear this bit.
 
 Alarm priorities
     For more details about alarm priorities, please see section
