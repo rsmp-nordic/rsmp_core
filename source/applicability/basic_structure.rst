@@ -693,7 +693,6 @@ In case equipment require on-street maintenance it might be necessary to overrid
 for safety or testing purposes. For example, the site might be put in idle mode.
 When local overrides are active, the site is in local control and this bit is set.
 
-<<<<<<< HEAD
 **Bit 2: Network**
 Set if the site experiences network problems, other than being disconnected from a supervisor.
 For example, it might have lost connection to the NTP server or a sensor, or experience intermittent
