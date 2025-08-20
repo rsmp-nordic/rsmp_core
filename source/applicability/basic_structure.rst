@@ -729,7 +729,7 @@ If only one of several supervisors is disconnected, other supervisor will receiv
 immediately, unless they opted out of receiving alarms.
 
 
-** Alarm priorities **
+**Alarm priorities**
 For more details about alarm priorities, please see section :ref:`alarm-priority`.
 
 .. _aggregated-status-req:
