@@ -1560,7 +1560,7 @@ the example below the system has support for RSMP version **3.1.1**,
             }
         ],
         "SXL": "1.0.13",
-        "alarms": false
+        "receiveAlarms": false
    }
 
 JSon code 24: A RSMP / SXL message
@@ -1592,16 +1592,16 @@ The following table describes additional variable content of the message.
 
 .. table:: Version information
 
-   ======== ======== ===============
-   Element  Type     Description
-   ======== ======== ===============
-   vers     string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   alarms   boolean  The `alarms` attribute is optional and can only be set in the Version response
-					 send by the supervisors, not the initial Version request send by the site.
-					 If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests an alarm.
-                     If set to true, or omitted, site must send all alarms to the supervisor as normal (unless suspended).
-					 The supervisor can request, acknowledge and suspend/resume alarms even if the `alarms` attribute was set to false.
-   ======== ======== ===============
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   receiveAlarms boolean  The `receiveAlarms` attribute is optional and can only be set in the Version response
+                          sent by the supervisors, not the initial Version request send by the site.
+                          If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests an alarm.
+                          If set to true, or omitted, site must send all alarms to the supervisor as normal (unless suspended).
+                          The supervisor can request, acknowledge and suspend/resume alarms even if the `alarms` attribute was set to false.
+   ============= ======== ===============
 
 
 .. _watchdog:
