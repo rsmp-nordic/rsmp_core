@@ -1588,7 +1588,7 @@ in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
 .. table:: Version information
 
