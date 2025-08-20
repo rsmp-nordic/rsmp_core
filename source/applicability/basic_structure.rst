@@ -128,7 +128,7 @@ An alarm message is sent to the supervision system when:
 - An alarm is being suspended / un-suspended
 
 An acknowledgment of an alarm does not cause a single alarm event to
-be acknowledged but all alarm events for the specific object with the
+be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
@@ -136,7 +136,7 @@ equipment with short time intervals.
 The ability to request an alarms is used in case the supervision system
 looses track of the latest state of the alarms.
 
-A suspend of an alarm causes all alarms from the specific object with
+A suspend of an alarm causes all alarms from the specific component with
 the associated alarm code id to be suspended. This means that alarm messages
 stops being sent from the site as long as the suspension is active. As soon
 as the suspension is inactivated alarms can be sent again.
@@ -343,8 +343,8 @@ defined by the signal exchange list (SXL).
 
 .. _alarmmessages-req:
 
-Structure for alarm request message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm request message has the structure according to the example below.
 
@@ -368,8 +368,8 @@ JSon code 4: An alarm request message
 
 .. _alarmmessages-ack:
 
-Structure for alarm acknowledgement message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -427,8 +427,8 @@ JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
-Structure for alarm suspend message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm suspend message has the structure according to the example below.
 
@@ -589,8 +589,8 @@ Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the object which is
-defined by **ObjectType** in the signal exchange list. If no object is defined
+status of the site. The aggregated status applies to the component which is
+defined by **ComponentType** in the signal exchange list. If no component is defined
 then no aggregated status message is sent.
 
 Aggregated status message are interaction driven and are sent if state,
@@ -739,7 +739,7 @@ Status Messages
 
 The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
-statuses, for the referenced object.
+statuses, for the referenced component.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -781,7 +781,7 @@ below.
 JSon code 13: A status request message
 
 The status code id (``sCI``) and name (``n``) are placed in an array
-(``sS``) in order to enable support for requesting multiple status at
+(``sS``) in order to enable support for requesting multiple statuses at
 once.
 
 The following table is describing the variable content of the message.
@@ -800,8 +800,8 @@ The following table is describing the variable content of the message.
    ============ ===============================
 
 
-Structure for status response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status response message has the structure according to the example below.
 
@@ -1061,7 +1061,7 @@ The allowed content is described in Table
 :ref:`Status response<table-statusresponse>` and
 :ref:`Return values<table-statusresponse-returnvalues>`.
 
-Since different UpdateRate can be defined for different objects it means that
+Since different UpdateRate can be defined for different components it means that
 partial StatusUpdates can be sent.
 
 .. code-block:: json
@@ -1181,7 +1181,7 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to the referenced object.
+Command messages are used to give order to the referenced component.
 The site responds with a command acknowledgement.
 
 All arguments in a CommandRequest are considered required unless
@@ -1194,7 +1194,7 @@ CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
 be ambiguous. See section about :ref:`more-than-one-command`.
 
 Command messages are interaction driven and are sent when command are
-requested on any given object by the supervision system or other equipment
+requested on any given component by the supervision system or other equipment
 
 Message structure
 """""""""""""""""
@@ -1204,7 +1204,7 @@ Structure of a command request
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
-requested object
+requested component.
 
 .. code-block:: json
    :name: json-command-req
@@ -1281,7 +1281,7 @@ Structure of a command response message
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
-requested object.
+requested component.
 
 The command code (``cCI``) and name (``n``) are placed in an array
 (``rvs``) in order to enable support for responding to multiple commands at

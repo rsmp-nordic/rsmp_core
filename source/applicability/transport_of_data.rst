@@ -133,7 +133,7 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 9. Aggregated status (according to section :ref:`aggregated-status-message`).
-   If no object for aggregated status is defined in the signal exchange list
+   If no component for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
@@ -208,7 +208,7 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 9. Aggregated status (according to section :ref:`aggregated-status-message`)
-   If no object for aggregated status is defined in the signal exchange list
+   If no component for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 For communication between sites the following applies:
