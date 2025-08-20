@@ -1596,7 +1596,7 @@ The following table describes additional variable content of the message.
    Element       Type     Description
    ============= ======== ===============
    vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   receiveAlarms boolean  Set to false if the supervisor does not want to receive alarms
+   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
    ============= ======== ===============
 
 The `receiveAlarms` attribute is optional and can only be set in the Version response
