@@ -1610,7 +1610,7 @@ below.</p>
 <p>It contains:</p>
 <ul class="simple">
 <li><p>Site Id</p></li>
-<li><p>SXL revision</p></li>
+<li><p>SXL versions</p></li>
 <li><p>All supported RSMP versions</p></li>
 </ul>
 <p>The Site Id and SXL revision must match between the communicating parties.</p>
@@ -1644,7 +1644,8 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 <span class="w">             </span><span class="nt">&quot;sId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;O+14439=481WA001&quot;</span>
 <span class="w">         </span><span class="p">}</span>
 <span class="w">     </span><span class="p">],</span>
-<span class="w">     </span><span class="nt">&quot;SXL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.13&quot;</span>
+<span class="w">     </span><span class="nt">&quot;SXL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.13&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;receiveAlarms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1695,8 +1696,19 @@ in the message using an array with <code class="docutils literal notranslate"><s
 <td><p>string</p></td>
 <td><p>Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (<strong>RSMP</strong>).</p></td>
 </tr>
+<tr class="row-odd"><td><p>receiveAlarms</p></td>
+<td><p>boolean</p></td>
+<td><p>Supervisor can set this to false if they do not want to receive alarms.</p></td>
+</tr>
 </tbody>
 </table>
+<p>The <cite>receiveAlarms</cite> attribute is optional and can only be set in the Version response
+sent by the supervisors, not the initial Version request sent by the site.</p>
+<ul class="simple">
+<li><p>If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.</p></li>
+<li><p>If set to true, or omitted, site must send alarms to the supervisor as normal.</p></li>
+</ul>
+<p>The supervisor can request, acknowledge and suspend/resume alarms even if the <cite>receiveAlarms</cite> attribute was set to false.</p>
 </section>
 </section>
 <section id="watchdog">

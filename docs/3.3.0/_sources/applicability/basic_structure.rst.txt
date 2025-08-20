@@ -1516,7 +1516,7 @@ RSMP/SXL Version is the initial message when establishing communication.
 It contains:
 
 * Site Id
-* SXL revision
+* SXL versions
 * All supported RSMP versions
 
 The Site Id and SXL revision must match between the communicating parties.
@@ -1559,7 +1559,8 @@ the example below the system has support for RSMP version **3.1.1**,
                 "sId": "O+14439=481WA001"
             }
         ],
-        "SXL": "1.0.13"
+        "SXL": "1.0.13",
+        "receiveAlarms": false
    }
 
 JSon code 24: A RSMP / SXL message
@@ -1587,15 +1588,24 @@ in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
 .. table:: Version information
 
-   ========= ======= ===============
-   Element   Type    Description
-   ========= ======= ===============
-   vers      string  Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   ========= ======= ===============
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
+   ============= ======== ===============
+
+The `receiveAlarms` attribute is optional and can only be set in the Version response
+sent by the supervisors, not the initial Version request sent by the site.
+
+- If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.
+- If set to true, or omitted, site must send alarms to the supervisor as normal.
+
+The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
 
 .. _watchdog:
 
