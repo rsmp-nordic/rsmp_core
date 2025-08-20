@@ -659,27 +659,77 @@ in the SXL.
 
 State bits
 ~~~~~~~~~~
+**State bits** ``se`` is an array of eight booleans, with the meaning defined below.
+The signal exchange list (SXL) for a particular type of equipment can detail the
+interpretation of each bit, but is not allowed to change the fundamental meaning or
+modify the rules for which bits can or must be set together.
 
-The **State bits** ``se`` is an array of eight booleans. They are defined from
-the supervision system point of view and are meant to stay unmodified all the
-way up the national traffic center. But some of the state bits are only meant
-to be used internally in the supervision system and are always set to false in
-RSMP.
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
 
-A definition of each boolean element (1-8) is presented in the figure below.
-The signal exchange list (SXL) may define a more detailed definition.
+.. table:: State bits
 
-.. image:: /img/msc/agg_state_array.png
-   :align: center
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | Bit | Status            | Description                                     | Color     |
+   +=====+===================+=================================================+===========+
+   | 1   | Local             | The site is controlled locally                  | |cyan|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 2   | Disconnected      | Connection lost (not used by sites)             | |purple|  |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 3   | Error             | The site has one or more alarm with priority 1  | |red|     |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 4   | Warning           | The site has one or more alarm with priority 2  | |yellow|  |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 5   | Notice            | The site has one or more alarm with priority 3  | |blue|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 6   | Active            | The site is in active mode                      | |green|   |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 7   | Idle              | The site is in idle mode                        | |black|   |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 8   | Not configured    | Connection not configured (not used by sites)   | |grey|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
 
-* Bit 2 is unused and is always set to false
-* Bit 3 is true if there are any active alarms with priority 1
-* Bit 4 is true if there are any active alarms with priority 2
-* Bit 5 is true if there are any active alarms with priority 3
-* Bit 6 and bit 7 can not be set to true simultaneously
-* Bit 8 is unused and is always set to false
+Bit 1: Local
+    In case equipment require on-street maintenance it might be necessary to
+    override operating modes for safety or testing purposes. For example, the
+    site might be put in idle mode. When local overrides are active, the site
+    is in local control and this bit is set.
 
-Please see section :ref:`alarm-priority`.
+Bit 2: Disconnected (not used by sites)
+    Set by supervisor when reporting that connection to a site was lost.
+    Not used by sites, which must always clear this bit.
+
+Bit 3: Error
+    Set if one or more alarm with priority 1 (high) is active.
+
+Bit 4: Warning
+    Set if one or more alarm with priority 2 (medium) is active.
+
+Bit 5: Notice
+    Set if one or more alarm with priority 3 (low) is active.
+
+Bit 6: Active
+    Set if the site is in active mode, i.e. intended to operate normally.
+    This bit is unaffected by alarms and can be set at the same time as bits 3,
+    4 and 5.
+    A site can be either in active or idle mode, not both, so bits 6 and 7
+    cannot both be set at the same time.
+
+Bit 7: Idle
+    Set if the site is in idle mode, meaning it is turned on but not in active
+    use. For example, a traffic light controller in idle mode might have all
+    lamps turned off or in flashing yellow.
+    This bit is unaffected by alarms and can be set at the same time as bits 3,
+    4 and 5.
+    A site can be either in active or idle mode, not both, so bits 6 and 7
+    cannot both be set at the same time.
+
+Bit 8: Not configured
+    Set by supervisors when reporting that connection to a site is not configured.
+    Not used by sites, which must always clear this bit.
+
+Alarm priorities
+    For more details about alarm priorities, please see section
+    :ref:`alarm-priority`.
 
 .. _aggregated-status-req:
 
@@ -1678,6 +1728,15 @@ Supervision system/other equipment sends watchdog message
 .. image:: /img/msc/watchdog_system.png
 
 1. Watchdog message is sent from supervision system/other equipment
+
+.. |cyan| image:: /img/svg/cyan.svg
+.. |purple| image:: /img/svg/purple.svg
+.. |red| image:: /img/svg/red.svg
+.. |yellow| image:: /img/svg/yellow.svg
+.. |blue| image:: /img/svg/blue.svg
+.. |green| image:: /img/svg/green.svg
+.. |black| image:: /img/svg/black.svg
+.. |grey| image:: /img/svg/grey.svg
 
 .. |br| replace:: |br_html| |br_latex|
 
