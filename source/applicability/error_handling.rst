@@ -37,7 +37,7 @@ MessageNotAck.
 This includes:
 
 * unknown alarm/status/command code id (``aCId``, ``sCI``, ``cCI``) for the
-  corresponding object type
+  corresponding component type
 
 * unknown name (``n``) in arguments or return values
 

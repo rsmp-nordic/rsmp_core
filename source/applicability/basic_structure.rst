@@ -128,7 +128,7 @@ An alarm message is sent to the supervision system when:
 - An alarm is being suspended / un-suspended
 
 An acknowledgment of an alarm does not cause a single alarm event to
-be acknowledged but all alarm events for the specific object with the
+be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
@@ -136,7 +136,7 @@ equipment with short time intervals.
 The ability to request an alarms is used in case the supervision system
 looses track of the latest state of the alarms.
 
-A suspend of an alarm causes all alarms from the specific object with
+A suspend of an alarm causes all alarms from the specific component with
 the associated alarm code id to be suspended. This means that alarm messages
 stops being sent from the site as long as the suspension is active. As soon
 as the suspension is inactivated alarms can be sent again.
@@ -343,8 +343,8 @@ defined by the signal exchange list (SXL).
 
 .. _alarmmessages-req:
 
-Structure for alarm request message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm request message has the structure according to the example below.
 
@@ -368,8 +368,8 @@ JSon code 4: An alarm request message
 
 .. _alarmmessages-ack:
 
-Structure for alarm acknowledgement message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -427,8 +427,8 @@ JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
-Structure for alarm suspend message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm suspend message has the structure according to the example below.
 
@@ -589,8 +589,8 @@ Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the object which is
-defined by **ObjectType** in the signal exchange list. If no object is defined
+status of the site. The aggregated status applies to the component which is
+defined by **ComponentType** in the signal exchange list. If no component is defined
 then no aggregated status message is sent.
 
 Aggregated status message are interaction driven and are sent if state,
@@ -739,7 +739,7 @@ Status Messages
 
 The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
-statuses, for the referenced object.
+statuses, for the referenced component.
 
 The status message can both be interaction driven or event driver and
 can be sent during the following prerequisites:
@@ -781,7 +781,7 @@ below.
 JSon code 13: A status request message
 
 The status code id (``sCI``) and name (``n``) are placed in an array
-(``sS``) in order to enable support for requesting multiple status at
+(``sS``) in order to enable support for requesting multiple statuses at
 once.
 
 The following table is describing the variable content of the message.
@@ -800,8 +800,8 @@ The following table is describing the variable content of the message.
    ============ ===============================
 
 
-Structure for status response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status response message has the structure according to the example below.
 
@@ -1061,7 +1061,7 @@ The allowed content is described in Table
 :ref:`Status response<table-statusresponse>` and
 :ref:`Return values<table-statusresponse-returnvalues>`.
 
-Since different UpdateRate can be defined for different objects it means that
+Since different UpdateRate can be defined for different components it means that
 partial StatusUpdates can be sent.
 
 .. code-block:: json
@@ -1181,7 +1181,7 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to the referenced object.
+Command messages are used to give order to the referenced component.
 The site responds with a command acknowledgement.
 
 All arguments in a CommandRequest are considered required unless
@@ -1194,7 +1194,7 @@ CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
 be ambiguous. See section about :ref:`more-than-one-command`.
 
 Command messages are interaction driven and are sent when command are
-requested on any given object by the supervision system or other equipment
+requested on any given component by the supervision system or other equipment
 
 Message structure
 """""""""""""""""
@@ -1204,7 +1204,7 @@ Structure of a command request
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
-requested object
+requested component.
 
 .. code-block:: json
    :name: json-command-req
@@ -1281,7 +1281,7 @@ Structure of a command response message
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
-requested object.
+requested component.
 
 The command code (``cCI``) and name (``n``) are placed in an array
 (``rvs``) in order to enable support for responding to multiple commands at
@@ -1516,7 +1516,7 @@ RSMP/SXL Version is the initial message when establishing communication.
 It contains:
 
 * Site Id
-* SXL revision
+* SXL versions
 * All supported RSMP versions
 
 The Site Id and SXL revision must match between the communicating parties.
@@ -1560,7 +1560,8 @@ the example below the system has support for RSMP version **3.1.1**,
                 "sId": "O+14439=481WA001"
             }
         ],
-        "SXL": "1.0.13"
+        "SXL": "1.0.13",
+        "receiveAlarms": false
    }
 
 JSon code 24: A RSMP / SXL message
@@ -1588,17 +1589,25 @@ in the message using an array with ``sId``.
 
 The following table describes additional variable content of the message.
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
 .. table:: Version information
 
-   ========= ===============
-   Element   Description
-   ========= ===============
-   step      Must be set to 'Request' in the initial Version message sent by the site,
-             and to 'Response' in the Version message returned by the supervisor.
-   vers      Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   ========= ===============
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   step          string   Must be set to 'Request' in the initial Version message sent by the site, and to 'Response' in the Version message returned by the supervisor.
+   vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
+   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
+   ============= ======== ===============
+
+The `receiveAlarms` attribute is optional and can only be set in the Version response
+sent by the supervisors, not the initial Version request sent by the site.
+
+- If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.
+- If set to true, or omitted, site must send alarms to the supervisor as normal.
+
+The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
 
 .. _watchdog:
 
@@ -1610,17 +1619,15 @@ communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
 alarms are used instead.
 
-The secondary purpose of watchdog messages is to provide a timestamp that can
-be used for simple time synchronization.
+The secondary purpose of watchdog messages is to provide a timestamp
+that can be used to check time synchronization. However watchdog
+messages should not be used to adjust the clock. Instead
+more robust synchronization methods, e.g. NTP or GPS, should be used to
+synchronize clocks.
 
-* Time synchronization using the watchdog message should be configurable at the
-  site (enabled/disabled)
-* If time synchronization is enabled, the site should synchronize its clock
-  using the timestamp from watchdog messages – at communication establishment and
-  then at least once every 24 hours.
-* The interval duration for sending watchdog messages should be
-  configurable at both the site and the supervision system. The default
-  setting should be (1) once a minute.
+The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.
 
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment

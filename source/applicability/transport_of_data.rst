@@ -42,39 +42,64 @@ Multiple supervisors
 ^^^^^^^^^^^^^^^^^^^^
 
 .. note::
-   Implementing support for multiple supervisors is not required unless
-   otherwise stated in the :term:`SXL`.
+  Implementing support for multiple supervisors is not required unless
+  stated in the :term:`SXL`.
 
-Each site needs to support the following:
+Supervisor configuration:
 
 * It must be possible to configure the list of supervisors as part of the
   RSMP configuration in the site. In the configuration, supervisors are
-  identified by their IP addresses.
-
-* It must be possible to configure to either initiate the RSMP connection
+  identified by their IP addresses or domain names.
+* It must be possible to configure whether to initiate the RSMP connection
   or to implement the socket server according to section
   :ref:`transport-between-site-and-supervision-system`.
 
-* It must be possible to configure supervisors as primary or secondary.
+Message IDs:
 
-* There can be multiple secondary supervisors, but only one primary.
+* All messages must have unique message ids. Even when otherwise identical
+  messages are sent to multiple supervisors, (e.g. an alarm or status update)
+  different messages IDs must be used.
 
-* A secondary supervisor does not receive alarms.
+Message Acknowledgements:
 
-* A secondary supervisor receives aggregated status and can request,
-  subscribe and receive statuses.
+* Message acknowledgements are send only to the supervisor that send the
+  original message.
 
-* Watchdog messages from a secondary supervisor does not adjust the clock.
-  See section :ref:`watchdog`.
+Connection:
 
-* Except from not sending alarms to secondary supervisors, a site must
-  handle all types of message from all supervisors, including command requests,
-  status requests and status subscriptions. Commands from multiple supervisors
-  are served on a first-come basis, without any concept of priority.
+* Connections to supervisor are handled in parallel, with messages processed
+  in the order they arrive.
+* Depending on how core/SXL version are set in Version messages, the
+  connections to supervisor can use different core/SXL versions.
 
-* Supervisor connections are handled separately. When a supervisor sends a
-  command or status request, the response is sent only to that particular
-  supervisor.
+Aggregated status:
+
+* Aggregated status is sent to all supervisors.
+
+Status:
+
+* All supervisors can request, subscribe to and receive statuses.
+* Status subscriptions are handled separate per supervisor.
+* A status response is sent only to the supervisor that sent the
+  initiating status request.
+
+Commands:
+
+* All supervisors can send commands.
+* Commands from multiple supervisors are served on a first-come basis,
+  without any concept of priority.
+* A command response is sent only to the supervisor that send the
+  initiating command.
+
+Alarms:
+
+* Alarms are send to all supervisors, except those that set `receiveAlarms`
+  to false in their Version message.
+* All supervisors can acknowledge and suspend/resume alarms, even if they
+  set `receiveAlarms` to false in their Version message.
+* If an Alarm is blocked, suspended or acknowledged by one supervisor
+  this affects all supervisors.
+
 
 Security
 ^^^^^^^^
@@ -133,7 +158,7 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 9. Aggregated status (according to section :ref:`aggregated-status-message`).
-   If no object for aggregated status is defined in the signal exchange list
+   If no component for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
@@ -208,7 +233,7 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 9. Aggregated status (according to section :ref:`aggregated-status-message`)
-   If no object for aggregated status is defined in the signal exchange list
+   If no component for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
 For communication between sites the following applies:

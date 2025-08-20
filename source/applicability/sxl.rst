@@ -9,30 +9,30 @@ signal exchange list (:term:`SXL`) is prerequisite in order to be able to
 establish communication.
 
 The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each object type.
+possible to send and receive for each component type.
 
 The SXL can be defined by either a YAML file or an Excel file using predefined
 principles which is defined below.
 
-Object types
-------------
+Component types
+---------------
 
-An **object type** defines a type of object that can exist in a site,
-i.e. "LED". Each object type can have a set of alarms, statuses and
+A **component type** defines a type of component that can exist in a site,
+i.e. "LED". Each component type can have a set of alarms, statuses and
 commands associated with it.
 
-Using the Excel format; objects types are defined in it's own sheet.
-Using the YAML format; each object type is defined like this:
+Using the Excel format; components types are defined in it's own sheet.
+Using the YAML format; each component type is defined like this:
 
 .. code-block:: yaml
 
-   objects:
-     object-type:
+   components:
+     <component-type>:
 
-Where ``object-type`` is the name of the object type. For instance,
+Where ``<component-type>`` is the name of the component type. For instance,
 "Traffic Light Controller".
 
-Depending on applicability, each object type can either have it's own
+Depending on applicability, each component type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
 
@@ -49,8 +49,8 @@ Using the YAML format; each message type is defined like this:
 
 .. code-block:: yaml
 
-  objects:
-    object-type:
+  components:
+    <component-type>:
       aggregated_status:
         1:
           title: Local mode
@@ -72,8 +72,8 @@ Using the YAML format; each message type is defined like this:
         8:
           title: Not Connected
       functional_position:
-        position-1: start
-        position-2: stop
+        <position-1>: start
+        <position-2>: stop
       alarms:
         A0001:
           description: alarm description text
@@ -82,7 +82,7 @@ Using the YAML format; each message type is defined like this:
           externalAlarmCodeId: manufacturer specific alarm text
           externalNtsAlarmCodeId: 0000
           arguments:
-            argument-1:
+            <argument-1>:
               type: integer
               min: 0
               max: 10
@@ -91,7 +91,7 @@ Using the YAML format; each message type is defined like this:
         S0001:
           description: status description text
           arguments:
-            argument-1:
+            <argument-1>:
               type: string
               description: S0001 argument 1
       commands:
@@ -99,7 +99,7 @@ Using the YAML format; each message type is defined like this:
           description: command description text
           command: setStatus
           arguments:
-            argument-1:
+            <argument-1>:
               type: boolean
               description: M0001 argument 1
 
@@ -111,7 +111,7 @@ This example defines:
 - A status with the :term:`status code id` ``S0001``
 - A command with the :term:`command code id` ``M0001``
 
-Each with one argument named ``argument-1`` using integer, string and boolean
+Each with one argument named ``<argument-1>`` using integer, string and boolean
 data types.
 
 The alarm contains the fields:
@@ -166,7 +166,7 @@ Alarm description
 The format of the description is free of choice but has the following
 requirements:
 
-- Description is unique for the object type
+- Description is unique for the component type
 - Description is defined in cooperation with the Purchaser before use
 
 .. _alarm-category:
@@ -267,33 +267,4 @@ return values.
    Status             No        Yes
    Commands           Yes       No
    =================  ========  ============
-
-Required signals
-----------------
-
-Status messages
-^^^^^^^^^^^^^^^
-
-Version of component
-""""""""""""""""""""
-To make sure that the site is equipped with the correct version of
-components and to simplify troubleshooting there need to exists a special
-status to request version of a component.
-
-Current date and time
-"""""""""""""""""""""
-To make sure that the site is configured with the correct date and time
-there needs to be a special status to request this. This type of status is
-especially important for those implementations where the equipment's
-protocol interface and the rest of it's logic doesn't share the same
-clock. Please note that UTC should be used.
-
-Command messages
-^^^^^^^^^^^^^^^^
-
-Change date and time
-""""""""""""""""""""
-If the automatic time synchronization is missing or disabled there should
-be a possibility to set the date and time using a special command. Please
-note that UTC should be used.
 
