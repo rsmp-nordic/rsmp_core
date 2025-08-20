@@ -685,7 +685,7 @@ modify the rules for which bits can or must be set together.
    +-----+-------------------+-------------------------------------------------+-----------+
    | 7   | Idle              | The site is in idle mode                        | |black|   |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 8   | Offline           | The site lost connected to a supervisor         | |grey|    |
+   | 8   | Offline           | The site lost connection to a supervisor        | |grey|    |
    +-----+-------------------+-------------------------------------------------+-----------+
 
 **Bit 1: Local**
