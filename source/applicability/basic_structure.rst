@@ -1603,7 +1603,7 @@ The `receiveAlarms` attribute is optional and can only be set in the Version res
 sent by the supervisors, not the initial Version request sent by the site.
 
 - If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.
-- If set to true, or omitted, site must send all alarms to the supervisor as normal (unless suspended).
+- If set to true, or omitted, site must send alarms to the supervisor as normal.
 
 The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
 
