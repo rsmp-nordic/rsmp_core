@@ -1187,13 +1187,13 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command requests are used to send to a specific component to execute a command.
+A command requests is sent to a specific component to execute a command.
 
-When a site receives a ommand request with valid arguments, it immediately responds with a
-MessageAck and starts executing the Command. A CommandResponse is send as soon
-as the execution completes, fails or times out.
+When a site receives a command request with valid arguments, it immediately responds with a
+MessageAck (as for other message types) and starts executing the command.
+Once the execution completes, fails or times out a CommandResponse is sent. 
 
-If a command request with invalid arguments is received, a MessageNotAck is send but no
+If a command request with invalid arguments is received a MessageNotAck is sent, but no
 CommandResponse.
 
 All arguments needs to included in a command, otherwise it results a serious
