@@ -1597,6 +1597,7 @@ the example below the system has support for RSMP version **3.1.1**,
         "mType": "rSMsg",
         "type": "Version",
         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+        "step": "Request"
         "RSMP": [
             {
                 "vers": "3.1.1"
@@ -1645,6 +1646,7 @@ The following table describes additional variable content of the message.
    ============= ======== ===============
    Element       Type     Description
    ============= ======== ===============
+   step          string   Must be set to 'Request' in the initial Version message sent by the site, and to 'Response' in the Version message returned by the supervisor.
    vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
    receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
    ============= ======== ===============
