@@ -1707,6 +1707,7 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Version&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;mId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6f968141-4de5-42ff-8032-45f8093762c5&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;Request&quot;</span>
 <span class="w">     </span><span class="nt">&quot;RSMP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">         </span><span class="p">{</span>
 <span class="w">             </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1.1&quot;</span>
@@ -1767,11 +1768,15 @@ in the message using an array with <code class="docutils literal notranslate"><s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>vers</p></td>
+<tr class="row-even"><td><p>step</p></td>
+<td><p>string</p></td>
+<td><p>Must be set to ‘Request’ in the initial Version message sent by the site, and to ‘Response’ in the Version message returned by the supervisor.</p></td>
+</tr>
+<tr class="row-odd"><td><p>vers</p></td>
 <td><p>string</p></td>
 <td><p>Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (<strong>RSMP</strong>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>receiveAlarms</p></td>
+<tr class="row-even"><td><p>receiveAlarms</p></td>
 <td><p>boolean</p></td>
 <td><p>Supervisor can set this to false if they do not want to receive alarms.</p></td>
 </tr>
