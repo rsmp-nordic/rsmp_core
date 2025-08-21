@@ -12,6 +12,7 @@ Applicability
    applicability/basic_structure
    applicability/error_handling
    applicability/data_types
+   applicability/component_id
    applicability/sxl
    applicability/site_configuration
 

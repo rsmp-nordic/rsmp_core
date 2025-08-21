@@ -1,31 +1,71 @@
 .. _data_types:
 
 Data types
+==========
+
+The following data types are used in the core spec, and also in Signal Exchange Lists (SXLs).
+
+Signal Exchange Lists (SXLs) specify which types are allowed in particular statuses, alarms and commands, and can also define additional specialized types.
+
+
+JSON types
 ----------
-RSMP uses a specific set of data types in return values and arguments of alarms, statuses and commands.
+RSMP message are send as JSON, which defines these basic types:
 
-General definition:
+- object (hash)
+- array
+- string
+- number
+- boolean
+- null
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.85}|
 
-.. list-table:: Data types
-   :header-rows: 1
+Specialized types
+-----------------
+The following specialized data types are defined:
 
-   * - Data type
-     - Description
-   * - string
-     - Text information
-   * - integer
-     - JSON integer according to the ECMA standard
-   * - number
-     - JSON numerical value. Can be either integer or floating point according to the ECMA standard
-   * - boolean
-     - Boolean data type
-   * - base64
-     - Binary data expressed in base64 format according to RFC-4648
-   * - timestamp
-     - The timestamp uses the W3C XML dateTime definition with 3 decimal places. All timestamps uses UTC.
-   * - array
-     - List of values. Makes it possible to send multiple values of any data type or list of key and value pairs. Content defined by SXL.
+integer
+    An integer, e.g. ``12``, ``0`` or ``-5``.
+    Follows the ECMA standard. A dot "." is not allowed.
+    Encoded as a JSON number.
 
-Point (".") is always used as decimal mark.
+timestamp
+    A timestamp, e.g. ``2019-09-26T12:54:54.066Z``.
+    Follows the W3C XML dateTime definition with three decimal places.
+    Always in the UTC timezone. Encoded as a JSON string.
+
+base64
+    Binary data expressed in base64 format string according to RFC-4648,
+    e.g. ``TWFs``, which represents the binary sequence 010011010110000101101100.
+    Encoded as a JSON string.
+
+
+Legacy types
+-------------------
+For historical reasons, basic types are sometimes encoded as JSON strings using these types.
+Whitespace is not allowed in any of these legacy types.
+
+number_as_string
+    An integer or float represented as a string, e.g. ``"12"``, ``"-4"``, ``"0.5"`` or ``"-2.4"``.
+    Follows the ECMA standard. A dot "." is used as decimal point for floating point numbers.
+
+integer_as_string
+    An integer represented as a string, e.g. ``"12"`` or ``"-7"``.
+    Follows the ECMA standard, but a dot "." is not allowed.
+
+boolean_as_string
+    A boolean represented as a string, either ``"true"`` or ``"false"``.
+    Alternative casing is not allowed.
+
+string_list_as_string
+    A comma-separated list of strings, e.g. ``"high,medium,low"``.
+    Commas are not allowed as part of the strings.
+
+number_list_as_string
+    A comma-separated list of number_as_strings, e.g. ``"1.0,2"``.
+
+integer_list_as_string
+    A comma-separated list of integer_as_strings, e.g. ``"2,-4,0"``.
+
+boolean_list_as_string
+    A comma-separated list of boolean_as_strings, e.g. ``"true,false"``.
