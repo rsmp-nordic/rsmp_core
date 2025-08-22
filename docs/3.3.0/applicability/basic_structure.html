@@ -1171,7 +1171,8 @@ Defined in seconds with decimals, e.g. “2.5” for 2.5 seconds.</p></li>
 <li><p>If <strong>updateRate</strong> is set to 0 it means that no update is sent using an
 interval.</p></li>
 <li><p><strong>sendOnChange</strong> defines if an status update should be sent as soon as the
-value changes.</p></li>
+value changes. Note that an SXL can define when an attribute is updated,
+e.g. a timestamp might only update when another attribute changes.</p></li>
 <li><p>It is possible to combine <strong>updateRate</strong> and <strong>sendOnChange</strong> to send an
 update when the value changes and at the same time using a specific
 interval.</p></li>
@@ -1186,8 +1187,21 @@ it means that no subscription updates will be sent.</p></li>
 new StatusSubscribe during an active subscription.</p></li>
 </ul>
 </section>
+<section id="attribute-updates">
+<h4><span class="section-number">4.4.4.1.5. </span>Attribute updates<a class="headerlink" href="#attribute-updates" title="Link to this heading"></a></h4>
+<p>When you set <strong>sendOnChange</strong> to true you will get an update whenever that
+attribute changes. However, the SXL can define when a particular attribute
+is updated.
+For example, a traffic light that report changes to signal groups might
+need to include a precise timestamp that indicates when in the cycle the
+change happened. But even though the cycle counter updates continuously,
+this should not in itself trigger an update. Instead the cycle counter
+should be sent along when the signal group state changes.
+In this case the SXL can define that the cycle counter is updated only
+when the signal group state changes.</p>
+</section>
 <section id="structure-for-a-status-update-message">
-<h4><span class="section-number">4.4.4.1.5. </span>Structure for a status update message<a class="headerlink" href="#structure-for-a-status-update-message" title="Link to this heading"></a></h4>
+<h4><span class="section-number">4.4.4.1.6. </span>Structure for a status update message<a class="headerlink" href="#structure-for-a-status-update-message" title="Link to this heading"></a></h4>
 <p>The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.</p>
 <p>The following applies:</p>
@@ -1287,7 +1301,7 @@ partial StatusUpdates can be sent.</p>
 <p>JSon code 18: A partial status update. Only a single status is updated</p>
 </section>
 <section id="structure-for-a-status-unsubscription-message">
-<h4><span class="section-number">4.4.4.1.6. </span>Structure for a status unsubscription message<a class="headerlink" href="#structure-for-a-status-unsubscription-message" title="Link to this heading"></a></h4>
+<h4><span class="section-number">4.4.4.1.7. </span>Structure for a status unsubscription message<a class="headerlink" href="#structure-for-a-status-unsubscription-message" title="Link to this heading"></a></h4>
 <p>A message with the request of unsubscription to a status has the structure
 according to the example below. The request unsubscribes on one or several
 statuses. No particular answer is sent for this request, other than the

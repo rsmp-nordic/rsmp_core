@@ -1032,7 +1032,8 @@ The following applies:
   interval.
 
 * **sendOnChange** defines if an status update should be sent as soon as the
-  value changes.
+  value changes. Note that an SXL can define when an attribute is updated,
+  e.g. a timestamp might only update when another attribute changes.
 
 * It is possible to combine **updateRate** and **sendOnChange** to send an
   update when the value changes and at the same time using a specific
@@ -1049,6 +1050,20 @@ The following applies:
 
 * It is allowed to change **updateRate** and **sendOnChange** by sending a
   new StatusSubscribe during an active subscription.
+
+
+Attribute updates
+~~~~~~~~~~~~~~~~~
+When you set **sendOnChange** to true you will get an update whenever that
+attribute changes. However, the SXL can define when a particular attribute
+is updated.
+For example, a traffic light that report changes to signal groups might
+need to include a precise timestamp that indicates when in the cycle the
+change happened. But even though the cycle counter updates continuously,
+this should not in itself trigger an update. Instead the cycle counter
+should be sent along when the signal group state changes.
+In this case the SXL can define that the cycle counter is updated only
+when the signal group state changes.
 
 
 Structure for a status update message
