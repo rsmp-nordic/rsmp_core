@@ -1231,7 +1231,7 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-A command requests is sent to a specific component on a site to execute a command.
+A command request is sent to a specific component on a site to execute a command.
 
 If all required arguments are present and valid, the site immediately sends a MessageAck
 and starts executing the command. Once the execution completes, fails or times
