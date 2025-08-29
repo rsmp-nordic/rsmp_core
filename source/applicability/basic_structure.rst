@@ -1246,20 +1246,21 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order to the referenced component.
-The site responds with a command acknowledgement.
+A command request is sent to a specific component on a site to execute a command.
 
-All arguments in a CommandRequest are considered required unless
-they are specifically marked as optional in the SXL. If a required argument is
-missing in a CommandRequest it is considered as a serious error resulting in
-MessageNotAck. See section about :ref:`incomplete-commands`.
+If all required arguments are present and valid, the site immediately sends a MessageAck
+and starts executing the command. Once the execution completes, fails or times
+out the site sends a CommandResponse.
 
-Only a single command (``cCI``) is allowed in each CommandRequest and
-CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
-be ambiguous. See section about :ref:`more-than-one-command`.
+If a required argument is missing or any argument is invalid the site responds with a
+MessageNotAck and does not send a CommandResponse.
 
-Command messages are interaction driven and are sent when command are
-requested on any given component by the supervision system or other equipment
+All arguments in a CommandRequest are required unless specifically marked as optional
+in the SXL.
+See the section about :ref:`incomplete-commands`.
+
+Only a single command (``cCI``) is allowed in a CommandRequest or CommandResponse.
+See the section about :ref:`more-than-one-command`.
 
 Message structure
 """""""""""""""""
