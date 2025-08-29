@@ -1356,17 +1356,17 @@ implicit in the following figure.</p>
 </section>
 <section id="command-messages">
 <h2><span class="section-number">4.4.5. </span>Command messages<a class="headerlink" href="#command-messages" title="Link to this heading"></a></h2>
-<p>Command messages are used to give order to the referenced component.
-The site responds with a command acknowledgement.</p>
-<p>All arguments in a CommandRequest are considered required unless
-they are specifically marked as optional in the SXL. If a required argument is
-missing in a CommandRequest it is considered as a serious error resulting in
-MessageNotAck. See section about <a class="reference internal" href="error_handling.html#incomplete-commands"><span class="std std-ref">Incomplete commands</span></a>.</p>
-<p>Only a single command (<code class="docutils literal notranslate"><span class="pre">cCI</span></code>) is allowed in each CommandRequest and
-CommandResponse, otherwise any resulting MessageAck or MessageNotAck would
-be ambiguous. See section about <a class="reference internal" href="error_handling.html#more-than-one-command"><span class="std std-ref">More than one command</span></a>.</p>
-<p>Command messages are interaction driven and are sent when command are
-requested on any given component by the supervision system or other equipment</p>
+<p>A command request is sent to a specific component on a site to execute a command.</p>
+<p>If all required arguments are present and valid, the site immediately sends a MessageAck
+and starts executing the command. Once the execution completes, fails or times
+out the site sends a CommandResponse.</p>
+<p>If a required argument is missing or any argument is invalid the site responds with a
+MessageNotAck and does not send a CommandResponse.</p>
+<p>All arguments in a CommandRequest are required unless specifically marked as optional
+in the SXL.
+See the section about <a class="reference internal" href="error_handling.html#incomplete-commands"><span class="std std-ref">Incomplete commands</span></a>.</p>
+<p>Only a single command (<code class="docutils literal notranslate"><span class="pre">cCI</span></code>) is allowed in a CommandRequest or CommandResponse.
+See the section about <a class="reference internal" href="error_handling.html#more-than-one-command"><span class="std std-ref">More than one command</span></a>.</p>
 <section id="id12">
 <h3><span class="section-number">4.4.5.1. </span>Message structure<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <section id="structure-of-a-command-request">
