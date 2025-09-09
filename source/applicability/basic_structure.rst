@@ -128,6 +128,7 @@ An alarm message is sent to the supervision system when:
 - An alarm is requested
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
+- An active alarm is updated (ie. the return values change)
 
 An acknowledgment of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific component with the
@@ -149,6 +150,13 @@ when unsuspending an alarm an alarm can be inactive and not acknowledged.
 Alarm messages are event driven and sent to the supervision system
 when the alarm occurs. Acknowledgement of alarms and alarm suspend
 messages are interaction driven.
+
+Details about an active alarm is provided in the `rvs` (Return ValueS) array.
+For all other alarm types, the `rvs` array must be empty. This includes when
+an alarm becomes inactive.
+
+If rvs values change for an active alarm, an new alarm messages is send.
+Active alarms must always include all rvs values, whether they changed or not.
 
 Alarm events are referring to 'active' (aSp:Issue), 'suspended' (aSp:Suspend)
 and 'acknowledged' (aSp:Acknowledged).
@@ -315,9 +323,17 @@ defined by the SXL.
 Return values
 ~~~~~~~~~~~~~
 
-Return values ("rvs") are used by alarm messages (but not by alarm
-acknowledgment or alarm suspend messages) and is always sent but can
-be empty (i.e. **[]**) if no return values are defined.
+The return values ("rvs") array is used only by active alarms,
+to provide addional information about the alarm. E.g. it can
+be used to indicate what signal head and/or color has broken
+lamps.
+
+If an active alarm has no return values, an empty array must be used.
+
+Active alarms must include all rvs values, not only those that changed.
+I.e. the latest active alarm message will always provide all details.
+
+For all other alarm types the rvs array must be empty.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.60}|
 
