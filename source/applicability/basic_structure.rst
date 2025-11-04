@@ -1606,17 +1606,15 @@ The following table describes additional variable content of the message.
 ComponentList
 ^^^^^^^^^^^^^^^^
 
-A ComponentList messages is send by a site to list it's components.  It can reduce the need to manual configuration on the supervisor. The list also established an index for each component, which can be used later to send compact data structures that refer to many components using integer indexes, rather that full component names.
+A ComponentList messages is send by a site to list it's components. The supervisorcan use the list to  reduce the need to manual configuration. The list also established an index for each component, which can be used later to send compact data structures that refer to many components using integer indexes, rather that full component names.
 
 It contains:
 
 * An array listing all components on the site.
 * Each array item is a hash with the id, type and name of a component.
 
+The message must be send by the site after connection, and whenever the list changes, ie. a component is added, removed or changes.
 
-Message flow
-"""""""""""""""""
-A component list can contain many components. The avoid resending it at connection time, the supervisor can set "clTs" in the Version message it sends to the site, to indicate the timestamp of the last received component list. If the component list has not changed since then, the site must responds with a ComponentList where  "components" is set to the string "unchanged" If the supervisor does not set "clTs" in it's Version message, the site must always send the full component list.
 
 Message structure
 """""""""""""""""
@@ -1630,19 +1628,18 @@ A ComponentList message has the structure according to the example below.
         "mType": "rSMsg",
         "type": "ComponentList",
         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+		"ts": "2015-06-08T11:49:03.293Z",
         "components": [
-            {
-                "id": "/tc", "type": "/sxl/dl", "name": "AG34.10 Grand Plaza"
-                "id": "/in/1/sg/1", "type": "/sxl/dl", "name": "A1"
-                "id": "/in/1/sg/2", "type": "/sxl/dl", "name": "B1"
-                "id": "/in/1/sg/3", "type": "/sxl/dl", "name": "A2"
-            }
-        ],
+            { "id": "/tc", "type": "/sxl/dl", "name": "AG34.10 Grand Plaza" },
+            { "id": "/in/1/sg/1", "type": "/tlc/dl", "name": "A2" },
+            { "id": "/in/1/sg/2", "type": "/tlc/dl", "name": "B1 }
+            { "id": "/in/1/dl/1", "type": "/tlc/dl", "name": "DL 1" },
+        ]
    }
 
 The id can be in either format A or B.
 The type has the form <sxl module>/<component type>.
-The name is a string.
+The name is a descriptive string.
 
 JSon code 24: A ComponentList message
 
