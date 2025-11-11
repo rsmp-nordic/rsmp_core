@@ -2,178 +2,234 @@
 
 Signal Exchange List
 ====================
+A signal exchange list (:term:`SXL`) defines component types, messages and behaviour for
+a specific type of equipment of area of functionality. A site can support one or more SXLs.
 
-The signal exchange list is an important functional part of RSMP.
-Since the contents of every message using RSMP is dynamic, a predefined
-signal exchange list (:term:`SXL`) is prerequisite in order to be able to
-establish communication.
+An SXL define the available alarms, commands and statuses for each component type.
 
-The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each component type.
+For the main component type it also details the meaning of aggregated status bits,
+functional positions and functional states,
 
-The SXL can be defined by either a YAML file or an Excel file using predefined
-principles which is defined below.
+The SXL is defined using YAML as described below.
 
-Component types
+Alternatively, it can be described using Excel format, in which case each component and
+message type is defined on a separate sheet.
+
+.. note::
+    In Excel versions, there is no separate min and max columns.
+    Instead, allowed values can be defined using the Value column according
+    to the following example: [0-100], where 0 is the minimum value and 100 is
+    the maximum value.
+
+SXL identifiers
 ---------------
+An SXL is identified by a name and short string id, for example Traffic Light Controller (``tlc``).
 
-A **component type** defines a type of component that can exist in a site,
-i.e. "LED". Each component type can have a set of alarms, statuses and
-commands associated with it.
+Identifiers can use a hierarchical structure with slashes to define an SXL hierarchy,
+for example ``tlc/advanced`` might be an child SXL which define optional advanced
+features for traffic light controllers.
 
-Using the Excel format; components types are defined in it's own sheet.
-Using the YAML format; each component type is defined like this:
+Child SXLs have access to the component types defined by their parent SXL(s). For instance,
+if the ``tlc`` SXL defines a ``SignalGroup`` component type,
+the ``tlc/advanced`` SXL can define messages for this component type, or otherwise refer to it.
+
+When defining an SXL, commands, statuses, and alarms are always listed
+with simple codes like ``M0001`` or ``S0002``.
+
+Sites using a single SXL (e.g., just ``tlc``) can accept either qualified codes like ``tlc/M0001``
+or simple unqualified codes like ``M0001``.
+
+Sites using more than one SXL can only accept qualified codes.
+For example, a command defined as ``M0001`` in the ``tlc/advanced`` SXL must be
+sent using the code ``tlc/advanced/M0001`` (if the site uses multiple SXLs).
+
+Component Types
+---------------
+A **component type** is a type of physical or logical part of a site.
+For example a Traffic Light Controller SXL might define Signal Group and Detector Logic as component types.
+
+Alarms, statuses and commands are defined for each component type.
+
+Component types are defined like this:
 
 .. code-block:: yaml
 
    components:
      <component-type>:
+      id: <component-type-id>
+      aggregated_status:
+        ...
+      functional_position:
+        ...
+      alarms:
+        ...
+      statuses:
+        ...
+      commands:
+        ...      
 
-Where ``<component-type>`` is the name of the component type. For instance,
-"Traffic Light Controller".
+Where ``<component-type>`` is the name of the component type, e.g. "Traffic Light Controller",
+and ``<component-type-id>`` is the id, e.g. "tc".
 
 Depending on applicability, each component type can either have it's own
 series or common series of alarm suffix (alarmCodeId), status codes
 (statusCodeId) and command codes (commandCodeId).
 
-Message types
+
+Aggregated Status and Functional Position
+-----------------------------------------
+The main component sends AggregatedStatus messages, which contains eight status bits, as well as the
+functional position and functional state.
+
+The general meaning of the bits is defined in the core specification and cannot be fundamentally changed.
+
+The main compoennt type  must define how each bit is used and whethr/how the functional position and
+functional state is used.
+Other compoennt types must ommit the ``aggregated_status`` and ``functional_position`` sections.
+
+Example:
+.. code-block:: yaml
+
+  components:
+    Traffic Light Controller:
+      aggregated_status:
+        1:
+          title: Local mode
+          description: Traffic Light Controller is in local mode. NTS has no control.
+        3:
+          title: High Priority Fault
+          description: Traffic Light Controller is in fail-safe mode; e.g. yellow flash or dark mode
+        4:
+          title: Medium Priority Fault
+          description: Traffic Light Controller has a medium priority fault, but not in fail-safe mode.
+        5:
+          title: Low Priority Fault
+          description: Traffic Light Controller has a low priority fault. E.g. Detector fault
+        6:
+          title: Connected - In Use
+          description: Traffic Light Controller is not in dark mode or in yellow flash
+        7:
+          title: Connected - Idle
+          description: Traffic Light Controller is in dark mode or in yellow flash
+      functional_position:
+        start: Traffic Light Controller is starting up
+        stop: Traffic Light Controller is stopping
+      functional_state:
+        normal: Controller is in normal mode
+        yellow_flash: Controller is in yellow flash
+
+- ``aggregated_status`` defines the aggregated status bits used by the SXL. Each bit must have a an integer from 1-8 as key,
+and contains a title and optional description. See :ref:`state-bits`. Bits not used by the SXL must be omitted,
+in which case they must always be set to false in AggregatedStatus messages.
+- ``functional_position`` is an array of possible :term:`Functional position`s
+- ``functional_state`` is an array of :term:`Functional state`s
+
+``functional_position`` and ``functional_state`` must be omitted if the SXL does not use them.
+
+Note: The actual Traffic Light Controller SXL does not use functional positions or states, so they are shown above
+as examples only.
+
+Messages
 -------------
-
-The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
-are defined in the SXL.
-
-Using the Excel format; alarms, aggregated status, status and commands are
-defined in their own sheet.
-
-Using the YAML format; each message type is defined like this:
+An SXL defines **Alarm**, **Status** and **Commands**:
 
 .. code-block:: yaml
 
   components:
     <component-type>:
-      aggregated_status:
-        1:
-          title: Local mode
-          description: In local mode
-        2:
-          title: No Communications
-        3:
-          title: High priority fault
-          description: Fail safe mode
-        4:
-          title: Medium Priority Fault
-          description: Medium priority fault, but not in fail safe mode
-        5:
-          title: Low Priority Fault
-        6:
-          title: Connected / Normal - In Use
-        7:
-          title: Connected / Normal - Idle
-        8:
-          title: Not Connected
-      functional_position:
-        <position-1>: start
-        <position-2>: stop
+      ...
+      alarms: ...
+        ...
+      statuses:
+        ...
+      commands:
+        ...
+
+Example:
+.. code-block:: yaml
+
+  components:
+    Traffic Light Controller:
+      ...
       alarms:
         A0001:
-          description: alarm description text
-          priority: 1
-          category: D
-          externalAlarmCodeId: manufacturer specific alarm text
-          externalNtsAlarmCodeId: 0000
-          arguments:
-            <argument-1>:
-              type: integer
-              min: 0
-              max: 10
-              description: A0001 argument 1
+      A0001:
+        description: |-
+          Serious hardware error.
+        priority: 2
+        category: D
+        from_version: 1.0.0
       statuses:
-        S0001:
-          description: status description text
-          arguments:
-            <argument-1>:
-              type: string
-              description: S0001 argument 1
-      commands:
-        M0001:
-          description: command description text
-          command: setStatus
-          arguments:
-            <argument-1>:
-              type: boolean
-              description: M0001 argument 1
-
-  ..
+      S0014:
+        description: |-
+          Current time plan.
+        from_version: 1.0.2
+        arguments:
+          status:
+            type: integer_as_string
+            description: Current time plan
+            min: 1
+            max: 255
+          source:
+            type: string_list_as_string
+            description: Source of the status change
+            values:
+              operator_panel: Operator panel
+              calendar_clock: Calendar/clock
+              control_block: Control block
+              forced: Forced due to external command e.g. supervisor
+              startup: Set after startup mode
+              other: Other reason
+     commands:
+      M0002:
+        description: |-
+          Sets current time plan.
+        from_version: 1.0.1
+        arguments:
+          status:
+            type: boolean_as_string
+            description: |-
+              False: Controller uses time plan according to programming
+              True: Controller uses time plan according to command
+          securityCode:
+            type: string
+            description: Security code 2
+          timeplan:
+            type: integer_as_string
+            description: designation of time plan
+            min: 1
+            max: 255
+        command: setPlan
 
 This example defines:
 
 - An alarm with the :term:`alarm code id` ``A0001``
-- A status with the :term:`status code id` ``S0001``
-- A command with the :term:`command code id` ``M0001``
-
-Each with one argument named ``<argument-1>`` using integer, string and boolean
-data types.
-
-The alarm contains the fields:
-
-- ``description`` is the alarm description
-- ``category`` is the alarm category
-- ``priority`` is the alarm priority
-- ``externalAlarmCodeId`` is the :term:`External alarm code id`
-- ``externalNtsAlarmCodeId`` is the :term:`External NTS alarm code id`
-
-The status contains the fields:
-
-- ``description`` is the status description
-
-The command contains the fields:
-
-- ``description`` is the command description
-- ``command`` is optionally used for RPC (Remote Procedure Call)
-
-An argument contains the fields:
-
-- ``description`` is the argument description
-- ``min`` is the minimum value (only for *number* or *integer* data types)
-- ``max`` is the maximum value (only for *number* or *integer* data types)
-- ``type`` is the :ref:`data type<data_types>`
-
-At least one argument are required for command and statuses, but they are
-optional in alarms.
+- A status with the :term:`status code id` ``S0014``
+- A command with the :term:`command code id` ``M0002``
 
 
-.. note::
+Alarms
+------
+Each alarm is defined by its :term:`alarm code id` and contains the following fields:
 
-    In the Excel version of the SXL, there is no separate min and max columns.
-    Instead, allowed values can be defined using the Value column according
-    to the following example: [0-100], where 0 is the minimum value and 100 is
-    the maximum value.
+- ``description``: alarm description
+- ``category``: alarm category
+- ``priority``: alarm priority
+- ``externalAlarmCodeId`` (optional): :term:`External alarm code id`
+- ``externalNtsAlarmCodeId`` (optional): :term:`External NTS alarm code id`
+- ``from_version``: core version where this alarm was introduced
+- ``arguments`` (optional): return values sent with the alarm
 
-The aggregated status contains the fields:
-
-- ``functional_position`` is the :term:`Functional position`
-
-- ``functional_state`` is the :term:`Functional state`
-
-- ``1-8`` is an array of eight booleans. Each with a title and optional
-  description. See :ref:`state-bits`
-
-
-.. _alarm-description:
-
-Alarm description
-^^^^^^^^^^^^^^^^^
-The format of the description is free of choice but has the following
-requirements:
+Description
+^^^^^^^^^^^
+The format of the description is free of choice but has the following requirements:
 
 - Description is unique for the component type
 - Description is defined in cooperation with the Purchaser before use
 
-.. _alarm-category:
-
-Alarm category
-^^^^^^^^^^^^^^
-The alarm category is defined in by a single character, either ``T`` or ``D``.
+Category
+^^^^^^^^
+The alarm category is defined by a single character, either ``T`` or ``D``.
 
 ==========  ===============
 Value       Description
@@ -182,8 +238,7 @@ T           Traffic alarm
 D           Technical alarm
 ==========  ===============
 
-A **traffic alarm** indicates events in the traffic related functions or the
-technical processes that affects traffic.
+A **traffic alarm** indicates events in the traffic related functions or the technical processes that affects traffic.
 
 A couple of examples from a tunnel:
 
@@ -193,13 +248,10 @@ A couple of examples from a tunnel:
 - High level of :math:`CO_{2}` in traffic room
 - etc.
 
-**Technical alarms** are alarms that do not directly affect the traffic.
-One example of technical alarm is when an impulse fan stops working.
+**Technical alarms** are alarms that do not directly affect the traffic. One example of technical alarm is when an impulse fan stops working.
 
-.. _alarm-priority:
-
-Alarm priority
-^^^^^^^^^^^^^^
+Priority
+^^^^^^^^
 The priority of the alarm.
 
 Defined in the SXL as a single character, ``1``, ``2`` or ``3``.
@@ -214,57 +266,47 @@ Value  Description
 3      Alarm that will be corrected during the next planned maintenance shift.
 =====  ==============================
 
-Functional differences between message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following table defines the functional differences between message types.
+Statuses
+--------
+Each status is defined by its :term:`status code id` and contains the following fields:
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+- ``description``: status description
+- ``arguments``: the data fields sent with the status (at least one is required)
+- ``from_version`` (optional): core version where this status was introduced
+- ``deprecated`` (optional): marks the status as deprecated
 
-.. table:: Functional differences
+Arguments
+^^^^^^^^^
+Arguments define the data fields sent with a status. Each argument contains:
 
-   =================  =========================================  ================================
-   Message type       Sent when                                  Adapted to be transmitted to NTS
-   =================  =========================================  ================================
-   Alarm              On change *or* request                     Yes
-   Aggregated status  On change *or* request                     Yes
-   Status             On request *or* according to subscription  No
-   Command            On request                                 Yes, partly (functional status)
-   =================  =========================================  ================================
+- ``description``: argument description
+- ``type``: the :ref:`data type<data_types>`
+- ``min`` (optional): minimum value (only for *number* or *integer* data types)
+- ``max`` (optional): maximum value (only for *number* or *integer* data types)
+- ``values`` (optional): allowed values with descriptions (for enumerations)
+- ``optional`` (optional): marks the argument as optional (defaults to required)
+- ``pattern`` (optional): regular expression pattern for string validation
 
-.. note::
-   In addition of :term:`functional position`, the Excel version of the SXL
-   can also differentiate between different kinds of command messages using
-   :term:`maneuver` and :term:`parameter` sections. However, their use has no
-   functional significance from a protocol point of view.
 
-Arguments and return values
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Argument and return values makes it possible to send extra information in
-messages. It is possible to send binary data (base64), such as bitmap
-pictures or other data, both to a site and to supervision system. The
-signal exchange list must clarify exactly which data type which is used
-in each case. There is no limitation of the number of arguments and
-return values which can be defined for a given message. Argument and return
-values is defined as extra columns for each row in the signal exchange
-list.
+Commands
+--------
+Each command is defined by its :term:`command code id` and contains the following fields:
 
-- Arguments can be sent with command messages
-- Return values can be send with response on status requests or as extra
-  information with alarm messages
+- ``description``: command description
+- ``arguments``: the data fields sent with the command (at least one is required)
+- ``command``: optionally used for RPC (Remote Procedure Call)
+- ``from_version`` (optional): core version where this command was introduced
+- ``deprecated`` (optional): marks the command as deprecated
+- ``reserved`` (optional): marks the command as reserved for future use
 
-The following table defines the message types which supports arguments and
-return values. 
+Arguments
+^^^^^^^^^
+Arguments define the data fields sent with a command. Each argument contains:
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
-
-.. table:: Support for arguments and return values
-
-   =================  ========  ============
-   Message type       Argument  Return value
-   =================  ========  ============
-   Alarm              No        Yes
-   Aggregated status  No        No
-   Status             No        Yes
-   Commands           Yes       No
-   =================  ========  ============
-
+- ``description``: argument description
+- ``type``: the :ref:`data type<data_types>`
+- ``min`` (optional): minimum value (only for *number* or *integer* data types)
+- ``max`` (optional): maximum value (only for *number* or *integer* data types)
+- ``values`` (optional): allowed values with descriptions (for enumerations)
+- ``optional`` (optional): marks the argument as optional (defaults to required)
+- ``pattern`` (optional): regular expression pattern for string validation

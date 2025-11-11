@@ -129,3 +129,5 @@ You can of course refer to the main component using it's component id.
 Or, as a short-hand, you can use an empty string ``""`` or ``null`` to refer
 to the main component.
 
+TODO: Describe module-qualified component types (e.g. tlc/tc, vms/lamp) when modules are supported in RSMP >= 3.3.0
+

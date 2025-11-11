@@ -92,3 +92,5 @@ component is intended to be sent to :term:`NTS`.
    :term:`NTS` is used at the Swedish Transport Administration. Other road
    authorities typically leaves the `xNid` and `ntsOid` as empty strings.
 
+TODO: Describe how component types can be module-qualified (e.g. tlc/tc, vms/lamp) in site configuration when modules are supported in RSMP >= 3.3.0
+

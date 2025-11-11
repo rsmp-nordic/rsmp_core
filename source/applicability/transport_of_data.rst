@@ -142,6 +142,8 @@ implicit in the following figure.
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
+   TODO: Describe module negotiation in Version message (if RSMP >= 3.3.0)
+
 2. The supervision system verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
@@ -164,6 +166,8 @@ implicit in the following figure.
 
 8. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
+
+   TODO: Describe ComponentList message (if modules are supported in RSMP >= 3.3.0)
 
 9. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no component for aggregated status is defined in the signal exchange list

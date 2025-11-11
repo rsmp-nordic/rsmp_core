@@ -83,6 +83,8 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | Version                 | RSMP / SXL version message            |
    |         +-------------------------+---------------------------------------+
+   |         | ComponentList           | Component list message                |
+   |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
    | mId     | *(GUID)*                | Message identity                      |
@@ -114,6 +116,49 @@ messages, message acknowledgement messages and watchdog messages.
    xNId         :term:`External NTS id`
    cId          :ref:`Component-id`
    ============ ================================================
+
+Functional differences between message types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The following table defines the functional differences between message types.
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+
+.. table:: Functional differences
+
+   =================  =========================================  ================================
+   Message type       Sent when                                  Adapted to be transmitted to NTS
+   =================  =========================================  ================================
+   Alarm              On change *or* request                     Yes
+   Aggregated status  On change *or* request                     Yes
+   Status             On request *or* according to subscription  No
+   Command            On request                                 Yes, partly (functional status)
+   =================  =========================================  ================================
+
+Arguments and return values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Arguments and return values make it possible to send extra information in messages. It is possible to send binary data (base64), such as bitmap pictures or other data, both to a site and to supervision system. The signal exchange list must clarify exactly which data type is used in each case. There is no limitation of the number of arguments and return values which can be defined for a given message.
+
+- Arguments are sent with command messages
+- Return values are sent with responses on status requests or as extra information with alarm messages
+
+The following table defines which message types support arguments and return values:
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
+
+.. table:: Support for arguments and return values
+
+   =================  ========  ============
+   Message type       Argument  Return value
+   =================  ========  ============
+   Alarm              No        Yes
+   Aggregated status  No        No
+   Status             No        Yes
+   Commands           Yes       No
+   =================  ========  ============
+
+.. note::
+   In the Excel version of the SXL, different kinds of command messages can be differentiated using :term:`maneuver` and :term:`parameter` sections. However, their use has no functional significance from a protocol point of view.
+
 
 .. _alarm-messages:
 
@@ -1674,6 +1719,83 @@ sent by the supervisors, not the initial Version request sent by the site.
 - If set to true, or omitted, site must send alarms to the supervisor as normal.
 
 The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
+
+.. _component-list:
+
+ComponentList
+^^^^^^^^^^^^^
+
+A ComponentList describes the components that exist on a site, including their ids, type and names.
+
+A ComponentList is sent during communication establishment, and whenever the component list changes,
+i.e if a component is added, removed or changed.
+
+
+
+Message structure
+"""""""""""""""""
+
+A ComponentList message has the structure according to the example below.
+
+.. code-block:: json
+   :name: json-componentlist
+
+   {
+        "mType": "rSMsg",
+        "type": "ComponentList",
+        "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
+        "components": [
+            {
+                "id": "/tc",
+                "type": "/tlc/tc",
+                "name": "Traffic Light Controller"
+            },
+            {
+                "id": "/sg/1",
+                "type": "/tlc/sg",
+                "name": "North"
+            },
+            {
+                "id": "/sg/2",
+                "type": "/tlc/sg",
+                "name": "South"
+            },
+            {
+                "id": "/dl/1",
+                "type": "/tlc/dl",
+                "name": "Busses Northgoing"
+            }
+        ]
+   }
+
+JSon code 26: A ComponentList message
+
+The following table describes the variable content of the message:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: ComponentList
+
+   ========== ======== ===============================
+   Element    Type     Description
+   ========== ======== ===============================
+   components array    List of components on the site
+   ========== ======== ===============================
+
+The following table describes the content of each component in the array:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: Component entry
+
+   ======== ======== ===================================================
+   Element  Type     Description
+   ======== ======== ===================================================
+   id       string   :ref:`Component-id`, uniquely identifying the component
+   type     string   Component type, as defined in the SXL. See :ref:`signal-exchange-list` for information about component types
+   name     string   Human-readable name of the component
+   ======== ======== ===================================================
+
 
 .. _watchdog:
 
