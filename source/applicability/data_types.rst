@@ -69,3 +69,32 @@ integer_list_as_string
 
 boolean_list_as_string
     A comma-separated list of boolean_as_strings, e.g. ``"true,false"``.
+
+
+
+.. _natural-sorting:
+
+Natural Sorting
+---------------
+Natural sorting is used e.g. for component list.
+
+Natural sorting is the same as alphabetical sorting, except that sequences of digits
+inside the strings are treated and sorted numerically.
+
+.. code-block::
+   :name: id-ordering-natural
+
+   /dl/1
+   /dl/2
+   /dl/10
+   /tc
+
+With alphabetical sorting (which is NOT used) the order would have been:
+
+.. code-block::
+   :name: id-ordering-alphabetical
+
+   /dl/1
+   /dl/10
+   /dl/2
+   /tc

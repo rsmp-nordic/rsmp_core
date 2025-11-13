@@ -5,31 +5,22 @@ Signal Exchange List
 A signal exchange list (:term:`SXL`) defines component types, messages and behaviour for
 a specific type of equipment of area of functionality. A site can support one or more SXLs.
 
-An SXL define the available alarms, commands and statuses for each component type.
+An SXL defines component types, which are logical or physical parts of a site.
+It then defines the alarm, command and statuse messages for each component type.
 
 For the main component type it also details the meaning of aggregated status bits,
 functional positions and functional states,
 
-The SXL is defined using YAML as described below.
 
-Alternatively, it can be described using Excel format, in which case each component and
-message type is defined on a separate sheet.
-
-.. note::
-    In Excel versions, there is no separate min and max columns.
-    Instead, allowed values can be defined using the Value column according
-    to the following example: [0-100], where 0 is the minimum value and 100 is
-    the maximum value.
-
-SXL identifiers
+SXL Identifiers
 ---------------
-An SXL is identified by a name and short string id, for example Traffic Light Controller (``tlc``).
+An SXL is identified by an id and a name, for example ``tlc``, Traffic Light Controller.
 
 Identifiers can use a hierarchical structure with slashes to define an SXL hierarchy,
 for example ``tlc/advanced`` might be an child SXL which define optional advanced
 features for traffic light controllers.
 
-Child SXLs have access to the component types defined by their parent SXL(s). For instance,
+Child SXLs can reference the component types defined by their parent SXL(s). For instance,
 if the ``tlc`` SXL defines a ``SignalGroup`` component type,
 the ``tlc/advanced`` SXL can define messages for this component type, or otherwise refer to it.
 
@@ -42,6 +33,23 @@ or simple unqualified codes like ``M0001``.
 Sites using more than one SXL can only accept qualified codes.
 For example, a command defined as ``M0001`` in the ``tlc/advanced`` SXL must be
 sent using the code ``tlc/advanced/M0001`` (if the site uses multiple SXLs).
+
+
+SXL Format
+---------------
+An SXL is defined using YAML format as desceribed below.
+
+Alternatively, it can be described using Excel format, in which case each component and
+message type is defined on a separate sheet.
+
+.. note::
+    In Excel versions, there is no separate min and max columns.
+    Instead, allowed values can be defined using the Value column according
+    to the following example: [0-100], where 0 is the minimum value and 100 is
+    the maximum value.
+
+
+.. component-types:
 
 Component Types
 ---------------

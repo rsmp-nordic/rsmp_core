@@ -1724,17 +1724,20 @@ The supervisor can request, acknowledge and suspend/resume alarms even if the `r
 
 ComponentList
 ^^^^^^^^^^^^^
-
-A ComponentList describes the components that exist on a site, including their ids, type and names.
-
-A ComponentList is sent during communication establishment, and whenever the component list changes,
+A ComponentList is used to list the components on a site.
+It is sent during communication establishment, and whenever the component list changes,
 i.e if a component is added, removed or changed.
 
+The list of components must be ordered by their ids, using :ref:`natural-sorting`.
+
+The ordering can be relied on to e.g. send compact data structures that need to
+reference many components.
+For example strings where the position in the string relate t
+the position in the component list.
 
 
 Message structure
 """""""""""""""""
-
 A ComponentList message has the structure according to the example below.
 
 .. code-block:: json
@@ -1746,24 +1749,24 @@ A ComponentList message has the structure according to the example below.
         "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
         "components": [
             {
-                "id": "/tc",
-                "type": "/tlc/tc",
-                "name": "Traffic Light Controller"
-            },
-            {
-                "id": "/sg/1",
-                "type": "/tlc/sg",
-                "name": "North"
+                "id": "/dl/1",
+                "type": "/tlc/dl",
+                "name": "Busses Northgoing"
             },
             {
                 "id": "/sg/2",
                 "type": "/tlc/sg",
+                "name": "North"
+            },
+            {
+                "id": "/sg/10",
+                "type": "/tlc/sg",
                 "name": "South"
             },
             {
-                "id": "/dl/1",
-                "type": "/tlc/dl",
-                "name": "Busses Northgoing"
+                "id": "/tc",
+                "type": "/tlc/tc",
+                "name": "Traffic Light Controller"
             }
         ]
    }
@@ -1779,7 +1782,7 @@ The following table describes the variable content of the message:
    ========== ======== ===============================
    Element    Type     Description
    ========== ======== ===============================
-   components array    List of components on the site
+   components array    List of components on the site, ordered by theirs, using using :ref:`natural-sorting`
    ========== ======== ===============================
 
 The following table describes the content of each component in the array:
@@ -1792,7 +1795,7 @@ The following table describes the content of each component in the array:
    Element  Type     Description
    ======== ======== ===================================================
    id       string   :ref:`Component-id`, uniquely identifying the component
-   type     string   Component type, as defined in the SXL. See :ref:`signal-exchange-list` for information about component types
+   type     string   Component type, as defined in the SXL. See :ref:`component_types` for information about component types
    name     string   Human-readable name of the component
    ======== ======== ===================================================
 
@@ -1823,7 +1826,6 @@ from the supervision system. At initial communication establishment
 
 Message structure
 """""""""""""""""
-
 A watchdog message has the structure according to the example below.
 
 .. code-block:: json
