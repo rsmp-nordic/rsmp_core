@@ -1616,71 +1616,72 @@ Site sends initial message
 1. A message is sent from the site
 2. The supervision system or other equipment responds with an message acknowledgement
 
-.. _rsmpsxl-version:
+.. version:
 
-RSMP/SXL Version
-^^^^^^^^^^^^^^^^
+Version
+^^^^^^^
+Version messages are used when establishing communication.
 
-RSMP/SXL Version is the initial message when establishing communication.
+See :ref:`communication-establishment-between-sites-and-supervision-system`
+and :ref:`communication-establishment-between-sites` for how the connection
+sequence is performed.
 
-It contains:
+Unknown attributes must be ignored. This ensures that new attributes can be
+added without affecting existing implementations.
+
+Message Structure of Request
+""""""""""""""""""""""""""""
+The initial Version request send by the site contains:
 
 * Site Id
-* SXL versions
-* All supported RSMP versions
-
-The Site Id and SXL revision must match between the communicating parties.
-
-If there is a mismatch or if there are no RSMP version that both
-communicating parties support, see :ref:`communication-rejection`.
-
-The version message should be implemented in such a way that it should be
-possible to add additional tags/variables (e.g. date) without affecting
-existing implementations.
-
-The principle of the message exchange is defined by the communication
-establishment (See
-:ref:`communication-establishment-between-sites-and-supervision-system`
-and :ref:`communication-establishment-between-sites`).
-
-Message structure
-"""""""""""""""""
-
-A version message has the structure according to the example below. In
-the example below the system has support for RSMP version **3.1.1**,
-**3.1.2** and SXL version **1.0.13** for site **O+14439=481WA001**.
+* Supported RSMP core versions
+* Supported SXLs and their versions
 
 .. code-block:: json
-   :name: json-version
+   :name: json-version-request
 
    {
         "mType": "rSMsg",
         "type": "Version",
+        "variant": "Request",
         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
-        "step": "Request"
         "RSMP": [
-            {
-                "vers": "3.1.1"
-            },{
-                "vers": "3.1.2"
-            }
+            { "vers": "3.1.1" },
+            { "vers": "3.1.2" }
         ],
         "siteId": [
-            {
-                "sId": "O+14439=481WA001"
-            }
+            { "sId": "O+14439=481WA001" }
         ],
-        "SXL": "1.0.13",
-        "receiveAlarms": false
+        "SXL": "",
+        "SXLS": [
+            { "id": "tlc", "version": "1.3.0" },
+            { "id": "tlc/advanced", "version": "1.1.0" },
+            { "id": "sensor", "version": "1.0.1" }
+        ]
    }
 
-JSon code 24: A RSMP / SXL message
+JSon code 24: A Version Request message
 
-The following table describes the variable content of the message which is
-defined by the SXL.
 
-The *Site config* columns describes the correlation between the JSon
-elements and the titles in the site configuration.
+The following table describes variable content of the message:
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
+
+.. table:: Version information
+
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   variant       string   Must be set to 'Request'.
+   RSMP          array    Array of supported core version of RSMP. Each item is an object with the attribute ``vers`` set to the version string, e.g. "3.1.2". 
+   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
+   ============= ======== ===============
+
+Only one site can use the same connection. The ``sId`` array must therefore contain
+exactly one element.
+
+The following table shows the correlation between the JSON
+elements and the site configuration defined in YAML and Excel formats.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.30}|
 
@@ -1690,14 +1691,68 @@ elements and the titles in the site configuration.
    Element Type     Site config (Excel)  Site config (YAML) Description
    ======= ======== ==================== ================== ===========================
    sId     string   SiteId                                  :term:`Site id`
-   SXL     string   SXL revision         version            Revision of SXL. E.g ”1.3”
+   SXL     string   SXL revision         version            Version of SXL, e.g ”1.3.0”
+   SXLS    array    SXLs supported       sxls               SXLs supported, including their versions.
    ======= ======== ==================== ================== ===========================
 
-It is possible to use more than one site id in a single RSMP connection.
-Therefore the site ids that are used in the RSMP connection are sent
-in the message using an array with ``sId``.
 
-The following table describes additional variable content of the message.
+Items in the ``SXLS`` array must be an object with the following content:
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.30}|
+
+.. table:: SXLS item content
+
+   ======= ======== ====================
+   Element Type     Description  
+   ======= ======== ==================== 
+   id      string   SXL id, e.g. "tlc"             
+   version string   Version of the SXL, e.g ”1.3.0”. If the site supports multiple versions, the latest must be specified.
+   ======= ======== ====================
+
+Message Structure of Response
+"""""""""""""""""""""""""""""
+If the supervisor determines that core or SXL versions are incompatible, the connection must be closed,
+see :ref:`communication-rejection`. Otherwise the supervisor returns a Version response containing:
+
+* Site Id
+* RSMP core version used by the supervisor
+* SXLs used by the supervisor and their versions
+* receiveAlarms flags, indicating whether the supervisor wants to receive alarms from the site
+
+.. code-block:: json
+   :name: json-version-response
+
+   {
+        "mType": "rSMsg",
+        "type": "Version",
+        "variant": "Response",
+        "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+        "RSMP": [
+            { "vers": "3.1.2" }
+        ],
+        "siteId": [
+            { "sId": "O+14439=481WA001" }
+        ],
+        "SXL": "",
+        "SXLS": [
+            { "id": "tlc", "version": "1.3.3" },
+            { "id": "sensor", "version": "1.0.0" }
+        ],
+        "receiveAlarms": false
+   }
+
+JSon code 25: A Version Response message
+
+In this example, the supervisor has selected RSMP core version 3.1.2.
+
+It has selected SXL "tlc" version 1.3.3, which is a later patch version than the site supports (1.3.0),
+but still compatible because it's the same minor version.
+
+The supervisor has also selected SXL "sensor" version 1.0.0, which is an earlier patch version than the site supports (1.0.1),
+but still compatible because it's the same minor version.
+
+The SXL "tlc/advanced" is not used, because the supervisor either not support this SXL or does not have a compatible verison.
+
+The following table describes variable content of the message:
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
@@ -1706,18 +1761,13 @@ The following table describes additional variable content of the message.
    ============= ======== ===============
    Element       Type     Description
    ============= ======== ===============
-   step          string   Must be set to 'Request' in the initial Version message sent by the site, and to 'Response' in the Version message returned by the supervisor.
-   vers          string   Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
+   variant       string   Must be set to 'Response'.
+   RSMP          array    Used core version. Must contain exactly one element with the attribute ``vers`` set to the version string, e.g. "3.1.2". 
+   receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
    ============= ======== ===============
 
-The `receiveAlarms` attribute is optional and can only be set in the Version response
-sent by the supervisors, not the initial Version request sent by the site.
+The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
 
-- If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.
-- If set to true, or omitted, site must send alarms to the supervisor as normal.
-
-The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
 
 .. _component-list:
 
@@ -1831,7 +1881,7 @@ A watchdog message has the structure according to the example below.
         "wTs": "2015-06-08T12:01:39.654Z"
    }
 
-JSon code 25: A watchdog message
+JSon code 27: A watchdog message
 
 The following table is describing the variable content of the message:
 

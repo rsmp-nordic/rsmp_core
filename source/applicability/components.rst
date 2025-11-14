@@ -6,7 +6,7 @@ For example, a traffic light controller might have signal group and detector log
 
 A component has:
 
-* a type, defined in an SXL
+* a type, defined in an SXL.
 * an id, which must be unique on the site
 * a name, which should be human-readable and unique on the site
 * internal data, which can be accessed using alarm, command and status messages
@@ -15,7 +15,7 @@ A component has:
 .. _component-type:
 Component Types
 ---------------
-Component types are defined by SXLs and identified by an ID.
+Component types are defined by SXLs and identified by an ID, see :ref:`component-types`.
 For example, an SXL for Traffic Light Controllers might define ``sg`` for signal groups and ``dl`` for detector logics.
 
 Component type IDs do not have to be globally unique, only unique within the SXL where they are defined.
@@ -145,15 +145,14 @@ Or these path ids:
   /sg/2
   /tc
 
-The ordering can be relied to reference many components in a compact way, by using short integer indexes:
+The ordering can be relied to reference many components in a compact way, by using short integer indexes,
+indicating the position in the ordered list.
 
   0: /dl/north
   1: /dl/south
   2: /sg/1
   3: /sg/2
   4: /tc
-
-The indexes are simply the position in the ordered list, starting from zero.
 
 For example, you can send a string where each character relates to a specific component.
 
