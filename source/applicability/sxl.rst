@@ -53,10 +53,12 @@ message type is defined on a separate sheet.
 
 Component Types
 ---------------
-A **component type** is a type of physical or logical part of a site.
+An SXL defines **component types** used by the SXL.
 For example a Traffic Light Controller SXL might define Signal Group and Detector Logic as component types.
 
-Alarms, statuses and commands are defined for each component type.
+The SXL defines alarms, statuses and commands for each component type.
+Aggregated status and functional position/state is only defined for the main component type.
+
 
 Component types are defined like this:
 

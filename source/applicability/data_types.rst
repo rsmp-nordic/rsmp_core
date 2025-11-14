@@ -76,8 +76,6 @@ boolean_list_as_string
 
 Natural Sorting
 ---------------
-Natural sorting is used e.g. for component list.
-
 Natural sorting is the same as alphabetical sorting, except that sequences of digits
 inside the strings are treated and sorted numerically.
 

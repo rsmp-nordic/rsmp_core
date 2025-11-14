@@ -1,14 +1,42 @@
+.. _components:
+Components
+==========
+A site consists of components, which are physical or logical parts of the site.
+For example, a traffic light controller might have signal group and detector logic components.
+
+A component has:
+
+* a type, defined in an SXL
+* an id, which must be unique on the site
+* a name, which should be human-readable and unique on the site
+* internal data, which can be accessed using alarm, command and status messages
+
+
+.. _component-type:
+Component Types
+---------------
+Component types are defined by SXLs and identified by an ID.
+For example, an SXL for Traffic Light Controllers might define ``sg`` for signal groups and ``dl`` for detector logics.
+
+Component type IDs do not have to be globally unique, only unique within the SXL where they are defined.
+When referring to a component type, the type must therefore be qualified with the SXL id, e.g. ``/tlc/sg``.
+
+SXLs can be organized in a hierarchy. For example, the SXL ``/tlc/cits`` might define cooperative ITS functionality
+for traffic light controllers and might define the component type ``map``. You would refer to this component type
+as ``/tlc/cits/map``.
+
+
 .. _component-id:
+Component IDs
+-------------
+Component IDs are used to identify components. There are two formats that can be used: flat IDs and path IDs.
+All component IDs on a site must use the same format.
 
-Component ID
-============
-Component ID's are used to identify a :term:`component`. There are two
-formats that can be used, either format A or format B.
-
-Format A
---------
-This is the original component format.
-It includes the :term:`site id` as part of the component id.
+.. _flat-component-id:
+Flat IDs
+^^^^^^^^
+This is the original format and does not use slashes.
+It includes the :term:`site id` as part of the id.
        
 Structure::
 
@@ -23,111 +51,130 @@ Where:
 
 Examples::
 
-  KK+AG0503=001DL001
-  KK+AG0503=001SG005
+  KK+AG0503=00DL001
+  KK+AG0503=00DL002
+  KK+AG0503=00SG001
+  KK+AG0503=00SG002
+  KK+AG0503=00TC001
 
-Format B
---------
-This is a newer component id format that can be used to organize components
-in a hierachical structure. The :term:`site id` is not included as part of
-the component id.
+
+.. _path-component-id:
+Path IDs
+^^^^^^^^
+This is a newer format that uses slashes to organize components into a hierarchy.
+The :term:`site id` is not included as part of the id.
 
 Structure::
 
-  /.../...
+  /...
 
 Examples::
 
-  /tc
-  /sg/1
-  /in/1/sg/6
+  /dl/bus/b2
+  /dl/north/a
   /dl/radar/1
   /dl/radar/2
+  /in/1/sg/6
+  /sg/1
+  /tc
 
-The format starts with a forward slash ``/``, and consist of levels separated
-by forward slashes.
+A path ID must start with a forward slash ``/``. Additional slashes separate levels.
+
+Empty levels, e.g. ``/sg//1``, are not allowed. The id must not end with a slash.
+
+The ID does not have to indicate the component type, although this is often useful.
+This means that you cannot safely infer the component type from a path ID.
+Instead you should rely on the types sent in ComponentList messages.
+
+
+.. _main_component:
+Main component
+--------------
+A site must have exactly one component designated as the *main component*.
+The main component is typically used for functionality that represents the site as a whole.
+
+As a short-hand, this component can be addressed using an empty string ``""``.
+You can also address it using its full component ID.
+
+
+.. _addressing-components:
+Addressing Components
+---------------------
+A component is addressed using its full id, whether it's a flat ID or a path ID.
+
+As a short-hand, an empty string ``""`` can be used to refer to the :ref:`main component`.
+
+If path ids are used, you can address groups of components using paths ending with a slash.
+
+For example ``/dl/radar/`` can be used to address all components under that path.
+For the example above, this would include ``/dl/radar/1`` and ``/dl/radar/2``.
+
+A single forward slash ``/`` addresses all components.
        
-A component id cannot end with a slash. However, you can point to
-intermediate levels in the hierarchy to reference groups of components,
-by using a component string ending with a slash, e.g. ``/sg/`` to refer to
-all signal groups.
+If flat IDs are used, no hierarchy is defined and groups of components cannot be
+addressed by path.
 
-The component id does not have to indicate the component type, although this
-is often useful.
+Because some messages can relate to multiple components, it's best to think of messages
+being sent to or from the site, with arguments indicating which component(s) the
+message relates to.
 
-A single forward slash ``/`` refers to all components.
-       
-An empty string ``""`` or ``null`` refers to the `main component`_.
+For example, a Traffic Sensor might have components relating to detection zones. You might
+be able to request the status of a single zone using e.g. ``/zones/1``, or
+all zones using ``/zones/``. In either case the status request is sent to the site.
 
-The concrete layout of component types and paths is defined in the SXL.
 
-Component indexes
------------------
+.. _component_ordering:
+Component Ordering
+------------------
+As part of the connection sequence, the site sends a :ref:`component-list` message which lists
+all components on the site, ordered by their component IDs.
 
-Each component must have an integer index that's unique on the site.
+For example, a site might have these flat component IDs:
 
-For example, a device might have these format A component id, and indexes::
+  KK+AG0503=001DL001
+  KK+AG0503=001DL002
+  KK+AG0503=001SG001
+  KK+AG0503=001SG002
+  KK+AG0503=001TC001
 
-  0: KK+AG0503=001DL001
-  1: KK+AG0503=001DL002
-  2: KK+AG0503=001SG001
-  3: KK+AG0503=001SG002
+Or these path ids:
 
-Or using format B component ids::
+  /dl/north
+  /dl/south
+  /sg/1
+  /sg/2
+  /tc
+
+The ordering can be relied to reference many components in a compact way, by using short integer indexes:
 
   0: /dl/north
   1: /dl/south
   2: /sg/1
   3: /sg/2
+  4: /tc
 
-Even though component ids might include integer parts
-(e.g. ``001`` in ``KK+AG0503=001DL001`` or ``/1`` in ``sg/1``) you cannot
-expect these to match the indexes, since components of different types might
-use the same integer parts, while indexes must be unique on the site across
-types.
+The indexes are simply the position in the ordered list, starting from zero.
 
-Component indexes provides a clear way to order subset of components and
-refer to each using a short index starting from 0.
+For example, you can send a string where each character relates to a specific component.
 
-For example, consider a status message that provides the status of all signal
-groups::
-
-  2: /sg/1
-  3: /sg/2
-
-Because it's subset of components, indexes might not start from 0 and might contain
-gaps, but can easily be normalized by simply counting from 0::
+You can also use the ordering for subsets of components, by enumerating the subset starting from zero,
+using the same ordering as in the full component list. For example the subset of signal groups at
+``/sg/`` would have the following indexes:
 
   0: /sg/1
   1: /sg/2
 
-Normalized indexes can be used to efficiently send data,
-by using a compact structure where the first element refers to the component
-with normalized index 0, the second element refers to the component with
-normalized index 1, etc.
+If we assume a status update with the string "AB" is sent to indicate the
+state of signal groups under the path ``/sg/`` then:
 
-For example, let's assume the status string "AB" is sent to indicate the status
-of all signal groups.
+* The character at index 0 in the string is ``A``, thus ``/sg/1`` is in state ``A``.
+* The character at index 1 in the string is ``B``, thus ``/sg/2`` is in state ``B``.
 
-The character at index 0 in the string is A.
-The component with normalized index 0 is ``/sg/1``, and thus has status A.
+You cannot safely rely on integer parts of component IDs for indexing, because they:
+* might not be unique across component types
+* might not be sequential
+* might not start from zero
+* might not be present
 
-The character at index 1 in the status string is B.
-The component with normalized index 1 is ``/sg/2``, and thus has status B.
-
-The result is::
-
-  /sg/1: A
-  /sg/2: B
- 
-
-Main component
-^^^^^^^^^^^^^^
-
-Each site must have exactly one designated main component.
-You can of course refer to the main component using it's component id.
-Or, as a short-hand, you can use an empty string ``""`` or ``null`` to refer
-to the main component.
-
-TODO: Describe module-qualified component types (e.g. tlc/tc, vms/lamp) when modules are supported in RSMP >= 3.3.0
+Instead you must rely on the ordering provided by the :ref:`component-list` message.
 

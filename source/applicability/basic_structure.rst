@@ -2,7 +2,6 @@
 
 Basic structure
 ---------------
-
 Unicode (ISO 10646) and UTF-8 are used for all messages.
 
 Parsing needs to be performed case sensitive.
@@ -1724,17 +1723,11 @@ The supervisor can request, acknowledge and suspend/resume alarms even if the `r
 
 ComponentList
 ^^^^^^^^^^^^^
-A ComponentList is used to list the components on a site.
+A ComponentList message is used to list  the components on a site.
 It is sent during communication establishment, and whenever the component list changes,
-i.e if a component is added, removed or changed.
+i.e. if a component is added, removed or changed.
 
-The list of components must be ordered by their ids, using :ref:`natural-sorting`.
-
-The ordering can be relied on to e.g. send compact data structures that need to
-reference many components.
-For example strings where the position in the string relate t
-the position in the component list.
-
+The list of components is send as an array, and must be ordered by components ids, using :ref:`natural-sorting`.
 
 Message structure
 """""""""""""""""
