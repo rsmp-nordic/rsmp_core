@@ -29,14 +29,15 @@ as ``/tlc/cits/map``.
 .. _component-id:
 Component IDs
 -------------
-Component IDs are used to identify components. There are two formats that can be used: flat IDs and path IDs.
-All component IDs on a site must use the same format.
+Component IDs are used to identify components.
 
-.. _flat-component-id:
-Flat IDs
-^^^^^^^^
-This is the original format and does not use slashes.
-It includes the :term:`site id` as part of the id.
+There are two formats. All component IDs on a site must use the same format; a site cannot use both formats.
+
+.. _legacy-component-id:
+Legacy ID
+^^^^^^^^^
+This is an legacy format with a specific encoding that includes the :ref:`site id`.
+Slashes are not allowed. 
        
 Structure::
 
@@ -59,8 +60,8 @@ Examples::
 
 
 .. _path-component-id:
-Path IDs
-^^^^^^^^
+Path ID
+^^^^^^^
 This is a newer format that uses slashes to organize components into a hierarchy.
 The :term:`site id` is not included as part of the id.
 
@@ -70,13 +71,16 @@ Structure::
 
 Examples::
 
+  /
   /dl/bus/b2
   /dl/north/a
   /dl/radar/1
   /dl/radar/2
-  /in/1/sg/6
+  /intersection/1/sg/6
+  /sensors/bus/A8
   /sg/1
   /tc
+  
 
 A path ID must start with a forward slash ``/``. Additional slashes separate levels.
 
@@ -86,21 +90,30 @@ The ID does not have to indicate the component type, although this is often usef
 This means that you cannot safely infer the component type from a path ID.
 Instead you should rely on the types sent in ComponentList messages.
 
+The path ID ``/`` is valid, but can only be assigned to a component of a type marked as *main*
+in the SXL.
 
 .. _main_component:
-Main component
+Main Component
 --------------
-A site must have exactly one component designated as the *main component*.
-The main component is typically used for functionality that represents the site as a whole.
+Some functionality relate to the site as a whole, rather than individual components.
 
-As a short-hand, this component can be addressed using an empty string ``""``.
-You can also address it using its full component ID.
+The SXL must define such functionality by targeting a component type marked as *main*.
+
+A site must have exactly one component of of a type marked in the SXL as *main*.
+This component is known as the *main component*.
+
+You send messages to/from this component to handle functionality that relate to the site as a whole.
+
+As a short-hand you can use an empty string ``""`` to refer to the main component.
+
+If path IDs are used, the path ID "/" is allowed for the main component, but not required.
 
 
 .. _addressing-components:
 Addressing Components
 ---------------------
-A component is addressed using its full id, whether it's a flat ID or a path ID.
+A component is addressed using its full id, whether it's a legacy ID or a path ID.
 
 As a short-hand, an empty string ``""`` can be used to refer to the :ref:`main component`.
 
@@ -111,7 +124,7 @@ For the example above, this would include ``/dl/radar/1`` and ``/dl/radar/2``.
 
 A single forward slash ``/`` addresses all components.
        
-If flat IDs are used, no hierarchy is defined and groups of components cannot be
+If legacy IDs are used, no hierarchy is defined and groups of components cannot be
 addressed by path.
 
 Because some messages can relate to multiple components, it's best to think of messages
@@ -129,7 +142,7 @@ Component Ordering
 As part of the connection sequence, the site sends a :ref:`component-list` message which lists
 all components on the site, ordered by their component IDs.
 
-For example, a site might have these flat component IDs:
+For example, a site might have these legacy component IDs:
 
   KK+AG0503=001DL001
   KK+AG0503=001DL002
@@ -137,7 +150,7 @@ For example, a site might have these flat component IDs:
   KK+AG0503=001SG002
   KK+AG0503=001TC001
 
-Or these path ids:
+Or these path IDs:
 
   /dl/north
   /dl/south
@@ -176,4 +189,3 @@ You cannot safely rely on integer parts of component IDs for indexing, because t
 * might not be present
 
 Instead you must rely on the ordering provided by the :ref:`component-list` message.
-
