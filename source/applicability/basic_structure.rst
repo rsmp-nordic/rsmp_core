@@ -1643,7 +1643,7 @@ The initial Version request send by the site contains:
    {
         "mType": "rSMsg",
         "type": "Version",
-        "variant": "Request",
+        "subtype": "Request",
         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
         "RSMP": [
             { "vers": "3.1.1" },
@@ -1656,7 +1656,7 @@ The initial Version request send by the site contains:
         "SXLS": [
             { "id": "tlc", "version": "1.3.0" },
             { "id": "tlc/advanced", "version": "1.1.0" },
-            { "id": "sensor", "version": "1.0.1" }
+            { "id": "sensor", "version": "1.0.6" }
         ]
    }
 
@@ -1672,9 +1672,11 @@ The following table describes variable content of the message:
    ============= ======== ===============
    Element       Type     Description
    ============= ======== ===============
-   variant       string   Must be set to 'Request'.
-   RSMP          array    Array of supported core version of RSMP. Each item is an object with the attribute ``vers`` set to the version string, e.g. "3.1.2". 
-   receiveAlarms boolean  Supervisor can set this to false if they do not want to receive alarms.
+   subtype       string   Must be set to 'Request'.
+   siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
+   RSMP          array    Array of supported core version. 
+   SXL           string   Not used from core 3.3.0, must be set to an empty string.
+   SXLS          array    Array of supported SXLs. Each item is an object with the attributes ``id`` and ``version``.
    ============= ======== ===============
 
 Only one site can use the same connection. The ``sId`` array must therefore contain
@@ -1691,8 +1693,8 @@ elements and the site configuration defined in YAML and Excel formats.
    Element Type     Site config (Excel)  Site config (YAML) Description
    ======= ======== ==================== ================== ===========================
    sId     string   SiteId                                  :term:`Site id`
-   SXL     string   SXL revision         version            Version of SXL, e.g ”1.3.0”
-   SXLS    array    SXLs supported       sxls               SXLs supported, including their versions.
+   SXL     string   Not used             Not used           Not used from core 3.3.0
+   SXLS    array    SXLs supported       sxls               SXLs supported and their versions
    ======= ======== ==================== ================== ===========================
 
 
@@ -1710,47 +1712,44 @@ Items in the ``SXLS`` array must be an object with the following content:
 
 Message Structure of Response
 """""""""""""""""""""""""""""
-If the supervisor determines that core or SXL versions are incompatible, the connection must be closed,
-see :ref:`communication-rejection`. Otherwise the supervisor returns a Version response containing:
+If the supervisor determines that core or SXL versions are incompatible, a MessageNotAck must be send
+and the connection closed, see :ref:`communication-rejection`.
 
-* Site Id
-* RSMP core version used by the supervisor
-* SXLs used by the supervisor and their versions
-* receiveAlarms flags, indicating whether the supervisor wants to receive alarms from the site
+If version are compatible, the supervisor returns a Version response containing:
+
+* Supervisor ID
+* RSMP core version to use
+* SXLs to use and their versions
+* receiveAlarms flags, indicating whether the supervisor wants to receive alarms
 
 .. code-block:: json
    :name: json-version-response
 
    {
-        "mType": "rSMsg",
-        "type": "Version",
-        "variant": "Response",
-        "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
-        "RSMP": [
-            { "vers": "3.1.2" }
-        ],
-        "siteId": [
-            { "sId": "O+14439=481WA001" }
-        ],
-        "SXL": "",
-        "SXLS": [
+         "mType": "rSMsg",
+         "type": "Version",
+         "subtype": "Response",
+         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+         "RSMP": "3.3.0"
+         "supervisorId": "O+14439=481WA001",
+         "SXLS": [
             { "id": "tlc", "version": "1.3.3" },
-            { "id": "sensor", "version": "1.0.0" }
-        ],
-        "receiveAlarms": false
+            { "id": "sensor", "version": "1.0.2" }
+         ],
+         "receiveAlarms": false
    }
 
 JSon code 25: A Version Response message
 
 In this example, the supervisor has selected RSMP core version 3.1.2.
 
-It has selected SXL "tlc" version 1.3.3, which is a later patch version than the site supports (1.3.0),
+It has selected the SXL "tlc" version 1.3.3, which is a later patch version than the site supports (1.3.0),
 but still compatible because it's the same minor version.
 
-The supervisor has also selected SXL "sensor" version 1.0.0, which is an earlier patch version than the site supports (1.0.1),
+The supervisor has also selected the SXL "sensor" version 1.0.2, which is an earlier patch version than the site supports (1.0.6),
 but still compatible because it's the same minor version.
 
-The SXL "tlc/advanced" is not used, because the supervisor either not support this SXL or does not have a compatible verison.
+The SXL "tlc/advanced" is not used, because the supervisor either does not support this SXL or does not have a compatible version.
 
 The following table describes variable content of the message:
 
@@ -1761,8 +1760,8 @@ The following table describes variable content of the message:
    ============= ======== ===============
    Element       Type     Description
    ============= ======== ===============
-   variant       string   Must be set to 'Response'.
-   RSMP          array    Used core version. Must contain exactly one element with the attribute ``vers`` set to the version string, e.g. "3.1.2". 
+   subtype       string   Must be set to 'Response'.
+   RSMP          array    Core version used. Must contain exactly one element with the attribute ``vers`` set to the version string, e.g. "3.1.2". 
    receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
    ============= ======== ===============
 
