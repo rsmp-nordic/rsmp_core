@@ -115,3 +115,16 @@ A name is recommended, but not required.
 
 Component names use UTF-8 and can contain any printable character.
 Space is the only allowed whitespace character.
+
+.. _component-data:
+Component Data and State
+------------------------
+A component typically has internal data and state relevant to its function.
+
+Such data can be read and modified using Alarm, Commands and Statuses defined
+in a relevant SXL.
+
+For example, A traffic light signal group might have an internal state
+signifying whether it's currently green, yellow or red. An SXL for traffic light controllers
+might define a status to read the current color of a signal group component, and maybe
+commands to request that a group turns green or red.
