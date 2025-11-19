@@ -24,11 +24,6 @@ Connection between equipment (sites) is possible, but not widely used.
 - **Subscribe/Unsubscribe**: Status subscription for continuous updates
 - **Handshake**: Version and Watchdog messages during connection establishment
 
-### Component Identification
-- **Format A**: Site-based (AA+BBCDD=EEEFFGGG)
-- **Format B**: Hierarchical (/.../...)
-- **Main Component**: Special designated component, referenced as "" or null
-
 ### Configuration Files
 - **SXL (Signal Exchange List)**: Defines what messages are possible (YAML or Excel) for a specific equipment type
 - **Site Configuration**: Defines which components exist in a specific site (YAML or Excel)
