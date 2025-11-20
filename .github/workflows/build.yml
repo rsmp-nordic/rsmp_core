@@ -16,13 +16,8 @@ jobs:
         sudo apt-get -y install \
               python3-sphinx \
               python3-sphinx-rtd-theme \
-              texlive \
-              texlive-latex-extra \
-              texlive-humanities \
-              texlive-fonts-extra \
               imagemagick \
               librsvg2-bin \
-              latexmk \
               graphviz \
               mscgen
     - name: Build rsmp_core
