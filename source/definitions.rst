@@ -78,14 +78,14 @@ Definitions
        are possible for the NTS object.
 
    Component
-       A :ref:`component` represents physical or logical parts of a site,
+       A :ref:`component <components>` represents physical or logical parts of a site,
        e.g. a camera, a control flow algorithm or a group of signs.
        
        *Please note that a component is not necessarily the same thing as an
        NTS object.*
 
    Component type
-       A :ref:`component-type` is used to classify :ref:`component`s.
+       A :ref:`component-type` is used to classify :ref:`components`.
        Component types are defined by SXLs.
 
    Component id
