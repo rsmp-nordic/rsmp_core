@@ -2,39 +2,102 @@
 
 Signal Exchange List
 ====================
+A signal exchange list (:term:`SXL`) defines the interface for a specific
+type of equipment or area of functionality.
 
-The signal exchange list is an important functional part of RSMP.
-Since the contents of every message using RSMP is dynamic, a predefined
-signal exchange list (:term:`SXL`) is prerequisite in order to be able to
-establish communication.
+An SXL defines component types, which are logical or physical parts of a site,
+and the alarm, command and status message use to interact with them.
 
-The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each component type.
+It also details the meaning of aggregated status bits, functional positions
+and functional states,
 
-The SXL can be defined by either a YAML file or an Excel file using predefined
-principles which is defined below.
+A site can support one or more SXLs.
 
-Component types
----------------
+.. _sxl-id:
 
-A **component type** defines a type of component that can exist in a site,
-i.e. "LED". Each component type can have a set of alarms, statuses and
-commands associated with it.
+SXL ID
+------
+An SXL is identified by an ID, for example ``tlc``.
+IDs use UFT-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
 
-Using the Excel format; components types are defined in it's own sheet.
-Using the YAML format; each component type is defined like this:
+SXLs IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
+An SXL also has a human readable name, for example "Traffic Light Controller".
 
-.. code-block:: yaml
+.. _sxl-name:
 
-   components:
-     <component-type>:
+SXL Name
+--------
+An SXL has a human readable name, for example "Traffic Light Controller".
 
-Where ``<component-type>`` is the name of the component type. For instance,
-"Traffic Light Controller".
+.. _sxl-version:
 
-Depending on applicability, each component type can either have it's own
-series or common series of alarm suffix (alarmCodeId), status codes
-(statusCodeId) and command codes (commandCodeId).
+SXL Version
+-----------
+An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning (SemVer) format:
+
+<major>.<minor>.<patch>.
+
+Patch versions are for backwards compatible bug fixes.
+Minor versions are for backwards compatible new features.
+Major versions are for incompatible changes.
+
+This is used to determines whether a supervisor and a site supporting different versions of an SXL can use that SXL.
+
+Compatibility is also important for SXLs :ref:`dependencies<sxl-dependencies>`.
+
+.. _sxl-dependencies:
+
+SXL Dependencies
+----------------
+An SXL can list other SXLs as dependencies.
+
+A dependency is listed using an SXL ID and a minimum version.
+For example, an SXL might list ``tlc`` version ``1.2.0`` as a dependency.
+
+When an SXL lists another SXL as a dependency, it can use the component types defined by it.
+It can also rely on alarms, statuses and commands defined by it.
+
+For example, if the ``tlc`` SXL defines a ``sg`` signal group component type,
+the ``tlc/advanced`` SXL can define a command that operate on this type of component.
+
+A site can only use an SXL if it also supports all its dependencies, at the required minimum versions.
+
+Cyclic dependencies are not allowed.
+
+.. _sxl-hierarchy:
+
+SXL Hierarchy
+-------------
+SXLs can be organized in a hierarchy by using forward slashes in their IDs.
+
+For example, ``tlc/advanced`` would be a child SXL of the parent SXL ``tlc``,
+which might define advanced features for traffic light controllers.
+
+A child SXL does not automatically inherit the component types, alarms, statuses or commands
+defined by the parent SXL.
+
+Instead it must explicitly list the parent SXL as a dependency, at a minimum version.
+This ensures that the required versions are explicit.
+
+.. _sxl_codes:
+
+SXL Codes IDs
+-------------
+An SXL can defines alarms, commands and statuses, which all have a :term:`code id`.
+Codes must be unique within the SXL.
+
+Codes can use forward slashes to organize them in a hierarchy.
+
+For example, an ```tlc`` SXL for traffic light controller might use the code id ``M0001``
+or ```plan/set`` for a command to set a time plan.
+
+When you send a command, status or alarm, the code must be qualified with the SXL ID. For example, a command defined as
+``M0001`` in the ``tlc/advanced`` SXL must be sent using the code ``/tlc/advanced/M0001``.
+
+Sites that support only a single SXL must also accept codes without the SXL ID prefix.
+
+For example, a site using only the ``tlc`` SXL must must also accept the unqualified code ``M0001``.
+
 
 Message types
 -------------
