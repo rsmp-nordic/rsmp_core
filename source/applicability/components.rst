@@ -2,7 +2,7 @@
 
 Components
 ==========
-Physical or logical parts of a site are called **components**.
+Components represent physical or logical parts of a site.
 For example, a traffic light controller might have signal group and detector logic components.
 
 A component has:
@@ -16,13 +16,17 @@ A component has:
 
 Component Type
 --------------
-Component types are defined by SXLs and identified by an ID.
-For example, an SXL for traffic light controllers might define ``sg`` for signal groups and ``dl`` for detector logic.
+Component types are defined by SXLs.
+For example, an SXL for traffic light controllers might define the component types ``sg`` for
+signal groups and ``dl`` for detector logics.
 
-Component type IDs use UTF-8 and must only contain letters, digits, hyphens, underscores and forward slashes.
+Component types are used in SXLs when defining which alarms, commands and statuses apply to which components.
 
-Component type IDs do not have to be globally unique; they must be unique within the SXL where they are defined.
-When referring to a component type, the type should be qualified with the SXL id, e.g. ``/tlc/sg``.
+Component types must be unique within the SXL where they are defined, but does not have to be globally unique.
+You therefore refer to a component type using ``/<sxl>/<component type>``, for example ``/tlc/sg`` refers to
+the signal group component type ``sg`` defined in the SXL ``tlc``.
+
+Component type IDs use UTF-8 and must contain only letters, digits, hyphens, underscores and forward slashes.
 
 .. _component-id:
 
@@ -30,16 +34,17 @@ Component ID
 ------------
 Component IDs are used to identify components.
 
-There are two formats. All component IDs on a site must use the same format; a site cannot use both formats.
+There are two formats for component IDs, described below.
+All component IDs on a site must use the same format; a site cannot use both formats.
 
 A component ID does not have to indicate the component type, although this is often useful.
-This means that you cannot safely infer the component type from a path ID.
+You cannot safely infer the component type from a path ID.
 
-.. _legacy-component-id:
+.. _classic-component-id:
 
-Legacy IDs
-^^^^^^^^^^
-This is a legacy format consisting of a string with a specific encoding.
+Classic IDs
+^^^^^^^^^^^
+This format consists of a string with a specific encoding.
 The ":term:`Site id`" is included as the first part of the string.
 Slashes are not allowed.
        
@@ -54,7 +59,7 @@ Where:
 * ``FF`` identifies the type of component, e.g. signal group
 * ``GGG`` is the component index
 
-Legacy IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs and equal signs.
+Classic IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs and equal signs.
 
 Examples::
 
@@ -87,17 +92,17 @@ Examples::
   /sg/1
   /tc
   
-Path IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs,
-equal signs and forward slashes.
-
 A path ID must start with a forward slash ``/``. Additional slashes separate levels.
 Empty levels, e.g. ``/sg//1``, are not allowed. An ID must not end with a slash.
+
+Path IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs,
+equal signs and forward slashes.
 
 .. _addressing-components:
 
 Addressing Components
 ^^^^^^^^^^^^^^^^^^^^^
-A specific component is addressed using its full id, whether it's a legacy ID or a path ID.
+A specific component is addressed using its full id, whether it's a classic ID or a path ID.
 
 If path IDs are used, you can address groups of components using paths ending with a slash.
 
@@ -109,7 +114,7 @@ A single forward slash ``/`` is the root of the site and includes all components
 If path IDs are used, all paths used to address components must start with a slash.
 Relative paths not starting with a slash are not allowed.
 
-If legacy IDs are used, no hierarchy is defined and paths cannot be used to address groups
+If  IDs are used, no hierarchy is defined and paths cannot be used to address groups
 of components.
 
 .. _component-name:
