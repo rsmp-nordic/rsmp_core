@@ -1,0 +1,24 @@
+# This workflow builds the sphinx documentation but doesn't publish it
+
+name: Build Core
+
+on: [pull_request]
+
+jobs:
+  build-core:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out rsmp_core repository
+      uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install \
+              python3-sphinx \
+              python3-sphinx-rtd-theme \
+              imagemagick \
+              librsvg2-bin \
+              graphviz \
+              mscgen
+    - name: Build rsmp_core
+      run: make html
