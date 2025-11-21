@@ -35,6 +35,9 @@ extensions = ['sphinx.ext.mathjax', 'sphinx.ext.extlinks', 'sphinx.ext.imgconver
 
 numfig = True
 
+# Exit with error on any warning
+warning_is_error = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
