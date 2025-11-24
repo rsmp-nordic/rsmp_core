@@ -113,8 +113,34 @@ A single forward slash ``/`` is the root of the site and includes all components
 If path IDs are used, all paths used to address components must start with a slash.
 Relative paths not starting with a slash are not allowed.
 
-If  IDs are used, no hierarchy is defined and paths cannot be used to address groups
+If Classic IDs are used, no hierarchy is defined and paths cannot be used to address groups
 of components.
+
+.. _component-name:
+
+Component Name
+--------------
+A component can have a human-readable name, e.g. "Radar detector, northbound".
+A name is recommended, but not required.
+
+Component names use UTF-8 and can contain any printable character.
+Space is the only allowed whitespace character.
+
+.. _component-data:
+
+Component Data and State
+------------------------
+A component typically has internal data and state relevant to its function.
+
+Such data can be read and modified using Alarms, Commands and Statuses defined
+in a relevant SXL.
+
+For example, a traffic light signal group might have an internal state
+signifying whether it's currently green, yellow or red. An SXL for traffic light controllers
+might define a status to read the current colour of a signal group component, and maybe
+commands to request that a group turns green or red.
+
+
 
 .. _component_ordering:
 
@@ -169,6 +195,11 @@ state of signal groups under the path ``/sg/`` then:
 * The character at index 0 in the string is ``A``, thus ``/sg/1`` is in state ``A``.
 * The character at index 1 in the string is ``B``, thus ``/sg/2`` is in state ``B``.
 
+The ordering defined by the :ref:`component-list` is stable. It does not change
+unless a new :ref:`component-list` message is received (e.g. after a reconnection).
+This means the mapping between list positions and component IDs remains constant,
+while the values in status messages will change over time.
+
 You cannot safely rely on integer parts of component IDs for indexing, because they:
 
 * might not be unique across component types
@@ -178,26 +209,12 @@ You cannot safely rely on integer parts of component IDs for indexing, because t
 
 Instead you must rely on the ordering provided by the :ref:`component-list` message.
 
-.. _component-name:
+Ordering of Classic IDs
+^^^^^^^^^^^^^^^^^^^^^^^
+For sites using :ref:`classic-component-id`, the component ID includes a numeric component index
+(e.g. ``001`` in ``KK+AG0503=001SG001``).
+Because the :ref:`component-list` uses :ref:`natural-sorting`, the components will be ordered
+explicitly according to this index.
 
-Component Name
---------------
-A component can have a human-readable name, e.g. "Radar detector, northbound".
-A name is recommended, but not required.
-
-Component names use UTF-8 and can contain any printable character.
-Space is the only allowed whitespace character.
-
-.. _component-data:
-
-Component Data and State
-------------------------
-A component typically has internal data and state relevant to its function.
-
-Such data can be read and modified using Alarms, Commands and Statuses defined
-in a relevant SXL.
-
-For example, a traffic light signal group might have an internal state
-signifying whether it's currently green, yellow or red. An SXL for traffic light controllers
-might define a status to read the current colour of a signal group component, and maybe
-commands to request that a group turns green or red.
+The component list items are indexed starting from zero and have no gaps.
+When working with compact data structures, placeholders for missing components will therefore never be used.
