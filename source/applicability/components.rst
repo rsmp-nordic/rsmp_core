@@ -117,6 +117,68 @@ Relative paths not starting with a slash are not allowed.
 If  IDs are used, no hierarchy is defined and paths cannot be used to address groups
 of components.
 
+.. _component_ordering:
+
+Component Ordering
+------------------
+As part of the connection sequence, the site sends a :ref:`component-list` message which lists
+all components on the site.
+
+The site must order the components in the list using :ref:`natural-sorting` of their component IDs.
+This ensures that the list is predictable and human-readable.
+
+However, the supervisor must always use the order of the components as received in the :ref:`component-list` message,
+even if the site has failed to sort them correctly.
+
+For example, a site might have these legacy component IDs:
+
+  KK+AG0503=001DL001
+  KK+AG0503=001DL002
+  KK+AG0503=001SG001
+  KK+AG0503=001SG002
+  KK+AG0503=001TC001
+
+Or these path IDs:
+
+  /dl/north
+  /dl/south
+  /sg/1
+  /sg/2
+  /tc
+
+The ordering can be relied to reference many components in a compact way, by using short integer indexes,
+indicating the position in the ordered list.
+
+  0: /dl/north
+  1: /dl/south
+  2: /sg/1
+  3: /sg/2
+  4: /tc
+
+For example, you can send a string where each character relates to a specific component.
+
+You can also use the ordering for subsets of components, by enumerating the subset starting from zero,
+using the same ordering as in the full component list. For example the subset of signal groups at
+``/sg/`` would have the following indexes:
+
+  0: /sg/1
+  1: /sg/2
+
+If we assume a status update with the string "AB" is sent to indicate the
+state of signal groups under the path ``/sg/`` then:
+
+* The character at index 0 in the string is ``A``, thus ``/sg/1`` is in state ``A``.
+* The character at index 1 in the string is ``B``, thus ``/sg/2`` is in state ``B``.
+
+You cannot safely rely on integer parts of component IDs for indexing, because they:
+
+* might not be unique across component types
+* might not be sequential
+* might not start from zero
+* might not be present
+
+Instead you must rely on the ordering provided by the :ref:`component-list` message.
+
 .. _component-name:
 
 Component Name
