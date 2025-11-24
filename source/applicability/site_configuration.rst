@@ -72,18 +72,9 @@ Where:
 * ``description``. Site description
 * ``<component-type>`` defines which component type the component belongs to
 * ``<component-1>`` is the name of the component. For instance "signal group 1"
-* ``componentId`` is the :ref:`Component-id`
-* ``ntsObjectId`` is the :ref:`Component-id` for the :term:`NTS object`
+* ``componentId`` is the :ref:`component-id`
+* ``ntsObjectId`` is the :ref:`component-id` for the :term:`NTS object`
 * ``externalNtsId`` is the :term:`External NTS id`
-
-A component can either be categorized as a **single component** or **grouped
-component**, also known as the main component(s).
-
-The main component(s) is defined by **componentId** and **ntsObjectId** which are
-being set equal. This means that the component is visible from NTS.
-
-Single components have a unique **componentId** but uses the **ntsObjectId** of
-their main component.
 
 **externalNtsId** and **ntsObjectId** are optional and only used if the
 component is intended to be sent to :term:`NTS`.
