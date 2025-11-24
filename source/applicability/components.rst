@@ -139,3 +139,74 @@ For example, a traffic light signal group might have an internal state
 signifying whether it's currently green, yellow or red. An SXL for traffic light controllers
 might define a status to read the current colour of a signal group component, and maybe
 commands to request that a group turns green or red.
+
+.. _component_ordering:
+
+Component Ordering
+------------------
+As part of the connection sequence, the site sends a :ref:`component-list` message which lists
+all components on the site.
+
+The site must order the components in the comnponent list using :ref:`natural-sorting` of their component IDs.
+This ensures that the list is predictable and human-readable.
+
+However, the supervisor must always use the order of the components as received in the :ref:`component-list` message,
+even if the site has failed to sort them correctly.
+
+The component list items are indexed starting from zero and have no gaps.
+When working with compact data structures, placeholders for missing components will therefore never be used.
+
+As an example, a site might have these classic component IDs:
+
+  0: KK+AG0503=001DL001
+  1: KK+AG0503=001DL002
+  2: KK+AG0503=001SG001
+  3: KK+AG0503=001SG002
+  4: KK+AG0503=001TC001
+
+Or these path IDs:
+
+  0: /dl/north
+  1: /dl/south
+  2: /sg/1
+  3: /sg/2
+  4: /tc
+
+The ordering can be relied on to reference many components in a compact way, by using short integer indexes,
+indicating the position in the ordered list.
+
+For example, you can send a string where each character relates to a specific component.
+
+You can also index subsets of components, by enumerating items in the subset starting from zero,
+while using the ordering of the full list. For example the subset of signal groups at ``/sg/`` would have the
+following indexes:
+
+  0: /sg/1
+  1: /sg/2
+
+If we assume a status update with the string "AB" is sent to indicate the
+state of signal groups under the path ``/sg/`` then:
+
+* The character at index 0 in the string is ``A``, thus ``/sg/1`` is in state ``A``.
+* The character at index 1 in the string is ``B``, thus ``/sg/2`` is in state ``B``.
+
+The ordering defined by the :ref:`component-list` is stable. It does not change
+unless a new :ref:`component-list` message is received (e.g. after a reconnection).
+This means the mapping between list positions and component IDs remains constant,
+while the values in status messages will change over time.
+
+You cannot safely rely on integer parts of component IDs for indexing, because they:
+
+* might not be unique across component types
+* might not be sequential
+* might not start from zero
+* might not be present
+
+Instead you must rely on the ordering provided by the :ref:`component-list` message.
+
+Ordering of Classic IDs
+^^^^^^^^^^^^^^^^^^^^^^^
+For sites using :ref:`classic-component-id`, the component ID includes a numeric component index
+(e.g. ``001`` in ``KK+AG0503=001SG001``).
+Because the :ref:`component-list` uses :ref:`natural-sorting`, the components will be ordered
+explicitly according to this index.
