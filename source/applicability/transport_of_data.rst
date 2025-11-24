@@ -162,10 +162,10 @@ implicit in the following figure.
 
 7. The system sends a Watchdog (according to section :ref:`watchdog`)
 
-8. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
+8. If RSMP 3.3.0 or later is used, the site sends a ComponentList message (according to section :ref:`component-list`).
 
-9. If RSMP 3.3.0 or later is used, the site sends a ComponentList message (according to section :ref:`component-list`).
+9. Asynchronous message exchange can begin. This means that commands and
+   statuses are allowed to be sent
 
 10. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no component for aggregated status is defined in the signal exchange list
