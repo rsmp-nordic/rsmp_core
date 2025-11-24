@@ -17,6 +17,7 @@ A site can support one or more SXLs.
 
 SXL ID
 ------
+<<<<<<< HEAD
 An SXL is identified by an ID, for example ``tlc`` or ``sensor/radar``.
 
 IDs must start with a forward slash, and cannot end with a forward slash.
@@ -36,6 +37,13 @@ A child SXL does not automatically have access to component types, alarms, statu
 defined by the parent SXL.
 Instead it must list the parent SXL as a dependency if needed, to ensure explicit declaration
 of version requirements.
+=======
+An SXL is identified by an ID, for example ``tlc``.
+IDs use UTF-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
+
+SXL IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
+An SXL also has a human readable name, for example "Traffic Light Controller".
+>>>>>>> ea4e690 (component collections)
 
 .. _sxl-name:
 

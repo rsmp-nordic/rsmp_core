@@ -30,6 +30,16 @@ Component type IDs use UTF-8 and must contain only letters, digits, hyphens, und
 
 .. _component-id:
 
+Collection Types
+^^^^^^^^^^^^^^^^
+A collection is indicated by appending ``/`` to a component type. For example ``sg/``refers
+to a collection of signal group components.
+
+Collection types can be used in SXLs to define alarms, commands and statuses that apply to collections
+of components of that type.
+
+.. _component-id:
+
 Component ID
 ------------
 Component IDs are used to identify components.
@@ -103,18 +113,20 @@ Addressing Components
 ^^^^^^^^^^^^^^^^^^^^^
 A specific component is addressed using its full id, whether it's a classic ID or a path ID.
 
-If path IDs are used, you can address groups of components using paths ending with a slash.
+If path IDs are used, you can address a colleciton of components using paths ending with a slash.
 
 For example, ``/dl/radar/`` can be used to address all components under that path (for example
 ``/dl/radar/1`` and ``/dl/radar/2``).
 
 A single forward slash ``/`` is the root of the site and includes all components.
 
-If path IDs are used, all paths used to address components must start with a slash.
+SXLs define wether an alarm, status or command can be used with collections.
+
+If path IDs are used on a site, all paths used to address components must start with a slash.
 Relative paths not starting with a slash are not allowed.
 
-If Classic IDs are used, no hierarchy is defined and paths cannot be used to address groups
-of components.
+If Classic IDs are used on the site, no hierarchy is defined and paths cannot be used to address groups
+of components. You must use full component IDs to address specific components.
 
 .. _component-name:
 
