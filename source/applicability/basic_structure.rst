@@ -1624,7 +1624,7 @@ The initial Version request send by the site contains:
         "siteId": [
             { "sId": "O+14439=481WA001" }
         ],
-        "SXL": "",
+        "SXL": "1.3.0",
         "SXLS": [
             { "id": "tlc", "version": "1.3.0" },
             { "id": "tlc/advanced", "version": "1.1.0" },
@@ -1647,7 +1647,7 @@ The following table describes variable content of the message:
    subtype       string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Array of supported core version. 
-   SXL           string   Not used from core 3.3.0, must be set to an empty string.
+   SXL           string   Version of the primary SXL. Used for backward compatibility if RSMP < 3.3.0 is negotiated.
    SXLS          array    Array of supported SXLs. Each item is an object with the attributes ``id`` and ``version``.
    ============= ======== ===============
 
@@ -1665,7 +1665,7 @@ elements and the site configuration defined in YAML and Excel formats.
    Element Type     Site config (Excel)  Site config (YAML) Description
    ======= ======== ==================== ================== ===========================
    sId     string   SiteId                                  :term:`Site id`
-   SXL     string   Not used             Not used           Not used from core 3.3.0
+   SXL     string   SXL revision         version            Revision of the primary SXL.
    SXLS    array    SXLs supported       sxls               SXLs supported and their versions
    ======= ======== ==================== ================== ===========================
 
