@@ -591,12 +591,13 @@ Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the component which is
-defined by **ComponentType** in the signal exchange list. If no component is defined
-then no aggregated status message is sent.
+aggregated status of the site.
+
+The aggregated status applies to the site as a whole. The ``cId`` attribute
+must be set to the root component id ``/``.
 
 Aggregated status message are interaction driven and are sent if state,
-functional position or functional status are changed at the site.
+functional position or functional status are changed.
 
 Message structure
 """""""""""""""""
@@ -613,7 +614,7 @@ below.
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
 	"ntsOId": "O+14439=481WA001",
 	"xNId": "",
-	"cId": "O+14439=481WA001",
+	"cId": "/",
 	"aSTS": "2015-06-08T08:05:06.584Z",
 	"fP": null,
 	"fS": null,
@@ -757,7 +758,7 @@ below.
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
 	"ntsOId": "O+14439=481WA001",
 	"xNId": "",
-	"cId": "O+14439=481WA001",
+	"cId": "/",
    }
 
 JSon code 12: An aggregated status request message
