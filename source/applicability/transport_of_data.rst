@@ -165,14 +165,16 @@ implicit in the following figure.
 8. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-9. Aggregated status (according to section :ref:`aggregated-status-message`).
+9. If RSMP 3.3.0 or later is used, the site sends a ComponentList message (according to section :ref:`component-list`).
+
+10. Aggregated status (according to section :ref:`aggregated-status-message`).
    If no component for aggregated status is defined in the signal exchange list
    then no aggregated status message is sent.
 
-10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
+11. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
     are sent. (according to section :ref:`alarm-messages`).
 
-11. Buffered messages in the equipment's outgoing communication buffer are sent,
+12. Buffered messages in the equipment's outgoing communication buffer are sent,
     including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
