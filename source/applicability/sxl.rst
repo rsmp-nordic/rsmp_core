@@ -9,7 +9,7 @@ An SXL defines component types, which are logical or physical parts of a site,
 and the alarm, command and status message use to interact with them.
 
 It also details the meaning of aggregated status bits, functional positions
-and functional states,
+and functional states.
 
 A site can support one or more SXLs.
 
@@ -17,11 +17,25 @@ A site can support one or more SXLs.
 
 SXL ID
 ------
-An SXL is identified by an ID, for example ``tlc``.
-IDs use UFT-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
+An SXL is identified by an ID, for example ``tlc`` or ``sensor/radar``.
 
-SXLs IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
-An SXL also has a human readable name, for example "Traffic Light Controller".
+IDs must start with a forward slash, and cannot end with a forward slash.
+IDs use UFT-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
+IDs should be globally unique and should be registered centrally to avoid conflicts.
+
+SXL IDs can be organized in a hierarchy by using forward slashes.
+For example, ``tlc/advanced`` would be a child SXL of the parent SXL ``tlc``,
+which might define advanced features for traffic light controllers.
+
+All IDs used in by a system must be unique. A site or supervisor cannot use two SXLs with the same ID.
+
+If you define an SXL for internal use, you should include a unique prefix in the SXL ID
+to avoid conflicts, e.g. ``<your-organization>/tlc`` or ``<your-country>/tlc``.
+
+A child SXL does not automatically have access to component types, alarms, statuses or commands
+defined by the parent SXL.
+Instead it must list the parent SXL as a dependency if needed, to ensure explicit declaration
+of version requirements.
 
 .. _sxl-name:
 
@@ -41,7 +55,8 @@ Patch versions are for backwards compatible bug fixes.
 Minor versions are for backwards compatible new features.
 Major versions are for incompatible changes.
 
-This is used to determines whether a supervisor and a site supporting different versions of an SXL can use that SXL.
+This definition is used to determines whether an SXL can be used if the supervisor and the
+site supports different versions.
 
 Compatibility is also important for SXLs :ref:`dependencies<sxl-dependencies>`.
 
@@ -54,30 +69,28 @@ An SXL can list other SXLs as dependencies.
 A dependency is listed using an SXL ID and a minimum version.
 For example, an SXL might list ``tlc`` version ``1.2.0`` as a dependency.
 
-When an SXL lists another SXL as a dependency, it can use the component types defined by it.
-It can also rely on alarms, statuses and commands defined by it.
+Compatibility is determined using Semantic Versioning (SemVer) rules.
+Any version that is greater than or equal to the minimum version and has
+ the same major version, is considered compatible.
+
+Depending on an SXL, means you can rely on the component types it defines.
+You can also rely on alarms, statuses and commands defined by it.
 
 For example, if the ``tlc`` SXL defines a ``sg`` signal group component type,
 the ``tlc/advanced`` SXL can define a command that operate on this type of component.
 
-A site can only use an SXL if it also supports all its dependencies, at the required minimum versions.
+.. _sxl-dependency-resolution:
 
-Cyclic dependencies are not allowed.
+SXL Dependecy Resolution
+------------------------
+When a site or supervisor supports multiple SXLs, dependencies must be resolved.
 
-.. _sxl-hierarchy:
+An SXL can only be supported if all its dependencies are supported at the required minimum versions.
 
-SXL Hierarchy
--------------
-SXLs can be organized in a hierarchy by using forward slashes in their IDs.
+Dependency resolution must be be done as part of the firmware development, and must
+result in a static set of SXLs that are supported.
 
-For example, ``tlc/advanced`` would be a child SXL of the parent SXL ``tlc``,
-which might define advanced features for traffic light controllers.
-
-A child SXL does not automatically inherit the component types, alarms, statuses or commands
-defined by the parent SXL.
-
-Instead it must explicitly list the parent SXL as a dependency, at a minimum version.
-This ensures that the required versions are explicit.
+Cyclic dependencies are invalid and means that none of the involved SXLs are supported.
 
 .. _sxl_codes:
 
@@ -86,22 +99,21 @@ SXL Codes IDs
 An SXL can defines alarms, commands and statuses, which all have a :term:`code id`.
 Codes must be unique within the SXL.
 
-Codes can use forward slashes to organize them in a hierarchy.
+Codes can be organized a hierarchy using forward slashes.
 
 For example, an ```tlc`` SXL for traffic light controller might use the code id ``M0001``
 or ```plan/set`` for a command to set a time plan.
 
-When you send a command, status or alarm, the code must be qualified with the SXL ID. For example, a command defined as
-``M0001`` in the ``tlc/advanced`` SXL must be sent using the code ``/tlc/advanced/M0001``.
+When you send a command, status or alarm, the code must be prefixed with the SXL ID. For example, a command defined as
+``adaptive/start`` in the ``tlc/advanced`` SXL must be sent using the code ``tlc/advanced/adaptive/start``.
 
 Sites that support only a single SXL must also accept codes without the SXL ID prefix.
+For example, a site using only the ``tlc`` SXL must accept both ``tlc/M0001`` and ``M0001``.
 
-For example, a site using only the ``tlc`` SXL must must also accept the unqualified code ``M0001``.
+.. _sxl-defining:
 
-
-Message types
--------------
-
+Defining an SXL
+---------------
 The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
 are defined in the SXL.
 
