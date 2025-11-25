@@ -71,7 +71,7 @@ For example, an SXL might list ``tlc`` version ``1.2.0`` as a dependency.
 
 Compatibility is determined using Semantic Versioning (SemVer) rules.
 Any version that is greater than or equal to the minimum version and has
- the same major version, is considered compatible.
+the same major version, is considered compatible.
 
 Depending on an SXL, means you can rely on the component types it defines.
 You can also rely on alarms, statuses and commands defined by it.
@@ -86,11 +86,12 @@ SXL Dependecy Resolution
 When a site or supervisor supports multiple SXLs, dependencies must be resolved.
 
 An SXL can only be supported if all its dependencies are supported at the required minimum versions.
-
-Dependency resolution must be be done as part of the firmware development, and must
-result in a static set of SXLs that are supported.
-
 Cyclic dependencies are invalid and means that none of the involved SXLs are supported.
+
+Dependency resolution must be done as early as possible, e.g. as part of
+firmware or software development. For system that support dynamic loading or updating of SXLs,
+it must happend as soon as SXLs are changed.
+Dependency resolution must result in a static set of SXLs that are supported by the site or supervisor.
 
 .. _sxl_codes:
 
