@@ -63,11 +63,11 @@ Classic IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs 
 
 Examples::
 
-  KK+AG0503=00DL001
-  KK+AG0503=00DL002
-  KK+AG0503=00SG001
-  KK+AG0503=00SG002
-  KK+AG0503=00TC001
+  AB+84001=860DL001
+  AB+84001=860DL002
+  AB+84001=860SG001
+  AB+84001=860SG002
+  AB+84001=860TC001
 
 .. _path-component-id:
 
