@@ -89,7 +89,7 @@ Definitions
        Component types are defined by SXLs.
 
    Component id
-       A :ref:`component-id` identifies a :ref:`component`.
+       A :ref:`component-id` identifies a :ref:`component <components>`.
 
    Parameter
        Used for modification of technical or autonomous traffic parameters
