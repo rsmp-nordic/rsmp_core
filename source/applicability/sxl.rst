@@ -95,14 +95,14 @@ Dependency resolution must result in a static set of SXLs that are supported by 
 
 .. _sxl_codes:
 
-SXL Codes IDs
+SXL Codes
 -------------
-An SXL can defines alarms, commands and statuses, which all have a :term:`code id`.
+An SXL can defines alarms, commands and statuses, which all have a code.
 Codes must be unique within the SXL.
 
 Codes can be organized a hierarchy using forward slashes.
 
-For example, an ```tlc`` SXL for traffic light controller might use the code id ``M0001``
+For example, an ```tlc`` SXL for traffic light controller might use the code ``M0001``
 or ```plan/set`` for a command to set a time plan.
 
 When you send a command, status or alarm, the code must be prefixed with the SXL ID. For example, a command defined as
