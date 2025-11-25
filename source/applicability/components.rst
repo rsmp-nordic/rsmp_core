@@ -82,7 +82,6 @@ Structure::
 
 Examples::
 
-  /
   /dl/bus/b2
   /dl/north/a
   /dl/radar/1
