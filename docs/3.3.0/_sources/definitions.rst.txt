@@ -78,28 +78,18 @@ Definitions
        are possible for the NTS object.
 
    Component
-       A component can have one or more statuses that may change depending on
-       changes of circumstance of the component or control of the component
-       from external source. Communication with the component is made using
-       exchange of signals, e.g. commands, statuses and alarms.
-
-       A component can represent physical equipment or abstract concepts
-       E.g. a camera, a control flow algorithm or a group of signs.
-
-       A component is identified using :ref:`component-id`.
+       A :ref:`component <components>` represents physical or logical parts of a site,
+       e.g. a camera, a control flow algorithm or a group of signs.
+       
        *Please note that a component is not necessarily the same thing as an
        NTS object.*
 
    Component type
-       A component type is a classification of components that controls the
-       properties of all the components of the same component type. The
-       component type determines how the component is presented in
-       supervision system, how it is grouped and which functional
-       positions, alarm codes, commands and statuses that exists for that
-       component type.
+       A :ref:`component-type` is used to classify :ref:`components`.
+       Component types are defined by SXLs.
 
    Component id
-       Identifies a :term:`component`.
+       A :ref:`component-id` identifies a :ref:`component <components>`.
 
    Parameter
        Used for modification of technical or autonomous traffic parameters
