@@ -1668,7 +1668,8 @@ elements and the site configuration defined in YAML and Excel formats.
    ======= ======== ==================== ================== ===========================
 
 Items in the ``SXLS`` array must be an object with the following content:
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.30}|
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
 
 .. table:: SXLS item content
 
