@@ -1603,7 +1603,7 @@ Message Structure of Request
 """"""""""""""""""""""""""""
 The initial Version request send by the site contains:
 
-* Site Id
+* Site Id.
 * Supported RSMP core versions
 * Supported SXLs and their versions
 
@@ -1644,7 +1644,7 @@ The following table describes variable content of the message:
    ============= ======== ===============
    subtype       string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
-   RSMP          array    Array of supported core version. 
+   RSMP          array    Array of supported core versions. 
    SXL           string   Version of the primary SXL. Used for backward compatibility if RSMP < 3.3.0 is negotiated.
    SXLS          array    Array of supported SXLs. Each item is an object with the attributes ``id`` and ``version``.
    ============= ======== ===============
@@ -1685,12 +1685,12 @@ Message Structure of Response
 If the supervisor determines that core or SXL versions are incompatible, a MessageNotAck must be send
 and the connection closed, see :ref:`communication-rejection`.
 
-If version are compatible, the supervisor returns a Version response containing:
+If versions are compatible, the supervisor returns a Version response containing:
 
-* Supervisor ID
-* RSMP core version to use
-* SXLs to use and their versions
-* receiveAlarms flags, indicating whether the supervisor wants to receive alarms
+* Supervisor ID.
+* RSMP core version to use.
+* SXLs to use and their versions.
+* receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
 
 .. code-block:: json
    :name: json-version-response
@@ -1711,7 +1711,7 @@ If version are compatible, the supervisor returns a Version response containing:
 
 JSon code 25: A Version Response message
 
-In this example, the supervisor has selected RSMP core version 3.1.2.
+In this example, the supervisor has selected RSMP core version 3.3.0.
 
 It has selected the SXL "tlc" version 1.3.3, which is a later patch version than the site supports (1.3.0),
 but still compatible because it's the same minor version.

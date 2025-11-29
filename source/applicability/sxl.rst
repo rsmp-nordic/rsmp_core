@@ -9,7 +9,7 @@ An SXL defines component types, which are logical or physical parts of a site,
 and the alarm, command and status message use to interact with them.
 
 It also details the meaning of aggregated status bits, functional positions
-and functional states,
+and functional states.
 
 A site can support one or more SXLs.
 
@@ -18,10 +18,9 @@ A site can support one or more SXLs.
 SXL ID
 ------
 An SXL is identified by an ID, for example ``tlc``.
-IDs use UFT-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
+IDs use UTF-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
 
-SXLs IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
-An SXL also has a human readable name, for example "Traffic Light Controller".
+SXL IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
 
 .. _sxl-name:
 
@@ -41,7 +40,7 @@ Patch versions are for backwards compatible bug fixes.
 Minor versions are for backwards compatible new features.
 Major versions are for incompatible changes.
 
-This is used to determines whether a supervisor and a site supporting different versions of an SXL can use that SXL.
+This is used to determine whether a supervisor and a site supporting different versions of an SXL can use that SXL.
 
 Compatibility is also important for SXLs :ref:`dependencies<sxl-dependencies>`.
 
@@ -81,22 +80,22 @@ This ensures that the required versions are explicit.
 
 .. _sxl_codes:
 
-SXL Codes IDs
--------------
-An SXL can defines alarms, commands and statuses, which all have a :term:`code id`.
+SXL Code IDs
+------------
+An SXL can define alarms, commands and statuses, which all have a :term:`code id`.
 Codes must be unique within the SXL.
 
 Codes can use forward slashes to organize them in a hierarchy.
 
-For example, an ```tlc`` SXL for traffic light controller might use the code id ``M0001``
-or ```plan/set`` for a command to set a time plan.
+For example, a ``tlc`` SXL for traffic light controller might use the code id ``M0001``
+or ``plan/set`` for a command to set a time plan.
 
 When you send a command, status or alarm, the code must be qualified with the SXL ID. For example, a command defined as
 ``M0001`` in the ``tlc/advanced`` SXL must be sent using the code ``/tlc/advanced/M0001``.
 
 Sites that support only a single SXL must also accept codes without the SXL ID prefix.
 
-For example, a site using only the ``tlc`` SXL must must also accept the unqualified code ``M0001``.
+For example, a site using only the ``tlc`` SXL must also accept the unqualified code ``M0001``.
 
 
 Message types
