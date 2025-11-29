@@ -1685,7 +1685,7 @@ Message Structure of Response
 If the supervisor determines that core or SXL versions are incompatible, a MessageNotAck must be send
 and the connection closed, see :ref:`communication-rejection`.
 
-If version are compatible, the supervisor returns a Version response containing:
+If versions are compatible, the supervisor returns a Version response containing:
 
 * Supervisor ID.
 * RSMP core version to use.

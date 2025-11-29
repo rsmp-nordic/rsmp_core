@@ -20,7 +20,7 @@ SXL ID
 An SXL is identified by an ID, for example ``tlc``.
 IDs use UTF-8 and can contain only lowercase letters, digits, hyphens, underscores, full stop and forward slashes.
 
-SXLs IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
+SXL IDs must be unique. A site or supervisor cannot use two SXLs with the same ID.
 
 .. _sxl-name:
 
