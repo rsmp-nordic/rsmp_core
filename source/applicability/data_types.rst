@@ -87,7 +87,7 @@ inside the strings are treated and sorted numerically:
    /dl/10
    /tc
 
-This is dfferent from alphabetical sorting, which would give:
+This is different from alphabetical sorting, which would give:
 
 .. code-block::
    :name: id-ordering-alphabetical

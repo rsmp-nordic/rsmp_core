@@ -147,7 +147,7 @@ Component Ordering
 As part of the connection sequence, the site sends a :ref:`component-list` message which lists
 all components on the site.
 
-The site must order the components in the comnponent list using :ref:`natural-sorting` of their component IDs.
+The site must order the components in the component list using :ref:`natural-sorting` of their component IDs.
 This ensures that the list is predictable and human-readable.
 
 However, the supervisor must always use the order of the components as received in the :ref:`component-list` message,

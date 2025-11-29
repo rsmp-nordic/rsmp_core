@@ -1675,7 +1675,7 @@ The supervisor can request, acknowledge and suspend/resume alarms even if the `r
 
 ComponentList
 ^^^^^^^^^^^^^
-A ComponentList message is used to list  the components on a site.
+A ComponentList message is used to list the components on a site.
 It is sent during communication establishment, and whenever the component list changes,
 i.e. if a component is added, removed or changed.
 
@@ -1684,7 +1684,7 @@ It takes precedence over any static configuration (e.g. YAML or Excel files) tha
 However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or by asking for user confirmation.
 The supervisor might also not have any pre-existing configuration for the site, in which case it can use the ComponentList to discover the components.
 
-The list of components is send as an array, and must be ordered by components ids, using :ref:`natural-sorting`.
+The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`.
 
 Message structure
 """""""""""""""""
@@ -1732,7 +1732,7 @@ The following table describes the variable content of the message:
    ========== ======== ===============================
    Element    Type     Description
    ========== ======== ===============================
-   components array    List of components on the site, ordered by theirs, using using :ref:`natural-sorting`
+   components array    List of components on the site, ordered by their IDs, using :ref:`natural-sorting`
    ========== ======== ===============================
 
 The following table describes the content of each component in the array:
@@ -1744,8 +1744,8 @@ The following table describes the content of each component in the array:
    ======== ======== ===================================================
    Element  Type     Description
    ======== ======== ===================================================
-   id       string   :ref:`Component-id`, uniquely identifying the component
-   type     string   Component type, as defined in the SXL. See :ref:`component_types` for information about component types
+   id       string   :ref:`component-id`, uniquely identifying the component
+   type     string   Component type, as defined in the SXL. See :ref:`component-type` for information about component types
    name     string   Human readable name of the component
    ======== ======== ===================================================
 

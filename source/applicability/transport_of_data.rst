@@ -162,7 +162,7 @@ implicit in the following figure.
 
 7. The system sends a Watchdog (according to section :ref:`watchdog`)
 
-8. The site sends a ComponentList message (according to section ).
+8. The site sends a ComponentList message (according to section :ref:`component-list`).
 
 9. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
