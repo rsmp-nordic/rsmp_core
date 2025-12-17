@@ -1075,10 +1075,10 @@ It has the structure according to the example below.
 The following applies:
 
 * A StatusUpdate is always sent immediately after subscription request,
-  unless the subscription is already active. The reason for sending the
-  response immediately is because subscriptions usually are established
-  shortly after RSMP connection establishment and the supervision system
-  needs to update with the current statuses.
+  even if the subscription already is active.
+  The reason for sending the response immediately is because subscriptions
+  usually are established shortly after RSMP connection establishment and
+  the supervision system needs to update with the current statuses.
 
 * If an subscription is already active then the site must not establish
   a new subscription but use the existing one. It's allowed to change
