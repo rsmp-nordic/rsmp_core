@@ -1053,10 +1053,6 @@ The following applies:
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
 
-* It is allowed to change **updateRate** and **sendOnChange** by sending a
-  new StatusSubscribe during an active subscription.
-
-
 Attribute updates
 ~~~~~~~~~~~~~~~~~
 When you set **sendOnChange** to true you will get an update whenever that
