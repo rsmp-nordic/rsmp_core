@@ -2,20 +2,25 @@
 
 Signal Exchange List (SXL)
 ==========================
-A signal exchange list (:term:`SXL`) defines the interface for a specific
-type of equipment or area of functionality.
+A signal exchange list (:term:`SXL`) is a specification of the interface for a specific type of equipment or area of functionality.
 
-A site can support one or more SXLs.
+A site can support (implement) one or more SXLs, which together form the site interface, used by the supervisor
+to monitor and interact with the site.
+
+An SXL can depend on other SXLs, which makes it possible to organize and compose SXL into reusable blocks.
 
 .. _sxl-definition:
 
 SXL Definition
 --------------
-An SXL defines component types, which are logical or physical parts of a site,
-and the alarm, command, and status messages used to interact with them.
+An SXL has a name and a version.
 
-It also details the meaning of aggregated status bits, functional positions
-and functional states.
+It defines component types, which are logical or physical parts of a site,
+and the alarm, command, and status messages used to interact with these component types.
+
+It also details the meaning of aggregated status bits, functional positions and functional states.
+
+It can declare dependencies on other SXLs, which allows it to rely on component types and message codes from these SXLs.
 
 .. _sxl-name:
 
@@ -78,6 +83,8 @@ Codes can be organized into a hierarchy using forward slashes.
 
 For example, a traffic light controller SXL might define the code id ``tlc/M0001``
 or ``tlc/plan/set`` for a command to set a time plan.
+
+.. _sxl-message-types:
 
 Message types
 ^^^^^^^^^^^^^
@@ -338,7 +345,6 @@ To maintain backward compatibility, some existing SXLs might use codes without a
 e.g. a command code like ``M0001``. As long as you don't use another SXL with conflicting
 codes on the same site, this is not a problem.
 
-.. _sxl-message-types:
 .. _sxl-dependencies:
 
 SXL Dependencies
@@ -346,7 +352,7 @@ SXL Dependencies
 An SXL can list other SXLs as dependencies.
 
 When an SXL depend on another SXL, it can rely on the definitions of component types and alarm,
-status and command codes the dependency.
+status and command codes that the dependency SXL defines.
 
 For example, let's assume that the ``traffic_light_controller`` SXL defines a ``tlc/sg`` component type.
 If the ``traffic_light_controller_advanced`` SXL depends
@@ -388,17 +394,50 @@ To ensure that dependency resolution works as intended, it's important to update
 the SXL version correctly when making changes to an SXL, according to Semantic
 Versioning (SemVer) rules.
 
+Before an SXL, or SXL update, is published, dependency resolution must be performed to ensure that dependencies can be met.
+A manifest must be created as a result of the dependecy resolution and must be published together with the SXL.
+
+.. _sxl-site-specification:
+
+SXL Site Interface
+^^^^^^^^^^^^^^^^^^
+A site can support one or more SXLs, which together form the site interface.
+
+The supported SXLs are specified using SXL names and exact versions:
+
+.. code-block:: yaml
+
+  interface:
+    traffic_light_controller: 1.3.0
+    public_priority: 2.1.0
+
+The component types, alarms, commands and statuses defined in the listed SXLs will be available to supervisor.
+Component types, alarms, commands and statuses from dependency SXLs will not be available. If you want them available,
+you must explicitely list that dependcy SXL in the site interface.
+
+Before the site interface is published (e.g as part of a firmware update or a reconfiguration), dependency resolution must
+be performed to ensure that all SXL dependencies are met and the interface is congruent.
+
+
 .. _sxl-processing:
 
 SXL Processing
 --------------
+An SXL is a specification, which sites and supervisors can implement. An SXL is therefore not compiled
+or run the way an implemention is.
 
-.. _sxl-dependency_resolution:
+But because an SXL can depend on other SXLs, it's important to check that the specified dependecies are congruent,
+before the SXL is published.
+
+This means that all dependencies must exist at the specified version, that there are no mutually impossible version requirements
+and no cycling dependencies.
+
+Dependency resolution must be also perfomed before a site interface is published.
+
+.. _sxl-dependency-resolution:
 
 SXL Dependency Resolution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Before SXLs can be loaded, dependencies must be resolved. 
-
 Dependency resolution must be performed whenever the set of SXLs used by a site changes.
 For a site with a static set of SXLs, this can be part of a compilation or configuration step.
 
