@@ -2,12 +2,16 @@
 
 Signal Exchange List (SXL)
 ==========================
-A signal exchange list (:term:`SXL`) is a specification of the interface for a specific type of equipment or area of functionality.
+A signal exchange list (:term:`SXL`) specifies the interface for a type of equipment or area of functionality.
 
-A site can support (implement) one or more SXLs, which together form the site interface, used by the supervisor
-to monitor and interact with the site.
+SXLs are machine-readable specifications, not executable artifacts.
 
-An SXL can depend on other SXLs, which makes it possible to organize and compose SXL into reusable blocks.
+A site implements one or more SXLs, which together form the site interface, used to interact with the site.
+
+An SXL can depend on other SXLs, which makes it possible to organize and compose SXLs to facilitate reuse.
+
+Before publishing an SXL site interface, SXL dependency resolution must be performed to check dependencies,
+resulting in a manifest of exact versions.
 
 .. _sxl-definition:
 
@@ -320,6 +324,8 @@ return values.
 
 SXL Composition
 ---------------
+A site interface is composed of the SXLs that the site supports.
+An SXL can depend on other SXLs.
 
 .. _sxl-prefixes:
 
@@ -358,8 +364,7 @@ For example, let's assume that the ``traffic_light_controller`` SXL defines a ``
 If the ``traffic_light_controller_advanced`` SXL depends
 on ``traffic_light_controller``, then it can define a command that operates on the ``tlc/sg`` type of component.
 
-Dependencies are listed using the SXL names and a version requirement. The order
-of dependencies is not significant.
+Dependencies are listed using the SXL names and a version requirement. The order of dependencies is not significant.
 
 For example, a radar SXL might depend on a more basic sensor SXL like this:
 
@@ -411,74 +416,74 @@ The supported SXLs are specified using SXL names and exact versions:
     traffic_light_controller: 1.3.0
     public_priority: 2.1.0
 
-The component types, alarms, commands and statuses defined in the listed SXLs will be available to supervisor.
+The site interface (list of SXLs) is transmitted in the Version message sent by the site as part of the connection handshake.
+
+All types and message defined in the listed SXLs will be available to supervisor.
 Component types, alarms, commands and statuses from dependency SXLs will not be available. If you want them available,
-you must explicitely list that dependcy SXL in the site interface.
+you must explicitely list relevant dependency SXL in the site interface.
 
-Before the site interface is published (e.g as part of a firmware update or a reconfiguration), dependency resolution must
+Before the site interface can published (e.g as part of a firmware update or a reconfiguration), dependency resolution must
 be performed to ensure that all SXL dependencies are met and the interface is congruent.
-
 
 .. _sxl-processing:
 
 SXL Processing
 --------------
-An SXL is a specification, which sites and supervisors can implement. An SXL is therefore not compiled
-or run the way an implemention is.
+An SXL is a machine-readable specification that can references other SXLs as dependencies.
+A site interface is a list of SXLs.
 
-But because an SXL can depend on other SXLs, it's important to check that the specified dependecies are congruent,
-before the SXL is published.
+Before an SXL and site interface is published, dependencies must be resolved and reconciled.
+If both steps succeed, a manifest is created that lists exact versions of all SXLs, including (transitive) dependencies.
 
-This means that all dependencies must exist at the specified version, that there are no mutually impossible version requirements
-and no cycling dependencies.
-
-Dependency resolution must be also perfomed before a site interface is published.
+This should be done using an appropriate SXL processing tool that reads SXL definitions,
+resolves dependencies, creates manifests and checks for symbol clashes.
 
 .. _sxl-dependency-resolution:
 
 SXL Dependency Resolution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Dependency resolution must be performed whenever the set of SXLs used by a site changes.
-For a site with a static set of SXLs, this can be part of a compilation or configuration step.
+Dependency resolution must be performed before an SXL or site interface is published to establish a set of
+exact versions that satisfy all version requirements.
 
-For sites that allow run-time changes to the set of SXLs, dependency resolution must be performed
-whenever SXLs are added, removed or updated.
+Dependency resolution must be performed before an SXL or site interface is published to establish a set of exact
+versions that satisfy all version requirements.
+Dependency order is ignored: the resolver recursively collects all requirements (including transitive requirements)
+and deterministically selects the highest SemVer-compatible version for each SXL.
 
-SXLs are resolved recursively using depth-first, in the order they are listed.
-Cyclic dependencies are not allowed and will cause dependency resolution to fail for the involved SXLs
+If requirements are unsatisfiable or a cyclic dependency is detected, resolution fails.
 
-All SXLs that can be fully resolved are included in the resulting manifest.
+All version requirements must be met together, and no conflicting requirements or cyclic dependencies are allowed.
+
+
+.. _sxl-reconcilitation::
+
+SXL Reconcilation
+^^^^^^^^^^^^^^^^^
+Once a set of exact SXL version have been established by dependency resolution, they must be reconsiled to
+ensure that there are no symbol clashes.
+
+Reconcilitation checks that two SXL do not define the same component type or alarm, status or command code.
+
+Identical definitions across SXLs are not allowed.
 
 .. _sxl-manifest:
 
 SXL Manifest
 ^^^^^^^^^^^^
-Dependency resolution results in an SXL manifest, which lists SXLs and their dependencies, and their exact versions.
+If both dependency resolution and reconcilitation succeeds a manifest is created.
+
+A manifest represent a set of SXLs at exact version that satisfy all version requirements,
+and is guaranteed not to have any symbol clashes.
+
+SXLs are listed using their names and exact versions, and must be ordered by name according to natural sorting.
 
 .. code-block:: yaml
 
   manifest:
+    public_priority: 2.1.0
     traffic_light_controller: 1.3.0
     traffic_light_controller_advanced: 1.0.0
-    public_priority: 2.1.0
 
-A manifest must represent a valid set of SXLs, where all dependencies are met.
+When publishing an SXL the manifest must be included.
 
-.. _sxl-loading:
-
-SXL Loading
-^^^^^^^^^^^
-Before the SXLs in a manifest can be used they must be loaded.
-
-The SXLs listed in the manifest is loaded one by one, in the order they are listed, at the exact version
-specified.
-
-If the SXL is not available at the specified version, or cannot be fetched, loading of that SXL fails.
-
-Loading an SXL involves reading athe list of component types and alarms, status and command codes it defines, and adding it to a combined symbol table.
-
-Loading an SXL fails if a symbol with the same id has already been defined by a previously loaded SXL in the manifest, in which case
-none of the symbols from the SXL is added to the symbol table.
-
-After loading all SXLs in the manifest, the combined symbol table contains all component types and alarm,
-status and command codes available for use.
+For a site interface, the manifest is not published directly, but is reflected in the Version message sent by the site.
