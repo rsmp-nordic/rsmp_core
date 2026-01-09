@@ -4,6 +4,9 @@ Signal Exchange List (SXL)
 ==========================
 A signal exchange list (:term:`SXL`) specifies the interface for a type of equipment or area of functionality.
 
+The interface consists of component types, and the alarm, command, and status messages
+used to interact with these component types.
+
 SXLs are machine-readable specifications, not executable artifacts.
 
 A site implements one or more SXLs, which together form the site interface, used to interact with the site.
@@ -17,7 +20,7 @@ resulting in a manifest of exact versions.
 
 SXL Definition
 --------------
-An SXL has a name and a version.
+An SXL is identified by it's name, and is published with a version.
 
 It defines component types, which are logical or physical parts of a site,
 and the alarm, command, and status messages used to interact with these component types.
@@ -28,14 +31,18 @@ It can declare dependencies on other SXLs, which allows it to rely on component 
 
 .. _sxl-name:
 
-SXL Name
-^^^^^^^^
-The SXL is identified by a name, for example ``traffic_light_controller``.
+SXL Name and Description
+^^^^^^^^^^^^^^^^^^^^^^^^
+An SXL is identified by a name, for example ``traffic_light_controller`` or ``tlc``.
 Names can contain only lowercase letters, digits, hyphens, underscores and forrward slashes.
+
+It also has description, which is a short descriptive text that.
 
 .. code-block:: yaml
 
+meta:
   name: traffic_light_controller
+  description: Nordic Traffic Light Controller Interface
 
 A site cannot use two SXLs with the same name. You should therefore take care
 in choosing names that are unique within the context where they will be used.
@@ -46,6 +53,11 @@ SXL Version
 ^^^^^^^^^^^
 An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning (SemVer) format.
 
+.. code-block:: yaml
+
+meta:
+  version: 1.3.1
+
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
 MAJOR version when you make incompatible API changes
@@ -55,38 +67,71 @@ PATCH version when you make backward compatible bug fixes
 SXL versions are used to determine whether a site and the supervisor has compatible versions,
 as well as when resolving dependencies between SXLs.
 
+.. _sxl-prefix:
+
+SXL Prefix
+^^^^^^^^^^
+An SXL can optionally define a prefix which is prepended to all component types and message codes
+in the SXL.
+
+A prefix is a convenience feature that reduces the need to repeat the same prefix in all component types and message codes.
+It has functional significance. Implementations must still use the full component type and message code ids
+
+.. code-block:: yaml
+
+meta:
+  prefix: tlc/
+types:
+  group:
+    description: Signal group
+
+Here, the type defined will be ``tlc/group`` (``tlc/`` concatenated with ``group``).
+
+If you need to define component types or message codes with different prefixes in the same SXL,
+e.g. "sensor/radar" and "tlc/radar", a prefix cannot be used.
+
 .. _sxl-component-types:
 
 SXL Component Types
 ^^^^^^^^^^^^^^^^^^^
-SXLs can define component types, which represent the types of logical or physical parts of a site.
+An SXL defines the available :term:`component types<type>`. Components are the logical or physical part of a site.
 
-When defining alarms, commands and statuses, the component types are used to indicate what a message applies to.
-
-Each component type is identified by a :term:`type id`.
-Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed.
+Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed in component types.
 
 Component type ids must be unique within the SXL. 
 
 Component types can be organized into a hierarchy using forward slashes.
+You can use multiple levels if needed.
 
-For example, a traffic light controller SXL might define the type ``tlc/sg`` for signal groups
-and ``tlc/dl`` for detector logics. You can use several levels if needed.
+.. code-block:: yaml
+
+  types:
+    tlc/sg:
+      description: Signal group
+    tlc/dl:
+      description: Detector logic
+
+Each type must have a short description.
+
+Using an abbreviated version  of the SXL name as a scope for component types is often practical,
+but not required, please see the section on :ref:`sxl-scopes`.
 
 .. _sxl_codes:
 
-SXL Codes
-^^^^^^^^^
-An SXL can define alarms, commands and statuses, each identified by a :term:`code`.
+SXL Message Codes
+^^^^^^^^^^^^^^^^^
+An SXL can define alarms, commands and statuses, each identified by a :term:`message code`.
+
 Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed.
 Codes must be unique within the SXL.
 
-Codes are used to identify specific alarms, commands and statuses when sending messages.
-
-Codes can be organized into a hierarchy using forward slashes.
+Message codes can be organized into a hierarchy using forward slashes.
 
 For example, a traffic light controller SXL might define the code id ``tlc/M0001``
-or ``tlc/plan/set`` for a command to set a time plan.
+or ``tlc/plan/set`` for a command to set the current time plan.
+
+Using an abbreviated version of the SXL name as a scope for message codes is often practical,
+but not required, please see the section on :ref:`sxl-scopes`.
 
 .. _sxl-message-types:
 
@@ -324,56 +369,52 @@ return values.
 
 SXL Composition
 ---------------
-A site interface is composed of the SXLs that the site supports.
-An SXL can depend on other SXLs.
 
-.. _sxl-prefixes:
+.. _sxl-scope:
 
-SXL Prefixes
-^^^^^^^^^^^^
-To ensure relevant SXLs can be used together, forward slashes should be used to
-organize component types and alarm, status, and command codes into hierarchies
-that avoid clashes.
+SXL Scopes
+^^^^^^^^^^
+Two SXLs that define the same component type or message code cannot be used together on the same site.
 
-While it's often practical to use a prefix that relate to
-the SXL name, e.g. ``tlc/`` for a traffic light controller SLX , this is not a requirement.
+To ensure relevant SXLs can be used together, forward slashes should therefore be used to
+scope component types and message codes into hierarchies that avoid clashes.
+
+While it's often practical to use a scope that relate to the SXL name, e.g. ``tlc/`` for a
+traffic light controller SLX , this is not a requirement.
 You have the freedom to organize types and codes as needed.
 
-For example, two SXLs with different names could both define types and codes under the same
- prefix ``tlc/``, e.g. ``tlc/sg`` in one SXL and ``tlc/dl`` in the other.
-This ccan be useful in case you want to split a big SXL into smaller SXLs, while keeping the same prefix,
-or if you want to create an extension SXL that adds new types and codes under an existing prefix.
+For example, two SXLs could define different component types and message codes, but placed under the same
+scope. For example, one SXL might define ``tlc/sg`` while another defines ``tlc/dl``.
+This can be useful in case you want to split a big SXL into smaller SXLs while keeping the same scope,
+or you  want to create an extension SXL that adds new types or codes under an existing scope.
 
-Two SXLs can also define the exact same code. This means you cannot use them together, but it can be
-useful if you want to create a replacement SXL that is compatible with an existing SXL.
+If two SXLs define the exact same component type or message code you cannot use the SXLs together.
+But it might be useful if you want to create a replacement SXL that is compatible with an existing SXL.
 
-To maintain backward compatibility, some existing SXLs might use codes without any forward slashes,
-e.g. a command code like ``M0001``. As long as you don't use another SXL with conflicting
-codes on the same site, this is not a problem.
+To maintain backward compatibility, some existing SXLs might use component types or message codes without
+any forward slashes, e.g. a component type like ``sg`` or a command code like ``M0001``.
+This works as long as you don't try to use another SXL with conflicting codes on the same site.
 
 .. _sxl-dependencies:
 
 SXL Dependencies
 ^^^^^^^^^^^^^^^^
-An SXL can list other SXLs as dependencies.
+An SXL can list other SXLs as dependencies. It can then rely on the definitions of component types and
+message codes in the dependency SXLs.
 
-When an SXL depend on another SXL, it can rely on the definitions of component types and alarm,
-status and command codes that the dependency SXL defines.
+For example, the SXL ``traffic_light_controller_advanced`` might depend on the SXL ``traffic_light_controller``.
+It can then define a command ``tlc/adaptive`` which operates the component type ``tlc/dl`` already defined in
+the ``traffic_light_controller`` SXL.
 
-For example, let's assume that the ``traffic_light_controller`` SXL defines a ``tlc/sg`` component type.
-If the ``traffic_light_controller_advanced`` SXL depends
-on ``traffic_light_controller``, then it can define a command that operates on the ``tlc/sg`` type of component.
-
-Dependencies are listed using the SXL names and a version requirement. The order of dependencies is not significant.
-
-For example, a radar SXL might depend on a more basic sensor SXL like this:
+Dependencies are listed using SXL names and a version requirement string.
+The order of dependencies is not significant.
 
 .. code-block:: yaml
 
   dependencies:
-    sensor: "~1.3"
+    traffic_light_controller: "~4.3"
 
-Requirements support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
+Version requirement strings support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
 
 .. list-table:: Version requirement operators
    :header: "Requirement", "Translation"
@@ -385,7 +426,7 @@ Requirements support exact version, comparison operators ``>``, ``>=``, ``<``, `
    * - "<2.0.0"
      - any version lower than 2.0.0
    * - "~1.3"
-     - any version compatible with 1.3 according to semantic versioning rules, i.e. >=1.3.0 and <2.0.0.
+     - any version from 1.3 compatible with it according to semantic versioning rules, i.e. >=1.3.0 and <2.0.0.
 
 Two comparison operators can be combined with ``and``:
 
@@ -395,20 +436,21 @@ Two comparison operators can be combined with ``and``:
     * - ">=1.3.0 and <2.0.0"
       - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
 
-To ensure that dependency resolution works as intended, it's important to update
+To ensure that dependency resolution works as intended, you must update
 the SXL version correctly when making changes to an SXL, according to Semantic
-Versioning (SemVer) rules.
+Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
 
-Before an SXL, or SXL update, is published, dependency resolution must be performed to ensure that dependencies can be met.
-A manifest must be created as a result of the dependecy resolution and must be published together with the SXL.
+Before an SXL is published or updated, dependency resolution and reconciliation must be performed to ensure that dependencies can be met
+and that there are no clashing component types or message codes.
+Success results in a manifest which must be published together with the SXL.
 
-.. _sxl-site-specification:
+.. _sxl-interface:
 
-SXL Site Interface
-^^^^^^^^^^^^^^^^^^
+SXL Interface
+^^^^^^^^^^^^^
 A site can support one or more SXLs, which together form the site interface.
 
-The supported SXLs are specified using SXL names and exact versions:
+The supported SXLs are specified using SXL names and exact versions. Order is not significant.
 
 .. code-block:: yaml
 
@@ -416,53 +458,44 @@ The supported SXLs are specified using SXL names and exact versions:
     traffic_light_controller: 1.3.0
     public_priority: 2.1.0
 
-The site interface (list of SXLs) is transmitted in the Version message sent by the site as part of the connection handshake.
+The site interface is transmitted in the Version message sent by the site as part of the connection handshake.
 
-All types and message defined in the listed SXLs will be available to supervisor.
-Component types, alarms, commands and statuses from dependency SXLs will not be available. If you want them available,
-you must explicitely list relevant dependency SXL in the site interface.
+All component types and message codes defined in the listed SXLs must be implemented by the site.
+Component types and message codes from dependency SXLs will not be available, unless you explicitely list them in 
+the interface.
 
-Before the site interface can published (e.g as part of a firmware update or a reconfiguration), dependency resolution must
-be performed to ensure that all SXL dependencies are met and the interface is congruent.
+Before the site interface is published (e.g. as part of a software update or a reconfiguration), dependency resolution
+and reconciliation must be performed to ensure that the interface is congruent.
+The resulting manifest is not published.
 
 .. _sxl-processing:
 
 SXL Processing
 --------------
-An SXL is a machine-readable specification that can references other SXLs as dependencies.
-A site interface is a list of SXLs.
+Before an SXL or site interface is published or updated, dependencies must be resolved and reconciled.
 
-Before an SXL and site interface is published, dependencies must be resolved and reconciled.
-If both steps succeed, a manifest is created that lists exact versions of all SXLs, including (transitive) dependencies.
+If both steps succeed, a manifest is created which lists all SXLs with exact versions, including (transitive) dependencies.
 
-This should be done using an appropriate SXL processing tool that reads SXL definitions,
-resolves dependencies, creates manifests and checks for symbol clashes.
+This SXL processing should be done using an appropriate tool which reads SXL definitions,
+resolves dependencies, checks for symbol clashes and creates manifests.
 
 .. _sxl-dependency-resolution:
 
 SXL Dependency Resolution
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Dependency resolution must be performed before an SXL or site interface is published to establish a set of
-exact versions that satisfy all version requirements.
+Dependency resolution attempts to establish a set of exact SXL versions that satisfy all version requirements.
 
-Dependency resolution must be performed before an SXL or site interface is published to establish a set of exact
-versions that satisfy all version requirements.
-Dependency order is ignored: the resolver recursively collects all requirements (including transitive requirements)
-and deterministically selects the highest SemVer-compatible version for each SXL.
+Dependency order is ignored. All requirements (including transitive requirements) are collected recursively.
+The highest SemVer-compatible version for each SXL is then selected deterministically.
 
-If requirements are unsatisfiable or a cyclic dependency is detected, resolution fails.
-
-All version requirements must be met together, and no conflicting requirements or cyclic dependencies are allowed.
-
+If any version requirement is unsatisfiable or a cyclic dependency is detected, resolution fails.
 
 .. _sxl-reconcilitation::
 
 SXL Reconcilation
 ^^^^^^^^^^^^^^^^^
-Once a set of exact SXL version have been established by dependency resolution, they must be reconsiled to
-ensure that there are no symbol clashes.
-
-Reconcilitation checks that two SXL do not define the same component type or alarm, status or command code.
+Once a set of exact SXL version have been established by dependency resolution, they must be reconciled.
+Reconcilitation checks that no two SXLs define the same component type or message code.
 
 Identical definitions across SXLs are not allowed.
 
@@ -470,20 +503,29 @@ Identical definitions across SXLs are not allowed.
 
 SXL Manifest
 ^^^^^^^^^^^^
-If both dependency resolution and reconcilitation succeeds a manifest is created.
+If dependency resolution and reconcilitation succeeds, a manifest is created.
 
-A manifest represent a set of SXLs at exact version that satisfy all version requirements,
-and is guaranteed not to have any symbol clashes.
+A manifest represents a set of SXLs at exact versions that satisfy all version requirements,
+and is guaranteed not to have any conflicting component types or message codes.
 
 SXLs are listed using their names and exact versions, and must be ordered by name according to natural sorting.
 
 .. code-block:: yaml
 
+  meta:
+    created_at: 2025-01-05T12:00:00Z
+    created_by: sxl-tool v1.0.0
+    format: 3.3.0
   manifest:
     public_priority: 2.1.0
     traffic_light_controller: 1.3.0
     traffic_light_controller_advanced: 1.0.0
 
-When publishing an SXL the manifest must be included.
+The ``meta`` section contains metadata about the manifest itself, including:
+- ``created_at`` is the timestamp when the manifest was created
+- ``created_by`` is the tool and version used to create the manifest
+- ``format`` is the RSMP core version that the manifest conforms to
+
+When publishing an SXL, a valid manifest must be included.
 
 For a site interface, the manifest is not published directly, but is reflected in the Version message sent by the site.
