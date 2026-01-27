@@ -1108,6 +1108,9 @@ structure according to the example below. The message is used for
 constructing a list of subscriptions of statuses, digital and analogue
 values and events that are desirable to send to supervision system,
 e.g. temperature, wind speed, power consumption, manual control.</p>
+<p>It’s allowed to change <strong>updateRate</strong> and <strong>sendOnChange</strong> by sending a new
+StatusSubscribe during an active subscription.</p>
+<p>The site must not establish a new subscription but use the existing one.</p>
 <div class="highlight-json notranslate" id="json-status-subscribe"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;StatusSubscribe&quot;</span><span class="p">,</span>
@@ -1183,8 +1186,6 @@ For example, if updateRate is set to 5 seconds but the value changes after
 waits another 5 seconds to trigger.</p></li>
 <li><p>It is not valid to set <strong>updateRate=0</strong> and <strong>sendOnChange=false</strong> since
 it means that no subscription updates will be sent.</p></li>
-<li><p>It is allowed to change <strong>updateRate</strong> and <strong>sendOnChange</strong> by sending a
-new StatusSubscribe during an active subscription.</p></li>
 </ul>
 </section>
 <section id="attribute-updates">
@@ -1204,17 +1205,12 @@ when the signal group state changes.</p>
 <h4><span class="section-number">4.4.4.1.6. </span>Structure for a status update message<a class="headerlink" href="#structure-for-a-status-update-message" title="Link to this heading"></a></h4>
 <p>The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.</p>
-<p>The following applies:</p>
-<ul class="simple">
-<li><p>A StatusUpdate is always sent immediately after subscription request,
-unless the subscription is already active. The reason for sending the
-response immediately is because subscriptions usually are established
-shortly after RSMP connection establishment and the supervision system
-needs to update with the current statuses.</p></li>
-<li><p>If an subscription is already active then the site must not establish
-a new subscription but use the existing one. It’s allowed to change
-<strong>updateRate</strong> and <strong>sendOnChange</strong>.</p></li>
-</ul>
+<p>In addition to being send according to <strong>updateRate</strong> and <strong>sendOnChange</strong>,
+it is also always sent immediately after subscription request (even if the
+subscription is already active). The reason for sending the response
+immediately is because subscriptions usually are established shortly after
+RSMP connection establishment and the supervision system needs to update with
+the current statuses.</p>
 <div class="highlight-json notranslate" id="json-status-update"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;StatusUpdate&quot;</span><span class="p">,</span>

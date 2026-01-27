@@ -970,6 +970,11 @@ constructing a list of subscriptions of statuses, digital and analogue
 values and events that are desirable to send to supervision system,
 e.g. temperature, wind speed, power consumption, manual control.
 
+It's allowed to change **updateRate** and **sendOnChange** by sending a new
+StatusSubscribe during an active subscription.
+
+The site must not establish a new subscription but use the existing one.
+
 .. code-block:: json
    :name: json-status-subscribe
 
@@ -1048,10 +1053,6 @@ The following applies:
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
 
-* It is allowed to change **updateRate** and **sendOnChange** by sending a
-  new StatusSubscribe during an active subscription.
-
-
 Attribute updates
 ~~~~~~~~~~~~~~~~~
 When you set **sendOnChange** to true you will get an update whenever that
@@ -1072,17 +1073,12 @@ Structure for a status update message
 The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.
 
-The following applies:
-
-* A StatusUpdate is always sent immediately after subscription request,
-  unless the subscription is already active. The reason for sending the
-  response immediately is because subscriptions usually are established
-  shortly after RSMP connection establishment and the supervision system
-  needs to update with the current statuses.
-
-* If an subscription is already active then the site must not establish
-  a new subscription but use the existing one. It's allowed to change
-  **updateRate** and **sendOnChange**.
+In addition to being send according to **updateRate** and **sendOnChange**,
+it is also always sent immediately after subscription request (even if the
+subscription is already active). The reason for sending the response
+immediately is because subscriptions usually are established shortly after
+RSMP connection establishment and the supervision system needs to update with
+the current statuses.
 
 .. code-block:: json
    :name: json-status-update
