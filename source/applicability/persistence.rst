@@ -30,13 +30,13 @@ The change is short lived and is expected to be changed again soon, e.g. by some
 
 No persistence:
 An immediate action that does not change any exposed state.
-Any meaningful action by defintion causes a change somewhere, but the change might be in internal parts
+Any meaningful action by definition causes a change somewhere, but the change might be in internal parts
 that are not exposed through RSMP, or in external systems.
 
 .. _sxl_persistence_default:
 
-Defalt Persistence
-------------------
+Default Persistence
+-------------------
 The default persistence level for commands is Permanent.
 
 This  mean that by default, a site must keep changes caused by commands permanently, even after a restart of the site.
@@ -48,8 +48,8 @@ SXL Persistence Specialization
 ------------------------------
 An SXL can override the default persistence behavior for particular commands.
 
-An SXL can also define a different efault persistence. For example, if the type of equipmemnt is expected to
+An SXL can also define a different default persistence. For example, if the type of equipment is expected to
 only have volatile memory, it would make sense to define the default persistence to be until a restart.
 
-When an SXL need to define custom persistence behaviour, the standard persistence levels should be used
-if possible. However, an SXL can define custom persistence levels or behaviour if needed.
+When an SXL need to define custom persistence behavior, the standard persistence levels should be used
+if possible. However, an SXL can define custom persistence levels or behavior if needed.
