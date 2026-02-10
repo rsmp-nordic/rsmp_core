@@ -40,13 +40,7 @@ brew install graphviz
 6. Install mscgen
 
 ```
-curl -O http://www.mcternan.me.uk/mscgen/software/mscgen-src-0.20.tar.gz
-tar xfz mscgen-src-0.20.tar.gz 
-cd mscgen-0.20/
-./configure
-make
-make check
-sudo make install
+brew install mscgen
 ```
 
 ## Building
