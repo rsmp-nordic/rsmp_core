@@ -151,151 +151,128 @@ Component types can be organized into a hierarchy using forward slashes.
 
 Each type must have a short description.
 
-Message types
--------------
+.. _sxl-message-codes:
 
-The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
-are defined in the SXL.
+SXL Message Codes
+^^^^^^^^^^^^^^^^^
+An SXL can define alarms, commands and statuses, each identified by a :term:`message code`.
 
-Using the Excel format; alarms, aggregated status, status and commands are
-defined in their own sheet.
+Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed.
+Codes must be unique within the SXL.
 
-Using the YAML format; each message type is defined like this:
+Message codes can be organized into a hierarchy using forward slashes.
 
 .. code-block:: yaml
 
-  objects:
-    object-type:
-      aggregated_status:
-        1:
-          title: Local mode
-          description: In local mode
-        2:
-          title: No Communications
-        3:
-          title: High priority fault
-          description: Fail safe mode
-        4:
-          title: Medium Priority Fault
-          description: Medium priority fault, but not in fail safe mode
-        5:
-          title: Low Priority Fault
-        6:
-          title: Connected / Normal - In Use
-        7:
-          title: Connected / Normal - Idle
-        8:
-          title: Not Connected
-      functional_position:
-        position-1: start
-        position-2: stop
-      alarms:
-        A0001:
-          description: alarm description text
-          priority: 1
-          category: D
-          externalAlarmCodeId: manufacturer specific alarm text
-          externalNtsAlarmCodeId: 0000
-          arguments:
-            argument-1:
-              type: integer
-              min: 0
-              max: 10
-              description: A0001 argument 1
-      statuses:
-        S0001:
-          description: status description text
-          arguments:
-            argument-1:
-              type: string
-              description: S0001 argument 1
-      commands:
-        M0001:
-          description: command description text
-          command: setStatus
-          arguments:
-            argument-1:
-              type: boolean
-              description: M0001 argument 1
+  commands:
+    tlc/plan/set:
+      description: Set signal plan
+  statuses:
+    tlc/plan/current:
+      description: Get the current signal plan
+  alarms:
+    tlc/deadlock:
+      description: Signal plan causes deadlock
 
-  ..
+Here we define the command code ``tlc/plan/set``, the status code ``tlc/plan/current`` and the alarm code ``tlc/deadlock``.
 
-This example defines:
+Note that real definitions of commands, statuses and alarms include additional elements, which are omitted here for clarity, see below.
 
-- An alarm with the :term:`alarm code id` ``A0001``
-- A status with the :term:`status code id` ``S0001``
-- A command with the :term:`command code id` ``M0001``
+.. _sxl-aggregated-status:
 
-Each with one argument named ``argument-1`` using integer, string and boolean
-data types.
+Aggregated Status
+^^^^^^^^^^^^^^^^
+The basic meaning of the eight aggregated status bits is defined in the core specification and cannot be redefined,
+see :ref:`state-bits`.
 
-The alarm contains the fields:
+But the SXL can detail the meaning of each bit as they relate to the specific type of equipment.
+If you leave a bit out, the default core definition applies.
 
-- ``description`` is the alarm description
-- ``category`` is the alarm category
-- ``priority`` is the alarm priority
-- ``externalAlarmCodeId`` is the :term:`External alarm code id`
-- ``externalNtsAlarmCodeId`` is the :term:`External NTS alarm code id`
+.. code-block:: yaml
 
-The status contains the fields:
+  aggregated_status:
+    local:
+      description: Traffic controller is in local mode, overriding supervisor control.
+    offline:
+      description: Traffic controller has network connection, but communication with the supervisor was lost
+    fault:
+      description: High priority fault, traffic controller is in fail safe mode
+    error:
+      description: Medium priority fault, but traffic controller is not in fail safe mode
+    warning:
+      description: Low Priority Fault
+    normal:
+      description: Traffic controller is operating normally
+    idle:
+      description: Traffic controller is idle
+    disconnected:
+      title: Traffic controller has no network connection
 
-- ``description`` is the status description
+The following bits can be detailed:
 
-The command contains the fields:
+- ``local`` (bit 1)
+- ``offline`` (bit 2)
+- ``fault`` (bit 3)
+- ``error`` (bit 4)
+- ``warning`` (bit 5)
+- ``normal`` (bit 6)
+- ``idle`` (bit 7)
+- ``disconnected`` (bit 8)
 
-- ``description`` is the command description
-- ``command`` is optionally used for RPC (Remote Procedure Call)
+.. _sxl-functional-modes:
 
-An argument contains the fields:
+Functional Modes
+^^^^^^^^^^^^^^^^
+Defines the distinct functional modes that the site can be in. Only one of these can be active at the same time.
 
-- ``description`` is the argument description
-- ``min`` is the minimum value (only for *number* or *integer* data types)
-- ``max`` is the maximum value (only for *number* or *integer* data types)
-- ``type`` is the :ref:`data type<data_types>`
+.. code-block:: yaml
 
-At least one argument are required for command and statuses, but they are
-optional in alarms.
+  functional_modes:
+    normal: Controller is operating normally
+    dark: Controller is in dark mode
+    yellow_flash: Controller is in yellow flash mode
 
+.. _sxl-alarms:
 
-.. note::
+Alarms
+^^^^^^
+Alarms are used to report errors and other events that require attention. They are identified by their :term:`alarm code id`, which is unique within the SXL.
+Alarms can be associated with a component type, but this is not required. If no component type is associated, the alarm relates to the site as a whole.
 
-    In the Excel version of the SXL, there is no separate min and max columns.
-    Instead, allowed values can be defined using the Value column according
-    to the following example: [0-100], where 0 is the minimum value and 100 is
-    the maximum value.
+.. code-block:: yaml
 
-The aggregated status contains the fields:
+  alarms:
+    A0201:
+      description: Serious lamp error
+      component: tlc/sg
+      priority: 2
+      category: D
+      externalAlarmCodeId: LA000445/11 [R,Y]
+      arguments:
+        color:
+          type: array
+          enum: [red, yellow]
+          description: Lamp colors affected
 
-- ``functional_position`` is the :term:`Functional position`
+.. tabularcolumns:: |\Yl{0.30}|\Yl{0.15}|\Yl{0.55}|
 
-- ``functional_state`` is the :term:`Functional state`
+.. table:: Alarm fields
 
-- ``1-8`` is an array of eight booleans. Each with a title and optional
-  description. See :ref:`state-bits`
-
-
-.. _alarm-description:
-
-Alarm description
-^^^^^^^^^^^^^^^^^
-The format of the description is free of choice but has the following
-requirements:
-
-- Description is unique for the object type
-- Description is defined in cooperation with the Purchaser before use
+   ===========================  =======  ====================================
+   Field                        Type     Description
+   ===========================  =======  ====================================
+   ``description``              string   Alarm description
+   ``category``                 string   Alarm category, can be either "T" for traffic alarm or "D" for technical alarm
+   ``priority``                 integer  Alarm priority, can be ``1``, ``2`` or ``3``.
+   ``externalAlarmCodeId``      string   :term:`External alarm code id`
+   ``externalNtsAlarmCodeId``   string   :term:`External NTS alarm code id` (optional)
+   ``arguments``                hash     Alarm return values (optional)
+   ===========================  =======  ====================================
 
 .. _alarm-category:
 
-Alarm category
+Alarm priority
 ^^^^^^^^^^^^^^
-The alarm category is defined in by a single character, either ``T`` or ``D``.
-
-==========  ===============
-Value       Description
-==========  ===============
-T           Traffic alarm
-D           Technical alarm
-==========  ===============
 
 A **traffic alarm** indicates events in the traffic related functions or the
 technical processes that affects traffic.
@@ -306,7 +283,6 @@ A couple of examples from a tunnel:
 - Fire alarm
 - Error which affects message to motorists
 - High level of :math:`CO_{2}` in traffic room
-- etc.
 
 **Technical alarms** are alarms that do not directly affect the traffic.
 One example of technical alarm is when an impulse fan stops working.
@@ -329,86 +305,100 @@ Value  Description
 3      Alarm that will be corrected during the next planned maintenance shift.
 =====  ==============================
 
-Functional differences between message types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following table defines the functional differences between message types.
+.. _sxl-statuses:
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+Statuses
+^^^^^^^^
+Statuses are used to report the current state of a component or the site as a whole. They are identified by their :term:`status code id`, which is unique within the SXL.
 
-.. table:: Functional differences
+A status can be associated with a component type, but this is not required. If no component type is associated, the status relates to the site as a whole.
 
-   =================  =========================================  ================================
-   Message type       Sent when                                  Adapted to be transmitted to NTS
-   =================  =========================================  ================================
-   Alarm              On change *or* request                     Yes
-   Aggregated status  On change *or* request                     Yes
-   Status             On request *or* according to subscription  No
-   Command            On request                                 Yes, partly (functional status)
-   =================  =========================================  ================================
+.. code-block:: yaml
 
-.. note::
-   In addition of :term:`functional position`, the Excel version of the SXL
-   can also differentiate between different kinds of command messages using
-   :term:`maneuver` and :term:`parameter` sections. However, their use has no
-   functional significance from a protocol point of view.
+  statuses:
+    tlc/glosa:
+      description: Time-to-green prediction for signal group
+      component: tlc/sg
+      arguments:
+        :
+          type: string
+          description: S0001 argument 1
 
-Arguments and return values
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Argument and return values makes it possible to send extra information in
-messages. It is possible to send binary data (base64), such as bitmap
-pictures or other data, both to a site and to supervision system. The
-signal exchange list must clarify exactly which data type which is used
-in each case. There is no limitation of the number of arguments and
-return values which can be defined for a given message. Argument and return
-values is defined as extra columns for each row in the signal exchange
-list.
+Each status contains the following fields:
 
-- Arguments can be sent with command messages
-- Return values can be send with response on status requests or as extra
-  information with alarm messages
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
-The following table defines the message types which supports arguments and
-return values. 
+.. table:: Status fields
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
+   ===============  =======  ==========================================
+   Field            Type     Description
+   ===============  =======  ==========================================
+   ``description``  string   Status description
+   ``component``    string   Component type (optional)
+   ``arguments``    hash     Value arguments
+   ===============  =======  ==========================================
 
-.. table:: Support for arguments and return values
+Each status argument contains the following fields:
 
-   =================  ========  ============
-   Message type       Argument  Return value
-   =================  ========  ============
-   Alarm              No        Yes
-   Aggregated status  No        No
-   Status             No        Yes
-   Commands           Yes       No
-   =================  ========  ============
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
 
-Required signals
-----------------
+.. table:: Status argument fields
 
-Status messages
-^^^^^^^^^^^^^^^
+   ===============  =======  =======================================================
+   Field            Type     Description
+   ===============  =======  =======================================================
+   ``description``  string   Argument description
+   ``type``         string   :ref:`Data type<data_types>`
+   ``min``          number   Minimum value (only for *number* or *integer* data types)
+   ``max``          number   Maximum value (only for *number* or *integer* data types)
+   ===============  =======  =======================================================
 
-Version of component
-""""""""""""""""""""
-To make sure that the site is equipped with the correct version of
-components and to simplify troubleshooting there need to exists a special
-status to request version of a component.
 
-Current date and time
-"""""""""""""""""""""
-To make sure that the site is configured with the correct date and time
-there needs to be a special status to request this. This type of status is
-especially important for those implementations where the equipment's
-protocol interface and the rest of it's logic doesn't share the same
-clock. Please note that UTC should be used.
+.. _sxl-commands:
 
-Command messages
-^^^^^^^^^^^^^^^^
+Commands
+^^^^^^^^
+Commands are used to control the site and its components. They are identified by their :term:`command code id`, which is unique within the SXL.
 
-Change date and time
-""""""""""""""""""""
-If the automatic time synchronization is missing or disabled there should
-be a possibility to set the date and time using a special command. Please
-note that UTC should be used.
+A command can be associated with a component type, but this is not required. If no component type is associated, the command relates to the site as a whole.
+
+.. code-block:: yaml
+
+  commands:
+    M0001:
+      description: command description text
+      command: setStatus
+      arguments:
+        <argument-1>:
+          type: boolean
+          description: M0001 argument 1
+
+Each command contains the following fields:
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
+
+.. table:: Command fields
+
+   ===============  =======  ==========================================
+   Field            Type     Description
+   ===============  =======  ==========================================
+   ``description``  string   Command description
+   ``command``      string   Optional RPC (Remote Procedure Call) name
+   ``arguments``    hash     Command arguments
+   ===============  =======  ==========================================
+
+Each command argument contains the following fields:
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
+
+.. table:: Command argument fields
+
+   ===============  =======  =======================================================
+   Field            Type     Description
+   ===============  =======  =======================================================
+   ``description``  string   Argument description
+   ``type``         string   :ref:`Data type<data_types>`
+   ``min``          number   Minimum value (only for *number* or *integer* data types)
+   ``max``          number   Maximum value (only for *number* or *integer* data types)
+   ===============  =======  =======================================================
 
