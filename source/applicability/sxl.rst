@@ -137,7 +137,7 @@ The result is the same, you still need to use the full paths, e.g. "tlc/plan/set
 or ``tlc/deadlock`` when sending a deadlock alarm.
 
 A prefix does not have to mirror the SXL name and should be short. But you must ensure that SXLs expected to
-be used togeter do not define the same component types or message codes.
+be used together do not define the same component types or message codes.
 
 For example, a traffic light controller SXL like ``nordic/traffic_light_controller`` could use the prefix ``tlc/``.
 
@@ -401,49 +401,30 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-.. _sxl-composition:
+.. _multiple-sxls:
 
-SXL Composition
+Multiple SXLs
 ---------------
+A site can implement more than one SXL, and an SXL can declare dependencies on other SXLs.
+This allows you to organize and compose SXLs to facilitate reuse.
 
-.. _sxl-scope:
-
-SXL Scopes
-^^^^^^^^^^
 Two SXLs that define the same component type or message code cannot be used together on the same site.
-
-To ensure relevant SXLs can be used together, forward slashes should therefore be used to
-scope component types and message codes into hierarchies that avoid clashes.
-
-While it's often practical to use a scope that relate to the SXL name, e.g. ``tlc/`` for a
-traffic light controller SLX , this is not a requirement.
-You have the freedom to organize types and codes as needed.
-
-For example, two SXLs could define different component types and message codes, but placed under the same
-scope. For example, one SXL might define ``tlc/sg`` while another defines ``tlc/dl``.
-This can be useful in case you want to split a big SXL into smaller SXLs while keeping the same scope,
-or you  want to create an extension SXL that adds new types or codes under an existing scope.
-
-If two SXLs define the exact same component type or message code you cannot use the SXLs together.
-But it might be useful if you want to create a replacement SXL that is compatible with an existing SXL.
-
-To maintain backward compatibility, some existing SXLs might use component types or message codes without
-any forward slashes, e.g. a component type like ``sg`` or a command code like ``M0001``.
-This works as long as you don't try to use another SXL with conflicting codes on the same site.
+You can use forward slashes to organize component types and message codes, e.g. ``tlc/plan/set``,
+to ensure that SXLs that are intended to be used together do not conflict.
 
 .. _sxl-dependencies:
 
 SXL Dependencies
 ^^^^^^^^^^^^^^^^
 An SXL can list other SXLs as dependencies. It can then rely on the definitions of component types and
-message codes in the dependency SXLs.
+message codes in the dependency SXLs, as well as any other aspect defined in the required SXL,
+such as expected behavior or data types.
 
 For example, the SXL ``nordic/traffic_light_controller/advanced`` might depend on the SXL ``nordic/traffic_light_controller``.
-It can then define a command like ``tlc/adaptive`` which operates the component type ``tlc/dl`` already defined in
+It can then define a command like ``tlc/adaptive`` which operates on a component type ``tlc/dl`` already defined in
 the ``nordic/traffic_light_controller`` SXL.
 
-Dependencies are listed using SXL names and a version requirement string.
-The order of dependencies is not significant.
+A dependency is listed using the SXL names and a version requirement string. The order of dependencies is not significant.
 
 .. code-block:: yaml
 
@@ -458,11 +439,11 @@ Version requirement strings support exact version, comparison operators ``>``, `
    * - "1.3.1"
      - exact version 1.3.1 only
    * - ">=1.3.0"
-     - version 1.3.0 or higher
+     - 1.3.0 or higher (inclusive)
    * - "<2.0.0"
-     - any version lower than 2.0.0
+     - lower than 2.0.0 (exclusive)
    * - "~1.3"
-     - any version from 1.3 compatible with it according to semantic versioning rules, i.e. >=1.3.0 and <2.0.0.
+     - any version compatible with 1.3, according to semantic versioning rules, in effect ">=1.3.0 and <2.0.0".
 
 Two comparison operators can be combined with ``and``:
 
@@ -474,20 +455,19 @@ Two comparison operators can be combined with ``and``:
 
 To ensure that dependency resolution works as intended, you must update
 the SXL version correctly when making changes to an SXL, according to Semantic
-Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
+Versioning (SemVer) rules. See the section on :ref:`sxl-version`.
 
 Before an SXL is published or updated, dependency resolution must be performed to
-ensure that dependencies can be met and that there are no clashing component types or message codes.
+ensure that dependencies can be met and that there are no conflicts.
+The resulting SXL manifest must be published together with the SXL.
 
-Success results in a manifest which must be published together with the SXL.
+You must ensure that you rely only on what is defined in the dependency SXLs at the versions in the manifest.
 
 .. _sxl-list:
 
-SXL List
-^^^^^^^^
-A site can support one or more SXLs, which together form the site sxl list.
-
-The supported SXLs are specified using SXL names and exact versions. Order is not significant.
+Site SXLs
+^^^^^^^^^
+A site specifies the SXLs it supports using SXL names and exact versions. Order is not significant.
 
 .. code-block:: yaml
 
@@ -497,6 +477,9 @@ The supported SXLs are specified using SXL names and exact versions. Order is no
 
 The SXL list is transmitted in the Version message sent by the site as part of the connection handshake.
 
-All component types and message codes defined in the listed SXLs must be implemented by the site.
-Component types and message codes from dependency SXLs will not be available, unless you explicitely list them.
+Component types and message codes from dependency SXLs will not be available, unless you explicitely list these
+dependency SXLs.
+
+Everything in a listed SXLs must be implemented by the site. If specific functionality in an SXL
+is often not needed, consider extracting this functionality into a separate SXL which can be used when needed.
 
