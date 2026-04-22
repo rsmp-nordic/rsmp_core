@@ -181,15 +181,15 @@ equal signs and forward slashes.</p>
 </section>
 <section id="addressing-components">
 <span id="id4"></span><h3><span class="section-number">4.7.2.3. </span>Addressing Components<a class="headerlink" href="#addressing-components" title="Link to this heading"></a></h3>
-<p>A specific component is addressed using its full id, whether it’s a classic ID or a path ID.</p>
-<p>If path IDs are used, you can address groups of components using paths ending with a slash.</p>
-<p>For example, <code class="docutils literal notranslate"><span class="pre">/dl/radar/</span></code> can be used to address all components under that path (for example
-<code class="docutils literal notranslate"><span class="pre">/dl/radar/1</span></code> and <code class="docutils literal notranslate"><span class="pre">/dl/radar/2</span></code>).</p>
-<p>A single forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> is the root of the site and includes all components.</p>
-<p>If path IDs are used, all paths used to address components must start with a slash.
-Relative paths not starting with a slash are not allowed.</p>
-<p>If  IDs are used, no hierarchy is defined and paths cannot be used to address groups
-of components.</p>
+<p>A single component is addressed using its full ID, whether classic or path IDs are used.</p>
+<p>If path IDs are used, you can use paths to address groups of components.
+Paths end with a forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> and covers components below it in the
+ID hierarchy.</p>
+<p>For example, the path <code class="docutils literal notranslate"><span class="pre">/dl/radar/</span></code> might cover <code class="docutils literal notranslate"><span class="pre">/dl/radar/1</span></code> and <code class="docutils literal notranslate"><span class="pre">/dl/radar/2</span></code>.</p>
+<p>A single forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> indicates the root and covers all components.</p>
+<p>If classic IDs are used, no hierarchy is defined and paths cannot be used, not even <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<p>An empty string or null means no component and can be used as way to address
+site as a whole. This is allowed for both classic and path IDs.</p>
 </section>
 </section>
 <section id="component-name">
