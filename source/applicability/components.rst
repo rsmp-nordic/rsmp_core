@@ -101,20 +101,20 @@ equal signs and forward slashes.
 
 Addressing Components
 ^^^^^^^^^^^^^^^^^^^^^
-A specific component is addressed using its full id, whether it's a classic ID or a path ID.
+A single component is addressed using its full ID, whether classic or path IDs are used.
 
-If path IDs are used, you can address groups of components using paths ending with a slash.
+If path IDs are used, you can use paths to address groups of components.
+Paths end with a forward slash ``/`` and covers components below it in the
+ID hierarchy.
 
-For example, ``/dl/radar/`` can be used to address all components under that path (for example
-``/dl/radar/1`` and ``/dl/radar/2``).
+For example, the path ``/dl/radar/`` might cover ``/dl/radar/1`` and ``/dl/radar/2``.
 
-A single forward slash ``/`` is the root of the site and includes all components.
+A single forward slash ``/`` indicates the root and covers all components.
 
-If path IDs are used, all paths used to address components must start with a slash.
-Relative paths not starting with a slash are not allowed.
+If classic IDs are used, no hierarchy is defined and paths cannot be used, not even ``/``.
 
-If  IDs are used, no hierarchy is defined and paths cannot be used to address groups
-of components.
+An empty string or null means no component and can be used as way to address
+site as a whole. This is allowed for both classic and path IDs.
 
 .. _component-name:
 
