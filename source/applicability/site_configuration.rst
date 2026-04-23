@@ -76,14 +76,16 @@ Where:
 * ``ntsObjectId`` is the :ref:`Component-id` for the :term:`NTS object`
 * ``externalNtsId`` is the :term:`External NTS id`
 
-A component can either be categorized as a **single component** or **grouped
-component**, also known as the main component(s).
+A component can either be categorized as a **single component** or **main
+component**.
 
-The main component(s) is defined by **componentId** and **ntsObjectId** which are
-being set equal. This means that the component is visible from NTS.
+There can only be a single main component.
+
+The main component is defined by **componentId** and **ntsObjectId** which are
+being set equal.
 
 Single components have a unique **componentId** but uses the **ntsObjectId** of
-their main component.
+the main component.
 
 **externalNtsId** and **ntsObjectId** are optional and only used if the
 component is intended to be sent to :term:`NTS`.
