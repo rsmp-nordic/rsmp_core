@@ -1590,7 +1590,7 @@ establishment (See
 and :ref:`communication-establishment-between-sites`).
 
 Version Request
-""""""""""""""""""""""""""""
+"""""""""""""""
 The initial Version request send by the site contains:
 
 * Site Id.
@@ -1625,7 +1625,7 @@ JSon code 24: A Version Request message
 
 The following table describes variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
 
 .. table:: Version information
 
@@ -1644,7 +1644,7 @@ exactly one element.
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
 
 .. table:: SXLS item content
 
@@ -1658,7 +1658,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
 If the site supports multiple versions of an SXL the latest must be specified.
 
 Version Response
-"""""""""""""""""""""""""""""
+"""""""""""""""""
 If the supervisor determines that core or SXL versions are incompatible,
 it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
 
@@ -1722,13 +1722,13 @@ The supervisor can always request, acknowledge and suspend/resume alarms even if
 Core Version Compatibility
 """"""""""""""""""""""""""
 A site and a supervisor can only communicate if the core version are exactly the same.
-The cor version string returned by the supervisor in Version response must therefore be
+The core version string returned by the supervisor in Version response must therefore be
 exactly the same as one of the core version strings sent by the site in the Version request.
 
 SXL Version Compatibility
 """""""""""""""""""""""""
 An SXL can be used if the site and the supervisor has implementations that are compatible
-according to Sematic Versioning, meaning the major version must be the same, but minor and patch versions can differ.
+according to Semantic Versioning, meaning the major version must be the same, but minor and patch versions can differ.
 
 If the versions match exactly, then unknown messages or fields is an error and must cause an MessageNotAck to be send.
 
