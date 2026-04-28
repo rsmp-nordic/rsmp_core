@@ -1681,8 +1681,8 @@ i.e. if a component is added, removed or changed.
 
 The ComponentList message is the authoritative source of information about the components on the site.
 It takes precedence over any static configuration (e.g. YAML or Excel files) that the supervisor might have.
-However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or by asking for user confirmation.
-The supervisor might also not have any pre-existing configuration for the site, in which case it can use the ComponentList to discover the components.
+However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
+If the supervisor don't have any configuration for the site, it can use the ComponentList to discover the components.
 
 The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`.
 
