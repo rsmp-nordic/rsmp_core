@@ -1659,14 +1659,24 @@ If the site supports multiple versions of an SXL the latest must be specified.
 
 Version Response
 """""""""""""""""
-If the supervisor determines that core or SXL versions are incompatible,
+Communication can only be established if the supervisor supports one of the core
+versions listed in the version request sent by the site. It must be an exact match of both
+major, minor and patch version.
+
+An SXL listed by the site can only by used if the supervisor support the exact same version,
+with an exact match of both major, minor and patch version.
+
+Communication can be establisehd even if the supervisor supports none of the SXL. In this no
+commands, statuses or alarms can be exchanged, only aggregated status.
+
+If the supervisor determines that the core version cannot be matched,
 it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
 
-If versions are compatible, the supervisor returns a Version response containing:
+If core version can be matchdd, the supervisor returns a Version response containing:
 
 * Supervisor ID.
 * RSMP core version to use.
-* SXLs to use and the supervisor implementation version of each.
+* SXLs to use and their versions.
 * receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
 
 .. code-block:: json
@@ -1682,26 +1692,19 @@ If versions are compatible, the supervisor returns a Version response containing
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "id": "nordic/traffic_light_controller", "version": "1.3.3" },
-            { "id": "nordic/variable_message_sign", "version": "1.1.0" }
+            { "id": "nordic/traffic_light_controller", "version": "1.3.0" },
+            { "id": "nordic/variable_message_sign", "version": "1.0.6" }
          ],
          "receiveAlarms": false
    }
 
 JSon code 25: A Version Response message
 
-In this example, the SXL "nordic/traffic_light_controller" will be used.
-The site reported version 1.3.0, while the supervisor has a later compatible patch version 1.3.3.
-
-The SXL "nordic/variable_message_sign" will also be used.
-The site reported 1.3.4, while the supervisor has an earlier compatible minor version 1.1.0.
-This means some message added in 1.2 and 1.3 might be send by the site, but will be ignored
-by the supervisor.
+In this example, the SXL "nordic/traffic_light_controller" will be be used, as well as the 
+SXL "nordic/variable_message_sign".
 
 The SXL "nordic/traffic_light_controller/advanced" is not used, either because the supervisor
-does not support this SXL at all or does not have version compatible with the version 1.1.0
-reported by the site.
-
+does support the the version 1.3.4 specified by the site, or it does not want or need to use it.
 
 The following table describes variable content of the message:
 
@@ -1721,20 +1724,17 @@ The supervisor can always request, acknowledge and suspend/resume alarms even if
 
 Core Version Compatibility
 """"""""""""""""""""""""""
-A site and a supervisor can only communicate if the core version are exactly the same.
-The core version string returned by the supervisor in Version response must therefore be
-exactly the same as one of the core version strings sent by the site in the Version request.
+A site and a supervisor can only communicate if the core version are exactly the same, i.e. both
+major, minor and patch versions match.
+The core version string returned by the supervisor in the version response must therefore be
+the same as one of the core version strings sent by the site in the Version request.
 
 SXL Version Compatibility
 """""""""""""""""""""""""
-An SXL can be used if the site and the supervisor has implementations that are compatible
-according to Semantic Versioning, meaning the major version must be the same, but minor and patch versions can differ.
-
-If the versions match exactly, then unknown messages or fields is an error and must cause an MessageNotAck to be send.
-
-If the minor versions differ, the later version might have added functionality, but must be backward compatible -
-all functionality and messages in the earlier minor version must still work.
-In this case, unknown messages or fields must be ignored and not cause a MessageNotAck.
+An SXL can be used if the site and the supervisor support the exact same version, i.e. both
+major, minor and patch versions match.
+A SXL version string returned by the supervisor in the version response must therefore be
+the same as the SXL version strings sent by the site in the Version request.
 
 
 .. _component-list:
