@@ -1704,7 +1704,7 @@ In this example, the SXL "nordic/traffic_light_controller" will be be used, as w
 SXL "nordic/variable_message_sign".
 
 The SXL "nordic/traffic_light_controller/advanced" is not used, either because the supervisor
-does support the the version 1.3.4 specified by the site, or it does not want or need to use it.
+does support the the version 1.3.4 specified by the site, or the supervisor does not want to use it.
 
 The following table describes variable content of the message:
 
@@ -1715,12 +1715,16 @@ The following table describes variable content of the message:
    ============= ======== ===============
    Element       Type     Description
    ============= ======== ===============
-   subtype       string   Must be set to 'Response'.
+   step          string   Must be set to 'Response'.
+   supervisorId  string   The id of the superisor.
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
+   SXLS          array    List of SXLS which will be used for communication.
    receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
    ============= ======== ===============
 
 The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
+
+The ``SXLS`` have the same format as in the version rewquest.
 
 Core Version Compatibility
 """"""""""""""""""""""""""
