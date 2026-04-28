@@ -24,7 +24,7 @@ It also details the meaning of aggregated status bits, functional positions and 
 
 SXL Name and Description
 ^^^^^^^^^^^^^^^^^^^^^^^^
-An SXL is identified by a :term:`name`, e.g. "nordic/variable_message_sign",  "eu/traffic_light_controller"
+An SXL is identified by a ``name``, e.g. "nordic/variable_message_sign",  "eu/traffic_light_controller"
 or "nordic/traffic_light_controller/advanced".
 
 Forward slashes can be used to organize names in a hierarchy.
@@ -38,7 +38,7 @@ if used together with other SXLs. We therefore recommend registering SXLs that a
 
 Some legacy SXL use names without a region, e.g. "tlc" for the Nordic Traffic Light Controller SXL.
 
-An SXL also has a :term:`description`, which is a short human-readable text e.g. "Nordic Traffic Light Controller".
+An SXL also has a ``description``, which is a short human-readable text e.g. "Nordic Traffic Light Controller".
 
 
 .. code-block:: yaml
