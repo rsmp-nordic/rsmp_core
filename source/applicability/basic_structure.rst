@@ -1677,7 +1677,8 @@ If core version can be matchdd, the supervisor returns a Version response contai
 
 * Supervisor ID.
 * RSMP core version to use.
-* SXLs to use and their versions.
+* SXLs to use.
+* SXLs not to use and why.
 * receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
 
 .. code-block:: json
@@ -1693,8 +1694,9 @@ If core version can be matchdd, the supervisor returns a Version response contai
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "nordic/traffic_light_controller", "version": "1.3.0" },
-            { "name": "nordic/variable_message_sign", "version": "1.0.6" }
+            { "name": "nordic/traffic_light_controller", "version": "1.3.0"},
+            { "name": "nordic/variable_message_sign", "version": "1.3.4" },
+            { "name": "nordic/variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
          ],
          "receiveAlarms": false
    }
@@ -1725,7 +1727,32 @@ The following table describes variable content of the message:
 
 The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
 
-The ``SXLS`` have the same format as in the version rewquest.
+Each item in the ``SXLS`` array must be an object with the following content:
+
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
+
+.. table:: SXLS item content
+
+   ========= ======== ====================
+   Element   Type     Description
+   ========= ======== ====================
+   id        string   SXL id, e.g. "nordic/traffic_light_controller", matching the id in the Version request.
+   version   string   Version of the SXL, e.g. "1.3.0", matching the version in the Version request.
+   rejected  integer  (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.
+   reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
+   ========= ======== ====================
+
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
+
+.. table:: SXL Rejection codes
+
+   ======= ====================
+   Code    Description
+   ======= ====================
+   1       SXL not supported.
+   2       No matching version of the SXL supported.
+   3       SXL not needed/wanted.
+   ======= ====================
 
 Core Version Compatibility
 """"""""""""""""""""""""""
