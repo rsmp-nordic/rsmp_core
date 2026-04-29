@@ -110,8 +110,6 @@ messages, message acknowledgement messages and watchdog messages.
    ============ ================================================
    Element      Description
    ============ ================================================
-   ntsOId       :ref:`Component-id` for the :term:`NTS object`
-   xNId         :term:`External NTS id`
    cId          :ref:`Component-id`
    ============ ================================================
 
