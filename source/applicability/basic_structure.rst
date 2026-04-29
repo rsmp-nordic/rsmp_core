@@ -1614,9 +1614,9 @@ The initial Version request send by the site contains:
         ],
         "SXL": "1.3.0",
         "SXLS": [
-            { "name": "nordic/traffic_light_controller", "version": "1.3.0" },
-            { "name": "nordic/traffic_light_controller/advanced", "version": "1.3.4" },
-            { "name": "nordic/variable_message_sign", "version": "1.0.6" }
+            { "name": "nordic/traffic_light_controller", "version": "1.3.0", "prefix": "tlc/" },
+            { "name": "nordic/traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
+            { "name": "nordic/variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
         ]
    }
 
@@ -1653,6 +1653,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ======= ======== ==================== 
    id      string   SXL id, e.g. "nordic/traffic_light_controller"             
    version string   Version of the SXL, e.g. "1.3.0".
+   prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
    ======= ======== ====================
 
 If the site supports multiple versions of an SXL the latest must be specified.
