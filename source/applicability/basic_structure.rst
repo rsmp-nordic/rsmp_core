@@ -1680,11 +1680,12 @@ It is sent during communication establishment, and whenever the component list c
 i.e. if a component is added, removed or changed.
 
 The ComponentList message is the authoritative source of information about the components on the site.
-It takes precedence over any static configuration (e.g. YAML or Excel files) that the supervisor might have.
+It takes precedence over any static configuration that the supervisor might have.
 However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
 If the supervisor don't have any configuration for the site, it can use the ComponentList to discover the components.
 
-The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`.
+The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`. IDs must be unqiue.
+
 
 Message structure
 """""""""""""""""
@@ -1699,24 +1700,19 @@ A ComponentList message has the structure according to the example below.
         "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
         "components": [
             {
-                "id": "/dl/1",
-                "type": "/tlc/dl",
-                "name": "Busses Northgoing"
+                "id": "dl/radar/1",
+                "type": "dl",
+                "name": "Bus Detection A1 Northbound"
             },
             {
-                "id": "/sg/2",
-                "type": "/tlc/sg",
-                "name": "North"
+                "id": "sg/2",
+                "type": "sg",
+                "name": "A1 North"
             },
             {
-                "id": "/sg/10",
-                "type": "/tlc/sg",
-                "name": "South"
-            },
-            {
-                "id": "/tc",
-                "type": "/tlc/tc",
-                "name": "Traffic Light Controller"
+                "id": "sg/10",
+                "type": "sg",
+                "name": "B2 South"
             }
         ]
    }
@@ -1744,8 +1740,8 @@ The following table describes the content of each component in the array:
    ======== ======== ===================================================
    Element  Type     Description
    ======== ======== ===================================================
-   id       string   :ref:`component-id`, uniquely identifying the component
-   type     string   Component type, as defined in the SXL. See :ref:`component-type` for information about component types
+   id       string   :ref:`component-id` identifying the component
+   type     string   Component type, as defined in a used SXL. See :ref:`component-type` for information about component types
    name     string   Human readable name of the component
    ======== ======== ===================================================
 
