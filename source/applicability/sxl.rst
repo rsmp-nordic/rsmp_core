@@ -135,7 +135,7 @@ This flexibility enables use cases like:
 
 SXL Component Types
 ^^^^^^^^^^^^^^^^^^^
-An SXL defines the available :term:`component types<type>`. Components are the logical or physical part of a site.
+An SXL defines the available :term:`component types<Component type>`. Components are the logical or physical part of a site.
 
 Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed in component types.
 Component type must be unique within the SXL. 
