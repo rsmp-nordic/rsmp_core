@@ -1693,8 +1693,8 @@ If core version can be matchdd, the supervisor returns a Version response contai
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "id": "nordic/traffic_light_controller", "version": "1.3.0" },
-            { "id": "nordic/variable_message_sign", "version": "1.0.6" }
+            { "name": "nordic/traffic_light_controller", "version": "1.3.0" },
+            { "name": "nordic/variable_message_sign", "version": "1.0.6" }
          ],
          "receiveAlarms": false
    }
