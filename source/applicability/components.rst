@@ -86,6 +86,10 @@ Examples::
   AB+84001=860SG002
   AB+84001=860TC001
 
+Note that since a messages is send to a specific site, the site id in a classic component ID is redundant
+and not used for message route.
+
+
 Format compatibility
 ^^^^^^^^^^^^^^^^^^^^
 IDs in the classic format are still valid under the current format and can be used without any
