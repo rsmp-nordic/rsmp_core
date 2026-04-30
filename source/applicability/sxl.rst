@@ -129,10 +129,7 @@ For example, a traffic light controller SXL like ``nordic/traffic_light_controll
 
 Two different SXLs can use the same prefix, as long as they are not intended to be used together on the same site.
 Elements defined under the prefix must still differ if the SXL are going to be used together.
-This flexibility enables use cases like:
-
- - extensions: a new SXL that adds new component types and/or messages under the an existing prefix defined in another SXL.
- - replacement: a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
+This flexibility enables use cases like a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
 
 
 .. _sxl-component-types:
