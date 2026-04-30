@@ -28,15 +28,18 @@ An SXL is identified by a ``name``, e.g. "nordic/variable_message_sign",  "eu/tr
 or "nordic/traffic_light_controller/advanced".
 
 Forward slashes can be used to organize names in a hierarchy.
-Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
+Names can contain only lowercase letters, digits, hyphens and forward slashes.
 
 To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
-To register an SXL, the name must be unique and must include a top-level region in the form "<region>/...".
+To register an SXL, the name must be unique. If it reletes to a specific country or region it
+must include a top-level part in the form ``<coountry code>/...`` or ``<region>/...``,
+e.g. ``se/..``or ``nordic/...``.
 
 Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
-if used together with other SXLs. We therefore recommend registering SXLs that are intended for public use.
+if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
 
-Some legacy SXL use names without a region, e.g. "tlc" for the Nordic Traffic Light Controller SXL.
+Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL. These
+should be migrated when possible, e.g. to ``nordic/traffic_light_controller``.
 
 An SXL also has a ``description``, which is a short human-readable text e.g. "Nordic Traffic Light Controller".
 
