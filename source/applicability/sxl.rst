@@ -75,11 +75,11 @@ SXL Prefix
 An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. "tlc/" for a traffic light controller SXL.
 
-A prefix can contain lowercase letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash
+A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
 
-If you intend to define everything under the same scope, e.g. "nordic/", it's recommended to use a prefix.
-It guarantees that everything in SXL will be scoped under the same prefix and avoids having to repeat the same prefix
-everywhere.
+If you intend to define everything under the same scope, e.g. "nordic/", it is recommended to define a prefix.
+It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
+string everywhere.
 
 Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
 When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.
