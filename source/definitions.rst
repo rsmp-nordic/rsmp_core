@@ -55,27 +55,12 @@ Definitions
 
        Designed to be used with NTS.
 
+    NTS
+       National Traffic management system at the Swedish Transport Administration
+
+
    NTS
       National Traffic management system at the Swedish Transport Administration
-
-   NTS object
-       Used for objects in :term:`NTS`
-
-       All control and supervision related functions in NTS consist of
-       NTS objects.
-
-       An NTS object can represent one or many components.
-
-   External NTS id
-       Identitiy for an :term:`NTS object` used in communication between NTS and other systems
-
-       The format is 5 integers and is unique for the site.
-       It is defined in cooperation with representatives from NTS.
-
-   NTS-Object type
-       A NTS object type is a classification of NTS objects.
-       Determines among other things which functional positions that
-       are possible for the NTS object.
 
    Component
        A :ref:`component <components>` represents physical or logical parts of a site,
