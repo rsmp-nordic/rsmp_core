@@ -166,8 +166,6 @@ Using the YAML format, each component is defined like this:</p>
 <span class="w">      </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">&lt;component-1&gt;</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">componentId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AA+BBCCC=DDDEEFFF</span>
-<span class="w">          </span><span class="nt">ntsObjectId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AA+BBCCC=DDDEEFFF</span>
-<span class="w">          </span><span class="nt">externalNtsId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00000</span>
 </pre></div>
 </div>
 <p>Where:</p>
@@ -177,22 +175,8 @@ Using the YAML format, each component is defined like this:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;component-type&gt;</span></code> defines which component type the component belongs to</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&lt;component-1&gt;</span></code> is the name of the component. For instance “signal group 1”</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">componentId</span></code> is the <a class="reference internal" href="components.html#component-id"><span class="std std-ref">Component ID</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ntsObjectId</span></code> is the <a class="reference internal" href="components.html#component-id"><span class="std std-ref">Component ID</span></a> for the <a class="reference internal" href="../definitions.html#term-NTS-object"><span class="xref std std-term">NTS object</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">externalNtsId</span></code> is the <a class="reference internal" href="../definitions.html#term-External-NTS-id"><span class="xref std std-term">External NTS id</span></a></p></li>
 </ul>
-<p>A component can either be categorized as a <strong>single component</strong> or <strong>grouped
-component</strong>, also known as the main component(s).</p>
-<p>The main component(s) is defined by <strong>componentId</strong> and <strong>ntsObjectId</strong> which are
-being set equal. This means that the component is visible from NTS.</p>
-<p>Single components have a unique <strong>componentId</strong> but uses the <strong>ntsObjectId</strong> of
-their main component.</p>
-<p><strong>externalNtsId</strong> and <strong>ntsObjectId</strong> are optional and only used if the
-component is intended to be sent to <a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><a class="reference internal" href="../definitions.html#term-NTS"><span class="xref std std-term">NTS</span></a> is used at the Swedish Transport Administration. Other road
-authorities typically leaves the <cite>xNid</cite> and <cite>ntsOid</cite> as empty strings.</p>
-</div>
+<p>The site must have exactly one main component.</p>
 </section>
 </section>
 
