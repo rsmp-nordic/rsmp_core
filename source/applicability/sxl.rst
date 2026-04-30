@@ -405,9 +405,9 @@ return values.
 .. _multiple-sxls:
 
 Multiple SXLs
----------------
-A site can implement more than one SXL, and an SXL can declare dependencies on other SXLs.
-This allows you to organize and compose SXLs to facilitate reuse.
+-------------
+A site can implement more than one SXL, and when you define an SXL you can declare dependencies on other SXLs.
+This allows you to organize and compose SXLs and facilitate reuse.
 
 Two SXLs that define the same component type or message code cannot be used together on the same site.
 You can use forward slashes to organize component types and message codes, e.g. ``tlc/plan/set``,
@@ -417,7 +417,7 @@ to ensure that SXLs that are intended to be used together do not conflict.
 
 SXL Dependencies
 ^^^^^^^^^^^^^^^^
-An SXL can list other SXLs as dependencies. It can then rely on the definitions of component types and
+An SXL definition can list other SXLs as dependencies. It can then rely on the definitions of component types and
 message codes in the dependency SXLs, as well as any other aspect defined in the required SXL,
 such as expected behavior or data types.
 
@@ -425,7 +425,7 @@ For example, the SXL ``nordic/traffic_light_controller/advanced`` might depend o
 It can then define a command like ``tlc/adaptive`` which operates on a component type ``tlc/dl`` already defined in
 the ``nordic/traffic_light_controller`` SXL.
 
-A dependency is listed using the SXL names and a version requirement string. The order of dependencies is not significant.
+A dependency is listed using the SXL name and a version requirement string. The order of dependencies is not significant.
 
 .. code-block:: yaml
 
@@ -438,23 +438,26 @@ Version requirement strings support exact version, comparison operators ``>``, `
    :header: "Requirement", "Translation"
 
    * - "1.3.1"
-     - exact version 1.3.1 only
+     - exact version 1.3.1 only. Must specify both major, minor and patch version.
    * - ">=1.3.0"
-     - 1.3.0 or higher (inclusive)
+     - 1.3.0 or higher (inclusive). Minor and/patch versions ca be omitted, in which case zero is assumed.
    * - "<2.0.0"
-     - lower than 2.0.0 (exclusive)
+     - lower than 2.0.0 (exclusive).
    * - "~1.3"
      - any version compatible with 1.3, according to semantic versioning rules, in effect ">=1.3.0 and <2.0.0".
+
+For comparison, minor and/or patch version can be omited, in which case zero is assumed.
+For example, ``>=1.3`` is equivalent to ``>=1.3.0``, and ``<2`` is equivalent to ``<2.0.0``.
 
 Two comparison operators can be combined with ``and``:
 
 .. list-table:: Version requirement combination
    :header: "Requirement", "Translation"
 
-    * - ">=1.3.0 and <2.0.0"
-      - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
+    * - ">=1.3.5 and <2.0"
+      - any version from 1.3.5 (inclusive) to 2.0.0 (exclusive)
 
-To ensure that dependency resolution works as intended, you must update
+To ensure that dependency resolution works as intended, it's imporant that you update
 the SXL version correctly when making changes to an SXL, according to Semantic
 Versioning (SemVer) rules. See the section on :ref:`sxl-version`.
 
@@ -462,7 +465,7 @@ Before an SXL is published or updated, dependency resolution must be performed t
 ensure that dependencies can be met and that there are no conflicts.
 The resulting SXL manifest must be published together with the SXL.
 
-You must ensure that you rely only on what is defined in the dependency SXLs at the versions in the manifest.
+You must ensure that you rely only on what is defined in the dependency SXLs at the versions declared.
 
 .. _sxl-list:
 
@@ -478,9 +481,8 @@ A site specifies the SXLs it supports using SXL names and exact versions. Order 
 
 The SXL list is transmitted in the Version message sent by the site as part of the connection handshake.
 
-Component types and message codes from dependency SXLs will not be available, unless you explicitely list these
-dependency SXLs.
+Component types and message codes from dependency SXLs will not be available to supervisors or peers,
+unless you explicitely list them.
 
 Everything in a listed SXLs must be implemented by the site. If specific functionality in an SXL
-is often not needed, consider extracting this functionality into a separate SXL which can be used when needed.
-
+is often not needed, consider extracting this functionality into a separate SXL which can be included when needed.
