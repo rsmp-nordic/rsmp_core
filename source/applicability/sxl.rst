@@ -9,7 +9,7 @@ used to interact with these component types.
 
 SXLs are machine-readable specifications, not executable artifacts.
 
-.. _sxl-overvie:
+.. _sxl-overview:
 
 SXL Overview
 --------------
@@ -28,12 +28,12 @@ An SXL is identified by a ``name``, e.g. "nordic/variable_message_sign",  "eu/tr
 or "nordic/traffic_light_controller/advanced".
 
 Forward slashes can be used to organize names in a hierarchy.
-Names can contain only lowercase letters, digits, hyphens and forward slashes.
+Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
 
 To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
-To register an SXL, the name must be unique. If it reletes to a specific country or region it
-must include a top-level part in the form ``<coountry code>/...`` or ``<region>/...``,
-e.g. ``se/..``or ``nordic/...``.
+To register an SXL, the name must be unique. If it relates to a specific country or region it
+must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
+e.g. ``se/...`` or ``nordic/...``.
 
 Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
 if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
@@ -47,8 +47,8 @@ An SXL also has a ``description``, which is a short human-readable text e.g. "No
 .. code-block:: yaml
 
   meta:
-    name: nordic/tlc
-    description: Nordic Traffic Light Controller Interface
+    name: nordic/traffic_light_controller
+    description: Nordic Traffic Light Controller
 
 .. _sxl-version:
 
@@ -58,9 +58,9 @@ An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning conven
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
-MAJOR version when you make incompatible API changes
-MINOR version when you add functionality in a backward compatible manner
-PATCH version when you make backward compatible bug fixes
+- MAJOR version when you make incompatible API changes
+- MINOR version when you add functionality in a backward compatible manner
+- PATCH version when you make backward compatible bug fixes
 
 
 .. code-block:: yaml
@@ -69,7 +69,7 @@ PATCH version when you make backward compatible bug fixes
     version: 1.3.1
 
 SXL versions are used to determine whether a site and the supervisor has compatible versions and
-can establish communication.
+can establish communication. How this is done is explained in :ref:`rsmpsxl-version`.
 
 .. _sxl-prefix:
 
@@ -120,17 +120,18 @@ Using a prefix, the SXL can be defined like this:
         plan/set:
           description: Set signal plan
 
-The result is the same, you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
-or "tlc/deadlock" when sending a deadlock alarm.
-
+The result is the same, you still need to use the full paths, e.g. ``tlc/plan/set`` when changing the signal plan,
+or ``tlc/deadlock`` when sending a deadlock alarm.
 
 A prefix does not have to mirror the SXL name and should be short.
 
-For example, a traffic light controller SXL like "nordic/traffic_light_controller" could use the prefix "tlc/".
+For example, a traffic light controller SXL like ``nordic/traffic_light_controller`` could use the prefix ``tlc/``.
 
 Two different SXLs can use the same prefix, as long as they are not intended to be used together on the same site.
+Elements defined under the prefix must still differ if the SXL are going to be used together.
 This flexibility enables use cases like:
 
+ - extensions: a new SXL that adds new component types and/or messages under the an existing prefix defined in another SXL.
  - replacement: a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
 
 
@@ -147,7 +148,7 @@ Component types can be organized into a hierarchy using forward slashes.
 
 .. code-block:: yaml
 
-  types:
+  components:
     tlc/sg:
       description: Signal group
     tlc/dl:
