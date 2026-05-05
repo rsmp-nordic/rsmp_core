@@ -89,9 +89,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#id16">4.4.7.1. Message structure</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.8. Watchdog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id18">4.4.8.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id19">4.4.8.2. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#componentlist">4.4.8. ComponentList</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.8.1. Message structure</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.9. Watchdog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">4.4.9.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">4.4.9.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 </ul>
@@ -169,8 +173,8 @@ otherwise stated.</p>
 </div>
 <p>JSon code 2: An RSMP message</p>
 <p>The following table is describing the variable content of all message types.</p>
-<table class="docutils align-default" id="id20">
-<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id20" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id21">
+<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id21" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -182,7 +186,7 @@ otherwise stated.</p>
 <td><p>rSMsg</p></td>
 <td><p>RSMP identifier</p></td>
 </tr>
-<tr class="row-odd"><td rowspan="14"><p>type</p></td>
+<tr class="row-odd"><td rowspan="15"><p>type</p></td>
 <td><p>Alarm</p></td>
 <td><p>Alarm message</p></td>
 </tr>
@@ -222,10 +226,13 @@ otherwise stated.</p>
 <tr class="row-odd"><td><p>Version</p></td>
 <td><p>RSMP / SXL version message</p></td>
 </tr>
-<tr class="row-even"><td><p>Watchdog</p></td>
+<tr class="row-even"><td><p>ComponentList</p></td>
+<td><p>Component list message</p></td>
+</tr>
+<tr class="row-odd"><td><p>Watchdog</p></td>
 <td><p>Watchdog message</p></td>
 </tr>
-<tr class="row-odd"><td><p>mId
+<tr class="row-even"><td><p>mId
 <em>(or)</em>
 oMId</p></td>
 <td><p><em>(GUID)</em></p></td>
@@ -248,8 +255,8 @@ content is the same</p></li>
 <p>The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.</p>
-<table class="docutils align-default" id="id21">
-<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id21" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id22">
+<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id22" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -324,8 +331,8 @@ element ‘aSp’.</p>
 <p>JSon code 3: An alarm message</p>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id22">
-<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id22" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id23">
+<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id23" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -344,8 +351,8 @@ defined by the SXL.</p>
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id23">
-<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id23" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id24">
+<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id24" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -388,8 +395,8 @@ defined by the SXL.</p>
 <span id="id4"></span><h4><span class="section-number">4.4.1.1.2. </span>Alarm status<a class="headerlink" href="#alarm-status" title="Link to this heading"></a></h4>
 <p>Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).</p>
-<table class="docutils align-default" id="id24">
-<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id24" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id25" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -453,8 +460,8 @@ and dashed lines defines possible changes controlled by user.</p>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id25">
-<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id25" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id26">
+<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id26" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -475,8 +482,8 @@ defined by the SXL.</p>
 <p>Return values (“rvs”) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
-<table class="docutils align-default" id="id26">
-<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id26" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id27">
+<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id27" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -492,8 +499,8 @@ be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 </table>
 <p>The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id27">
-<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id27" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id28">
+<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id28" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -738,8 +745,8 @@ below.</p>
 </div>
 <p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
-<table class="docutils align-default" id="id28">
-<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id28" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id29">
+<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id29" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -758,8 +765,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id29">
-<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id29" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id30">
+<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id30" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -785,8 +792,8 @@ in the SXL.</p>
 The signal exchange list (SXL) for a particular type of equipment can detail the
 interpretation of each bit, but is not allowed to change the fundamental meaning or
 modify the rules for which bits can or must be set together.</p>
-<table class="docutils align-default" id="id30">
-<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">State bits</span><a class="headerlink" href="#id30" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id31">
+<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">State bits</span><a class="headerlink" href="#id31" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Bit</p></th>
 <th class="head"><p>Status</p></th>
@@ -957,8 +964,8 @@ below.</p>
 (<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple statuses at
 once.</p>
 <p>The following table is describing the variable content of the message.</p>
-<table class="docutils align-default" id="id31">
-<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id31" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id32">
+<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id32" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -1006,8 +1013,8 @@ The following table is describing the variable content of the message.</p>
 </div>
 <p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id32">
-<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id32" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id33">
+<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id33" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1028,8 +1035,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <section id="return-values-returnvalue">
 <h4><span class="section-number">4.4.4.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Link to this heading"></a></h4>
 <p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
-<table class="docutils align-default" id="id33">
-<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id33" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id34">
+<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id34" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1043,8 +1050,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default" id="id34">
-<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id34" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id35">
+<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id35" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -1063,8 +1070,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id35">
-<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id35" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id36">
+<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id36" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1140,8 +1147,8 @@ StatusSubscribe during an active subscription.</p>
 </div>
 <p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id36">
-<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id36" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id37">
+<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id37" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1402,8 +1409,8 @@ requested component.</p>
 array (<code class="docutils literal notranslate"><span class="pre">arg</span></code>).</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
-<table class="docutils align-default" id="id37">
-<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id37" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id38">
+<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id38" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1419,8 +1426,8 @@ array (<code class="docutils literal notranslate"><span class="pre">arg</span></
 </table>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id38">
-<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id38" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id39">
+<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id39" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1491,8 +1498,8 @@ once.</p>
 </div>
 <p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id39">
-<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id39" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id40">
+<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id40" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1514,8 +1521,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <h4><span class="section-number">4.4.5.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
 be empty if not return values are defined.</p>
-<table class="docutils align-default" id="id40">
-<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id40" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id41">
+<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id41" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1531,8 +1538,8 @@ be empty if not return values are defined.</p>
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id41">
-<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id41" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id42">
+<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id42" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1555,8 +1562,8 @@ exchange list (SXL).</p>
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id42">
-<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id42" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id43">
+<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id43" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1651,8 +1658,8 @@ below.</p>
 </div>
 <p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id43">
-<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id43" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id44">
+<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id44" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1734,8 +1741,8 @@ the example below the system has support for RSMP version <strong>3.1.1</strong>
 defined by the SXL.</p>
 <p>The <em>Site config</em> columns describes the correlation between the JSon
 elements and the titles in the site configuration.</p>
-<table class="docutils align-default" id="id44">
-<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id44" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id45">
+<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id45" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1763,8 +1770,8 @@ elements and the titles in the site configuration.</p>
 Therefore the site ids that are used in the RSMP connection are sent
 in the message using an array with <code class="docutils literal notranslate"><span class="pre">sId</span></code>.</p>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id45">
-<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id45" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id46">
+<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id46" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1795,8 +1802,88 @@ sent by the supervisors, not the initial Version request sent by the site.</p>
 <p>The supervisor can request, acknowledge and suspend/resume alarms even if the <cite>receiveAlarms</cite> attribute was set to false.</p>
 </section>
 </section>
+<section id="componentlist">
+<span id="component-list"></span><h2><span class="section-number">4.4.8. </span>ComponentList<a class="headerlink" href="#componentlist" title="Link to this heading"></a></h2>
+<p>A ComponentList message is used to list the components on a site.
+It is sent during communication establishment, and whenever the component list changes,
+i.e. if a component is added, removed or changed.</p>
+<p>The ComponentList message is the authoritative source of information about the components on the site.
+It takes precedence over any static configuration that the supervisor might have.
+However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
+If the supervisor don’t have any configuration for the site, it can use the ComponentList to discover the components.</p>
+<p>The list of components is sent as an array, and must be ordered by component IDs, using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a>. IDs must be unqiue on the site.</p>
+<section id="id17">
+<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>A ComponentList message has the structure according to the example below.</p>
+<div class="highlight-json notranslate" id="json-componentlist"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ComponentList&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;mId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;detectors/radar/1&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tlc/dl&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bus Detection A1 Northbound&quot;</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;groups/2&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tlc/sg&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Signal Group A1 North&quot;</span>
+<span class="w">         </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;groups/10&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tlc/sg&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Signal Group B2 South&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSon code 26: A ComponentList message</p>
+<p>The following table describes the variable content of the message:</p>
+<table class="docutils align-default" id="id47">
+<caption><span class="caption-number">Table 4.28 </span><span class="caption-text">ComponentList</span><a class="headerlink" href="#id47" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>components</p></td>
+<td><p>array</p></td>
+<td><p>List of components on the site, ordered by their IDs, using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following table describes the content of each component in the array:</p>
+<table class="docutils align-default" id="id48">
+<caption><span class="caption-number">Table 4.29 </span><span class="caption-text">Component entry</span><a class="headerlink" href="#id48" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>string</p></td>
+<td><p><a class="reference internal" href="components.html#component-id"><span class="std std-ref">Component ID</span></a> identifying the component</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>string</p></td>
+<td><p>Component type, as defined in a used SXL. See <a class="reference internal" href="components.html#component-type"><span class="std std-ref">Component Type</span></a> for information about component types</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>string</p></td>
+<td><p>Human readable name of the component</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="watchdog">
-<span id="id17"></span><h2><span class="section-number">4.4.8. </span>Watchdog<a class="headerlink" href="#watchdog" title="Link to this heading"></a></h2>
+<span id="id18"></span><h2><span class="section-number">4.4.9. </span>Watchdog<a class="headerlink" href="#watchdog" title="Link to this heading"></a></h2>
 <p>The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
@@ -1812,8 +1899,8 @@ setting should be (1) once a minute.</p>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>
-<section id="id18">
-<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3><span class="section-number">4.4.9.1. </span>Message structure<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <p>A watchdog message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -1825,8 +1912,8 @@ from the supervision system. At initial communication establishment
 </div>
 <p>JSon code 25: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id46">
-<caption><span class="caption-number">Table 4.28 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id46" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id49">
+<caption><span class="caption-number">Table 4.30 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id49" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1842,8 +1929,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 </section>
-<section id="id19">
-<h3><span class="section-number">4.4.8.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<section id="id20">
+<h3><span class="section-number">4.4.9.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>

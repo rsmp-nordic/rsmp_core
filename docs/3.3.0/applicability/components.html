@@ -59,13 +59,12 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#component-type">4.7.1. Component Type</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#component-id">4.7.2. Component ID</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#classic-ids">4.7.2.1. Classic IDs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#path-ids">4.7.2.2. Path IDs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#addressing-components">4.7.2.3. Addressing Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#addressing-components">4.7.2.1. Addressing Components</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#component-name">4.7.3. Component Name</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#component-data-and-state">4.7.4. Component Data and State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-ordering">4.7.5. Component Ordering</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
@@ -113,83 +112,48 @@ For example, a traffic light controller might have signal group and detector log
 </ul>
 <section id="component-type">
 <span id="id2"></span><h2><span class="section-number">4.7.1. </span>Component Type<a class="headerlink" href="#component-type" title="Link to this heading"></a></h2>
-<p>Component types are defined by SXLs.
-For example, an SXL for traffic light controllers might define the component types <code class="docutils literal notranslate"><span class="pre">sg</span></code> for
-signal groups and <code class="docutils literal notranslate"><span class="pre">dl</span></code> for detector logics.</p>
+<p>Component types are defined by SXLs.</p>
+<p>For example, an SXL for traffic light controllers might define the component types <code class="docutils literal notranslate"><span class="pre">tlc/sg</span></code> for
+signal groups and <code class="docutils literal notranslate"><span class="pre">tlc/dl</span></code> for detector logics.</p>
 <p>Component types are used in SXLs when defining which alarms, commands and statuses apply to which components.</p>
 <p>Component types must be unique within the SXL where they are defined, but does not have to be globally unique.
-You therefore refer to a component type using <code class="docutils literal notranslate"><span class="pre">/&lt;sxl&gt;/&lt;component</span> <span class="pre">type&gt;</span></code>, for example <code class="docutils literal notranslate"><span class="pre">/tlc/sg</span></code> refers to
-the signal group component type <code class="docutils literal notranslate"><span class="pre">sg</span></code> defined in the SXL <code class="docutils literal notranslate"><span class="pre">tlc</span></code>.</p>
+The SXLs that define the same component type therefore canont be used together on the same site.</p>
 <p>Component type IDs use UTF-8 and must contain only letters, digits, hyphens, underscores and forward slashes.</p>
 </section>
 <section id="component-id">
 <span id="id3"></span><h2><span class="section-number">4.7.2. </span>Component ID<a class="headerlink" href="#component-id" title="Link to this heading"></a></h2>
-<p>Component IDs are used to identify components.</p>
-<p>There are two formats for component IDs, described below.
-All component IDs on a site must use the same format; a site cannot use both formats.</p>
-<p>A component ID does not have to indicate the component type, although this is often useful.
-You cannot safely infer the component type from a path ID.</p>
-<section id="classic-ids">
-<span id="classic-component-id"></span><h3><span class="section-number">4.7.2.1. </span>Classic IDs<a class="headerlink" href="#classic-ids" title="Link to this heading"></a></h3>
-<p>This format consists of a string with a specific encoding.
-The “<a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">Site id</span></a>” is included as the first part of the string.
-Slashes are not allowed.</p>
-<p>Structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AA</span><span class="o">+</span><span class="n">BBCDD</span><span class="o">=</span><span class="n">EEEFFGGG</span>
-</pre></div>
-</div>
-<p>Where:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">AA+BBCDD</span></code> is the <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a>, typically the geographical location</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">EEE</span></code> identifies the site type, e.g. traffic lights</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">FF</span></code> identifies the type of component, e.g. signal group</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GGG</span></code> is the component index</p></li>
-</ul>
-<p>Classic IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs and equal signs.</p>
+<p>Component IDs are used to identify components.
+The can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.</p>
+<p>Forward slashes <code class="docutils literal notranslate"><span class="pre">/</span></code> can be used to organise components into a hierarchy.</p>
+<p>The <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a> should not be included as part of the ID, but is allowed to easy migration from the previous format.</p>
 <p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AB</span><span class="o">+</span><span class="mi">84001</span><span class="o">=</span><span class="mi">860</span><span class="n">DL001</span>
-<span class="n">AB</span><span class="o">+</span><span class="mi">84001</span><span class="o">=</span><span class="mi">860</span><span class="n">DL002</span>
-<span class="n">AB</span><span class="o">+</span><span class="mi">84001</span><span class="o">=</span><span class="mi">860</span><span class="n">SG001</span>
-<span class="n">AB</span><span class="o">+</span><span class="mi">84001</span><span class="o">=</span><span class="mi">860</span><span class="n">SG002</span>
-<span class="n">AB</span><span class="o">+</span><span class="mi">84001</span><span class="o">=</span><span class="mi">860</span><span class="n">TC001</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dl</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">b2</span>
+<span class="n">dl</span><span class="o">/</span><span class="n">north</span><span class="o">/</span><span class="n">a</span>
+<span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">intersection</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">6</span>
+<span class="n">sensors</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">A8</span>
+<span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">tc</span>
 </pre></div>
 </div>
-</section>
-<section id="path-ids">
-<span id="path-component-id"></span><h3><span class="section-number">4.7.2.2. </span>Path IDs<a class="headerlink" href="#path-ids" title="Link to this heading"></a></h3>
-<p>This is a newer format that uses slashes to organise components into a hierarchy.
-The <a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">site id</span></a> is not included as part of the string.</p>
-<p>Structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/...</span>
-</pre></div>
-</div>
-<p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">b2</span>
-<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">north</span><span class="o">/</span><span class="n">a</span>
-<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">1</span>
-<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="n">radar</span><span class="o">/</span><span class="mi">2</span>
-<span class="o">/</span><span class="n">intersection</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">6</span>
-<span class="o">/</span><span class="n">sensors</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">A8</span>
-<span class="o">/</span><span class="n">sg</span><span class="o">/</span><span class="mi">1</span>
-<span class="o">/</span><span class="n">tc</span>
-</pre></div>
-</div>
-<p>A path ID must start with a forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code>. Additional slashes separate levels.
-Empty levels, e.g. <code class="docutils literal notranslate"><span class="pre">/sg//1</span></code>, are not allowed. An ID must not end with a slash.</p>
-<p>Path IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs,
-equal signs and forward slashes.</p>
-</section>
+<p>An component ID must not start or end with a slash.
+Empty levels, e.g. <code class="docutils literal notranslate"><span class="pre">sg//1</span></code>, are not allowed.</p>
+<p>Even though it’s often natural to organize components by type, for example by placing signal groups
+of a traffic light controller under the path <code class="docutils literal notranslate"><span class="pre">groups/</span></code>, there is no requirement to include the
+component type in a component ID, or include it at a specific location in the ID.</p>
+<p>You cannot safely infer the component type from the component ID alone.
+Instead you should rely on the <code class="docutils literal notranslate"><span class="pre">ComponentList</span></code> message, which will explicitly list the component
+types of all components, e.g. <code class="docutils literal notranslate"><span class="pre">tlc/sg</span></code> for signal group component.</p>
 <section id="addressing-components">
-<span id="id4"></span><h3><span class="section-number">4.7.2.3. </span>Addressing Components<a class="headerlink" href="#addressing-components" title="Link to this heading"></a></h3>
-<p>A single component is addressed using its full ID, whether classic or path IDs are used.</p>
-<p>If path IDs are used, you can use paths to address groups of components.
-Paths end with a forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> and covers components below it in the
-ID hierarchy.</p>
-<p>For example, the path <code class="docutils literal notranslate"><span class="pre">/dl/radar/</span></code> might cover <code class="docutils literal notranslate"><span class="pre">/dl/radar/1</span></code> and <code class="docutils literal notranslate"><span class="pre">/dl/radar/2</span></code>.</p>
-<p>A single forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> indicates the root and covers all components.</p>
-<p>If classic IDs are used, no hierarchy is defined and paths cannot be used, not even <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
-<p>An empty string or null means no component and can be used as way to address
-site as a whole. This is allowed for both classic and path IDs.</p>
+<span id="id4"></span><h3><span class="section-number">4.7.2.1. </span>Addressing Components<a class="headerlink" href="#addressing-components" title="Link to this heading"></a></h3>
+<p>A single component is addressed using its full ID, e.g. <code class="docutils literal notranslate"><span class="pre">dl/radar/1</span></code> or <code class="docutils literal notranslate"><span class="pre">KK+AG0503=001SG001</span></code>.</p>
+<p>If components are organised in a hierarchy using forward slashes, you can use partial paths ending with <code class="docutils literal notranslate"><span class="pre">/</span></code>
+to reference all component under that path. For example, given the componts example above,
+the path <code class="docutils literal notranslate"><span class="pre">dl/radar/</span></code> would reference <code class="docutils literal notranslate"><span class="pre">dl/radar/1</span></code> and <code class="docutils literal notranslate"><span class="pre">dl/radar/2</span></code>.</p>
+<p>A single forward slash <code class="docutils literal notranslate"><span class="pre">/</span></code> indicate the root and references all components.</p>
+<p>An empty string or null mean no component. Depending on context this can be used
+to indicate the site as a whole, as opposed to any specific compponent or group of components.</p>
 </section>
 </section>
 <section id="component-name">
@@ -208,6 +172,53 @@ in a relevant SXL.</p>
 signifying whether it’s currently green, yellow or red. An SXL for traffic light controllers
 might define a status to read the current colour of a signal group component, and maybe
 commands to request that a group turns green or red.</p>
+</section>
+<section id="component-ordering">
+<span id="id6"></span><h2><span class="section-number">4.7.5. </span>Component Ordering<a class="headerlink" href="#component-ordering" title="Link to this heading"></a></h2>
+<p>As part of the connection sequence, the site sends a <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> message which lists
+all components on the site.</p>
+<p>The site must order the components in the component list using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a> of their component IDs.
+This ensures that the list is predictable and human-readable.</p>
+<p>However, the supervisor must always use the order of the components as received in the <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> message,
+even if the site has failed to sort them correctly.</p>
+<p>The component list items are indexed starting from zero and have no gaps.
+When working with compact data structures, placeholders for missing components will therefore never be used.</p>
+<p>As an example, a site might have these component IDs:</p>
+<blockquote>
+<div><p>0: dl/north
+1: dl/south
+2: sg/1
+3: sg/2
+4: tc</p>
+</div></blockquote>
+<p>The ordering can be relied on to reference many components in a compact way, by using short integer indexes,
+indicating the position in the ordered list.</p>
+<p>For example, you can send a string where each character relates to a specific component.</p>
+<p>You can also index subsets of components, by enumerating items in the subset starting from zero,
+while using the ordering of the full list. For example the subset of signal groups at <code class="docutils literal notranslate"><span class="pre">sg/</span></code> would have the
+following indexes:</p>
+<blockquote>
+<div><p>0: sg/1
+1: sg/2</p>
+</div></blockquote>
+<p>If we assume a status update with the string “RG” is sent to indicate the
+state of signal groups under the path <code class="docutils literal notranslate"><span class="pre">sg/</span></code> then:</p>
+<ul class="simple">
+<li><p>The character at index 0 in the string is <code class="docutils literal notranslate"><span class="pre">R</span></code>, thus <code class="docutils literal notranslate"><span class="pre">sg/1</span></code> is in state <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p></li>
+<li><p>The character at index 1 in the string is <code class="docutils literal notranslate"><span class="pre">G</span></code>, thus <code class="docutils literal notranslate"><span class="pre">sg/2</span></code> is in state <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
+</ul>
+<p>The ordering defined by the <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> is stable. It does not change
+unless a new <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> message is received (e.g. after a reconnection).
+This means the mapping between list positions and component IDs remains constant,
+while the values in status messages will change over time.</p>
+<p>You cannot safely rely on integer parts of component IDs for indexing, because they:</p>
+<ul class="simple">
+<li><p>might not be unique across component types</p></li>
+<li><p>might not be sequential</p></li>
+<li><p>might not start from zero</p></li>
+<li><p>might not be present</p></li>
+</ul>
+<p>Instead you must rely on the ordering provided by the <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> message.</p>
 </section>
 </section>
 

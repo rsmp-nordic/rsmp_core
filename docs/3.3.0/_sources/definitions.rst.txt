@@ -73,10 +73,6 @@ Definitions
        *Please note that a component is not necessarily the same thing as an
        NTS object.*
 
-   Component type
-       A :ref:`component-type` is used to classify :ref:`components`.
-       Component types are defined by SXLs.
-
    Component id
        A :ref:`component-id` identifies a :ref:`component <components>`.
 

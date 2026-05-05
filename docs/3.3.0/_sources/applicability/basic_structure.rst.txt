@@ -83,6 +83,8 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | Version                 | RSMP / SXL version message            |
    |         +-------------------------+---------------------------------------+
+   |         | ComponentList           | Component list message                |
+   |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
    | mId     | *(GUID)*                | Message identity                      |
@@ -1668,6 +1670,80 @@ sent by the supervisors, not the initial Version request sent by the site.
 - If set to true, or omitted, site must send alarms to the supervisor as normal.
 
 The supervisor can request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false.
+
+.. _component-list:
+
+ComponentList
+^^^^^^^^^^^^^
+A ComponentList message is used to list the components on a site.
+It is sent during communication establishment, and whenever the component list changes,
+i.e. if a component is added, removed or changed.
+
+The ComponentList message is the authoritative source of information about the components on the site.
+It takes precedence over any static configuration that the supervisor might have.
+However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
+If the supervisor don't have any configuration for the site, it can use the ComponentList to discover the components.
+
+The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`. IDs must be unqiue on the site.
+
+
+Message structure
+"""""""""""""""""
+A ComponentList message has the structure according to the example below.
+
+.. code-block:: json
+   :name: json-componentlist
+
+   {
+        "mType": "rSMsg",
+        "type": "ComponentList",
+        "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
+        "components": [
+            {
+                "id": "detectors/radar/1",
+                "type": "tlc/dl",
+                "name": "Bus Detection A1 Northbound"
+            },
+            {
+                "id": "groups/2",
+                "type": "tlc/sg",
+                "name": "Signal Group A1 North"
+            },
+            {
+                "id": "groups/10",
+                "type": "tlc/sg",
+                "name": "Signal Group B2 South"
+            }
+        ]
+   }
+
+JSon code 26: A ComponentList message
+
+The following table describes the variable content of the message:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: ComponentList
+
+   ========== ======== ===============================
+   Element    Type     Description
+   ========== ======== ===============================
+   components array    List of components on the site, ordered by their IDs, using :ref:`natural-sorting`
+   ========== ======== ===============================
+
+The following table describes the content of each component in the array:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: Component entry
+
+   ======== ======== ===================================================
+   Element  Type     Description
+   ======== ======== ===================================================
+   id       string   :ref:`component-id` identifying the component
+   type     string   Component type, as defined in a used SXL. See :ref:`component-type` for information about component types
+   name     string   Human readable name of the component
+   ======== ======== ===================================================
 
 .. _watchdog:
 

@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#json-types">4.6.1. JSON types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#specialized-types">4.6.2. Specialized types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#legacy-types">4.6.3. Legacy types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#natural-sorting">4.6.4. Natural Sorting</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
@@ -152,6 +153,24 @@ Commas are not allowed as part of the strings.</p>
 <dt>boolean_list_as_string</dt><dd><p>A comma-separated list of boolean_as_strings, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;true,false&quot;</span></code>.</p>
 </dd>
 </dl>
+</section>
+<section id="natural-sorting">
+<span id="id2"></span><h2><span class="section-number">4.6.4. </span>Natural Sorting<a class="headerlink" href="#natural-sorting" title="Link to this heading"></a></h2>
+<p>Natural sorting is the same as alphabetical sorting, except that sequences of digits
+inside the strings are treated and sorted numerically:</p>
+<div class="highlight-default notranslate" id="id-ordering-natural"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">1</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">2</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">10</span>
+<span class="o">/</span><span class="n">tc</span>
+</pre></div>
+</div>
+<p>This is different from alphabetical sorting, which would give:</p>
+<div class="highlight-default notranslate" id="id-ordering-alphabetical"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">1</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">10</span>
+<span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">2</span>
+<span class="o">/</span><span class="n">tc</span>
+</pre></div>
+</div>
 </section>
 </section>
 
