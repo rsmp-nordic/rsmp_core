@@ -7,23 +7,16 @@ A signal exchange list (:term:`SXL`) specifies the interface for a type of equip
 The interface consists of component types, and the alarm, command, and status messages
 used to interact with these component types.
 
-SXLs are machine-readable specifications, not executable artifacts.
+It also details the meaning of aggregated status bits, functional positions and functional states.
 
-.. _sxl-overview:
-
-SXL Overview
---------------
 An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.
 
-It defines component types, which are logical or physical parts of a site,
-and the alarm, command, and status messages used to interact with each of these component types.
-
-It also details the meaning of aggregated status bits, functional positions and functional states.
+SXLs are machine-readable specifications, not executable artifacts.
 
 .. _sxl-name:
 
-SXL Name and Description
-^^^^^^^^^^^^^^^^^^^^^^^^
+Name and Description
+^^^^^^^^^^^^^^^^^^^^
 An SXL is identified by a ``name``, e.g. "nordic/variable_message_sign",  "eu/traffic_light_controller"
 or "nordic/traffic_light_controller/advanced".
 
@@ -52,8 +45,8 @@ An SXL also has a ``description``, which is a short human-readable text e.g. "No
 
 .. _sxl-version:
 
-SXL Version
-^^^^^^^^^^^
+Version
+^^^^^^^
 An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning conventions.
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
@@ -73,8 +66,8 @@ can establish communication. How this is done is explained in :ref:`rsmpsxl-vers
 
 .. _sxl-prefix:
 
-SXL Prefix
-^^^^^^^^^^
+Prefix
+^^^^^^
 An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. "tlc/" for a traffic light controller SXL.
 
