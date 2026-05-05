@@ -11,6 +11,10 @@ Definitions
        The examples in this document are defined according to the following
        format: *Ayyyy*, where *yyyy* is a unique number.
 
+   Code id
+       A code id identifies alarms, commands and statuses. See :term:`Alarm code id`,
+       :term:`Command code id` and :term:`Status code id`.
+
    Command code id
        Identity of a command
 
