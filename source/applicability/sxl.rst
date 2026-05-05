@@ -127,7 +127,7 @@ This means you can define a new SXL that is compatible with an existing SXL, and
 
 Component Types
 ^^^^^^^^^^^^^^^
-An SXL defines the available :ref:`component` types. Components are the logical or physical part of a site.
+An SXL defines the available :term:`component` types. Components are the logical or physical part of a site.
 
 .. code-block:: yaml
 
