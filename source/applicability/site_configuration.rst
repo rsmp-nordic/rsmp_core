@@ -2,7 +2,6 @@
 
 Site configuration
 ==================
-
 A site configuration defines the individual components that exists
 in a specific site. It also defines the relationship between those components.
 
@@ -47,7 +46,6 @@ It contains:
 
 Components
 ----------
-
 A site consists of components, identified by unique component ids (``cId``).
 
 Using the Excel format; components are defined in it's own sheet - one for each
@@ -73,5 +71,4 @@ Where:
 * ``componentId`` is the :ref:`Component-id`
 
 The site must have exactly one main component.
-
 

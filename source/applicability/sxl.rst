@@ -7,25 +7,17 @@ A signal exchange list (:term:`SXL`) specifies the interface for a type of equip
 The interface consists of component types, and the alarm, command, and status messages
 used to interact with these component types.
 
-SXLs are machine-readable specifications, not executable artifacts.
+It also details the meaning of aggregated status bits, functional positions and functional states.
 
-.. _sxl-overview:
-
-SXL Overview
---------------
 An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.
 
-It defines component types, which are logical or physical parts of a site,
-and the alarm, command, and status messages used to interact with each of these component types.
-
-It also details the meaning of aggregated status bits, functional positions and functional states.
+SXLs are machine-readable specifications, not executable artifacts.
 
 .. _sxl-name:
 
-SXL Name and Description
-^^^^^^^^^^^^^^^^^^^^^^^^
-An SXL is identified by a ``name``, e.g. "nordic/variable_message_sign",  "eu/traffic_light_controller"
-or "nordic/traffic_light_controller/advanced".
+Name and Description
+^^^^^^^^^^^^^^^^^^^
+An SXL is identified by a ``name``, e.g. "traffic_light_controller" or "traffic_light_controller/advanced".
 
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
@@ -33,15 +25,14 @@ Names can contain only lowercase letters, digits, hyphens, underscores and forwa
 To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
 To register an SXL, the name must be unique. If it relates to a specific country or region it
 must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
-e.g. ``se/...`` or ``nordic/...``.
+e.g. ``se/...`` or ``eu/...``.
 
 Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
 if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
 
-Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL. These
-should be migrated when possible, e.g. to ``nordic/traffic_light_controller``.
+Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
 
-An SXL also has a ``description``, which is a short human-readable text e.g. "Nordic Traffic Light Controller".
+An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
 
 
 .. code-block:: yaml
@@ -52,8 +43,8 @@ An SXL also has a ``description``, which is a short human-readable text e.g. "No
 
 .. _sxl-version:
 
-SXL Version
-^^^^^^^^^^^
+Version
+^^^^^^^
 An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning conventions.
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
@@ -73,14 +64,14 @@ can establish communication. How this is done is explained in :ref:`rsmpsxl-vers
 
 .. _sxl-prefix:
 
-SXL Prefix
-^^^^^^^^^^
+Prefix
+^^^^^^
 An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. "tlc/" for a traffic light controller SXL.
 
 A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
 
-If you intend to define everything under the same scope, e.g. "nordic/", it is recommended to define a prefix.
+If you intend to define everything under the same scope, e.g. "tlc/", it is recommended to define a prefix.
 It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
 string everywhere.
 
@@ -125,23 +116,18 @@ or ``tlc/deadlock`` when sending a deadlock alarm.
 
 A prefix does not have to mirror the SXL name and should be short.
 
-For example, a traffic light controller SXL like ``nordic/traffic_light_controller`` could use the prefix ``tlc/``.
+For example, a traffic light controller SXL like ``traffic_light_controller`` could use the prefix ``tlc/``.
 
 Two different SXLs can use the same prefix, as long as they are not intended to be used together on the same site.
 Elements defined under the prefix must still differ if the SXL are going to be used together.
-This flexibility enables use cases like a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
+This means you can define a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
 
 
 .. _sxl-component-types:
 
-SXL Component Types
-^^^^^^^^^^^^^^^^^^^
-An SXL defines the available :term:`component types<Component type>`. Components are the logical or physical part of a site.
-
-Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed in component types.
-Component type must be unique within the SXL. 
-
-Component types can be organized into a hierarchy using forward slashes.
+Component Types
+^^^^^^^^^^^^^^^
+An SXL defines the available :ref:`component` types. Components are the logical or physical part of a site.
 
 .. code-block:: yaml
 
@@ -153,8 +139,10 @@ Component types can be organized into a hierarchy using forward slashes.
 
 Each type must have a short description.
 
-Message types
--------------
+.. _sxl-messages:
+
+Messages
+--------
 
 The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
 are defined in the SXL.
