@@ -16,7 +16,7 @@ SXLs are machine-readable specifications, not executable artifacts.
 .. _sxl-name:
 
 Name and Description
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 An SXL is identified by a ``name``, e.g. "traffic_light_controller" or "traffic_light_controller/advanced".
 
 Forward slashes can be used to organize names in a hierarchy.
