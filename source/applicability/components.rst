@@ -17,8 +17,9 @@ A component has:
 Component Type
 --------------
 Component types are defined by SXLs.
-For example, an SXL for traffic light controllers might define the component types ``sg`` for
-signal groups and ``dl`` for detector logics.
+
+For example, an SXL for traffic light controllers might define the component types ``tlc/sg`` for
+signal groups and ``tlc/dl`` for detector logics.
 
 Component types are used in SXLs when defining which alarms, commands and statuses apply to which components.
 
@@ -35,6 +36,7 @@ Component IDs are used to identify components.
 The can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.
 
 Forward slashes ``/`` can be used to organise components into a hierarchy.
+
 The :term:`site id` should not be included as part of the ID, but is allowed to easy migration from the previous format.
 
 Examples::
@@ -51,64 +53,13 @@ Examples::
 An component ID must not start or end with a slash.
 Empty levels, e.g. ``sg//1``, are not allowed.
 
-
 Even though it's often natural to organize components by type, for example by placing signal groups
-of a traffic light controller under the path ``sg/``, there is no requirement to include the
+of a traffic light controller under the path ``groups/``, there is no requirement to include the
 component type in a component ID, or include it at a specific location in the ID.
 
-Threrefore you cannot safely infer the component type from the component ID alone.
-Instead you should rely on the ComponentList message, which will explicitly list the component
-types of all components, e.g. ``sg`` for signal group component.
-
-.. _classic-component-id:
-
-Classic IDs
-^^^^^^^^^^^
-An earlier format which consists of a string with a specific encoding.
-The ":term:`Site id`" is included as the first part of the string, and forward slashes are not allowed.
-
-Structure::
-
-  AA+BBCDD=EEEFFGGG
-
-Where:
-
-* ``AA+BBCDD`` is the :term:`site id`, typically the geographical location
-* ``EEE`` identifies the site type, e.g. traffic lights
-* ``FF`` identifies the type of component, e.g. signal group
-* ``GGG`` is the component index
-
-Classic IDs use UTF-8 and can contain only letters, digits, hyphens, plus signs and equal signs.
-
-Examples::
-
-  AB+84001=860DL001
-  AB+84001=860SG002
-  AB+84001=860TC001
-
-Note that since a messages is send to a specific site, the site id in a classic component ID is redundant
-and not used for message route.
-
-
-Format compatibility
-^^^^^^^^^^^^^^^^^^^^
-IDs in the classic format are still valid under the current format and can be used without any
-changes. However, it's recommended to migrate classic IDs to the current format,
-and only use the currnt formaat for new installations.
-
-Example Migration:
-
-.. table:: Classic to path ID migration
-
-   +-------------------+--------+
-   | Classic           | Path   |
-   +===================+========+
-   | AB+84001=860DL001 | dl/1   |
-   +-------------------+--------+
-   | AB+84001=860SG002 | sg/2   |
-   +-------------------+--------+
-   | AB+84001=860TC001 | tc     |
-   +-------------------+--------+
+You cannot safely infer the component type from the component ID alone.
+Instead you should rely on the ``ComponentList`` message, which will explicitly list the component
+types of all components, e.g. ``tlc/sg`` for signal group component.
 
 .. _addressing-components:
 
@@ -165,7 +116,7 @@ even if the site has failed to sort them correctly.
 The component list items are indexed starting from zero and have no gaps.
 When working with compact data structures, placeholders for missing components will therefore never be used.
 
-As an example, a site might have these classic IDs:
+As an example, a site might have these component IDs:
 
   0: dl/north
   1: dl/south
@@ -173,13 +124,6 @@ As an example, a site might have these classic IDs:
   3: sg/2
   4: tc
 
-Or these classic IDs:
-
-  0: KK+AG0503=001DL001
-  1: KK+AG0503=001DL002
-  2: KK+AG0503=001SG001
-  3: KK+AG0503=001SG002
-  4: KK+AG0503=001TC001
 
 The ordering can be relied on to reference many components in a compact way, by using short integer indexes,
 indicating the position in the ordered list.
@@ -212,20 +156,3 @@ You cannot safely rely on integer parts of component IDs for indexing, because t
 * might not be present
 
 Instead you must rely on the ordering provided by the :ref:`component-list` message.
-
-Ordering of Classic IDs
-^^^^^^^^^^^^^^^^^^^^^^^
-For sites using :ref:`classic-component-id`, the component ID includes a numeric part at the end
-(e.g. ``001`` in ``KK+AG0503=001SG001``).
-Because the :ref:`component-list` uses :ref:`natural-sorting`, the components will be ordered
-explicitly according to this index. But while ordering will follow the numeric part, the actual
-values might differ, for example:
-
-  0: KK+AG0503=001DL001
-  1: KK+AG0503=001DL002
-  2: KK+AG0503=001SG001
-  3: KK+AG0503=001SG002
-  4: KK+AG0503=001TC001
-
-Always use indexes provided by the :ref:`component-list` message instead of trying to infer
-them from the component IDs themselves.

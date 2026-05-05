@@ -127,16 +127,7 @@ This means you can define a new SXL that is compatible with an existing SXL, and
 
 Component Types
 ^^^^^^^^^^^^^^^
-An SXL defines the available :term:`component types<Component type>`. Components are the logical or physical part of a site.
-
-Only lowercase letters, digits, hyphens, underscores and forward slashes are allowed in component types.
-Component types can be organized into a hierarchy using forward slashes.
-A component type must not start or end with a slash.
-
-Component type must be unique within the SXL.
-Two SXL cannot be used together if they define the same component type. You must therefore ensure there are no clashing
- component types defined in SXLs that are intended to be used together.
-
+An SXL defines the available :ref:`component` types. Components are the logical or physical part of a site.
 
 .. code-block:: yaml
 
@@ -148,8 +139,10 @@ Two SXL cannot be used together if they define the same component type. You must
 
 Each type must have a short description.
 
-Message types
--------------
+.. _sxl-messages:
+
+Messages
+--------
 
 The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
 are defined in the SXL.
