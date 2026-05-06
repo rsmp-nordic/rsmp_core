@@ -6,33 +6,32 @@ Before an SXL or site SXL list is published or updated, dependencies must be res
 
 If successful, a manifest is created which lists all SXLs with exact versions, including dependencies.
 
-SXL processing should be done using appropriate tool which reads SXL definitions,
-resolves dependencies, checks for symbol clashes and creates manifests.
+SXL processing should be done using official RSMP Nordic tools.
 
 .. _sxl-dependency-resolution:
 
-SXL Dependency Resolution
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Dependency Resolution
+^^^^^^^^^^^^^^^^^^^^^
 Dependency resolution establishes a set of exact SXL versions that satisfy all version requirements.
 
-Dependency resolution can be performed either on a single SXL, or on a site SXL list.
+Dependency resolution can be performed either on a single SXL, or on list of SXLs.
 
 Dependency order is ignored. All requirements (including transitive requirements) are collected recursively.
-The highest SemVer-compatible version for each SXL is then selected deterministically.
+The newest SemVer-compatible version for each SXL is then selected deterministically.
 
 If any version requirement is unsatisfiable or a cyclic dependency is detected, resolution fails.
 
-.. _sxl-clash-check:
+.. _sxl-conflicts:
 
-SXL Conflicts
-^^^^^^^^^^^^^
-Once a set of exact SXL version have been established by dependency resolution, a check must be performed
-to validate that there are no clashing component types or message codes between the SXLs in the set.
+Conflict Check
+^^^^^^^^^^^^^^
+Once a set of exact SXL version have been established by dependency resolution, it must be checked that
+component types or message codes defined in SXLs clash.
 
 .. _sxl-manifest:
 
-SXL Manifest
-^^^^^^^^^^^^
+Manifest
+^^^^^^^^
 If dependency resolution and conflict check succeeds, a manifest is created.
 
 A manifest lists the set of SXLs at exact versions that satisfy all version requirements,
