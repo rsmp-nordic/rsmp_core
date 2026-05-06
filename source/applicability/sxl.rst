@@ -426,7 +426,7 @@ Two comparison operators can be combined with ``and``:
    :header-rows: 1
 
     * - Requirement
-     - Translation
+      - Translation
     * - ">=1.3.0 and <2.0.0"
       - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
 
