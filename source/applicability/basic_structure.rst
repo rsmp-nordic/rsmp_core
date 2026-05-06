@@ -1614,9 +1614,9 @@ The initial Version request send by the site contains:
         ],
         "SXL": "1.3.0",
         "SXLS": [
-            { "name": "nordic/traffic_light_controller", "version": "1.3.0", "prefix": "tlc/", "primary": true },
-            { "name": "nordic/traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
-            { "name": "nordic/variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
+            { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/", "primary": true },
+            { "name": "traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
+            { "name": "variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
         ]
    }
 
@@ -1655,7 +1655,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ======= ======== ====================
    Element Type     Description  
    ======= ======== ==================== 
-   id      string   SXL id, e.g. "nordic/traffic_light_controller"             
+   id      string   SXL id, e.g. ``traffic_light_controller``          
    version string   Version of the SXL, e.g. "1.3.0".
    prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
    primary boolean  (Optional) If true, then this is the SXL that will be used for older core versions.
@@ -1703,19 +1703,19 @@ If core version can be matchdd, the supervisor returns a Version response contai
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "nordic/traffic_light_controller", "version": "1.3.0" },
-            { "name": "nordic/variable_message_sign", "version": "1.3.4" },
-            { "name": "nordic/variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
+            { "name": "traffic_light_controller", "version": "1.3.0" },
+            { "name": "variable_message_sign", "version": "1.3.4" },
+            { "name": "variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
          ],
          "receiveAlarms": false
    }
 
 JSon code 25: A Version Response message
 
-In this example, the SXL "nordic/traffic_light_controller" will be be used, as well as the 
-SXL "nordic/variable_message_sign".
+In this example, the SXL ``traffic_light_controller`` will be be used, as well as the 
+SXL ``variable_message_sign``.
 
-The SXL "nordic/traffic_light_controller/advanced" is not used, either because the supervisor
+The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
 does support the the version 1.3.4 specified by the site, or the supervisor does not want to use it.
 
 The following table describes variable content of the message:
@@ -1745,7 +1745,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ========= ======== ====================
    Element   Type     Description
    ========= ======== ====================
-   id        string   SXL id, e.g. "nordic/traffic_light_controller", matching the id in the Version request.
+   id        string   SXL id, e.g. ``traffic_light_controller``, matching the id in the Version request.
    version   string   Version of the SXL, e.g. "1.3.0", matching the version in the Version request.
    rejected  integer  (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.
    reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
