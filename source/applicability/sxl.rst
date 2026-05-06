@@ -425,10 +425,10 @@ Two comparison operators can be combined with ``and``:
 .. list-table:: Version requirement combination
    :header-rows: 1
 
-    * - Requirement
-      - Translation
-    * - ">=1.3.0 and <2.0.0"
-      - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
+   * - Requirement
+     - Translation
+   * - ">=1.3.0 and <2.0.0"
+     - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
 
 To ensure that dependency resolution works as intended, you must update
 the SXL version correctly when making changes to an SXL, according to Semantic
