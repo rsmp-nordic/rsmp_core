@@ -407,8 +407,10 @@ The order of dependencies is not significant.
 Version requirement strings support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
 
 .. list-table:: Version requirement operators
-   :header: "Requirement", "Translation"
+   :header-rows: 1
 
+   * - Requirement
+     - Translation
    * - "1.3.1"
      - exact version 1.3.1 only
    * - ">=1.3.0"
@@ -421,8 +423,10 @@ Version requirement strings support exact version, comparison operators ``>``, `
 Two comparison operators can be combined with ``and``:
 
 .. list-table:: Version requirement combination
-   :header: "Requirement", "Translation"
+   :header-rows: 1
 
+    * - Requirement
+     - Translation
     * - ">=1.3.0 and <2.0.0"
       - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
 
