@@ -382,41 +382,19 @@ return values.
 SXL Composition
 ---------------
 
-.. _sxl-scope:
-
-SXL Scopes
-^^^^^^^^^^
-Two SXLs that define the same component type or message code cannot be used together on the same site.
-
-To ensure relevant SXLs can be used together, forward slashes should therefore be used to
-scope component types and message codes into hierarchies that avoid clashes.
-
-While it's often practical to use a scope that relate to the SXL name, e.g. ``tlc/`` for a
-traffic light controller SLX , this is not a requirement.
-You have the freedom to organize types and codes as needed.
-
-For example, two SXLs could define different component types and message codes, but placed under the same
-scope. For example, one SXL might define ``tlc/sg`` while another defines ``tlc/dl``.
-This can be useful in case you want to split a big SXL into smaller SXLs while keeping the same scope,
-or you  want to create an extension SXL that adds new types or codes under an existing scope.
-
-If two SXLs define the exact same component type or message code you cannot use the SXLs together.
-But it might be useful if you want to create a replacement SXL that is compatible with an existing SXL.
-
-To maintain backward compatibility, some existing SXLs might use component types or message codes without
-any forward slashes, e.g. a component type like ``sg`` or a command code like ``M0001``.
-This works as long as you don't try to use another SXL with conflicting codes on the same site.
-
 .. _sxl-dependencies:
 
 SXL Dependencies
 ^^^^^^^^^^^^^^^^
-An SXL can list other SXLs as dependencies. It can then rely on the definitions of component types and
-message codes in the dependency SXLs.
+An SXL can declare dependecy on other SXLs. It can then rely on the definitions of component types,
+message codes or behaviour from those SXLs.
 
-For example, the SXL ``traffic_light_controller/advanced`` might depend on the SXL ``traffic_light_controller``.
-It can then define a command like ``tlc/adaptive`` which operates the component type ``tlc/dl`` already defined in
-the ``traffic_light_controller`` SXL.
+For example, a basic SXL ``traffic_light_controller`` might define the component type ``tlc/dl`` for detector logics,
+and some messages to interact with this component type.
+
+Another SXL ``traffic_light_controller/advanced`` might depend on ``traffic_light_controller``.
+It can then define a command like ``tlc/adaptive`` which operates on the component type ``tlc/dl`` already
+defined in ``traffic_light_controller``
 
 Dependencies are listed using SXL names and a version requirement string.
 The order of dependencies is not significant.
@@ -452,18 +430,19 @@ To ensure that dependency resolution works as intended, you must update
 the SXL version correctly when making changes to an SXL, according to Semantic
 Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
 
-Before an SXL is published or updated, dependency resolution must be performed to
-ensure that dependencies can be met and that there are no clashing component types or message codes.
+Before an SXL is published or updated, dependencies must be resolved to
+ensure that dependencies can be met and no component types or message codes clash.
 
-Success results in a manifest which must be published together with the SXL.
+If resolution succeeds, a manifest is produced which list the exact version of all SXLs in the dependency tree,
+including the SXL itself. The manifest must be published together with the SXL.
 
 .. _sxl-list:
 
-SXL List
-^^^^^^^^
+Site SXLs
+^^^^^^^^^
 A site can support one or more SXLs, which together form the site sxl list.
 
-The supported SXLs are specified using SXL names and exact versions. Order is not significant.
+The supported SXLs are listed using SXL names and exact versions. Order is not significant.
 
 .. code-block:: yaml
 
@@ -471,8 +450,9 @@ The supported SXLs are specified using SXL names and exact versions. Order is no
     traffic_light_controller: 1.3.0
     variable_message_sign: 1.0.12
 
-The SXL list is transmitted in the Version message sent by the site as part of the connection handshake.
+The SXL list is included in the Version message sent by the site as part of the connection handshake.
 
 All component types and message codes defined in the listed SXLs must be implemented by the site.
-Component types and message codes from dependency SXLs will not be available, unless you explicitely list them.
+
+Component types and message codes from dependency SXLs will not be available unless you explicitely list them.
 
