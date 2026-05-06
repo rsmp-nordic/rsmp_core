@@ -14,5 +14,6 @@ Applicability
    applicability/data_types
    applicability/components
    applicability/sxl
+   applicability/sxl_processing
    applicability/site_configuration
 
