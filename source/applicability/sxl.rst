@@ -452,7 +452,8 @@ The supported SXLs are listed using SXL names and exact versions. Order is not s
 
   sxls:
     traffic_light_controller: 1.3.0
-    variable_message_sign: 1.0.12
+    traffic_light_controller/advanced: 2.0.0
+    traffic_data: 1.0.12
 
 The SXL list is included in the Version message sent by the site as part of the connection handshake.
 
