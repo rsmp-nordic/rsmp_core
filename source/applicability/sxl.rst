@@ -379,12 +379,12 @@ return values.
 
 .. _sxl-composition:
 
-SXL Composition
+Composition
 ---------------
 
 .. _sxl-dependencies:
 
-SXL Dependencies
+Dependencies
 ^^^^^^^^^^^^^^^^
 An SXL can declare dependecy on other SXLs. It can then rely on the definitions of component types,
 message codes or behaviour from those SXLs.
