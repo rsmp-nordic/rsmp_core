@@ -1614,7 +1614,7 @@ The initial Version request send by the site contains:
         ],
         "SXL": "1.3.0",
         "SXLS": [
-            { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/", "primary": true },
+            { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/" },
             { "name": "traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
             { "name": "variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
         ]
@@ -1644,7 +1644,6 @@ exactly one element.
 
 The ``SXL`` field is included for backward compatibility with supervisor that only supports older core versions
 and ignore the newer ``SXLS`` array.
-The version in ``SXL``must match the version of the SXLs in the ``SXLS`` array marked as primary.
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
@@ -1658,13 +1657,9 @@ Each item in the ``SXLS`` array must be an object with the following content:
    id      string   SXL id, e.g. ``traffic_light_controller``          
    version string   Version of the SXL, e.g. "1.3.0".
    prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
-   primary boolean  (Optional) If true, then this is the SXL that will be used for older core versions.
    ======= ======== ====================
 
 If the site supports multiple versions of an SXL the latest must be specified.
-
-Exactly one SXL must be marked as primary. This flag is only used in case the supervisor select an older
-core version that only supports one SXL. The SXL marked as primary will then be the one used for communication.
 
 
 Version Response
