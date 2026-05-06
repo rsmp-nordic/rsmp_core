@@ -380,12 +380,13 @@ return values.
 .. _sxl-composition:
 
 Composition
----------------
+-----------
+
 
 .. _sxl-dependencies:
 
 Dependencies
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 An SXL can declare dependecy on other SXLs. It can then rely on the definitions of component types,
 message codes or behaviour from those SXLs.
 
@@ -440,24 +441,20 @@ ensure that dependencies can be met and no component types or message codes clas
 If resolution succeeds, a manifest is produced which list the exact version of all SXLs in the dependency tree,
 including the SXL itself. The manifest must be published together with the SXL.
 
+
 .. _sxl-list:
 
-Site SXLs
-^^^^^^^^^
-A site can support one or more SXLs, which together form the site sxl list.
+SXL List
+^^^^^^^^
+A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
+the site as part of the connection handshake.
 
-The supported SXLs are listed using SXL names and exact versions. Order is not significant.
+Each SXL is specified using the SXL name and an exact versions. Order is not significant.
 
-.. code-block:: yaml
+If an SXL is listed, the site must implement the full SXL, including all components, messages and behavior defined
+in the SXL.
 
-  sxls:
-    traffic_light_controller: 1.3.0
-    traffic_light_controller/advanced: 2.0.0
-    traffic_data: 1.0.12
-
-The SXL list is included in the Version message sent by the site as part of the connection handshake.
-
-All component types and message codes defined in the listed SXLs must be implemented by the site.
-
-Component types and message codes from dependency SXLs will not be available unless you explicitely list them.
-
+Dependency SXLs will not be exposed unless explicitely listed by the site.
+For example, if a site lists ``traffic_light_controller/advanced`` but not ``traffic_light_controller``,
+the supervisor will not be able to use any of the messages defined in ``traffic_light_controller``,
+even if ``traffic_light_controller/advanced`` depends on ``traffic_light_controller``.
