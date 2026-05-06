@@ -4,29 +4,14 @@ Signal Exchange List (SXL)
 ==========================
 A signal exchange list (:term:`SXL`) specifies the interface for a type of equipment or area of functionality.
 
-The SXL defines component types, and the alarm, command, and status messages.
-
-It also details the meaning of aggregated status bits, functional positions and functional states.
-
-<<<<<<< HEAD
-=======
-A site implements one or more SXLs, used to interact with the site.
-
-An SXL can depend on other SXLs, which makes it possible to organize and compose SXLs to facilitate reuse.
-
-Before publishing an SXL site interface, SXL dependency resolution must be performed to check dependencies,
-resulting in a manifest of exact SXL versions.
-
-.. _sxl-overview:
-
-SXL Overview
---------------
->>>>>>> 87c0ef9 (sxl composition, scopes, dependencies)
 An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.
 
-SXLs are machine-readable specifications, not executable artifacts.
+An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
+It also details the meaning of aggregated status bits, functional positions and functional states.
 
-It can declare dependencies on other SXLs, which allows it to rely on component types and message codes from these SXLs.
+An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.
+
+A site implements one or more SXLs.
 
 .. _sxl-name:
 
@@ -34,29 +19,23 @@ Name and Description
 ^^^^^^^^^^^^^^^^^^^^
 An SXL is identified by a ``name``, e.g. "traffic_light_controller" or "traffic_light_controller/advanced".
 
+An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
+
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
 
-A site cannot use two SXLs with the same name.
+A site cannot use two SXLs with the same name. SXLs names should therefore be globally unique.
 
-To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
-To register an SXL, the name must be unique. If it relates to a specific country or region it
-must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
-e.g. ``se/...`` or ``eu/...``.
-
-Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
-if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
-
-Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
-
-An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
-
+RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
+must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
 
 .. code-block:: yaml
 
   meta:
-    name: nordic/traffic_light_controller
-    description: Nordic Traffic Light Controller
+    name: traffic_light_controller/advanced
+    description: Advanced Traffic Light Controller Functionality
+
+Note: Some legacy SXL use names without a country code er region, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
 
 .. _sxl-version:
 
@@ -66,9 +45,11 @@ An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning conven
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
-- MAJOR version when you make incompatible API changes
+- MAJOR version when you make incompatible changes
 - MINOR version when you add functionality in a backward compatible manner
 - PATCH version when you make backward compatible bug fixes
+
+Preview and build info cannot be used as part of version strings.
 
 SXL versions are used to determine whether a site and the supervisor has compatible versions,
 and when resolving dependencies between SXLs.
@@ -79,7 +60,7 @@ and when resolving dependencies between SXLs.
   meta:
     version: 1.3.1
 
-SXL versions are used to determine whether a site and the supervisor has compatible versions and
+SXL versions are used to determine whether a site and the supervisor
 can establish communication. How this is done is explained in :ref:`rsmpsxl-version`.
 
 .. _sxl-prefix:
@@ -92,8 +73,8 @@ in the SXL, e.g. "tlc/" for a traffic light controller SXL.
 A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
 
 If you intend to define everything under the same scope, e.g. "tlc/", it is recommended to define a prefix.
-It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
-string everywhere.
+It guarantees that everything in the SXL will be scoped under the correct prefix and avoids having to repeat the same prefix
+string everywhere. It also makes it easy to change the prefix if this is ever needed.
 
 Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
 When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.
@@ -131,22 +112,16 @@ Using a prefix, the SXL can be defined like this:
         plan/set:
           description: Set signal plan
 
-The result is the same, you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
+The result is the same and you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
 or ``tlc/deadlock`` when sending a deadlock alarm.
 
-A prefix does not have to mirror the SXL name and should be short. But you must ensure that SXLs expected to
+A prefix should be short and does not have to mirror the SXL name. You must ensure that SXLs expected to
 be used together do not define the same component types or message codes.
 
 For example, a traffic light controller SXL like ``traffic_light_controller`` could use the prefix ``tlc/``.
 
-<<<<<<< HEAD
-Two different SXLs can use the same prefix, as long as they are not intended to be used together on the same site.
-Elements defined under the prefix must still differ if the SXL are going to be used together.
-This means you can define a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.
-=======
 Two differnt SXLs can use the same prefix, as long as long as they either don't define the same component types or message codes,
-or are not intended to be used together on the same site. This flexibility support use cases like:
->>>>>>> 87c0ef9 (sxl composition, scopes, dependencies)
+or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix support use cases like:
 
 - modularity: splitting a large SXL into smaller SXLs all using the while same prefix.
 - extensions:  a new SXL which adds functionality under a prefix defined in an existing SXL.
@@ -402,35 +377,54 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-.. _multiple-sxls:
+.. _sxl-composition:
 
-Multiple SXLs
--------------
-A site can implement more than one SXL, and when you define an SXL you can declare dependencies on other SXLs.
-This allows you to organize and compose SXLs and facilitate reuse.
+SXL Composition
+---------------
 
+.. _sxl-scope:
+
+SXL Scopes
+^^^^^^^^^^
 Two SXLs that define the same component type or message code cannot be used together on the same site.
-You can use forward slashes to organize component types and message codes, e.g. ``tlc/plan/set``,
-to ensure that SXLs that are intended to be used together do not conflict.
+
+To ensure relevant SXLs can be used together, forward slashes should therefore be used to
+scope component types and message codes into hierarchies that avoid clashes.
+
+While it's often practical to use a scope that relate to the SXL name, e.g. ``tlc/`` for a
+traffic light controller SLX , this is not a requirement.
+You have the freedom to organize types and codes as needed.
+
+For example, two SXLs could define different component types and message codes, but placed under the same
+scope. For example, one SXL might define ``tlc/sg`` while another defines ``tlc/dl``.
+This can be useful in case you want to split a big SXL into smaller SXLs while keeping the same scope,
+or you  want to create an extension SXL that adds new types or codes under an existing scope.
+
+If two SXLs define the exact same component type or message code you cannot use the SXLs together.
+But it might be useful if you want to create a replacement SXL that is compatible with an existing SXL.
+
+To maintain backward compatibility, some existing SXLs might use component types or message codes without
+any forward slashes, e.g. a component type like ``sg`` or a command code like ``M0001``.
+This works as long as you don't try to use another SXL with conflicting codes on the same site.
 
 .. _sxl-dependencies:
 
 SXL Dependencies
 ^^^^^^^^^^^^^^^^
-An SXL definition can list other SXLs as dependencies. It can then rely on the definitions of component types and
-message codes in the dependency SXLs, as well as any other aspect defined in the required SXL,
-such as expected behavior or data types.
+An SXL can list other SXLs as dependencies. It can then rely on the definitions of component types and
+message codes in the dependency SXLs.
 
-For example, the SXL ``nordic/traffic_light_controller/advanced`` might depend on the SXL ``nordic/traffic_light_controller``.
-It can then define a command like ``tlc/adaptive`` which operates on a component type ``tlc/dl`` already defined in
-the ``nordic/traffic_light_controller`` SXL.
+For example, the SXL ``traffic_light_controller/advanced`` might depend on the SXL ``traffic_light_controller``.
+It can then define a command like ``tlc/adaptive`` which operates the component type ``tlc/dl`` already defined in
+the ``traffic_light_controller`` SXL.
 
-A dependency is listed using the SXL name and a version requirement string. The order of dependencies is not significant.
+Dependencies are listed using SXL names and a version requirement string.
+The order of dependencies is not significant.
 
 .. code-block:: yaml
 
   dependencies:
-    nordic/traffic_light_controller: "~4.3"
+    traffic_light_controller: "~4.3"
 
 Version requirement strings support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
 
@@ -438,51 +432,47 @@ Version requirement strings support exact version, comparison operators ``>``, `
    :header: "Requirement", "Translation"
 
    * - "1.3.1"
-     - exact version 1.3.1 only. Must specify both major, minor and patch version.
+     - exact version 1.3.1 only
    * - ">=1.3.0"
-     - 1.3.0 or higher (inclusive). Minor and/patch versions ca be omitted, in which case zero is assumed.
+     - version 1.3.0 or higher
    * - "<2.0.0"
-     - lower than 2.0.0 (exclusive).
+     - any version lower than 2.0.0
    * - "~1.3"
-     - any version compatible with 1.3, according to semantic versioning rules, in effect ">=1.3.0 and <2.0.0".
-
-For comparison, minor and/or patch version can be omited, in which case zero is assumed.
-For example, ``>=1.3`` is equivalent to ``>=1.3.0``, and ``<2`` is equivalent to ``<2.0.0``.
+     - any version from 1.3 compatible with it according to semantic versioning rules, i.e. >=1.3.0 and <2.0.0.
 
 Two comparison operators can be combined with ``and``:
 
 .. list-table:: Version requirement combination
    :header: "Requirement", "Translation"
 
-    * - ">=1.3.5 and <2.0"
-      - any version from 1.3.5 (inclusive) to 2.0.0 (exclusive)
+    * - ">=1.3.0 and <2.0.0"
+      - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
 
-To ensure that dependency resolution works as intended, it's imporant that you update
+To ensure that dependency resolution works as intended, you must update
 the SXL version correctly when making changes to an SXL, according to Semantic
-Versioning (SemVer) rules. See the section on :ref:`sxl-version`.
+Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
 
 Before an SXL is published or updated, dependency resolution must be performed to
-ensure that dependencies can be met and that there are no conflicts.
-The resulting SXL manifest must be published together with the SXL.
+ensure that dependencies can be met and that there are no clashing component types or message codes.
 
-You must ensure that you rely only on what is defined in the dependency SXLs at the versions declared.
+Success results in a manifest which must be published together with the SXL.
 
 .. _sxl-list:
 
-Site SXLs
-^^^^^^^^^
-A site specifies the SXLs it supports using SXL names and exact versions. Order is not significant.
+SXL List
+^^^^^^^^
+A site can support one or more SXLs, which together form the site sxl list.
+
+The supported SXLs are specified using SXL names and exact versions. Order is not significant.
 
 .. code-block:: yaml
 
   sxls:
-    nordic/traffic_light_controller: 1.3.0
-    nordic/variable_message_sign: 1.0.12
+    traffic_light_controller: 1.3.0
+    variable_message_sign: 1.0.12
 
 The SXL list is transmitted in the Version message sent by the site as part of the connection handshake.
 
-Component types and message codes from dependency SXLs will not be available to supervisors or peers,
-unless you explicitely list them.
+All component types and message codes defined in the listed SXLs must be implemented by the site.
+Component types and message codes from dependency SXLs will not be available, unless you explicitely list them.
 
-Everything in a listed SXLs must be implemented by the site. If specific functionality in an SXL
-is often not needed, consider extracting this functionality into a separate SXL which can be included when needed.
