@@ -2,54 +2,75 @@
 
 Command Persistence
 ===================
-Handling a CommandRequest often cause changes to the state of the site.
-For example, a command might be used to select a program or adjust a setting.
-
-.. _persistence_levels:
-
-Persistence Levels
-------------------
-The persistence level control whether a change will be kept forever, or will revert back
-to a default or previous settings at some point.
-
-The following standard persistence levels are defined:
-
-Permanent:
-The change is kept permanently, even after a restart of the site.
-This implies that it must be stored on disk or other non-volatile storage.
-
-Restart:
-The change is kept until the next restart of the site. This implies that it can be stored in memory.
-
-Disconnect:
-The change is kept until the connection to the supervisor system has been lost for a configurable timeout. After that, the previous value is restored.
-This implies that it can be stored in memory.
-
-Volatile:
-The change is short lived and is expected to be changed again soon, e.g. by some automatic process
-
-No persistence:
-An immediate action that does not change any exposed state.
-Any meaningful action by definition causes a change somewhere, but the change might be in internal parts
-that are not exposed through RSMP, or in external systems.
+Handling a command often cause changes to the state of the site.
+For example, a command might be used to select a running program or adjust a setting.
 
 .. _sxl_persistence_default:
 
-Default Persistence
--------------------
-The default persistence level for commands is Permanent.
+Default Behavior
+----------------
+By default, changes caused by commands persist until changed again by another command,
+even after a restart of the site.
 
-This  mean that by default, a site must keep changes caused by commands permanently, even after a restart of the site.
-I.e. the change persists until it's changed again by another command or some well-defined automatic behaviour.
+.. _sxl_persistence_reset_events:
+
+Reset Events
+-------------
+For some commands, certain event should reset changes. The following standard reset events are defined:
+
+- Restart
+- Disconnect
+- Timer
+- Process
+
+For each command defined in the SXL, it must be specified what events cause changes to reset, if any.
+If no reset events are specified for a command, the default behavior applies.
+
+When possible, an SXL should refer to these standard reset events when defining persistence behavior.
+
+.. _sxl_persistence_restart_event:
+
+Restart
+'''''''
+The change reset when the site restarts.
+
+.. _sxl_persistence_disconnect_event:
+
+Disconnect
+''''''''''
+The change is reset if the connection to the supervisor system is lost.
+This can be either immediately or after some defined duration of time.
+
+.. _sxl_persistence_timer_event:
+
+Timer
+'''''
+The change is reset after a certain time has passed. The SXL must specify the duration, which
+could either be fixed, configurable or controlled by command attributes.
+
+.. _sxl_persistence_process_event:
+
+Process
+'''''''
+The change can be reset or overwritten by a process on the site. For example, a command might
+initiate a process which resets the change when it completes.
+
+.. _sxl_persistence_volatile:
+
+Volatile
+'''''''''
+An immediate action that does not change any exposed state.
+Any meaningful action by definition causes a change somewhere, but the change might be internal
+or in external systems. that are not exposed to the supervisor system.
 
 .. _sxl_persistence_specialization:
 
-SXL Persistence Specialization
-------------------------------
-An SXL can override the default persistence behavior for particular commands.
+Custom Persistence
+------------------
+An SXL can define custom persistence behavior for particular commands.
 
 An SXL can also define a different default persistence. For example, if the type of equipment is expected to
-only have volatile memory, it would make sense to define the default persistence to be until a restart.
+only have volatile memory, it might make sense to define the default persistence to be until a restart.
 
-When an SXL need to define custom persistence behavior, the standard persistence levels should be used
-if possible. However, an SXL can define custom persistence levels or behavior if needed.
+When an SXL need to define custom persistence behavior, it should refer to the standard reset events when
+possible. However, an SXL can define custom reset events or behavior if needed.
