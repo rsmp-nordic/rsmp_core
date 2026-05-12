@@ -28,42 +28,28 @@ If no reset events are specified for a command, the default behavior applies.
 
 When possible, an SXL should refer to these standard reset events when defining persistence behavior.
 
-.. _sxl_persistence_restart_event:
-
 Restart
-'''''''
-The change reset when the site restarts.
-
-.. _sxl_persistence_disconnect_event:
+        The change reset when the site restarts.
 
 Disconnect
-''''''''''
-The change is reset if the connection to the supervisor system is lost.
-This can be either immediately or after some defined duration of time.
-
-.. _sxl_persistence_timer_event:
+        The change is reset if the connection to the supervisor system is lost.
+        This can be either immediately or after some defined duration of time.
 
 Timer
-'''''
-The change is reset after a certain time has passed. The SXL must specify the duration, which
-could either be fixed, configurable or controlled by command attributes.
+        The change is reset after a certain time has passed. The SXL must specify the duration, which
+        could either be fixed, configurable or controlled by command attributes.
 
-.. _sxl_persistence_process_event:
 
 Process
-'''''''
-The change can be reset or overwritten by a process on the site. For example, a command might
-initiate a process which resets the change when it completes.
+        The change can be reset or overwritten by a process on the site. For example, a command might
+        initiate a process which resets the change when it completes.
 
-.. _sxl_persistence_volatile:
 
 Volatile
-'''''''''
-An immediate action that does not change any exposed state.
-Any meaningful action by definition causes a change somewhere, but the change might be internal
-or in external systems. that are not exposed to the supervisor system.
+        An immediate action that does not change any exposed state.
+        Any meaningful action by definition causes a change somewhere, but the change might be internal
+        or in external systems. that are not exposed to the supervisor system.
 
-.. _sxl_persistence_specialization:
 
 Custom Persistence
 ------------------
