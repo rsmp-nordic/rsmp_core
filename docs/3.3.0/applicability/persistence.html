@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.2. Object model &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.11. Command Persistence &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. Transport of data" href="transport_of_data.html" />
-    <link rel="prev" title="4.1. Scope" href="scope.html" /> 
+    <link rel="next" title="5. Change log" href="../changelog.html" />
+    <link rel="prev" title="4.10. Site configuration" href="site_configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
@@ -60,7 +60,12 @@
 <li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.11. Command Persistence</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-behavior">4.11.1. Default Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reset-events">4.11.2. Reset Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-persistence">4.11.3. Custom Persistence</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -81,9 +86,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.2. </span>Object model</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.11. </span>Command Persistence</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/applicability/object_model.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/applicability/persistence.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -91,20 +96,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="object-model">
-<span id="id1"></span><h1><span class="section-number">4.2. </span>Object model<a class="headerlink" href="#object-model" title="Link to this heading"></a></h1>
-<p>The object model is technology independent, ie can be implemented in
-various ways such as using <strong>ASN.1</strong>, <strong>JSON</strong> or <strong>XML</strong>. However, the
-communication between the site and supervision systems / other sites
-uses <strong>JSON</strong> format.</p>
+  <section id="command-persistence">
+<span id="id1"></span><h1><span class="section-number">4.11. </span>Command Persistence<a class="headerlink" href="#command-persistence" title="Link to this heading"></a></h1>
+<p>Handling a command often cause changes to the state of the site.
+For example, a command might be used to select a running program or adjust a setting.</p>
+<section id="default-behavior">
+<span id="sxl-persistence-default"></span><h2><span class="section-number">4.11.1. </span>Default Behavior<a class="headerlink" href="#default-behavior" title="Link to this heading"></a></h2>
+<p>By default, changes caused by commands persist until changed again by another command,
+even after a restart of the site.</p>
+</section>
+<section id="reset-events">
+<span id="sxl-persistence-reset-events"></span><h2><span class="section-number">4.11.2. </span>Reset Events<a class="headerlink" href="#reset-events" title="Link to this heading"></a></h2>
+<p>For some commands, certain event should reset changes.</p>
+<p>For each command defined in the SXL, it must be specified what events cause changes to reset, if any.
+If no reset events are specified for a command, the default behavior applies.</p>
+<p>When possible, an SXL should refer to the following standard reset events when defining persistence behavior:</p>
+<dl class="simple">
+<dt>Restart</dt><dd><p>The change reset when the site restarts.</p>
+</dd>
+<dt>Disconnect</dt><dd><p>The change is reset if the connection to the supervisor system is lost.
+This can be either immediately or after some defined duration of time.</p>
+</dd>
+<dt>Timer</dt><dd><p>The change is reset after a certain time has passed. The SXL must specify the duration, which
+could either be fixed, configurable or controlled by command attributes.</p>
+</dd>
+<dt>Process</dt><dd><p>The change can be reset or overwritten by a process on the site. For example, a command might
+initiate a process which resets the change when it completes.</p>
+</dd>
+<dt>Volatile</dt><dd><p>An immediate action that does not change any exposed state.
+Any meaningful action by definition causes a change somewhere, but the change might be internal
+or in external systems. that are not exposed to the supervisor system.</p>
+</dd>
+</dl>
+</section>
+<section id="custom-persistence">
+<h2><span class="section-number">4.11.3. </span>Custom Persistence<a class="headerlink" href="#custom-persistence" title="Link to this heading"></a></h2>
+<p>An SXL can define custom persistence behavior for particular commands.</p>
+<p>An SXL can also define a different default persistence. For example, if the type of equipment is expected to
+only have volatile memory, it might make sense to define the default persistence to be until a restart.</p>
+<p>When an SXL need to define custom persistence behavior, it should refer to the standard reset events when
+possible. However, an SXL can define custom reset events or behavior if needed.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scope.html" class="btn btn-neutral float-left" title="4.1. Scope" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="transport_of_data.html" class="btn btn-neutral float-right" title="4.3. Transport of data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="site_configuration.html" class="btn btn-neutral float-left" title="4.10. Site configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="5. Change log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

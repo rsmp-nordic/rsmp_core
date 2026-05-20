@@ -16,4 +16,5 @@ Applicability
    applicability/sxl
    applicability/sxl_processing
    applicability/site_configuration
+   applicability/persistence
 
