@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.9. Site configuration &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.10. Site configuration &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. Change log" href="../changelog.html" />
-    <link rel="prev" title="4.8. Signal Exchange List (SXL)" href="sxl.html" /> 
+    <link rel="prev" title="4.9. SXL Processing" href="sxl_processing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,9 +58,10 @@
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.9. Site configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#meta-data">4.9.1. Meta data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#components">4.9.2. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.10. Site configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#meta-data">4.10.1. Meta data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#components">4.10.2. Components</a></li>
 </ul>
 </li>
 </ul>
@@ -83,7 +84,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.9. </span>Site configuration</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.10. </span>Site configuration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/site_configuration.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,14 +95,14 @@
            <div itemprop="articleBody">
              
   <section id="site-configuration">
-<span id="id1"></span><h1><span class="section-number">4.9. </span>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.10. </span>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h1>
 <p>A site configuration defines the individual components that exists
 in a specific site. It also defines the relationship between those components.</p>
 <p>The site configuration can either be defined as a separate YAML file or be
 combined with the YAML file of the SXL when needed. The Excel file always
 combines the SXL and the site configuration.</p>
 <section id="meta-data">
-<h2><span class="section-number">4.9.1. </span>Meta data<a class="headerlink" href="#meta-data" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.10.1. </span>Meta data<a class="headerlink" href="#meta-data" title="Link to this heading"></a></h2>
 <p>In order to uniquely identify an SXL and site configuration for a
 supervision system the site id and the version needs to be known.
 See <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>. The SXL defines the site id, but meta data is
@@ -112,7 +113,7 @@ the very top of the YAML version.</p>
 <p>In each SXL it must defined which version of RSMP it conforms to.</p>
 <p>It contains:</p>
 <table class="docutils align-default" id="id4">
-<caption><span class="caption-number">Table 4.37 </span><span class="caption-text">meta data</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 4.40 </span><span class="caption-text">meta data</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Excel</p></th>
 <th class="head"><p>YAML</p></th>
@@ -154,7 +155,7 @@ the very top of the YAML version.</p>
 </aside>
 </section>
 <section id="components">
-<h2><span class="section-number">4.9.2. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.10.2. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
 <p>A site consists of components, identified by unique component ids (<code class="docutils literal notranslate"><span class="pre">cId</span></code>).</p>
 <p>Using the Excel format; components are defined in it’s own sheet - one for each
 site.
@@ -184,7 +185,7 @@ Using the YAML format, each component is defined like this:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sxl.html" class="btn btn-neutral float-left" title="4.8. Signal Exchange List (SXL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sxl_processing.html" class="btn btn-neutral float-left" title="4.9. SXL Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../changelog.html" class="btn btn-neutral float-right" title="5. Change log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

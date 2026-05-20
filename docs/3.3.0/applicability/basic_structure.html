@@ -86,16 +86,19 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#rsmp-sxl-version">4.4.7. RSMP/SXL Version</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id16">4.4.7.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-request">4.4.7.1. Version Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-response">4.4.7.2. Version Response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#core-version-compatibility">4.4.7.3. Core Version Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sxl-version-compatibility">4.4.7.4. SXL Version Compatibility</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#componentlist">4.4.8. ComponentList</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id17">4.4.8.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">4.4.8.1. Message structure</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#watchdog">4.4.9. Watchdog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id19">4.4.9.1. Message structure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id20">4.4.9.2. Message exchange between site and supervision system/other equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">4.4.9.1. Message structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">4.4.9.2. Message exchange between site and supervision system/other equipment</a></li>
 </ul>
 </li>
 </ul>
@@ -104,7 +107,8 @@
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.9. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -173,8 +177,8 @@ otherwise stated.</p>
 </div>
 <p>JSon code 2: An RSMP message</p>
 <p>The following table is describing the variable content of all message types.</p>
-<table class="docutils align-default" id="id21">
-<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id21" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id20">
+<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id20" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -218,10 +222,10 @@ otherwise stated.</p>
 <td><p>Command message. Response of command</p></td>
 </tr>
 <tr class="row-odd"><td><p>MessageAck</p></td>
-<td><p>Message acknowledegment. Successful</p></td>
+<td><p>Message acknowledgement. Successful</p></td>
 </tr>
 <tr class="row-even"><td><p>MessageNotAck</p></td>
-<td><p>Message acknowledegment. Unsuccessful</p></td>
+<td><p>Message acknowledgement. Unsuccessful</p></td>
 </tr>
 <tr class="row-odd"><td><p>Version</p></td>
 <td><p>RSMP / SXL version message</p></td>
@@ -255,8 +259,8 @@ content is the same</p></li>
 <p>The following table describes the variable content in all message types
 which is defined by the signal exchange list (SXL), except version
 messages, message acknowledgement messages and watchdog messages.</p>
-<table class="docutils align-default" id="id22">
-<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id22" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id21">
+<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">Variable content</span><a class="headerlink" href="#id21" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -282,11 +286,11 @@ be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.</p>
-<p>The ability to request an alarms is used in case the supervision system
-looses track of the latest state of the alarms.</p>
+<p>The ability to request alarms is used in case the supervision system
+loses track of the latest state of the alarms.</p>
 <p>A suspend of an alarm causes all alarms from the specific component with
 the associated alarm code id to be suspended. This means that alarm messages
-stops being sent from the site as long as the suspension is active. As soon
+stop being sent from the site as long as the suspension is active. As soon
 as the suspension is inactivated alarms can be sent again.</p>
 <p>Suspending alarms does not affect alarm acknowledgment. This means that
 when unsuspending an alarm an alarm can be inactive and not acknowledged.</p>
@@ -331,8 +335,8 @@ element ‘aSp’.</p>
 <p>JSon code 3: An alarm message</p>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id23">
-<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id23" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id22">
+<caption><span class="caption-number">Table 4.4 </span><span class="caption-text">Alarm message</span><a class="headerlink" href="#id22" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -351,8 +355,8 @@ defined by the SXL.</p>
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id24">
-<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id24" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id23">
+<caption><span class="caption-number">Table 4.5 </span><span class="caption-text">Alarm status change</span><a class="headerlink" href="#id23" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -395,8 +399,8 @@ defined by the SXL.</p>
 <span id="id4"></span><h4><span class="section-number">4.4.1.1.2. </span>Alarm status<a class="headerlink" href="#alarm-status" title="Link to this heading"></a></h4>
 <p>Alarm status are only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).</p>
-<table class="docutils align-default" id="id25">
-<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id25" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id24">
+<caption><span class="caption-number">Table 4.6 </span><span class="caption-text">Alarm status</span><a class="headerlink" href="#id24" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -443,8 +447,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </table>
 <p><a class="reference internal" href="#alarm-transitions"><span class="std std-numref">Fig. 4.1</span></a> show possible transitions between
 different alarm states.</p>
-<p>Continuous lines defines possible alarm status changes controlled by logic
-and dashed lines defines possible changes controlled by user.</p>
+<p>Continuous lines define possible alarm status changes controlled by logic
+and dashed lines define possible changes controlled by user.</p>
 <figure class="align-center" id="alarm-transitions">
 <img alt="Alarm transitions" src="../_images/alarm_transitions.png" />
 <figcaption>
@@ -453,15 +457,15 @@ and dashed lines defines possible changes controlled by user.</p>
 </figure>
 <p>Alarms should not be sent unless:</p>
 <ul class="simple">
-<li><p>Alarms are unblocked and it’s state changes</p></li>
+<li><p>Alarms are unblocked and its state changes</p></li>
 <li><p>Alarms are sent as part of
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a></p></li>
 <li><p>Alarms are explicitly requested using <a class="reference internal" href="#alarmmessages-req"><span class="std std-ref">Structure for an alarm request message</span></a></p></li>
 </ul>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id26">
-<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id26" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-number">Table 4.7 </span><span class="caption-text">Alarm status details defined by SXL</span><a class="headerlink" href="#id25" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -482,8 +486,8 @@ defined by the SXL.</p>
 <p>Return values (“rvs”) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and is always sent but can
 be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
-<table class="docutils align-default" id="id27">
-<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id27" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id26">
+<caption><span class="caption-number">Table 4.8 </span><span class="caption-text">Alarm return values</span><a class="headerlink" href="#id26" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -499,8 +503,8 @@ be empty (i.e. <strong>[]</strong>) if no return values are defined.</p>
 </table>
 <p>The following table describes the content for each return value which is
 defined by the signal exchange list (SXL).</p>
-<table class="docutils align-default" id="id28">
-<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id28" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id27">
+<caption><span class="caption-number">Table 4.9 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id27" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -721,7 +725,7 @@ implicit in the following figures.</p>
 status of the site. The aggregated status applies to the component which is
 defined by <strong>ComponentType</strong> in the signal exchange list. If no component is defined
 then no aggregated status message is sent.</p>
-<p>Aggregated status message are interaction driven and are sent if state,
+<p>Aggregated status messages are interaction driven and are sent if state,
 functional position or functional status are changed at the site.</p>
 <section id="id7">
 <h3><span class="section-number">4.4.2.1. </span>Message structure<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
@@ -745,8 +749,8 @@ below.</p>
 </div>
 <p>JSon code 11: An aggregated status message</p>
 <p>The following tables are describing the variable content of the message:</p>
-<table class="docutils align-default" id="id29">
-<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id29" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id28">
+<caption><span class="caption-number">Table 4.10 </span><span class="caption-text">Aggregated status</span><a class="headerlink" href="#id28" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -765,8 +769,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id30">
-<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id30" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id29">
+<caption><span class="caption-number">Table 4.11 </span><span class="caption-text">Aggregated status SXL content</span><a class="headerlink" href="#id29" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -792,8 +796,8 @@ in the SXL.</p>
 The signal exchange list (SXL) for a particular type of equipment can detail the
 interpretation of each bit, but is not allowed to change the fundamental meaning or
 modify the rules for which bits can or must be set together.</p>
-<table class="docutils align-default" id="id31">
-<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">State bits</span><a class="headerlink" href="#id31" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id30">
+<caption><span class="caption-number">Table 4.12 </span><span class="caption-text">State bits</span><a class="headerlink" href="#id30" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Bit</p></th>
 <th class="head"><p>Status</p></th>
@@ -914,7 +918,7 @@ site</strong></p>
 <ol class="arabic simple">
 <li><p>An aggregated status message is sent to the supervision system.</p></li>
 </ol>
-<p><strong>The supervision system request aggregated status</strong></p>
+<p><strong>The supervision system requests aggregated status</strong></p>
 <img alt="../_images/aggregated_status_request.png" class="align-center" src="../_images/aggregated_status_request.png" />
 <ol class="arabic simple">
 <li><p>An aggregated status request message is sent to the site.</p></li>
@@ -927,7 +931,7 @@ site</strong></p>
 <p>The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
 statuses, for the referenced component.</p>
-<p>The status message can both be interaction driven or event driver and
+<p>The status message can both be interaction driven or event driven and
 can be sent during the following prerequisites:</p>
 <ul class="simple">
 <li><p>When status is requested from the supervision system or other equipment.</p></li>
@@ -964,8 +968,8 @@ below.</p>
 (<code class="docutils literal notranslate"><span class="pre">sS</span></code>) in order to enable support for requesting multiple statuses at
 once.</p>
 <p>The following table is describing the variable content of the message.</p>
-<table class="docutils align-default" id="id32">
-<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id32" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id31">
+<caption><span class="caption-number">Table 4.13 </span><span class="caption-text">Status request</span><a class="headerlink" href="#id31" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -1013,8 +1017,8 @@ The following table is describing the variable content of the message.</p>
 </div>
 <p>JSon code 14: A status response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id33">
-<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id33" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id32">
+<caption><span class="caption-number">Table 4.14 </span><span class="caption-text">Status response</span><a class="headerlink" href="#id32" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1034,9 +1038,9 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </section>
 <section id="return-values-returnvalue">
 <h4><span class="section-number">4.4.4.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#return-values-returnvalue" title="Link to this heading"></a></h4>
-<p>Return values (“sS”) are always sent but can be empty if no return values exists.</p>
-<table class="docutils align-default" id="id34">
-<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id34" title="Link to this table"></a></caption>
+<p>Return values (“sS”) are always sent but can be empty if no return values exist.</p>
+<table class="docutils align-default" id="id33">
+<caption><span class="caption-number">Table 4.15 </span><span class="caption-text">Return values (returnvalue)</span><a class="headerlink" href="#id33" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1050,8 +1054,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default" id="id35">
-<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id35" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id34">
+<caption><span class="caption-number">Table 4.16 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id34" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Description</p></th>
@@ -1070,8 +1074,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id36">
-<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id36" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id35">
+<caption><span class="caption-number">Table 4.17 </span><span class="caption-text">Return value quality</span><a class="headerlink" href="#id35" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1147,8 +1151,8 @@ StatusSubscribe during an active subscription.</p>
 </div>
 <p>JSon code 15: A status subscribe message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id37">
-<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id37" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id36">
+<caption><span class="caption-number">Table 4.18 </span><span class="caption-text">Status Request</span><a class="headerlink" href="#id36" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1206,7 +1210,7 @@ when the signal group state changes.</p>
 <h4><span class="section-number">4.4.4.1.6. </span>Structure for a status update message<a class="headerlink" href="#structure-for-a-status-update-message" title="Link to this heading"></a></h4>
 <p>The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.</p>
-<p>In addition to being send according to <strong>updateRate</strong> and <strong>sendOnChange</strong>,
+<p>In addition to being sent according to <strong>updateRate</strong> and <strong>sendOnChange</strong>,
 it is also always sent immediately after subscription request (even if the
 subscription is already active). The reason for sending the response
 immediately is because subscriptions usually are established shortly after
@@ -1275,7 +1279,7 @@ partial StatusUpdates can be sent.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 17: A subscription request to subscribe to statues with different update rates</p>
+<p>JSon code 17: A subscription request to subscribe to statuses with different update rates</p>
 <div class="highlight-json notranslate" id="json-status-request-partial-resp"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;StatusUpdate&quot;</span><span class="p">,</span>
@@ -1409,8 +1413,8 @@ requested component.</p>
 array (<code class="docutils literal notranslate"><span class="pre">arg</span></code>).</p>
 <p>The following table is describing the variable content of the message:</p>
 <p>Values to send with the command (arguments)</p>
-<table class="docutils align-default" id="id38">
-<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id38" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id37">
+<caption><span class="caption-number">Table 4.19 </span><span class="caption-text">Command argument</span><a class="headerlink" href="#id37" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1426,8 +1430,8 @@ array (<code class="docutils literal notranslate"><span class="pre">arg</span></
 </table>
 <p>The following table describes the variable content of the message which is
 defined by the SXL.</p>
-<table class="docutils align-default" id="id39">
-<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id39" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id38">
+<caption><span class="caption-number">Table 4.20 </span><span class="caption-text">Command arguments defined by SXL</span><a class="headerlink" href="#id38" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1498,8 +1502,8 @@ once.</p>
 </div>
 <p>JSon code 21: A command response message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id40">
-<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id40" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id39">
+<caption><span class="caption-number">Table 4.21 </span><span class="caption-text">Command response</span><a class="headerlink" href="#id39" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1509,7 +1513,7 @@ once.</p>
 <tbody>
 <tr class="row-even"><td><p>cTS</p></td>
 <td><p><em>(timestamp)</em></p></td>
-<td><p>Timestamp for the command reponse.
+<td><p>Timestamp for the command response.
 All timestamps are set at the site (and not in the supervision
 system) when the event occurs (and not when the message is sent).
 See also the <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a> section.</p></td>
@@ -1520,9 +1524,9 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 <section id="id13">
 <h4><span class="section-number">4.4.5.1.3. </span>Return values (returnvalue)<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
 <p>Return values (<strong>rvs</strong>) is always sent but can
-be empty if not return values are defined.</p>
-<table class="docutils align-default" id="id41">
-<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id41" title="Link to this table"></a></caption>
+be empty if no return values are defined.</p>
+<table class="docutils align-default" id="id40">
+<caption><span class="caption-number">Table 4.22 </span><span class="caption-text">Command return values</span><a class="headerlink" href="#id40" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1538,8 +1542,8 @@ be empty if not return values are defined.</p>
 </table>
 <p>The following table describes the variable content defined by the signal
 exchange list (SXL).</p>
-<table class="docutils align-default" id="id42">
-<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id42" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id41">
+<caption><span class="caption-number">Table 4.23 </span><span class="caption-text">Return values</span><a class="headerlink" href="#id41" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1562,8 +1566,8 @@ exchange list (SXL).</p>
 </tbody>
 </table>
 <p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id43">
-<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id43" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id42">
+<caption><span class="caption-number">Table 4.24 </span><span class="caption-text">Command return value</span><a class="headerlink" href="#id42" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Value</p></th>
@@ -1618,7 +1622,7 @@ was not understood.</p>
 each communicating party should treat it as a communication disruption.
 (See <a class="reference internal" href="transport_of_data.html#communication-disruption"><span class="std std-ref">Communication disruption</span></a>)</p></li>
 <li><p>The default timeout value should be 30 seconds.</p></li>
-<li><p>If the version messages has not been exchanged according to communication
+<li><p>If the version messages have not been exchanged according to communication
 establishment sequence
 (See <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>) then
@@ -1630,7 +1634,7 @@ and reconnect, ensuring that the connection restarts with communication
 establishment sequence.</p></li>
 </ul>
 <p>The acknowledgement messages are interaction driven and are sent when
-any other type message are received.</p>
+any other type of message is received.</p>
 <section id="message-structure-message-acknowledgement">
 <h3><span class="section-number">4.4.6.1. </span>Message structure – Message acknowledgement<a class="headerlink" href="#message-structure-message-acknowledgement" title="Link to this heading"></a></h3>
 <p>An acknowledgement message has the structure according to the example
@@ -1658,8 +1662,8 @@ below.</p>
 </div>
 <p>JSon code 23: A not acknowledgement message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id44">
-<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id44" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id43">
+<caption><span class="caption-number">Table 4.25 </span><span class="caption-text">Message not ack</span><a class="headerlink" href="#id43" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1692,86 +1696,51 @@ below.</p>
 </section>
 <section id="rsmp-sxl-version">
 <span id="rsmpsxl-version"></span><h2><span class="section-number">4.4.7. </span>RSMP/SXL Version<a class="headerlink" href="#rsmp-sxl-version" title="Link to this heading"></a></h2>
-<p>RSMP/SXL Version is the initial message when establishing communication.</p>
-<p>It contains:</p>
-<ul class="simple">
-<li><p>Site Id</p></li>
-<li><p>SXL versions</p></li>
-<li><p>All supported RSMP versions</p></li>
-</ul>
-<p>The Site Id and SXL revision must match between the communicating parties.</p>
-<p>If there is a mismatch or if there are no RSMP version that both
+<p>When establishing RSMP communication, the initial message is a Version request message sent by the site.
+The supervisor responds with a Version response message.</p>
+<p>Version messages are used to exchange information about supported versions of RSMP and SXL,
+to ensure that the communicating parties are compatible.</p>
+<p>If there is a mismatch or if there are no RSMP versions that both
 communicating parties support, see <a class="reference internal" href="transport_of_data.html#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
-<p>The version message should be implemented in such a way that it should be
-possible to add additional tags/variables (e.g. date) without affecting
-existing implementations.</p>
+<p>Unknown fields in Version messages must be ignored and not cause a MessageNotAck.
+This allows for backward compatibility when new fields are added in later versions of RSMP or SXL.</p>
 <p>The principle of the message exchange is defined by the communication
 establishment (See
 <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
 and <a class="reference internal" href="transport_of_data.html#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>).</p>
-<section id="id16">
-<h3><span class="section-number">4.4.7.1. </span>Message structure<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
-<p>A version message has the structure according to the example below. In
-the example below the system has support for RSMP version <strong>3.1.1</strong>,
-<strong>3.1.2</strong> and SXL version <strong>1.0.13</strong> for site <strong>O+14439=481WA001</strong>.</p>
-<div class="highlight-json notranslate" id="json-version"><div class="highlight"><pre><span></span><span class="p">{</span>
+<section id="version-request">
+<h3><span class="section-number">4.4.7.1. </span>Version Request<a class="headerlink" href="#version-request" title="Link to this heading"></a></h3>
+<p>The initial Version request sent by the site contains:</p>
+<ul class="simple">
+<li><p>Site Id.</p></li>
+<li><p>Supported RSMP core versions</p></li>
+<li><p>Supported SXLs and their versions</p></li>
+</ul>
+<div class="highlight-json notranslate" id="json-version-request"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Version&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Request&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;mId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6f968141-4de5-42ff-8032-45f8093762c5&quot;</span><span class="p">,</span>
-<span class="w">     </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;Request&quot;</span>
 <span class="w">     </span><span class="nt">&quot;RSMP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">         </span><span class="p">{</span>
-<span class="w">             </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1.1&quot;</span>
-<span class="w">         </span><span class="p">},{</span>
-<span class="w">             </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1.2&quot;</span>
-<span class="w">         </span><span class="p">}</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.2.1&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.3.0&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">     </span><span class="p">],</span>
 <span class="w">     </span><span class="nt">&quot;siteId&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">         </span><span class="p">{</span>
-<span class="w">             </span><span class="nt">&quot;sId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;O+14439=481WA001&quot;</span>
-<span class="w">         </span><span class="p">}</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;sId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;O+14439=481WA001&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">     </span><span class="p">],</span>
-<span class="w">     </span><span class="nt">&quot;SXL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.13&quot;</span><span class="p">,</span>
-<span class="w">     </span><span class="nt">&quot;receiveAlarms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">     </span><span class="nt">&quot;SXL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.0&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">&quot;SXLS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;traffic_light_controller&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tlc/&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;traffic_light_controller/advanced&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.4&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tlc/&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;variable_message_sign&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.6&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vms/&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">     </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 24: A RSMP / SXL message</p>
-<p>The following table describes the variable content of the message which is
-defined by the SXL.</p>
-<p>The <em>Site config</em> columns describes the correlation between the JSon
-elements and the titles in the site configuration.</p>
-<table class="docutils align-default" id="id45">
-<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information defined by site configuration</span><a class="headerlink" href="#id45" title="Link to this table"></a></caption>
-<thead>
-<tr class="row-odd"><th class="head"><p>Element</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Site config (Excel)</p></th>
-<th class="head"><p>Site config (YAML)</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>sId</p></td>
-<td><p>string</p></td>
-<td><p>SiteId</p></td>
-<td></td>
-<td><p><a class="reference internal" href="../definitions.html#term-Site-id"><span class="xref std std-term">Site id</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p>SXL</p></td>
-<td><p>string</p></td>
-<td><p>SXL revision</p></td>
-<td><p>version</p></td>
-<td><p>Revision of SXL. E.g ”1.3”</p></td>
-</tr>
-</tbody>
-</table>
-<p>It is possible to use more than one site id in a single RSMP connection.
-Therefore the site ids that are used in the RSMP connection are sent
-in the message using an array with <code class="docutils literal notranslate"><span class="pre">sId</span></code>.</p>
-<p>The following table describes additional variable content of the message.</p>
-<table class="docutils align-default" id="id46">
-<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id46" title="Link to this table"></a></caption>
+<p>JSon code 24: A Version Request message</p>
+<p>The following table describes variable content of the message:</p>
+<table class="docutils align-default" id="id44">
+<caption><span class="caption-number">Table 4.26 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id44" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1781,25 +1750,192 @@ in the message using an array with <code class="docutils literal notranslate"><s
 <tbody>
 <tr class="row-even"><td><p>step</p></td>
 <td><p>string</p></td>
-<td><p>Must be set to ‘Request’ in the initial Version message sent by the site, and to ‘Response’ in the Version message returned by the supervisor.</p></td>
+<td><p>Must be set to ‘Request’.</p></td>
 </tr>
-<tr class="row-odd"><td><p>vers</p></td>
+<tr class="row-odd"><td><p>siteId</p></td>
+<td><p>array</p></td>
+<td><p>Array of site ids. Must contain exactly one object with <code class="docutils literal notranslate"><span class="pre">sId</span></code> set to the site id string.</p></td>
+</tr>
+<tr class="row-even"><td><p>RSMP</p></td>
+<td><p>array</p></td>
+<td><p>Array of supported core versions.</p></td>
+</tr>
+<tr class="row-odd"><td><p>SXL</p></td>
 <td><p>string</p></td>
-<td><p>Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (<strong>RSMP</strong>).</p></td>
+<td><p>Version of the primary SXL, for backward compatibility.</p></td>
 </tr>
-<tr class="row-even"><td><p>receiveAlarms</p></td>
-<td><p>boolean</p></td>
-<td><p>Supervisor can set this to false if they do not want to receive alarms.</p></td>
+<tr class="row-even"><td><p>SXLS</p></td>
+<td><p>array</p></td>
+<td><p>Array of supported SXLs.</p></td>
 </tr>
 </tbody>
 </table>
-<p>The <cite>receiveAlarms</cite> attribute is optional and can only be set in the Version response
-sent by the supervisors, not the initial Version request sent by the site.</p>
+<p>Only one site can use the same connection. The <code class="docutils literal notranslate"><span class="pre">sId</span></code> array must therefore contain
+exactly one element.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SXL</span></code> field is included for backward compatibility with supervisors that only support older core versions
+and ignore the newer <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array.</p>
+<p>Each item in the <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array must be an object with the following content:</p>
+<table class="docutils align-default" id="id45">
+<caption><span class="caption-number">Table 4.27 </span><span class="caption-text">SXLS item content</span><a class="headerlink" href="#id45" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>string</p></td>
+<td><p>SXL name, e.g. <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>version</p></td>
+<td><p>string</p></td>
+<td><p>Version of the SXL, e.g. “1.3.0”.</p></td>
+</tr>
+<tr class="row-even"><td><p>prefix</p></td>
+<td><p>string</p></td>
+<td><p>(Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.</p></td>
+</tr>
+</tbody>
+</table>
+<p>If the site supports multiple versions of an SXL the latest must be specified.</p>
+</section>
+<section id="version-response">
+<h3><span class="section-number">4.4.7.2. </span>Version Response<a class="headerlink" href="#version-response" title="Link to this heading"></a></h3>
+<p>Communication can only be established if the supervisor supports one of the core
+versions listed in the version request sent by the site. It must be an exact match of both
+major, minor and patch version.</p>
+<p>An SXL listed by the site can only be used if the supervisor supports the exact same version,
+with an exact match of both major, minor and patch version.</p>
+<p>Communication can be established even if the supervisor supports none of the SXLs. In this case, no
+commands, statuses or alarms can be exchanged, only aggregated status.</p>
+<p>If the supervisor determines that the core version cannot be matched,
+it must send a MessageNotAck and close the connection, see <a class="reference internal" href="transport_of_data.html#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
+<p>If the core version can be matched, the supervisor returns a Version response containing:</p>
 <ul class="simple">
-<li><p>If set to false, the site must not send any alarm message to the supervisor except if the supervisor requests, suspends or acknowledges an alarm.</p></li>
-<li><p>If set to true, or omitted, site must send alarms to the supervisor as normal.</p></li>
+<li><p>Supervisor ID.</p></li>
+<li><p>RSMP core version to use.</p></li>
+<li><p>SXLs to use.</p></li>
+<li><p>SXLs not to use and why.</p></li>
+<li><p>receiveAlarms flag, indicating whether the supervisor wants to receive alarms.</p></li>
 </ul>
-<p>The supervisor can request, acknowledge and suspend/resume alarms even if the <cite>receiveAlarms</cite> attribute was set to false.</p>
+<div class="highlight-json notranslate" id="json-version-response"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Version&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Response&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6f968141-4de5-42ff-8032-45f8093762c5&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;RSMP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;vers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.1.1&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;supervisorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;O+14439=481WA001&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;SXLS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;traffic_light_controller&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.0&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;variable_message_sign&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3.4&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;variable_message_sign&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rejected&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Supervisor only supports 2.0.0&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;receiveAlarms&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSon code 25: A Version Response message</p>
+<p>In this example, the SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code> will be used, as well as the
+SXL <code class="docutils literal notranslate"><span class="pre">variable_message_sign</span></code>.</p>
+<p>The SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code> is not used, either because the supervisor
+does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.</p>
+<p>The following table describes variable content of the message:</p>
+<table class="docutils align-default" id="id46">
+<caption><span class="caption-number">Table 4.28 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id46" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>step</p></td>
+<td><p>string</p></td>
+<td><p>Must be set to ‘Response’.</p></td>
+</tr>
+<tr class="row-odd"><td><p>supervisorId</p></td>
+<td><p>string</p></td>
+<td><p>The id of the supervisor.</p></td>
+</tr>
+<tr class="row-even"><td><p>RSMP</p></td>
+<td><p>array</p></td>
+<td><p>Core version used. Array with exactly one object with the attribute <code class="docutils literal notranslate"><span class="pre">vers</span></code> set to the core version string.</p></td>
+</tr>
+<tr class="row-odd"><td><p>SXLS</p></td>
+<td><p>array</p></td>
+<td><p>List of SXLS which will be used for communication.</p></td>
+</tr>
+<tr class="row-even"><td><p>receiveAlarms</p></td>
+<td><p>boolean</p></td>
+<td><p>Optional. If set to false the site must not send alarms to the supervisor.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The supervisor can always request, acknowledge and suspend/resume alarms even if the <cite>receiveAlarms</cite> attribute was set to false in the Version response.</p>
+<p>Each item in the <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array must be an object with the following content:</p>
+<table class="docutils align-default" id="id47">
+<caption><span class="caption-number">Table 4.29 </span><span class="caption-text">SXLS item content</span><a class="headerlink" href="#id47" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Element</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>string</p></td>
+<td><p>SXL name, e.g. <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code>, matching the name in the Version request.</p></td>
+</tr>
+<tr class="row-odd"><td><p>version</p></td>
+<td><p>string</p></td>
+<td><p>Version of the SXL, e.g. “1.3.0”, matching the version in the Version request.</p></td>
+</tr>
+<tr class="row-even"><td><p>rejected</p></td>
+<td><p>integer</p></td>
+<td><p>(Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.</p></td>
+</tr>
+<tr class="row-odd"><td><p>reason</p></td>
+<td><p>string</p></td>
+<td><p>(Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default" id="id48">
+<caption><span class="caption-number">Table 4.30 </span><span class="caption-text">SXL Rejection codes</span><a class="headerlink" href="#id48" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>SXL not supported.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>No matching version of the SXL supported.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>SXL not needed/wanted.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="core-version-compatibility">
+<h3><span class="section-number">4.4.7.3. </span>Core Version Compatibility<a class="headerlink" href="#core-version-compatibility" title="Link to this heading"></a></h3>
+<p>A site and a supervisor can only communicate if the core versions are exactly the same, i.e. both
+major, minor and patch versions match.
+The core version string returned by the supervisor in the version response must therefore be
+the same as one of the core version strings sent by the site in the Version request.</p>
+</section>
+<section id="sxl-version-compatibility">
+<h3><span class="section-number">4.4.7.4. </span>SXL Version Compatibility<a class="headerlink" href="#sxl-version-compatibility" title="Link to this heading"></a></h3>
+<p>An SXL can be used if the site and the supervisor support the exact same version, i.e. both
+major, minor and patch versions match.
+A SXL version string returned by the supervisor in the version response must therefore be
+the same as the SXL version strings sent by the site in the Version request.</p>
 </section>
 </section>
 <section id="componentlist">
@@ -1810,10 +1946,10 @@ i.e. if a component is added, removed or changed.</p>
 <p>The ComponentList message is the authoritative source of information about the components on the site.
 It takes precedence over any static configuration that the supervisor might have.
 However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
-If the supervisor don’t have any configuration for the site, it can use the ComponentList to discover the components.</p>
-<p>The list of components is sent as an array, and must be ordered by component IDs, using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a>. IDs must be unqiue on the site.</p>
-<section id="id17">
-<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+If the supervisor doesn’t have any configuration for the site, it can use the ComponentList to discover the components.</p>
+<p>The list of components is sent as an array, and must be ordered by component IDs, using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a>. IDs must be unique on the site.</p>
+<section id="id16">
+<h3><span class="section-number">4.4.8.1. </span>Message structure<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <p>A ComponentList message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-componentlist"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -1841,8 +1977,8 @@ If the supervisor don’t have any configuration for the site, it can use the Co
 </div>
 <p>JSon code 26: A ComponentList message</p>
 <p>The following table describes the variable content of the message:</p>
-<table class="docutils align-default" id="id47">
-<caption><span class="caption-number">Table 4.28 </span><span class="caption-text">ComponentList</span><a class="headerlink" href="#id47" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id49">
+<caption><span class="caption-number">Table 4.31 </span><span class="caption-text">ComponentList</span><a class="headerlink" href="#id49" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1857,8 +1993,8 @@ If the supervisor don’t have any configuration for the site, it can use the Co
 </tbody>
 </table>
 <p>The following table describes the content of each component in the array:</p>
-<table class="docutils align-default" id="id48">
-<caption><span class="caption-number">Table 4.29 </span><span class="caption-text">Component entry</span><a class="headerlink" href="#id48" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id50">
+<caption><span class="caption-number">Table 4.32 </span><span class="caption-text">Component entry</span><a class="headerlink" href="#id50" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1883,7 +2019,7 @@ If the supervisor don’t have any configuration for the site, it can use the Co
 </section>
 </section>
 <section id="watchdog">
-<span id="id18"></span><h2><span class="section-number">4.4.9. </span>Watchdog<a class="headerlink" href="#watchdog" title="Link to this heading"></a></h2>
+<span id="id17"></span><h2><span class="section-number">4.4.9. </span>Watchdog<a class="headerlink" href="#watchdog" title="Link to this heading"></a></h2>
 <p>The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
@@ -1899,8 +2035,8 @@ setting should be (1) once a minute.</p>
 <p>Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
 (after version message) the watchdog message should be sent.</p>
-<section id="id19">
-<h3><span class="section-number">4.4.9.1. </span>Message structure<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<section id="id18">
+<h3><span class="section-number">4.4.9.1. </span>Message structure<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <p>A watchdog message has the structure according to the example below.</p>
 <div class="highlight-json notranslate" id="json-watchdog"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;mType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rSMsg&quot;</span><span class="p">,</span>
@@ -1910,10 +2046,10 @@ from the supervision system. At initial communication establishment
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>JSon code 25: A watchdog message</p>
+<p>JSon code 27: A watchdog message</p>
 <p>The following table is describing the variable content of the message:</p>
-<table class="docutils align-default" id="id49">
-<caption><span class="caption-number">Table 4.30 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id49" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id51">
+<caption><span class="caption-number">Table 4.33 </span><span class="caption-text">Watchdog</span><a class="headerlink" href="#id51" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Element</p></th>
 <th class="head"><p>Type</p></th>
@@ -1929,8 +2065,8 @@ See also the <a class="reference internal" href="data_types.html#data-types"><sp
 </tbody>
 </table>
 </section>
-<section id="id20">
-<h3><span class="section-number">4.4.9.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3><span class="section-number">4.4.9.2. </span>Message exchange between site and supervision system/other equipment<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <p>Message acknowledgement (see section <a class="reference internal" href="#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
 implicit in the following figures.</p>
 <p>Site sends watchdog message</p>
