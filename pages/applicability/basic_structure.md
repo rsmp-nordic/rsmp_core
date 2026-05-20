@@ -57,36 +57,30 @@ In the following example the message type is an alarm message.
 
 The following table describes the variable content of all message types.
 
-<table>
-  <thead>
-    <tr><th>Element</th><th>Value</th><th>Description</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>mType</td><td>rSMsg</td><td>RSMP identifier</td></tr>
-    <tr>
-      <td rowspan="14">type</td>
-      <td>Alarm</td><td>Alarm message</td>
-    </tr>
-    <tr><td>AggregatedStatus</td><td>Aggregated status message</td></tr>
-    <tr><td>AggregatedStatusRequest</td><td>Aggregated status request message</td></tr>
-    <tr><td>StatusRequest</td><td>Status message. Request status</td></tr>
-    <tr><td>StatusResponse</td><td>Status message. Status response</td></tr>
-    <tr><td>StatusSubscribe</td><td>Status message. Start subscription</td></tr>
-    <tr><td>StatusUpdate</td><td>Status message. Update of status</td></tr>
-    <tr><td>StatusUnsubscribe</td><td>Status message. End subscription</td></tr>
-    <tr><td>CommandRequest</td><td>Command message. Request command</td></tr>
-    <tr><td>CommandResponse</td><td>Command message. Response of command</td></tr>
-    <tr><td>MessageAck</td><td>Message acknowledgement. Successful</td></tr>
-    <tr><td>MessageNotAck</td><td>Message acknowledgement. Unsuccessful</td></tr>
-    <tr><td>Version</td><td>RSMP / SXL version message</td></tr>
-    <tr><td>Watchdog</td><td>Watchdog message</td></tr>
-    <tr>
-      <td>mId <em>(or)</em> oMId</td>
-      <td><em>(GUID)</em></td>
-      <td>Message identity</td>
-    </tr>
-  </tbody>
-</table>
+| Element | Value | Description |
+|---------|-------|-------------|
+| mType | rSMsg | RSMP identifier |
+| type | *(see below)* | Message type |
+| mId *(or)* oMId | *(GUID)* | Message identity |
+
+The `type` element identifies the message type:
+
+| Value | Description |
+|-------|-------------|
+| Alarm | Alarm message |
+| AggregatedStatus | Aggregated status message |
+| AggregatedStatusRequest | Aggregated status request message |
+| StatusRequest | Status message. Request status |
+| StatusResponse | Status message. Status response |
+| StatusSubscribe | Status message. Start subscription |
+| StatusUpdate | Status message. Update of status |
+| StatusUnsubscribe | Status message. End subscription |
+| CommandRequest | Command message. Request command |
+| CommandResponse | Command message. Response of command |
+| MessageAck | Message acknowledgement. Successful |
+| MessageNotAck | Message acknowledgement. Unsuccessful |
+| Version | RSMP / SXL version message |
+| Watchdog | Watchdog message |
 
 {: .note }
 > - **mId** is generated as GUID (Globally unique identifier) in the equipment
@@ -185,25 +179,17 @@ defined by the SXL.
 | xACId | [External alarm code id]({{ '/3.3.0/definitions/#external-alarm-code-id' | relative_url }}) |
 | xNACId | [External NTS alarm code id]({{ '/3.3.0/definitions/#external-nts-alarm-code-id' | relative_url }}) |
 
-The following table describes additional variable content of the message.
+The `aSp` element can have the following values:
 
-<table>
-  <thead>
-    <tr><th>Element</th><th>Value</th><th>Origin</th><th>Description</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="7">aSp</td>
-      <td>Issue</td><td>Site</td><td>An alarm becomes active/inactive.</td>
-    </tr>
-    <tr><td>Request</td><td>Supervision system</td><td>Request the current state of an alarm</td></tr>
-    <tr><td rowspan="2">Acknowledge</td><td>Supervision system</td><td>Acknowledge an alarm</td></tr>
-    <tr><td>Site</td><td>An alarm becomes acknowledged.</td></tr>
-    <tr><td rowspan="2">Suspend</td><td>Supervision system</td><td>Suspend an alarm</td></tr>
-    <tr><td>Site</td><td>An alarm becomes suspended/unsuspended</td></tr>
-    <tr><td>Resume</td><td>Supervision system</td><td>Unsuspend an alarm</td></tr>
-  </tbody>
-</table>
+| Value | Origin | Description |
+|-------|--------|-------------|
+| Issue | Site | An alarm becomes active/inactive |
+| Request | Supervision system | Request the current state of an alarm |
+| Acknowledge | Supervision system | Acknowledge an alarm |
+| Acknowledge | Site | An alarm becomes acknowledged |
+| Suspend | Supervision system | Suspend an alarm |
+| Suspend | Site | An alarm becomes suspended/unsuspended |
+| Resume | Supervision system | Unsuspend an alarm |
 
 ### Alarm status
 {: #alarm-status}
@@ -211,42 +197,24 @@ The following table describes additional variable content of the message.
 Alarm status is only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).
 
-<table>
-  <thead>
-    <tr><th>Element</th><th>Value</th><th>Description</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="2">ack</td>
-      <td>Acknowledged</td><td>The alarm is acknowledged</td>
-    </tr>
-    <tr><td>notAcknowledged</td><td>The alarm is not acknowledged</td></tr>
-    <tr>
-      <td rowspan="2">aS</td>
-      <td>inActive</td><td>The alarm is inactive</td>
-    </tr>
-    <tr><td>Active</td><td>The alarm is active</td></tr>
-    <tr>
-      <td rowspan="2">sS</td>
-      <td>Suspended</td><td>The alarm is suspended</td>
-    </tr>
-    <tr><td>notSuspended</td><td>The alarm is not suspended</td></tr>
-    <tr>
-      <td>aTs</td>
-      <td><em>(timestamp)</em></td>
-      <td>
-        Timestamp for when the alarm changes status.
-        See the contents of aSp to determine which type of timestamp is used.<br>
-        - aSp: Issue: When the alarm gets <strong>active</strong> or <strong>inactive</strong><br>
-        - aSp: Acknowledge: When the alarm gets <strong>acknowledged</strong> or <strong>not acknowledged</strong><br>
-        - aSp: Suspend: When the alarm gets <strong>suspended</strong> or <strong>not suspended</strong><br><br>
-        All timestamps are set at the local level (and not in the supervision system) when
-        the alarm occurs (and not when the message is sent).
-        See also the <a href="{{ '/3.3.0/data-types/' | relative_url }}">data type</a> section.
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Element | Value | Description |
+|---------|-------|-------------|
+| ack | Acknowledged | The alarm is acknowledged |
+| ack | notAcknowledged | The alarm is not acknowledged |
+| aS | inActive | The alarm is inactive |
+| aS | Active | The alarm is active |
+| sS | Suspended | The alarm is suspended |
+| sS | notSuspended | The alarm is not suspended |
+| aTs | *(timestamp)* | Timestamp for when the alarm changes status |
+
+The `aTs` timestamp reflects the event type according to `aSp`:
+- `aSp: Issue`: when the alarm gets **active** or **inactive**
+- `aSp: Acknowledge`: when the alarm gets **acknowledged** or **not acknowledged**
+- `aSp: Suspend`: when the alarm gets **suspended** or **not suspended**
+
+All timestamps are set at the local level (not in the supervision system) when
+the alarm occurs (not when the message is sent).
+See also the [data type]({{ '/3.3.0/data-types/' | relative_url }}) section.
 
 The following diagram shows possible transitions between different alarm states.
 
@@ -622,14 +590,14 @@ A definition of each boolean element (1–8):
 
 | Bit | Description | Status |
 |-----|-------------|--------|
-| 1 | The site is out of operation by the local control system or maintenance personnel | <span class="state-swatch" style="background:#00ffff">Local control</span> |
-| 2 | Supervision system has no contact with the site | <span class="state-swatch" style="background:#7030a0;color:white">Communication disruption</span> |
-| 3 | The site has an alarm that requires immediate action (Priority 1) | <span class="state-swatch" style="background:#ff0000">High priority alarm</span> |
-| 4 | The site has an alarm that does not require immediate action but is planned during the next work shift (Priority 2) | <span class="state-swatch" style="background:#ffff00">Medium priority alarm</span> |
-| 5 | The site has an alarm that will be corrected at the next planned maintenance shift (Priority 3) | <span class="state-swatch" style="background:#548dd4">Low priority alarm</span> |
-| 6 | The site is connected and is currently in use | <span class="state-swatch" style="background:#00b050">Normal - In use</span> |
-| 7 | The site is connected but is currently not in use | <span class="state-swatch" style="background:#404040;color:white">Rest</span> |
-| 8 | The site is not connected to the supervision system | <span class="state-swatch" style="background:#a6a6a6">Not Connected</span> |
+| 1 | The site is out of operation by the local control system or maintenance personnel | Local control |
+| 2 | Supervision system has no contact with the site | Communication disruption |
+| 3 | The site has an alarm that requires immediate action (Priority 1) | High priority alarm |
+| 4 | The site has an alarm that does not require immediate action but is planned during the next work shift (Priority 2) | Medium priority alarm |
+| 5 | The site has an alarm that will be corrected at the next planned maintenance shift (Priority 3) | Low priority alarm |
+| 6 | The site is connected and is currently in use | Normal - In use |
+| 7 | The site is connected but is currently not in use | Rest |
+| 8 | The site is not connected to the supervision system | Not Connected |
 
 - Bit 3 is true if there are any active alarms with priority 1
 - Bit 4 is true if there are any active alarms with priority 2
@@ -733,8 +701,6 @@ The status code id (`sCI`) and name (`n`) are placed in an array
 (`sS`) in order to enable support for requesting multiple statuses at
 once.
 
-<a id="table-statusrequest"></a>
-
 | Element | Description |
 |---------|-------------|
 | sCI | [Status code id]({{ '/3.3.0/definitions/#status-code-id' | relative_url }}) |
@@ -773,8 +739,6 @@ The status code id (`sCI`) and name (`n`) are placed in an array
 }
 ```
 
-<a id="table-statusresponse"></a>
-
 | Element | Value | Description |
 |---------|-------|-------------|
 | sTs | *(timestamp)* | Timestamp. All timestamps are set at the site (and not in the supervision system) when the status is fetched (and not when the message is sent). See also the [data type]({{ '/3.3.0/data-types/' | relative_url }}) section. |
@@ -796,20 +760,12 @@ Return values (`sS`) are always sent but can be empty if no return values exist.
 
 The following table describes additional variable content of the message.
 
-<table>
-  <thead>
-    <tr><th>Element</th><th>Value</th><th>Description</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="4">q</td>
-      <td>recent</td><td>The value is up to date</td>
-    </tr>
-    <tr><td>old</td><td>The value is not up to date. Used when sending buffered values</td></tr>
-    <tr><td>undefined</td><td>The component does not exist</td></tr>
-    <tr><td>unknown</td><td>The value is unknown</td></tr>
-  </tbody>
-</table>
+| Element | Value | Description |
+|---------|-------|-------------|
+| q | recent | The value is up to date |
+| q | old | The value is not up to date. Used when sending buffered values |
+| q | undefined | The component does not exist |
+| q | unknown | The value is unknown |
 
 If the component does not exist or the value `s` is unknown then:
 
@@ -1190,20 +1146,12 @@ Return values (`rvs`) are always sent but can be empty if no return values are d
 | n | Name of the return value |
 | v | Value from equipment |
 
-<table>
-  <thead>
-    <tr><th>Element</th><th>Value</th><th>Description</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="4">age</td>
-      <td>recent</td><td>The value is up to date</td>
-    </tr>
-    <tr><td>old</td><td>The value is not up to date</td></tr>
-    <tr><td>undefined</td><td>The component does not exist. <strong>v</strong> should be set to <strong>null</strong>.</td></tr>
-    <tr><td>unknown</td><td>The value is unknown. <strong>v</strong> should be set to <strong>null</strong>.</td></tr>
-  </tbody>
-</table>
+| Element | Value | Description |
+|---------|-------|-------------|
+| age | recent | The value is up to date |
+| age | old | The value is not up to date |
+| age | undefined | The component does not exist. **v** should be set to **null** |
+| age | unknown | The value is unknown. **v** should be set to **null** |
 
 ### Message exchange — command request/response
 
