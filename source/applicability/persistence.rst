@@ -16,17 +16,12 @@ even after a restart of the site.
 
 Reset Events
 -------------
-For some commands, certain event should reset changes. The following standard reset events are defined:
-
-- Restart
-- Disconnect
-- Timer
-- Process
+For some commands, certain event should reset changes.
 
 For each command defined in the SXL, it must be specified what events cause changes to reset, if any.
 If no reset events are specified for a command, the default behavior applies.
 
-When possible, an SXL should refer to these standard reset events when defining persistence behavior.
+When possible, an SXL should refer to the following standard reset events when defining persistence behavior:
 
 Restart
         The change reset when the site restarts.
@@ -39,11 +34,9 @@ Timer
         The change is reset after a certain time has passed. The SXL must specify the duration, which
         could either be fixed, configurable or controlled by command attributes.
 
-
 Process
         The change can be reset or overwritten by a process on the site. For example, a command might
         initiate a process which resets the change when it completes.
-
 
 Volatile
         An immediate action that does not change any exposed state.
