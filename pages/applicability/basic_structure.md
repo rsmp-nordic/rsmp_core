@@ -629,7 +629,7 @@ implicit in the following figures.
 sequenceDiagram
     participant A as Site
     participant B as Supervision System
-    Note over A: Change of functional state, functional position or status bits
+    Note over A: Change of functional state,<br/>functional position or status bits
     A->>B: Aggregated status
 ```
 
@@ -997,9 +997,9 @@ sequenceDiagram
     participant B as Supervision System
     B->>A: Status subscription
     A-->>B: Status update
-    Note over A: Status changed (sOc) or interval time reached (uRt)
+    Note over A: Status changed (sOc)<br/>or interval time reached (uRt)
     A-->>B: Status update
-    Note over A: Status changed (sOc) or interval time reached (uRt)
+    Note over A: Status changed (sOc)<br/>or interval time reached (uRt)
     A-->>B: Status update
     B->>A: Status unsubscription
 ```

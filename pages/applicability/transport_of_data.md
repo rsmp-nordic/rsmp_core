@@ -103,13 +103,13 @@ sequenceDiagram
     participant A as Site
     participant B as Supervision System
     A->>B: RSMP/SXL version
-    Note over B: Verify RSMP version, SXL version and site id
+    Note over B: Verify RSMP version,<br/>SXL version and site id
     B->>A: RSMP/SXL version
-    Note over A: Verify RSMP version, SXL version and site id
-    Note over A,B: RSMP version is selected based upon what site/supervisor support
+    Note over A: Verify RSMP version,<br/>SXL version and site id
+    Note over A,B: RSMP version selected based on<br/>what site/supervisor support
     A->>B: Watchdog
     B->>A: Watchdog
-    Note over A,B: Asynchronous message exchange can begin
+    Note over A,B: Asynchronous message<br/>exchange can begin
     A->>B: Aggregated status
     A->>B: All alarms
     A->>B: Buffered messages
@@ -185,13 +185,13 @@ sequenceDiagram
     participant A as Site (follower)
     participant B as Site (leader)
     A->>B: RSMP/SXL version
-    Note over B: Verify RSMP version, SXL version and site id
+    Note over B: Verify RSMP version,<br/>SXL version and site id
     B->>A: RSMP/SXL version
-    Note over A: Verify RSMP version, SXL version and site id
-    Note over A,B: RSMP version is selected based upon what sites support
+    Note over A: Verify RSMP version,<br/>SXL version and site id
+    Note over A,B: RSMP version selected based on<br/>what sites support
     A->>B: Watchdog
     B->>A: Watchdog
-    Note over A,B: Asynchronous message exchange can begin
+    Note over A,B: Asynchronous message<br/>exchange can begin
     A->>B: Aggregated status
 ```
 
@@ -265,7 +265,7 @@ sequenceDiagram
     participant A as Site
     participant B as Supervision System / Site
     A->>B: RSMP/SXL version
-    Note over B: Verify RSMP version, SXL version and site id
+    Note over B: Verify RSMP version,<br/>SXL version and site id
     B-->>A: MessageNotAck
     Note over A,B: Connection closed
 ```

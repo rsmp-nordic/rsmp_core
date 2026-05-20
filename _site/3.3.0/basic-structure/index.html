@@ -244,7 +244,7 @@
 </span></code></pre></div></div> <h3 id="message-exchange--aggregated-status"> <a href="#message-exchange--aggregated-status" class="anchor-heading" aria-labelledby="message-exchange--aggregated-status"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Message exchange — aggregated status </h3> <p>Message acknowledgement (see section <a href="#message-acknowledgement">Message acknowledgement</a>) is implicit in the following figures.</p> <p><strong>Functional state, functional position or state booleans change at the site</strong></p><pre><code class="language-mermaid">sequenceDiagram
     participant A as Site
     participant B as Supervision System
-    Note over A: Change of functional state, functional position or status bits
+    Note over A: Change of functional state,&lt;br/&gt;functional position or status bits
     A-&gt;&gt;B: Aggregated status
 </code></pre><ol> <li>An aggregated status message is sent to the supervision system.</li> </ol> <p><strong>The supervision system requests aggregated status</strong></p><pre><code class="language-mermaid">sequenceDiagram
     participant A as Site
@@ -424,9 +424,9 @@
     participant B as Supervision System
     B-&gt;&gt;A: Status subscription
     A--&gt;&gt;B: Status update
-    Note over A: Status changed (sOc) or interval time reached (uRt)
+    Note over A: Status changed (sOc)&lt;br/&gt;or interval time reached (uRt)
     A--&gt;&gt;B: Status update
-    Note over A: Status changed (sOc) or interval time reached (uRt)
+    Note over A: Status changed (sOc)&lt;br/&gt;or interval time reached (uRt)
     A--&gt;&gt;B: Status update
     B-&gt;&gt;A: Status unsubscription
 </code></pre><p>Example of message exchange with subscription, status updates and unsubscription.</p> <h2 id="command-messages"> <a href="#command-messages" class="anchor-heading" aria-labelledby="command-messages"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Command messages </h2> <p>Command messages are used to give order using one or more commands, for the referenced object. The site responds with a command acknowledgement.</p> <p>All arguments need to be included in a command, otherwise it results in a serious error resulting in MessageNotAck. See section about <a href="/3.3.0/error-handling/#incomplete-commands">incomplete commands</a>.</p> <p>Command messages are interaction driven and are sent when commands are requested on any given object by the supervision system or other equipment.</p> <h3 id="structure-of-a-command-request"> <a href="#structure-of-a-command-request" class="anchor-heading" aria-labelledby="structure-of-a-command-request"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Structure of a command request </h3> <p>A command request message has the structure according to the example below. A command request message with the intent to change a value of the requested object.</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
