@@ -22,14 +22,28 @@ Overview
 
 Name and Description
 ^^^^^^^^^^^^^^^^^^^^
-An SXL is identified by a ``name``, e.g. "traffic_light_controller" or "traffic_light_controller/advanced".
+An SXL is identified by a ``name``, e.g. ``traffic_light_controller`` or ``traffic_light_controller/advanced``.
 
 An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
 
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
 
+<<<<<<< HEAD
 A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.
+=======
+To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
+To register an SXL, the name must be unique. If it relates to a specific country or region it
+must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
+e.g. ``se/...`` or ``eu/...``.
+
+Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
+if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
+
+Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
+
+An SXL also has a ``description``, which is a short human-readable text e.g. ``Traffic Light Controller``.
+>>>>>>> 436c00f (use double backticks for code literals)
 
 RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
 must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
@@ -46,7 +60,7 @@ Note: Some legacy SXLs use names without a country code or region, e.g. ``tlc`` 
 
 Version
 ^^^^^^^
-An SXL has a version, e.g. "1.3.1", which must follow Semantic Versioning conventions.
+An SXL has a version, e.g. ``1.3.1``, which must follow Semantic Versioning conventions.
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
@@ -73,18 +87,18 @@ can establish communication. How this is done is explained in :ref:`rsmpsxl-vers
 Prefix
 ^^^^^^
 An SXL can optionally define a prefix which will be prepended to all component types and message codes
-in the SXL, e.g. "tlc/" for a traffic light controller SXL.
+in the SXL, e.g. ``tlc/`` for a traffic light controller SXL.
 
 A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
 
-If you intend to define everything under the same scope, e.g. "tlc/", it is recommended to define a prefix.
-It guarantees that everything in the SXL will be scoped under the correct prefix and avoids having to repeat the same prefix
+If you intend to define everything under the same scope, e.g. ``tlc/``, it is recommended to define a prefix.
+It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
 string everywhere. It also makes it easy to change the prefix if this is ever needed.
 
 Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
 When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.
 
-For example, this SXL defines everything by manually using "tlc/" as a prefix everywhere:
+For example, this SXL defines everything by manually using ``tlc/`` as a prefix everywhere:
 
 .. code-block:: yaml
 
