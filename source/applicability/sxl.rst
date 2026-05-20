@@ -13,6 +13,11 @@ An SXL can depend on other SXLs, and can then rely on component types and messag
 
 A site implements one or more SXLs.
 
+.. _sxl-overview:
+
+Overview
+--------
+
 .. _sxl-name:
 
 Name and Description
@@ -381,7 +386,6 @@ return values.
 
 Composition
 -----------
-
 
 .. _sxl-dependencies:
 
