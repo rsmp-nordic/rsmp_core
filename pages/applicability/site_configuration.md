@@ -7,7 +7,6 @@ nav_order: 8
 ---
 
 # Site Configuration
-{: #site-configuration}
 
 A site configuration defines the individual objects (or components) that exists
 in a specific site. It also defines the relationship between those objects.

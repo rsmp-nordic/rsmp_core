@@ -7,7 +7,6 @@ nav_order: 7
 ---
 
 # Signal Exchange List
-{: #signal-exchange-list}
 
 The signal exchange list is an important functional part of RSMP.
 Since the contents of every message using RSMP is dynamic, a predefined
@@ -157,7 +156,6 @@ The aggregated status contains the fields:
   description. See [State bits]({{ '/3.3.0/basic-structure/#state-bits' | relative_url }})
 
 ### Alarm description
-{: #alarm-description}
 
 The format of the description is free of choice but has the following
 requirements:
@@ -166,7 +164,6 @@ requirements:
 - Description is defined in cooperation with the Purchaser before use
 
 ### Alarm category
-{: #alarm-category}
 
 The alarm category is defined by a single character, either `T` or `D`.
 
@@ -190,7 +187,6 @@ A couple of examples from a tunnel:
 One example of technical alarm is when an impulse fan stops working.
 
 ### Alarm priority
-{: #alarm-priority}
 
 The priority of the alarm.
 

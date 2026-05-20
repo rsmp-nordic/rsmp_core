@@ -102,7 +102,6 @@ messages, message acknowledgement messages and watchdog messages.
 | cId | [Component id]({{ '/3.3.0/definitions/#component-id' | relative_url }}) |
 
 ## Alarm messages
-{: #alarm-messages}
 
 An alarm message is sent to the supervision system when:
 
@@ -139,7 +138,6 @@ The timestamp (`aTs`) reflects the individual event according to the
 element 'aSp'.
 
 ### Structure of an alarm message
-{: #structure-of-an-alarm-message}
 
 An alarm message has the structure according to the example below.
 
@@ -192,7 +190,6 @@ The `aSp` element can have the following values:
 | Resume | Supervision system | Unsuspend an alarm |
 
 ### Alarm status
-{: #alarm-status}
 
 Alarm status is only used by alarm messages (not by alarm acknowledgement
 or alarm suspend messages).
@@ -260,7 +257,6 @@ defined by the SXL.
 | pri | [Alarm priority]({{ '/3.3.0/signal-exchange-list/#alarm-priority' | relative_url }}) |
 
 ### Return values
-{: #return-values}
 
 Return values (`rvs`) are used by alarm messages (but not by alarm
 acknowledgment or alarm suspend messages) and are always sent but can
@@ -279,7 +275,6 @@ defined by the signal exchange list (SXL).
 | v | Value from equipment |
 
 ### Structure for alarm request message
-{: #alarmmessages-req}
 
 An alarm request message has the structure according to the example below.
 
@@ -299,7 +294,6 @@ An alarm request message has the structure according to the example below.
 ```
 
 ### Structure for alarm acknowledgement message
-{: #alarmmessages-ack}
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -350,7 +344,6 @@ example below.
 ```
 
 ### Structure for alarm suspend message
-{: #alarmmessages-suspend}
 
 An alarm suspend message has the structure according to the example below.
 
@@ -526,7 +519,6 @@ sequenceDiagram
 1. An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
 
 ## Aggregated status message
-{: #aggregated-status-message}
 
 This type of message is sent to the supervision system to inform about the
 status of the site. The aggregated status applies to the object which is
@@ -577,7 +569,6 @@ exchange list (SXL).
 in the SXL.
 
 ### State bits
-{: #state-bits}
 
 - **State bits** `se` is an array of eight booleans. The boolean elements define
   the status of the site to [NTS]({{ '/3.3.0/definitions/#nts' | relative_url }}).
@@ -606,7 +597,6 @@ A definition of each boolean element (1–8):
 See section [Alarm priority]({{ '/3.3.0/signal-exchange-list/#alarm-priority' | relative_url }}).
 
 ## Aggregated status request message
-{: #aggregated-status-request-message}
 
 This type of message is sent from the supervision system to request the
 latest aggregated status, in case the supervision system has lost track
@@ -1171,7 +1161,6 @@ sequenceDiagram
 2. Command response
 
 ## Message acknowledgement
-{: #message-acknowledgement}
 
 Message acknowledgement is sent as an initial answer to all other
 messages. This type of message should not be mixed up with alarm
@@ -1263,7 +1252,6 @@ sequenceDiagram
 2. The supervision system or other equipment responds with a message acknowledgement
 
 ## RSMP/SXL Version
-{: #rsmpsxl-version}
 
 RSMP/SXL Version is the initial message when establishing communication.
 
@@ -1331,7 +1319,6 @@ in the message using an array with `sId`.
 | vers | Version of RSMP. E.g. "3.1.2", "3.1.3" or "3.1.4". All the supported RSMP versions are sent in the message using an array (**RSMP**). |
 
 ## Watchdog
-{: #watchdog}
 
 The primary purpose of watchdog messages is to ensure that the
 communication remains established and to detect any communication

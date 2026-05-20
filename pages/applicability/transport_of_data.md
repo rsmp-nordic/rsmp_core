@@ -42,7 +42,6 @@ RSMP connections can be established:
 > otherwise stated in the [SXL]({{ '/3.3.0/definitions/#sxl' | relative_url }}).
 
 ## Multiple supervisors
-{: #multiple-supervisors}
 
 {: .note }
 > Implementing support for multiple supervisors is not required unless
@@ -92,7 +91,6 @@ If encryption is used then the following applies:
   with the purchaser unless other arrangement is agreed upon.
 
 ## Communication establishment between sites and supervision system
-{: #communication-establishment-between-sites-and-supervision-system}
 
 When establishing communication between sites and supervision system,
 messages are sent in the following order.
@@ -173,7 +171,6 @@ each connected site must either:
   lists depending on the RSMP / SXL version message from the site
 
 ## Communication establishment between sites
-{: #communication-establishment-between-sites}
 
 When establishing communication directly between sites, messages are sent in
 the following order.
@@ -248,7 +245,6 @@ For communication between sites the following applies:
 > system works.
 
 ## Communication rejection
-{: #communication-rejection}
 
 During RSMP/SXL Version exchange each communicating party needs to verify:
 
@@ -279,7 +275,6 @@ during RSMP/SXL Version or [missing message acknowledgement]({{ '/3.3.0/basic-st
 unless there is a communication disruption.
 
 ## Communication disruption
-{: #communication-disruption}
 
 In the event of a communication disruption the following principles apply:
 

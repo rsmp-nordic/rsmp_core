@@ -7,7 +7,6 @@ nav_order: 6
 ---
 
 # Data Types
-{: #data_types}
 
 RSMP uses a specific set of data types in return values and arguments of alarms, statuses and commands.
 

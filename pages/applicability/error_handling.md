@@ -50,7 +50,6 @@ the values are set according to the table below.
 | CommandResponse | v | `null` |
 
 ## Incomplete Commands
-{: #incomplete-commands}
 
 If not all arguments are included in a CommandRequest, then this is considered
 a serious error resulting in MessageNotAck.
