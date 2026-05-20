@@ -14,10 +14,12 @@ Dependency Resolution
 ^^^^^^^^^^^^^^^^^^^^^
 Dependency resolution establishes a set of exact SXL versions that satisfy all version requirements.
 
-Dependency resolution can be performed either on a single SXL, or on list of SXLs.
+Dependency resolution can be performed either on a single SXL, or on a list of SXLs.
 
-Dependency order is ignored. All requirements (including transitive requirements) are collected recursively.
-The newest SemVer-compatible version for each SXL is then selected deterministically.
+Dependency order is ignored.
+
+All requirements (including transitive requirements) are collected recursively.
+For each SXL, the newest version that satisfies all of its collected version requirements is then selected deterministically.
 
 If any version requirement is unsatisfiable or a cyclic dependency is detected, resolution fails.
 
@@ -25,8 +27,8 @@ If any version requirement is unsatisfiable or a cyclic dependency is detected, 
 
 Conflict Check
 ^^^^^^^^^^^^^^
-Once a set of exact SXL version have been established by dependency resolution, it must be checked that
-component types or message codes defined in SXLs clash.
+Once a set of exact SXL versions have been established by dependency resolution, it must be checked that
+no component types or message codes defined in different SXLs clash.
 
 .. _sxl-manifest:
 
