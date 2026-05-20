@@ -1,0 +1,3 @@
+.state-swatch { display: inline-block; padding: 2px 8px; border-radius: 2px; font-size: 0.85em; white-space: nowrap; }
+
+.site-nav ul li a { background-image: linear-gradient(-90deg, #ebedf5 0%, rgba(235, 237, 245, 0.8) 80%, rgba(235, 237, 245, 0) 100%); }
