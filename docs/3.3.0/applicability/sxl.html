@@ -59,18 +59,26 @@
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. Signal Exchange List (SXL)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#name-and-description">4.8.1. Name and Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#version">4.8.2. Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prefix">4.8.3. Prefix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#component-types">4.8.4. Component Types</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#messages">4.8.4.1. Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">4.8.1. Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#name-and-description">4.8.1.1. Name and Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version">4.8.1.2. Version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prefix">4.8.1.3. Prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#component-types">4.8.1.4. Component Types</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#alarm-description">4.8.5. Alarm description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#alarm-category">4.8.6. Alarm category</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#alarm-priority">4.8.7. Alarm priority</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#functional-differences-between-message-types">4.8.8. Functional differences between message types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#arguments-and-return-values">4.8.9. Arguments and return values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#messages">4.8.2. Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.8.2.1. Alarm description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.8.2.2. Alarm category</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-priority">4.8.2.3. Alarm priority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functional-differences-between-message-types">4.8.2.4. Functional differences between message types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.8.2.5. Arguments and return values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#composition">4.8.3. Composition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">4.8.3.1. Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sxl-list">4.8.3.2. SXL List</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.9. Site configuration</a></li>
@@ -107,54 +115,56 @@
   <section id="signal-exchange-list-sxl">
 <span id="signal-exchange-list"></span><h1><span class="section-number">4.8. </span>Signal Exchange List (SXL)<a class="headerlink" href="#signal-exchange-list-sxl" title="Link to this heading"></a></h1>
 <p>A signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) specifies the interface for a type of equipment or area of functionality.</p>
-<p>The interface consists of component types, and the alarm, command, and status messages
-used to interact with these component types.</p>
-<p>It also details the meaning of aggregated status bits, functional positions and functional states.</p>
 <p>An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.</p>
-<p>SXLs are machine-readable specifications, not executable artifacts.</p>
+<p>An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
+It also details the meaning of aggregated status bits, functional positions and functional states.</p>
+<p>An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.</p>
+<p>A site implements one or more SXLs.</p>
+<section id="overview">
+<span id="sxl-overview"></span><h2><span class="section-number">4.8.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
 <section id="name-and-description">
-<span id="sxl-name"></span><h2><span class="section-number">4.8.1. </span>Name and Description<a class="headerlink" href="#name-and-description" title="Link to this heading"></a></h2>
+<span id="sxl-name"></span><h3><span class="section-number">4.8.1.1. </span>Name and Description<a class="headerlink" href="#name-and-description" title="Link to this heading"></a></h3>
 <p>An SXL is identified by a <code class="docutils literal notranslate"><span class="pre">name</span></code>, e.g. “traffic_light_controller” or “traffic_light_controller/advanced”.</p>
+<p>An SXL also has a <code class="docutils literal notranslate"><span class="pre">description</span></code>, which is a short human-readable text e.g. “Traffic Light Controller”.</p>
 <p>Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.</p>
-<p>To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
-To register an SXL, the name must be unique. If it relates to a specific country or region it
-must include a top-level part in the form <code class="docutils literal notranslate"><span class="pre">&lt;country_code&gt;/...</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;region&gt;/...</span></code>,
-e.g. <code class="docutils literal notranslate"><span class="pre">se/...</span></code> or <code class="docutils literal notranslate"><span class="pre">eu/...</span></code>.</p>
-<p>Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
-if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.</p>
-<p>Some legacy SXL use names without slashes, e.g. <code class="docutils literal notranslate"><span class="pre">tlc</span></code> for the Nordic Traffic Light Controller SXL.</p>
-<p>An SXL also has a <code class="docutils literal notranslate"><span class="pre">description</span></code>, which is a short human-readable text e.g. “Traffic Light Controller”.</p>
+<p>A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.</p>
+<p>RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
+must indicate this in the name as <code class="docutils literal notranslate"><span class="pre">&lt;country_code&gt;/...</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;region&gt;/...</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">meta</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordic/traffic_light_controller</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nordic Traffic Light Controller</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">traffic_light_controller/advanced</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Advanced Traffic Light Controller Functionality</span>
 </pre></div>
 </div>
+<p>Note: Some legacy SXLs use names without a country code or region, e.g. <code class="docutils literal notranslate"><span class="pre">tlc</span></code> for the Nordic Traffic Light Controller SXL.</p>
 </section>
 <section id="version">
-<span id="sxl-version"></span><h2><span class="section-number">4.8.2. </span>Version<a class="headerlink" href="#version" title="Link to this heading"></a></h2>
+<span id="sxl-version"></span><h3><span class="section-number">4.8.1.2. </span>Version<a class="headerlink" href="#version" title="Link to this heading"></a></h3>
 <p>An SXL has a version, e.g. “1.3.1”, which must follow Semantic Versioning conventions.</p>
 <p>Given a version number MAJOR.MINOR.PATCH, you must increment the:</p>
 <ul class="simple">
-<li><p>MAJOR version when you make incompatible API changes</p></li>
+<li><p>MAJOR version when you make incompatible changes</p></li>
 <li><p>MINOR version when you add functionality in a backward compatible manner</p></li>
 <li><p>PATCH version when you make backward compatible bug fixes</p></li>
 </ul>
+<p>Preview and build info cannot be used as part of version strings.</p>
+<p>SXL versions are used to determine whether a site and the supervisor has compatible versions,
+and when resolving dependencies between SXLs.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">meta</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.3.1</span>
 </pre></div>
 </div>
-<p>SXL versions are used to determine whether a site and the supervisor has compatible versions and
+<p>SXL versions are used to determine whether a site and the supervisor
 can establish communication. How this is done is explained in <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>.</p>
 </section>
 <section id="prefix">
-<span id="sxl-prefix"></span><h2><span class="section-number">4.8.3. </span>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h2>
+<span id="sxl-prefix"></span><h3><span class="section-number">4.8.1.3. </span>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h3>
 <p>An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. “tlc/” for a traffic light controller SXL.</p>
 <p>A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.</p>
 <p>If you intend to define everything under the same scope, e.g. “tlc/”, it is recommended to define a prefix.
-It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
-string everywhere.</p>
+It guarantees that everything in the SXL will be scoped under the correct prefix and avoids having to repeat the same prefix
+string everywhere. It also makes it easy to change the prefix if this is ever needed.</p>
 <p>Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
 When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.</p>
 <p>For example, this SXL defines everything by manually using “tlc/” as a prefix everywhere:</p>
@@ -186,16 +196,21 @@ When using the SXL you must still refer to component types and message code ids 
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set signal plan</span>
 </pre></div>
 </div>
-<p>The result is the same, you still need to use the full paths, e.g. <code class="docutils literal notranslate"><span class="pre">tlc/plan/set</span></code> when changing the signal plan,
+<p>The result is the same and you still need to use the full paths, e.g. “tlc/plan/set” when changing the signal plan,
 or <code class="docutils literal notranslate"><span class="pre">tlc/deadlock</span></code> when sending a deadlock alarm.</p>
-<p>A prefix does not have to mirror the SXL name and should be short.</p>
+<p>A prefix should be short and does not have to mirror the SXL name. You must ensure that SXLs expected to
+be used together do not define the same component types or message codes.</p>
 <p>For example, a traffic light controller SXL like <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code> could use the prefix <code class="docutils literal notranslate"><span class="pre">tlc/</span></code>.</p>
-<p>Two different SXLs can use the same prefix, as long as they are not intended to be used together on the same site.
-Elements defined under the prefix must still differ if the SXL are going to be used together.
-This means you can define a new SXL that is compatible with an existing SXL, and can be used as a drop-in replacement.</p>
+<p>Two different SXLs can use the same prefix, as long as they either don’t define the same component types or message codes,
+or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix supports use cases like:</p>
+<ul class="simple">
+<li><p>modularity: splitting a large SXL into smaller SXLs all using the same prefix.</p></li>
+<li><p>extensions:  a new SXL which adds functionality under a prefix defined in an existing SXL.</p></li>
+<li><p>replacement: a new SXL that is compatible with an existing SXL, and can be used as a replacement.</p></li>
+</ul>
 </section>
 <section id="component-types">
-<span id="sxl-component-types"></span><h2><span class="section-number">4.8.4. </span>Component Types<a class="headerlink" href="#component-types" title="Link to this heading"></a></h2>
+<span id="sxl-component-types"></span><h3><span class="section-number">4.8.1.4. </span>Component Types<a class="headerlink" href="#component-types" title="Link to this heading"></a></h3>
 <p>An SXL defines the available <a class="reference internal" href="../definitions.html#term-Component"><span class="xref std std-term">component</span></a> types. Components are the logical or physical part of a site.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">tlc/sg</span><span class="p">:</span>
@@ -205,8 +220,10 @@ This means you can define a new SXL that is compatible with an existing SXL, and
 </pre></div>
 </div>
 <p>Each type must have a short description.</p>
+</section>
+</section>
 <section id="messages">
-<span id="sxl-messages"></span><h3><span class="section-number">4.8.4.1. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h3>
+<span id="sxl-messages"></span><h2><span class="section-number">4.8.2. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h2>
 <p>The message types <strong>Alarm</strong>, <strong>Aggregated status</strong>, <strong>Status</strong> and <strong>Commands</strong>
 are defined in the SXL.</p>
 <p>Using the Excel format; alarms, aggregated status, status and commands are
@@ -301,7 +318,7 @@ data types.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">max</span></code> is the maximum value (only for <em>number</em> or <em>integer</em> data types)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> is the <a class="reference internal" href="data_types.html#data-types"><span class="std std-ref">data type</span></a></p></li>
 </ul>
-<p>At least one argument are required for command and statuses, but they are
+<p>At least one argument is required for commands and statuses, but they are
 optional in alarms.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -317,10 +334,8 @@ the maximum value.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">1-8</span></code> is an array of eight booleans. Each with a title and optional
 description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
 </ul>
-</section>
-</section>
 <section id="alarm-description">
-<span id="id1"></span><h2><span class="section-number">4.8.5. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h2>
+<span id="id1"></span><h3><span class="section-number">4.8.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
 <p>The format of the description is free of choice but has the following
 requirements:</p>
 <ul class="simple">
@@ -329,8 +344,8 @@ requirements:</p>
 </ul>
 </section>
 <section id="alarm-category">
-<span id="id2"></span><h2><span class="section-number">4.8.6. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h2>
-<p>The alarm category is defined in by a single character, either <code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
+<span id="id2"></span><h3><span class="section-number">4.8.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h3>
+<p>The alarm category is defined by a single character, either <code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
@@ -347,7 +362,7 @@ requirements:</p>
 </tbody>
 </table>
 <p>A <strong>traffic alarm</strong> indicates events in the traffic related functions or the
-technical processes that affects traffic.</p>
+technical processes that affect traffic.</p>
 <p>A couple of examples from a tunnel:</p>
 <ul class="simple">
 <li><p>Stopped vehicle</p></li>
@@ -360,7 +375,7 @@ technical processes that affects traffic.</p>
 One example of technical alarm is when an impulse fan stops working.</p>
 </section>
 <section id="alarm-priority">
-<span id="id3"></span><h2><span class="section-number">4.8.7. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h2>
+<span id="id3"></span><h3><span class="section-number">4.8.2.3. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h3>
 <p>The priority of the alarm.</p>
 <p>Defined in the SXL as a single character, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> or <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 <p>The following values are defined:</p>
@@ -384,10 +399,10 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </table>
 </section>
 <section id="functional-differences-between-message-types">
-<h2><span class="section-number">4.8.8. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h2>
+<h3><span class="section-number">4.8.2.4. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h3>
 <p>The following table defines the functional differences between message types.</p>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-number">Table 4.33 </span><span class="caption-text">Functional differences</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 4.33 </span><span class="caption-text">Functional differences</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Message type</p></th>
 <th class="head"><p>Sent when</p></th>
@@ -415,31 +430,33 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In addition of <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">functional position</span></a>, the Excel version of the SXL
-can also differentiate between different kinds of command messages using
+<dl class="simple">
+<dt>In addition to <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">functional position</span></a>, the Excel version of the SXL</dt><dd><p>can also differentiate between different kinds of command messages using
 <a class="reference internal" href="../definitions.html#term-Maneuver"><span class="xref std std-term">maneuver</span></a> and <a class="reference internal" href="../definitions.html#term-Parameter"><span class="xref std std-term">parameter</span></a> sections. However, their use has no
 functional significance from a protocol point of view.</p>
+</dd>
+</dl>
 </div>
 </section>
 <section id="arguments-and-return-values">
-<h2><span class="section-number">4.8.9. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h2>
-<p>Argument and return values makes it possible to send extra information in
+<h3><span class="section-number">4.8.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
+<p>Argument and return values make it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
-pictures or other data, both to a site and to supervision system. The
-signal exchange list must clarify exactly which data type which is used
+pictures or other data, both to a site and to a supervision system. The
+signal exchange list must clarify exactly which data type is used
 in each case. There is no limitation of the number of arguments and
 return values which can be defined for a given message. Argument and return
-values is defined as extra columns for each row in the signal exchange
+values are defined as extra columns for each row in the signal exchange
 list.</p>
 <ul class="simple">
 <li><p>Arguments can be sent with command messages</p></li>
-<li><p>Return values can be send with response on status requests or as extra
+<li><p>Return values can be sent with response on status requests or as extra
 information with alarm messages</p></li>
 </ul>
-<p>The following table defines the message types which supports arguments and
+<p>The following table defines the message types which support arguments and
 return values.</p>
-<table class="docutils align-default" id="id5">
-<caption><span class="caption-number">Table 4.34 </span><span class="caption-text">Support for arguments and return values</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-number">Table 4.34 </span><span class="caption-text">Support for arguments and return values</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Message type</p></th>
 <th class="head"><p>Argument</p></th>
@@ -465,6 +482,82 @@ return values.</p>
 </tr>
 </tbody>
 </table>
+</section>
+</section>
+<section id="composition">
+<span id="sxl-composition"></span><h2><span class="section-number">4.8.3. </span>Composition<a class="headerlink" href="#composition" title="Link to this heading"></a></h2>
+<section id="dependencies">
+<span id="sxl-dependencies"></span><h3><span class="section-number">4.8.3.1. </span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
+<p>An SXL can declare dependency on other SXLs. It can then rely on the definitions of component types,
+message codes or behaviour from those SXLs.</p>
+<p>For example, a basic SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code> might define the component type <code class="docutils literal notranslate"><span class="pre">tlc/dl</span></code> for detector logics,
+and some messages to interact with this component type.</p>
+<p>Another SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code> might depend on <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code>.
+It can then define a command like <code class="docutils literal notranslate"><span class="pre">tlc/adaptive</span></code> which operates on the component type <code class="docutils literal notranslate"><span class="pre">tlc/dl</span></code> already
+defined in <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code></p>
+<p>Dependencies are listed using SXL names and a version requirement string.
+The order of dependencies is not significant.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">traffic_light_controller</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;~4.3&quot;</span>
+</pre></div>
+</div>
+<p>Version requirement strings support exact version, comparison operators <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> and the compatibility operator <code class="docutils literal notranslate"><span class="pre">~</span></code>.</p>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-number">Table 4.35 </span><span class="caption-text">Version requirement operators</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
+<th class="head"><p>Translation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“1.3.1”</p></td>
+<td><p>exact version 1.3.1 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>“&gt;=1.3.0”</p></td>
+<td><p>version 1.3.0 or higher</p></td>
+</tr>
+<tr class="row-even"><td><p>“&lt;2.0.0”</p></td>
+<td><p>any version lower than 2.0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>“~1.3”</p></td>
+<td><p>any version from 1.3 compatible with it according to semantic versioning rules, i.e. &gt;=1.3.0 and &lt;2.0.0.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Two comparison operators can be combined with <code class="docutils literal notranslate"><span class="pre">and</span></code>:</p>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-number">Table 4.36 </span><span class="caption-text">Version requirement combination</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
+<th class="head"><p>Translation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“&gt;=1.3.0 and &lt;2.0.0”</p></td>
+<td><p>any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)</p></td>
+</tr>
+</tbody>
+</table>
+<p>To ensure that dependency resolution works as intended, you must update
+the SXL version correctly when making changes to an SXL, according to Semantic
+Versioning (SemVer) rules, please see the section on <a class="reference internal" href="#sxl-version"><span class="std std-ref">Version</span></a>.</p>
+<p>Before an SXL is published or updated, dependencies must be resolved to
+ensure that dependencies can be met and no component types or message codes clash.</p>
+<p>If resolution succeeds, a manifest is produced which lists the exact version of all SXLs in the dependency tree,
+including the SXL itself. The manifest must be published together with the SXL.</p>
+</section>
+<section id="sxl-list">
+<span id="id4"></span><h3><span class="section-number">4.8.3.2. </span>SXL List<a class="headerlink" href="#sxl-list" title="Link to this heading"></a></h3>
+<p>A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
+the site as part of the connection handshake.</p>
+<p>Each SXL is specified using the SXL name and an exact version. Order is not significant.</p>
+<p>If an SXL is listed, the site must implement the full SXL, including all components, messages and behavior defined
+in the SXL.</p>
+<p>Dependency SXLs will not be exposed unless explicitly listed by the site.
+For example, if a site lists <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code> but not <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code>,
+the supervisor will not be able to use any of the messages defined in <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code>,
+even if <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code> depends on <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code>.</p>
+</section>
 </section>
 </section>
 
