@@ -29,7 +29,7 @@ An SXL also has a ``description``, which is a short human-readable text e.g. "Tr
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
 
-A site cannot use two SXLs with the same name. SXLs names should therefore be globally unique.
+A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.
 
 RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
 must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
@@ -40,7 +40,7 @@ must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
     name: traffic_light_controller/advanced
     description: Advanced Traffic Light Controller Functionality
 
-Note: Some legacy SXL use names without a country code er region, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
+Note: Some legacy SXLs use names without a country code or region, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
 
 .. _sxl-version:
 
@@ -125,12 +125,12 @@ be used together do not define the same component types or message codes.
 
 For example, a traffic light controller SXL like ``traffic_light_controller`` could use the prefix ``tlc/``.
 
-Two differnt SXLs can use the same prefix, as long as long as they either don't define the same component types or message codes,
-or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix support use cases like:
+Two different SXLs can use the same prefix, as long as they either don't define the same component types or message codes,
+or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix supports use cases like:
 
-- modularity: splitting a large SXL into smaller SXLs all using the while same prefix.
+- modularity: splitting a large SXL into smaller SXLs all using the same prefix.
 - extensions:  a new SXL which adds functionality under a prefix defined in an existing SXL.
-- replacement: a new SXL that is compatible with an existing SXL, and can we used as a replacement.
+- replacement: a new SXL that is compatible with an existing SXL, and can be used as a replacement.
 
 .. _sxl-component-types:
 
@@ -252,7 +252,7 @@ An argument contains the fields:
 - ``max`` is the maximum value (only for *number* or *integer* data types)
 - ``type`` is the :ref:`data type<data_types>`
 
-At least one argument are required for command and statuses, but they are
+At least one argument is required for commands and statuses, but they are
 optional in alarms.
 
 
@@ -287,7 +287,7 @@ requirements:
 
 Alarm category
 ^^^^^^^^^^^^^^
-The alarm category is defined in by a single character, either ``T`` or ``D``.
+The alarm category is defined by a single character, either ``T`` or ``D``.
 
 ==========  ===============
 Value       Description
@@ -297,7 +297,7 @@ D           Technical alarm
 ==========  ===============
 
 A **traffic alarm** indicates events in the traffic related functions or the
-technical processes that affects traffic.
+technical processes that affect traffic.
 
 A couple of examples from a tunnel:
 
@@ -346,27 +346,27 @@ The following table defines the functional differences between message types.
    =================  =========================================  ================================
 
 .. note::
-   In addition of :term:`functional position`, the Excel version of the SXL
+  In addition to :term:`functional position`, the Excel version of the SXL
    can also differentiate between different kinds of command messages using
    :term:`maneuver` and :term:`parameter` sections. However, their use has no
    functional significance from a protocol point of view.
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Argument and return values makes it possible to send extra information in
+Argument and return values make it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
-pictures or other data, both to a site and to supervision system. The
-signal exchange list must clarify exactly which data type which is used
+pictures or other data, both to a site and to a supervision system. The
+signal exchange list must clarify exactly which data type is used
 in each case. There is no limitation of the number of arguments and
 return values which can be defined for a given message. Argument and return
-values is defined as extra columns for each row in the signal exchange
+values are defined as extra columns for each row in the signal exchange
 list.
 
 - Arguments can be sent with command messages
-- Return values can be send with response on status requests or as extra
+- Return values can be sent with response on status requests or as extra
   information with alarm messages
 
-The following table defines the message types which supports arguments and
+The following table defines the message types which support arguments and
 return values. 
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
@@ -391,7 +391,7 @@ Composition
 
 Dependencies
 ^^^^^^^^^^^^
-An SXL can declare dependecy on other SXLs. It can then rely on the definitions of component types,
+An SXL can declare dependency on other SXLs. It can then rely on the definitions of component types,
 message codes or behaviour from those SXLs.
 
 For example, a basic SXL ``traffic_light_controller`` might define the component type ``tlc/dl`` for detector logics,
@@ -442,7 +442,7 @@ Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
 Before an SXL is published or updated, dependencies must be resolved to
 ensure that dependencies can be met and no component types or message codes clash.
 
-If resolution succeeds, a manifest is produced which list the exact version of all SXLs in the dependency tree,
+If resolution succeeds, a manifest is produced which lists the exact version of all SXLs in the dependency tree,
 including the SXL itself. The manifest must be published together with the SXL.
 
 
@@ -453,12 +453,12 @@ SXL List
 A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
 the site as part of the connection handshake.
 
-Each SXL is specified using the SXL name and an exact versions. Order is not significant.
+Each SXL is specified using the SXL name and an exact version. Order is not significant.
 
 If an SXL is listed, the site must implement the full SXL, including all components, messages and behavior defined
 in the SXL.
 
-Dependency SXLs will not be exposed unless explicitely listed by the site.
+Dependency SXLs will not be exposed unless explicitly listed by the site.
 For example, if a site lists ``traffic_light_controller/advanced`` but not ``traffic_light_controller``,
 the supervisor will not be able to use any of the messages defined in ``traffic_light_controller``,
 even if ``traffic_light_controller/advanced`` depends on ``traffic_light_controller``.
