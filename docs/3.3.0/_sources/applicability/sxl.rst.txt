@@ -29,9 +29,8 @@ An SXL also has a ``description``, which is a short human-readable text e.g. "Tr
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
 
-<<<<<<< HEAD
 A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.
-=======
+
 To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
 To register an SXL, the name must be unique. If it relates to a specific country or region it
 must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
@@ -43,7 +42,6 @@ if used together with other SXLs. We therefore recommend registering all SXLs th
 Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
 
 An SXL also has a ``description``, which is a short human-readable text e.g. ``Traffic Light Controller``.
->>>>>>> 436c00f (use double backticks for code literals)
 
 RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
 must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
