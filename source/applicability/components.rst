@@ -33,7 +33,7 @@ Component type IDs use UTF-8 and must contain only letters, digits, hyphens, und
 Component ID
 ------------
 Component IDs are used to identify components.
-The can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.
+They can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.
 
 Forward slashes ``/`` can be used to organise components into a hierarchy.
 
