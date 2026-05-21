@@ -1733,7 +1733,7 @@ The supervisor can always request, acknowledge and suspend/resume alarms even if
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
-.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.10}|\Yl{0.79}|
 
 .. table:: SXLS item content
 
@@ -1746,7 +1746,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
    ========= ======== ====================
 
-.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.50}|
 
 .. table:: SXL Rejection codes
 
