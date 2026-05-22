@@ -140,23 +140,21 @@ implicit in the following figure.
 .. image:: /img/msc/establish-site-system.png
    :align: center
 
-1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
+1. Site sends RSMP / SXL versions (according to section :ref:`rsmpsxl-version`).
 
-2. The supervision system verifies the RSMP version, SXL version and site id.
+2. The supervision system verifies the RSMP version, SXL versions and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-3. The supervision system sends RSMP / SXL version (according to section
+3. The supervision system selects and sends RSMP / SXL versions (according to section
    :ref:`rsmpsxl-version`).
 
-4. The site verifies the RSMP version, SXL version and site id.
+4. The site verifies the RSMP version, SXL versions and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The versions of RSMP and SXLs sent by the superviser is used in any
+   further RSMP communication.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
 
@@ -188,28 +186,16 @@ current ones based on their older alarm timestamps. Any buffered alarm events
 that contains the exact same alarm event and timestamp as sent when sending all
 alarms should not be sent again.
 
-Since only one version of the signal exchange list is allowed to be used
-at the communication establishment (according to the version message),
-each connected site must either:
-
-* Use the same version of the signal exchange list via the same
-  RSMP connection
-* Connect to separate supervision systems (e.g. using separate ports)
-* Connect to a supervision system that can handle separate signal exchange
-  lists depending on the RSMP / SXL version message from the site
 
 .. _communication-establishment-between-sites:
 
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When establishing communication directly between sites, messages are sent in
+When establishing communication directly sites, messages are sent in
 the following order.
 
 One site acts as a leader and the other one as a follower.
-
-When establishing communication between sites, messages are sent in the
-following order.
 
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
@@ -217,23 +203,22 @@ implicit in the following figure.
 .. image:: /img/msc/establish-site-site.png
    :align: center
 
-1. The follower site sends RSMP / SXL version (according to section
+1. The follower site sends RSMP / SXL versions (according to section
    :ref:`rsmpsxl-version`).
 
-2. The leader site verifies the RSMP version, SXL version and site id.
+2. The leader site verifies the RSMP version, SXL versions and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-3. The leader site sends RSMP / SXL version (according to section
+3. The leader site selects and sends RSMP / SXL versions (according to section
    :ref:`rsmpsxl-version`).
 
-4. The follower site verifies the RSMP version, SXL version and site id.
+4. The follower site verifies the RSMP version, SXL versions and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The versions of RSMP and SXLs sent by the leader is used in any
+   further RSMP communication.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
