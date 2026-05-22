@@ -69,8 +69,8 @@ Connection:
 
 * Connections to supervisor are handled in parallel, with messages processed
   in the order they arrive.
-* Depending on how core/SXL version are set in Version messages, the
-  connections to supervisor can use different core/SXL versions.
+* Depending on which core version and SXLs are negotiated in Version messages,
+  connections to different supervisors can use different core versions and sets of SXLs.
 
 Aggregated status:
 
@@ -93,7 +93,7 @@ Commands:
 
 Alarms:
 
-* Alarms are send to all supervisors, except those that set `receiveAlarms`
+* Alarms are sent to all supervisors, except those that set `receiveAlarms`
   to false in their Version message.
 * All supervisors can acknowledge and suspend/resume alarms, even if they
   set `receiveAlarms` to false in their Version message.
@@ -142,18 +142,18 @@ implicit in the following figure.
 
 1. Site sends RSMP / SXL versions (according to section :ref:`rsmpsxl-version`).
 
-2. The supervision system verifies the RSMP version, SXL versions and site id.
+2. The supervision system verifies the RSMP core versions and site id.
+   If none of the core versions are supported or the site id is not recognized,
+   the sequence does not proceed. (see section :ref:`communication-rejection`)
+
+3. The supervision system selects the core version and SXLs to use, and sends a Version
+   Response (according to section :ref:`rsmpsxl-version`).
+
+4. The site verifies the RSMP core and SXL versions selected.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-3. The supervision system selects and sends RSMP / SXL versions (according to section
-   :ref:`rsmpsxl-version`).
-
-4. The site verifies the RSMP version, SXL versions and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
-
-5. The versions of RSMP and SXLs sent by the superviser is used in any
+5. The core version and SXLs selected by the supervision system are used in any
    further RSMP communication.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
@@ -192,7 +192,7 @@ alarms should not be sent again.
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When establishing communication directly sites, messages are sent in
+When establishing communication directly between sites, messages are sent in
 the following order.
 
 One site acts as a leader and the other one as a follower.
@@ -206,18 +206,18 @@ implicit in the following figure.
 1. The follower site sends RSMP / SXL versions (according to section
    :ref:`rsmpsxl-version`).
 
-2. The leader site verifies the RSMP version, SXL versions and site id.
+2. The leader site verifies the RSMP core versions and site id.
+   If none of the core versions are supported or the site id does not match, 
+   the sequence does not proceed. (see section :ref:`communication-rejection`)
+
+3. The leader site selects the core version and SXLs to use, and sends a Version
+   Response (according to section :ref:`rsmpsxl-version`).
+
+4. The follower site verifies the RSMP core and SXL versions selected.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-3. The leader site selects and sends RSMP / SXL versions (according to section
-   :ref:`rsmpsxl-version`).
-
-4. The follower site verifies the RSMP version, SXL versions and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
-
-5. The versions of RSMP and SXLs sent by the leader is used in any
+5. The core version and SXLs selected by the leader are used in any
    further RSMP communication.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
@@ -235,7 +235,6 @@ implicit in the following figure.
 
 For communication between sites the following applies:
 
-* The SXL used is the SXL of the follower site
 * The site id (siteId) which is sent in RSMP / SXL version is the
   follower site's site id
 * If the site id does not match with the expected site id the connection
@@ -257,14 +256,7 @@ For communication between sites the following applies:
 
 Communication rejection
 ^^^^^^^^^^^^^^^^^^^^^^^
-
-During RSMP/SXL Version exchange each communicating party needs to verify:
-
-* RSMP version(s)
-* SXL version
-* Site id
-
-If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+If a received Version message cannot be accepted then:
 
 1. The communication establishment sequence does not proceed
 2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
@@ -275,8 +267,8 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-Is it not allowed to disconnect for any other circumstance other than mismatch
-during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
+It is not allowed to disconnect for any other circumstance other than a rejected
+Version message or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:
