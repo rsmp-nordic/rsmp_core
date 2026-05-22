@@ -1,0 +1,15 @@
+{
+  "title" :  "MessageNotAck",
+  "description" :  "Message not acknowledgeded",
+  "properties" : {
+    "oMId" : {
+      "$ref": "definitions.json#/message_id",
+      "description" : "Old message id"
+    },
+    "rea" : {
+      "description" : "Reason / Error message",
+      "type" : "string"
+    }
+  },
+  "required" : [ "oMId" ]
+}

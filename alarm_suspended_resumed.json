@@ -1,0 +1,47 @@
+{
+  "properties" : {
+    "ack" : {
+      "description" : "Acknowledgement",
+      "type" : "string",
+      "enum" : [ "Acknowledged", "notAcknowledged",
+                 "acknowledged", "NotAcknowledged" ]
+    },
+    "aS" : {
+      "description" : "Active status",
+      "type" : "string",
+      "enum" : [ "inActive", "Active", "inactive",
+                 "InActive", "active" ]
+    },
+    "sS" : {
+      "description" : "Suspend status",
+      "type" : "string",
+      "enum" : [ "suspended", "notSuspended",
+                 "Suspended", "NotSuspended" ]
+    },
+    "aTs" : { "$ref": "definitions.json#/timestamp" },
+    "cat" : {
+      "description" : "Category",
+      "type" : "string",
+      "enum" : [ "T", "D" ]
+    },
+    "pri" : {
+      "description" : "Priority",
+      "type" : "string",
+      "enum" : [ "1", "2", "3" ]
+    },
+    "rvs" : {
+      "description" : "Return values",
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties": {
+          "n" : { "description" : "Unique reference of the value", "type" : "string" },
+          "v" : { "description" : "Value", "type" : "string" }
+        },
+        "required" : [ "n", "v" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required" : [ "mId", "cId", "aCId", "xACId", "aSp", "ack", "aS", "aTs", "sS", "cat", "pri", "rvs" ]
+}
