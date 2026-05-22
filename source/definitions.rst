@@ -29,10 +29,6 @@ Definitions
    External NTS alarm code id
        Alarm code in order to identify alarm type during communication with NTS
 
-   DATEX II
-       European standard for message exchange between traffic systems
-       (www.datex2.eu)
-
    Functional position
        Provides command options for a site. For instance, "start" or "stop"
        It is meant to be used for the entire site and not for an individual
