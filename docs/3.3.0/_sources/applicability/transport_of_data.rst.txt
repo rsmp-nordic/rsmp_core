@@ -239,12 +239,14 @@ implicit in the following figure.
 
 7. The leader site sends Watchdog (according to section :ref:`watchdog`)
 
-8. Asynchronous message exchange can begin. This means that commands and
+8. The follower site sends a ComponentList message (according to section :ref:`component-list`).
+
+9. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-9. Aggregated status (according to section :ref:`aggregated-status-message`)
-   If no component for aggregated status is defined in the signal exchange list
-   then no aggregated status message is sent.
+10. Aggregated status (according to section :ref:`aggregated-status-message`)
+    If no component for aggregated status is defined in the signal exchange list
+    then no aggregated status message is sent.
 
 For communication between sites the following applies:
 
