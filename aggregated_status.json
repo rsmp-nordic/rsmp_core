@@ -1,0 +1,25 @@
+{
+  "title" :  "Aggregated Status",
+  "description" :  "Aggregated status message",
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "aSTS" : { "$ref": "definitions.json#/timestamp" },
+    "fP" : {
+      "description" : "Functional position",
+      "type" : "string, null"
+    },
+    "fS" : {
+      "description" : "Functional position",
+      "type" : "string, null"
+    },
+    "se" : {
+      "type" : "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items" : {
+        "type" : "boolean"
+      }
+    }
+  },
+  "required" : [ "mId", "aSTS", "fP", "fS", "se" ]
+}
