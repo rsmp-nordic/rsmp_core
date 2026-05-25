@@ -358,7 +358,7 @@ The following table defines the functional differences between message types.
    =================  =========================================  ================================
 
 .. note::
-  In addition to :term:`functional position`, the Excel version of the SXL
+   In addition to :term:`functional position`, the Excel version of the SXL
    can also differentiate between different kinds of command messages using
    :term:`maneuver` and :term:`parameter` sections. However, their use has no
    functional significance from a protocol point of view.
