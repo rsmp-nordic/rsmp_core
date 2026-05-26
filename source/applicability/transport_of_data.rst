@@ -247,10 +247,10 @@ For communication between sites the following applies:
 * No communication buffer exist
 
 .. note::
-   Please note that it's the leader site that connects the the follower site,
+   Please note that it's the leader site that connects to the follower site,
    but it's also the leader site that requests commands and statuses.
    This is different to how the RSMP connection between sites and supervision
-   system works.
+   system works by default.
 
 .. _communication-rejection:
 
@@ -415,8 +415,9 @@ Transport between sites
 
 One site acts as leader and the other site(s) as followers. The leader can
 request commands, statuses (with optional subscription) and alarms to the
-follower site(s). It is the leader one who connects. This is different to
-how the RSMP connection between sites and supervision system works.
+follower site(s). It is the leader one who connects (using TCP). This is
+different to how the RSMP connection between sites and supervision system works
+by default.
 
 * The follower site(s) implements a socket server and waits for the leader
   site to connect
