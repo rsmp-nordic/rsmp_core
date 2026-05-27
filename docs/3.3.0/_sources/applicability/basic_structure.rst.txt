@@ -23,7 +23,7 @@ In the following example the message type is an alarm message.
        "mType": "rSMsg",
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
-       "ntsOId": "F+40100=416CG100",
+       "ntsOId": "",
        "xNId": "23055",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
@@ -112,6 +112,8 @@ messages, message acknowledgement messages and watchdog messages.
    ============ ================================================
    Element      Description
    ============ ================================================
+   ntsOId       *deprecated (empty string)*
+   xNId         *deprecated (empty string)*
    cId          :ref:`Component-id`
    ============ ================================================
 
@@ -171,8 +173,8 @@ An alarm message has the structure according to the example below.
        "mType": "rSMsg",
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
-       "ntsOId": "F+40100=416CG100",
-       "xNId": "23055",
+       "ntsOId": "",
+       "xNId": "",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
@@ -609,7 +611,7 @@ below.
         "mType": "rSMsg",
 	"type": "AggregatedStatus",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
-	"ntsOId": "O+14439=481WA001",
+	"ntsOId": "",
 	"xNId": "",
 	"cId": "O+14439=481WA001",
 	"aSTS": "2015-06-08T08:05:06.584Z",
@@ -753,7 +755,7 @@ below.
         "mType": "rSMsg",
 	"type": "AggregatedStatusRequest",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
-	"ntsOId": "O+14439=481WA001",
+	"ntsOId": "",
 	"xNId": "",
 	"cId": "O+14439=481WA001",
    }
@@ -814,7 +816,7 @@ below.
         "mType": "rSMsg",
 	"type": "StatusRequest",
 	"mId": "f1a13213-b90a-4abc-8953-2b8142923c55",
-	"ntsOId": "O+14439=481WA001",
+	"ntsOId": "",
 	"xNId": "",
 	"cId": "O+14439=481WA001",
 	"sS": [
@@ -866,7 +868,7 @@ The following table is describing the variable content of the message.
         "mType": "rSMsg",
         "type": "StatusResponse",
         "mId": "0a95e463-192a-4dd7-8b57-d2c2da636584",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sTs": "2015-06-08T09:15:18.266Z",
@@ -982,7 +984,7 @@ The site must not establish a new subscription but use the existing one.
         "mType": "rSMsg",
         "type": "StatusSubscribe",
         "mId": "d6d97f8b-e9db-4572-8084-70b55e312584",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sS": [
@@ -1087,7 +1089,7 @@ the current statuses.
         "mType": "rSMsg",
         "type": "StatusUpdate",
         "mId": "dabb67f9-2601-4db9-bb8a-c7c47f57e100",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sTs": "2015-06-08T09:33:04.735Z",
@@ -1191,7 +1193,7 @@ usual message acknowledgement.
         "mType": "rSMsg",
         "type": "StatusUnsubscribe",
         "mId": "5ff528c5-f2f0-4bc4-a335-280c52b6e6d8",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sS": [
@@ -1275,7 +1277,7 @@ requested component.
         "mType": "rSMsg",
         "type": "CommandRequest",
         "mId": "cf76365e-9c7b-44a4-86bd-d107cdfc3fcf",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "arg": [
@@ -1356,7 +1358,7 @@ once.
         "mType": "rSMsg",
         "type": "CommandResponse",
         "mId": "0fd63726-be19-4c09-8553-48451735cb0b",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "cTS": "2015-06-08T11:49:03.293Z",
