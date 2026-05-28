@@ -8,6 +8,7 @@
     "rvs" : {
       "description" : "Command arguments",
       "type" : "array",
+      "minItems" : 1,
       "items" : {
         "type" : "object",
         "properties": {
