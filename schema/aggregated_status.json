@@ -6,11 +6,11 @@
     "aSTS" : { "$ref": "definitions.json#/timestamp" },
     "fP" : {
       "description" : "Functional position",
-      "type" : "string, null"
+      "type" : ["string", "null"]
     },
     "fS" : {
       "description" : "Functional position",
-      "type" : "string, null"
+      "type" : ["string", "null"]
     },
     "se" : {
       "type" : "array",
