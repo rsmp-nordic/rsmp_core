@@ -2,6 +2,40 @@
 
 Transport of data
 -----------------
+RSMP uses TCP/IP for transport of data. The default port is 12111, but other ports can be used.
+
+Messages are encoded in JSon format.
+
+Site-to-supervisor
+^^^^^^^^^^^^^^^^^^
+For communication between a site and a supervision, the default is that the site
+is the TCP client and opens the connection to the supervision system, which is the TCP server.
+
+The supervisor will typically accept connections from multiple sites.
+
+However, the oppositite can be used, where the supervision is the TCP client
+and opens the connection to the site, which is the TCP server.
+
+See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
+Sites must support conneections to multiple supervisors, see :ref:`Multiple supervisors <multiple-supervisors>`.
+
+Site-to-site
+^^^^^^^^^^^^
+For communication between two sites, one site acts as a supervisor.
+The acting supervisor is always the TCP client, opening the TCP connection to the other site which is the TCP server.
+
+The site will typically maintain one or more separate site-to-supervisor connections.
+
+See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
+
+.. note::
+   Implementing support for communication between sites is not required unless
+   stated in the :term:`SXL`.
+
+Message Flow
+^^^^^^^^^^^^
+RSMP message flow is determined by who acts as the RSMP supervisor.
+It's not affected by who is the TCP client/server in the underlying TCP transport layer.
 
 The message flow is different between different types of messages.
 Some message types are event driven and are sent without a request (push),
@@ -12,29 +46,12 @@ To ensure that messages reach their destinations a message acknowledgment
 is sent for all messages. This gives the application a simple way to
 follow up on the message exchange.
 
-To communicate between sites and supervision systems a pure TCP connection
-is used (TCP/IP), and the data sent is based on the JSon format, i.e.
-formatted text. The default port for RSMP is 12111.
-
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
 can continue to send messages. The exception is during the first part of
 communication establishment (see section :ref:`communication-establishment-between-sites-and-supervision-system`
 and :ref:`communication-establishment-between-sites`).
 
-RSMP connections can be established:
-
-* Between site and supervision system.
-  See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
-  The site needs to support multiple RSMP connections to different
-  supervisors. See :ref:`Multiple supervisors <multiple-supervisors>`.
-
-* Directly between sites.
-  See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
-
-.. note::
-   Implementing support for communication between sites is not required unless
-   otherwise stated in the :term:`SXL`.
 
 .. _multiple-supervisors:
 
