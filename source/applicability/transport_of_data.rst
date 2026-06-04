@@ -8,23 +8,25 @@ Messages are encoded in JSon format.
 
 Site-to-supervisor
 ^^^^^^^^^^^^^^^^^^
-For communication between a site and a supervision, the default is that the site
-is the TCP client and opens the connection to the supervision system, which is the TCP server.
+For communication between a site and a supervisor, the default is that the site
+acts as the TCP client and opens the connection to the supervision system,
+which acts as the TCP server.
 
 The supervisor will typically accept connections from multiple sites.
 
-However, the oppositite can be used, where the supervision is the TCP client
-and opens the connection to the site, which is the TCP server.
+However, the oppositite can be used, where the supervisor is the TCP client
+and opens the connection to the site, which acts as the TCP server.
 
 See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
-Sites must support conneections to multiple supervisors, see :ref:`Multiple supervisors <multiple-supervisors>`.
+Sites must support connections to multiple supervisors, see :ref:`Multiple supervisors <multiple-supervisors>`.
 
 Site-to-site
 ^^^^^^^^^^^^
 For communication between two sites, one site acts as a supervisor.
-The acting supervisor is always the TCP client, opening the TCP connection to the other site which is the TCP server.
+The site acting as the supervisor alway acts as the TCP client,
+opening the TCP connection to the other site which acts as the TCP server.
 
-The site will typically maintain one or more separate site-to-supervisor connections.
+The sites will typically maintain one or more separate site-to-supervisor connections.
 
 See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
 
@@ -34,10 +36,10 @@ See :ref:`communication establishment between sites <communication-establishment
 
 Message Flow
 ^^^^^^^^^^^^
-RSMP message flow is determined by who acts as the RSMP supervisor.
-It's not affected by who is the TCP client/server in the underlying TCP transport layer.
+RSMP message flow is determined by who acts as the RSMP supervisor,
+not by who acts as the TCP client/server.
 
-The message flow is different between different types of messages.
+The message flow is different for different types of messages.
 Some message types are event driven and are sent without a request (push),
 while others are interaction driven, i.e. they sent in response to a
 request from a host system or other system (client-server).
