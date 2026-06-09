@@ -1,10 +1,81 @@
 {
   "title" :  "Version",
   "description" :  "Version message",
-  "properties" : {
-    "mId" : { "$ref": "definitions.json#/message_id" },
-    "RSMP" : {
-      "description" : "Supported RSMP versions",
+  "oneOf" : [
+    {
+      "description" : "Version request",
+      "properties" : {
+        "mId" : { "$ref": "definitions.json#/message_id" },
+        "step" : {
+          "type" : "string",
+          "const" : "Request"
+        },
+        "RSMP" : {
+          "$ref" : "#/$defs/rsmp_versions",
+          "description" : "Supported RSMP versions"
+        },
+        "SXL" : {
+          "$ref": "definitions.json#/version",
+          "description" : "Primary SXL version, for backward compatibility"
+        },
+        "SXLS" : {
+          "description" : "Supported SXLs",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/sxl_request" },
+          "minItems" : 1,
+          "uniqueItems" : true
+        },
+        "siteId" : {
+          "description" : "Site ids",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/site_id" },
+          "minItems" : 1,
+          "maxItems" : 1,
+          "uniqueItems" : true
+        }
+      },
+      "required" : [ "mId", "RSMP", "SXL", "SXLS", "siteId" ]
+    },
+    {
+      "description" : "Version response",
+      "properties" : {
+        "mId" : { "$ref": "definitions.json#/message_id" },
+        "step" : {
+          "type" : "string",
+          "const" : "Response"
+        },
+        "RSMP" : {
+          "description" : "Selected RSMP version",
+          "allOf" : [
+            { "$ref" : "#/$defs/rsmp_versions" },
+            {
+              "minItems" : 1,
+              "maxItems" : 1
+            }
+          ]
+        },
+        "supervisorId" : {
+          "description" : "Supervisor id",
+          "type" : "string",
+          "minLength" : 1
+        },
+        "SXLS" : {
+          "description" : "SXLs to use, or not use",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/sxl_response" },
+          "minItems" : 1,
+          "uniqueItems" : true
+        },
+        "receiveAlarms" : {
+          "description" : "Whether the supervisor wants to receive alarms",
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "mId", "step", "RSMP", "supervisorId", "SXLS" ]
+    }
+  ],
+  "$defs" : {
+    "rsmp_versions" : {
       "type" : "array",
       "items" : {
         "type" : "object",
@@ -14,34 +85,60 @@
             "description" : "RSMP version"
           }
         },
-        "required" : ["vers"],
+        "required" : [ "vers" ],
         "additionalProperties" : false
       },
       "minItems" : 1,
       "uniqueItems" : true
     },
-    "SXL" : {
-      "$ref": "definitions.json#/version",
-      "description" : "SXL version"
-    },
-    "siteId" : {
-      "description" : "Site ids",
-      "type" : "array",
-      "items" : {
-        "type" : "object",
-        "properties" : {
-          "sId" : {
-            "type" : "string",
-            "minLength": 1
-          }
-        },
-        "required" : [ "sId" ],
-        "additionalProperties" : false
+    "site_id" : {
+      "type" : "object",
+      "properties" : {
+        "sId" : {
+          "type" : "string",
+          "minLength": 1
+        }
       },
-      "minItems" : 1,
-      "uniqueItems" : true,
+      "required" : [ "sId" ],
       "additionalProperties" : false
+    },
+    "sxl_request" : {
+      "type" : "object",
+      "properties" : {
+        "name" : { "$ref" : "definitions.json#/sxl_name" },
+        "version" : { "$ref" : "definitions.json#/version" },
+        "prefix" : { "$ref" : "definitions.json#/sxl_prefix" }
+      },
+      "required" : [ "name", "version" ],
+      "additionalProperties" : false
+    },
+    "sxl_response" : {
+      "type" : "object",
+      "oneOf" : [
+        {
+          "properties" : {
+            "name" : { "$ref" : "definitions.json#/sxl_name" },
+            "version" : { "$ref" : "definitions.json#/version" }
+          },
+          "required" : [ "name", "version" ],
+          "additionalProperties" : false
+        },
+        {
+          "properties" : {
+            "name" : { "$ref" : "definitions.json#/sxl_name" },
+            "version" : { "$ref" : "definitions.json#/version" },
+            "rejected" : {
+              "type" : "integer",
+              "enum" : [ 1, 2, 3 ]
+            },
+            "reason" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "name", "rejected" ],
+          "additionalProperties" : false
+        }
+      ]
     }
-  },
-  "required" : [ "mId", "RSMP", "SXL", "siteId" ]
+  }
 }

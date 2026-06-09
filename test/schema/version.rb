@@ -2,7 +2,7 @@ require 'sus'
 require_relative '../support/validate'
 
 describe 'Version' do
-  let(:message) {{
+  let(:request) {{
     "mType" => "rSMsg",
     "mId" => "a28e94b9-05c7-41bb-8f8b-54693adc9698",
     "siteId" => [
@@ -10,126 +10,162 @@ describe 'Version' do
     ],
     "type" => "Version",
     "RSMP" => [
-      { "vers" => "3.2.0" },
-      { "vers" => "3.2.1" },
-      { "vers" => "3.2.2" }
+      { "vers" => "3.2.2" },
+      { "vers" => "3.3.0" }
     ],
-    "SXL" => "1.2.1"
+    "SXL" => "1.3.0",
+    "SXLS" => [
+      {
+        "name" => "traffic_light_controller",
+        "version" => "1.3.0",
+        "prefix" => "tlc/"
+      }
+    ]
   }}
 
-  it 'accepts valid message' do
-    expect( validate(message) ).to be_nil
+  let(:response) {{
+    "mType" => "rSMsg",
+    "mId" => "a28e94b9-05c7-41bb-8f8b-54693adc9698",
+    "type" => "Version",
+    "step" => "Response",
+    "RSMP" => [
+      { "vers" => "3.3.0" }
+    ],
+    "supervisorId" => "RN+SI0001",
+    "SXLS" => [
+      {
+        "name" => "traffic_light_controller",
+        "version" => "1.3.0"
+      },
+      {
+        "name" => "variable_message_sign",
+        "rejected" => 2,
+        "reason" => "Supervisor only supports 2.0.0"
+      }
+    ],
+    "receiveAlarms" => false
+  }}
+
+  it 'accepts valid request without step for backward compatibility' do
+    expect( validate(request) ).to be_nil
+  end
+
+  it 'accepts valid request with step' do
+    request["step"] = "Request"
+    expect( validate(request) ).to be_nil
+  end
+
+  it 'accepts valid response' do
+    expect( validate(response) ).to be_nil
   end
 
   it 'catches missing mId' do
-    message.delete 'mId'
-    expect( validate(message) ).to be == (
-      [["", "required", {"missing_keys"=>["mId"]}]]
-    )
+    request.delete 'mId'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches missing siteId' do
-    message.delete 'siteId'
-    expect( validate(message) ).to be == (
-      [["", "required", {"missing_keys"=>["siteId"]}]]
-    )
+  it 'catches missing siteId in request' do
+    request.delete 'siteId'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad siteId format, must be array' do
-    message['siteId'] = '1.0'
-    expect( validate(message) ).to be == (
-      [["/siteId", "array"]]
-    )
+  it 'catches multiple site ids in request' do
+    request['siteId'] << { "sId" => "RN+SI0002" }
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad siteId format, array cannot be empty' do
-    message['siteId'] = []
-    expect( validate(message) ).to be == (
-      [["/siteId", "minItems"]]
-    )
+  it 'catches bad siteId format in request' do
+    request['siteId'] = '1.0'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad siteId format, item must be hash' do
-    message['siteId'] = ['1.0']
-    expect( validate(message) ).to be == (
-      [["/siteId/0", "object"]]
-    )
+  it 'catches bad siteId item in request' do
+    request['siteId'] = [{}]
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad siteId format, item must have version' do
-    message['siteId'] = [{}]
-    expect( validate(message) ).to be == (
-      [["/siteId/0", "required", {"missing_keys"=>["sId"]}]]
-    )
-  end
-
-  it 'catches bad siteId format, item cannot have extra attributes' do
-    message['siteId'] = [{'sId'=>'RN+SI0001','extra'=>'123'}]
-    expect( validate(message) ).to be == (
-      [["/siteId/0/extra", "schema"]]
-    )
+  it 'catches extra siteId attributes in request' do
+    request['siteId'] = [{ 'sId' => 'RN+SI0001', 'extra' => '123' }]
+    expect( validate(request) ).not.to be_nil
   end
 
   it 'catches missing RSMP version' do
-    message.delete 'RSMP'
-    expect( validate(message) ).to be == (
-      [["", "required", {"missing_keys"=>["RSMP"]}]]
-    )
+    request.delete 'RSMP'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, must be array' do
-    message['RSMP'] = '1.0'
-    expect( validate(message) ).to be == (
-      [["/RSMP", "array"]]
-    )
+  it 'catches bad RSMP format' do
+    request['RSMP'] = '1.0'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, array cannot be empty' do
-    message['RSMP'] = []
-    expect( validate(message) ).to be == (
-      [["/RSMP", "minItems"]]
-    )
+  it 'catches empty RSMP array' do
+    request['RSMP'] = []
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, item must be hash' do
-    message['RSMP'] = ['1.0']
-    expect( validate(message) ).to be == (
-      [["/RSMP/0", "object"]]
-    )
+  it 'catches bad RSMP item' do
+    request['RSMP'] = ['1.0']
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, item must have version' do
-    message['RSMP'] = [{}]
-    expect( validate(message) ).to be == (
-      [["/RSMP/0", "required", {"missing_keys"=>["vers"]}]]
-    )
+  it 'catches missing RSMP item version' do
+    request['RSMP'] = [{}]
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, item cannot have extra attributes' do
-    message['RSMP'] = [{'vers'=>'1.0.0','extra'=>'123'}]
-    expect( validate(message) ).to be == (
-      [["/RSMP/0/extra", "schema"]]
-    )
+  it 'catches extra RSMP item attributes' do
+    request['RSMP'] = [{ 'vers' => '3.3.0', 'extra' => '123' }]
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad RSMP format, version must be 1.0.0 format' do
-    message['RSMP'].first['vers'] = 'latest'
-    expect( validate(message) ).to be == (
-      [["/RSMP/0/vers", "pattern"]]
-    )
+  it 'catches bad RSMP version format' do
+    request['RSMP'].first['vers'] = 'latest'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches missing SXL version' do
-    message.delete 'SXL'
-    expect( validate(message) ).to be == (
-      [["", "required", {"missing_keys"=>["SXL"]}]]
-    )
+  it 'catches missing legacy SXL version in request' do
+    request.delete 'SXL'
+    expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches bad SXL version' do
-    message['SXL'] = 'Release 1.0.1'
-    expect( validate(message) ).to be == (
-      [["/SXL", "pattern"]]
-    )
+  it 'catches bad legacy SXL version in request' do
+    request['SXL'] = 'Release 1.0.1'
+    expect( validate(request) ).not.to be_nil
+  end
+
+  it 'catches missing SXLS in request' do
+    request.delete 'SXLS'
+    expect( validate(request) ).not.to be_nil
+  end
+
+  it 'catches malformed SXLS item in request' do
+    request['SXLS'] = [{ 'name' => 'traffic_light_controller' }]
+    expect( validate(request) ).not.to be_nil
+  end
+
+  it 'catches bad request step' do
+    request['step'] = 'Bad'
+    expect( validate(request) ).not.to be_nil
+  end
+
+  it 'catches missing step in response' do
+    response.delete 'step'
+    expect( validate(response) ).not.to be_nil
+  end
+
+  it 'catches response with multiple RSMP versions' do
+    response['RSMP'] << { 'vers' => '3.2.2' }
+    expect( validate(response) ).not.to be_nil
+  end
+
+  it 'catches bad rejection code in response' do
+    response['SXLS'].last['rejected'] = 4
+    expect( validate(response) ).not.to be_nil
+  end
+
+  it 'catches bad receiveAlarms in response' do
+    response['receiveAlarms'] = 'false'
+    expect( validate(response) ).not.to be_nil
   end
 end

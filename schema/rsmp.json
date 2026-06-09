@@ -33,6 +33,15 @@
     {
       "if": {
         "required" : ["type"],
+        "properties": { "type": { "const": "ComponentList" } }
+      },
+      "then": {
+        "$ref": "component_list.json"
+      }
+    },
+    {
+      "if": {
+        "required" : ["type"],
         "properties": { "type": { "const": "AggregatedStatus" } }
       },
       "then": {

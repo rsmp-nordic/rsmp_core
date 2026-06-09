@@ -21,6 +21,23 @@ describe 'CommandRequest' do
     expect( validate(message) ).to be_nil
   end
 
+  it 'accepts multiple arguments for one command' do
+    message["arg"] << {
+      "cCI" => "M0001",
+      "n" => "securityCode",
+      "cO" => "setValue",
+      "v" => "123"
+    }
+    expect( validate(message) ).to be_nil
+  end
+
+  it 'accepts all JSON value types' do
+    [true, 1, 1.5, nil, ["a"], {"a" => "b"}].each do |value|
+      message["arg"].first["v"] = value
+      expect( validate(message) ).to be_nil
+    end
+  end
+
   it 'catches missing component id' do
     message.delete 'cId'
     expect( validate(message) ).to be == (
