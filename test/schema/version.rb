@@ -124,9 +124,9 @@ describe 'Version' do
     expect( validate(request) ).not.to be_nil
   end
 
-  it 'catches missing legacy SXL version in request' do
+  it 'accepts missing legacy SXL version in request' do
     request.delete 'SXL'
-    expect( validate(request) ).not.to be_nil
+    expect( validate(request) ).to be_nil
   end
 
   it 'catches bad legacy SXL version in request' do
@@ -137,6 +137,12 @@ describe 'Version' do
   it 'catches missing SXLS in request' do
     request.delete 'SXLS'
     expect( validate(request) ).not.to be_nil
+  end
+
+  it 'accepts empty SXLS in request' do
+    request['SXLS'] = []
+    request.delete 'SXL'
+    expect( validate(request) ).to be_nil
   end
 
   it 'catches malformed SXLS item in request' do
@@ -157,6 +163,11 @@ describe 'Version' do
   it 'catches response with multiple RSMP versions' do
     response['RSMP'] << { 'vers' => '3.2.2' }
     expect( validate(response) ).not.to be_nil
+  end
+
+  it 'accepts empty SXLS in response' do
+    response['SXLS'] = []
+    expect( validate(response) ).to be_nil
   end
 
   it 'catches bad rejection code in response' do

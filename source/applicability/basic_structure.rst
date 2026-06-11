@@ -1637,16 +1637,17 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Array of supported core versions. 
-   SXL           string   Version of the primary SXL, for backward compatibility.
+   SXL           string   Optional. Version of the primary SXL, for backward compatibility.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
 Only one site can use the same connection. The ``sId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` field is included for backward compatibility with supervisors that only support older core versions
-and ignore the newer ``SXLS`` array.
+The ``SXL`` field is included when a primary SXL exists, for backward compatibility with supervisors that only
+support older core versions and ignore the newer ``SXLS`` array.
 
+The ``SXLS`` array may be empty if the site does not support any SXLs.
 Each item in the ``SXLS`` array must be an object with the following content:
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
@@ -1714,6 +1715,8 @@ SXL ``variable_message_sign``.
 
 The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
 does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+
+The ``SXLS`` array may be empty if no SXLs will be used.
 
 The following table describes variable content of the message:
 
@@ -1939,4 +1942,3 @@ Supervision system/other equipment sends watchdog message
 .. |br_latex| raw:: latex
 
    \newline
-

@@ -22,7 +22,7 @@
           "description" : "Supported SXLs",
           "type" : "array",
           "items" : { "$ref" : "#/$defs/sxl_request" },
-          "minItems" : 1,
+          "minItems" : 0,
           "uniqueItems" : true
         },
         "siteId" : {
@@ -34,7 +34,7 @@
           "uniqueItems" : true
         }
       },
-      "required" : [ "mId", "RSMP", "SXL", "SXLS", "siteId" ]
+      "required" : [ "mId", "RSMP", "SXLS", "siteId" ]
     },
     {
       "description" : "Version response",
@@ -63,7 +63,7 @@
           "description" : "SXLs to use, or not use",
           "type" : "array",
           "items" : { "$ref" : "#/$defs/sxl_response" },
-          "minItems" : 1,
+          "minItems" : 0,
           "uniqueItems" : true
         },
         "receiveAlarms" : {
