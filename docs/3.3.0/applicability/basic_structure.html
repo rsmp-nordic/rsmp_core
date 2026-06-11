@@ -1769,7 +1769,7 @@ and <a class="reference internal" href="transport_of_data.html#communication-est
 </tr>
 <tr class="row-odd"><td><p>SXL</p></td>
 <td><p>string</p></td>
-<td><p>Version of the primary SXL, for backward compatibility.</p></td>
+<td><p>Optional. Version of the primary SXL, for backward compatibility.</p></td>
 </tr>
 <tr class="row-even"><td><p>SXLS</p></td>
 <td><p>array</p></td>
@@ -1779,9 +1779,10 @@ and <a class="reference internal" href="transport_of_data.html#communication-est
 </table>
 <p>Only one site can use the same connection. The <code class="docutils literal notranslate"><span class="pre">sId</span></code> array must therefore contain
 exactly one element.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">SXL</span></code> field is included for backward compatibility with supervisors that only support older core versions
-and ignore the newer <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array.</p>
-<p>Each item in the <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array must be an object with the following content:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SXL</span></code> field is included when a primary SXL exists, for backward compatibility with supervisors that only
+support older core versions and ignore the newer <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array may be empty if the site does not support any SXLs.
+Each item in the <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array must be an object with the following content:</p>
 <table class="docutils align-default" id="id45">
 <caption><span class="caption-number">Table 4.27 </span><span class="caption-text">SXLS item content</span><a class="headerlink" href="#id45" title="Link to this table"></a></caption>
 <thead>
@@ -1849,6 +1850,7 @@ it must send a MessageNotAck and close the connection, see <a class="reference i
 SXL <code class="docutils literal notranslate"><span class="pre">variable_message_sign</span></code>.</p>
 <p>The SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code> is not used, either because the supervisor
 does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SXLS</span></code> array may be empty if no SXLs will be used.</p>
 <p>The following table describes variable content of the message:</p>
 <table class="docutils align-default" id="id46">
 <caption><span class="caption-number">Table 4.28 </span><span class="caption-text">Version information</span><a class="headerlink" href="#id46" title="Link to this table"></a></caption>
