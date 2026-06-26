@@ -39,6 +39,22 @@ describe 'CommandResponse' do
     end
   end
 
+  it 'accepts null value when age is unknown or undefined' do
+    %w[unknown undefined].each do |age|
+      message["rvs"].first["age"] = age
+      message["rvs"].first["v"] = nil
+      expect( validate(message) ).to be_nil
+    end
+  end
+
+  it 'catches non-null value when age is unknown or undefined' do
+    %w[unknown undefined].each do |age|
+      message["rvs"].first["age"] = age
+      message["rvs"].first["v"] = "YellowFlash"
+      expect( validate(message) ).not.to be_nil
+    end
+  end
+
   it 'catches missing component id' do
     message.delete 'cId'
     expect( validate(message) ).to be == (
