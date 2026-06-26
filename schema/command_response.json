@@ -25,6 +25,17 @@
             "enum" : [ "recent", "old", "undefined", "unknown" ]
           }
         },
+        "if": {
+          "required": [ "age" ],
+          "properties": {
+            "age" : { "enum" : [ "unknown", "undefined" ] }
+          }
+        },
+        "then": {
+          "properties": {
+            "v" : { "type" : "null" }
+          }
+        },
         "required" : [ "cCI", "n", "v", "age" ],
         "additionalProperties": false
       }
