@@ -24,7 +24,7 @@ In the following example the message type is an alarm message.
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
        "ntsOId": "",
-       "xNId": "23055",
+       "xNId": "",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
