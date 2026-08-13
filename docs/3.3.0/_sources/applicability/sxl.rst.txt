@@ -335,18 +335,18 @@ Functional differences between message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following table defines the functional differences between message types.
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|
 
 .. table:: Functional differences
 
-   =================  =========================================  ================================
-   Message type       Sent when                                  Adapted to be transmitted to NTS
-   =================  =========================================  ================================
-   Alarm              On change *or* request                     Yes
-   Aggregated status  On change *or* request                     Yes
-   Status             On request *or* according to subscription  No
-   Command            On request                                 Yes, partly (functional status)
-   =================  =========================================  ================================
+   =================  =========================================
+   Message type       Sent when
+   =================  =========================================
+   Alarm              On change *or* request
+   Aggregated status  On change *or* request
+   Status             On request *or* according to subscription
+   Command            On request
+   =================  =========================================
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
