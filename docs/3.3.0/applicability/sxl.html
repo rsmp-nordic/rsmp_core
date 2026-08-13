@@ -118,6 +118,7 @@
 <span id="signal-exchange-list"></span><h1><span class="section-number">4.8. </span>Signal Exchange List (SXL)<a class="headerlink" href="#signal-exchange-list-sxl" title="Link to this heading"></a></h1>
 <p>A signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) specifies the interface for a type of equipment or area of functionality.</p>
 <p>An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.</p>
+<p>An SXL is defined using YAML format.</p>
 <p>An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
 It also details the meaning of aggregated status bits, functional positions and functional states.</p>
 <p>An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.</p>
@@ -236,9 +237,7 @@ or are not intended to be used together on the same site. The ability for differ
 <span id="sxl-messages"></span><h2><span class="section-number">4.8.2. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h2>
 <p>The message types <strong>Alarm</strong>, <strong>Aggregated status</strong>, <strong>Status</strong> and <strong>Commands</strong>
 are defined in the SXL.</p>
-<p>Using the Excel format; alarms, aggregated status, status and commands are
-defined in their own sheet.</p>
-<p>Using the YAML format; each message type is defined like this:</p>
+<p>Each message type is defined like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">aggregated_status</span><span class="p">:</span>
@@ -330,13 +329,6 @@ data types.</p>
 </ul>
 <p>At least one argument is required for commands and statuses, but they are
 optional in alarms.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In the Excel version of the SXL, there is no separate min and max columns.
-Instead, allowed values can be defined using the Value column according
-to the following example: [0-100], where 0 is the minimum value and 100 is
-the maximum value.</p>
-</div>
 <p>The aggregated status contains the fields:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">functional_position</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">Functional position</span></a></p></li>
@@ -438,13 +430,6 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In addition to <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">functional position</span></a>, the Excel version of the SXL
-can also differentiate between different kinds of command messages using
-<a class="reference internal" href="../definitions.html#term-Maneuver"><span class="xref std std-term">maneuver</span></a> and <a class="reference internal" href="../definitions.html#term-Parameter"><span class="xref std std-term">parameter</span></a> sections. However, their use has no
-functional significance from a protocol point of view.</p>
-</div>
 </section>
 <section id="arguments-and-return-values">
 <h3><span class="section-number">4.8.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
