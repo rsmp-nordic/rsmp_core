@@ -370,7 +370,7 @@ Example of wrapping of a packet:
         "mType": "rSMsg",
         "type": "Alarm",
         "mId": "d2e9a9a1-a082-44f5-b4e0-6c9233-a204c",
-        "ntsOId": "AB+81102=881WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "AB+81102=881WA001",
         "aCId": "A001",
