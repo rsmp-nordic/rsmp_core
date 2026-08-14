@@ -371,7 +371,7 @@ Example of wrapping of a packet:
         "type": "Alarm",
         "mId": "d2e9a9a1-a082-44f5-b4e0-6c9233-a204c",
         "ntsOId": "",
-        "xNId": "23055",
+        "xNId": "",
         "cId": "AB+81102=881WA001",
         "aCId": "A001",
         "xACId": "Lamp error #14",
