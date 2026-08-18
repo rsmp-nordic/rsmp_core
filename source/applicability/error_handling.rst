@@ -37,7 +37,7 @@ MessageNotAck.
 This includes:
 
 * unknown alarm/status/command code id (``aCId``, ``sCI``, ``cCI``) for the
-  corresponding object type
+  corresponding component type
 
 * unknown name (``n``) in arguments or return values
 
@@ -69,3 +69,14 @@ Incomplete commands
 
 If not all arguments are included in a CommandRequest, then this is considered
 a serious error resulting in MessageNotAck.
+
+
+.. _more-than-one-command:
+
+More than one command
+^^^^^^^^^^^^^^^^^^^^^
+
+If more than one command (``cCI``) is included in a single CommandRequest or
+CommandResponse, then this is considered a serious error resulting in
+MessageNotAck.
+

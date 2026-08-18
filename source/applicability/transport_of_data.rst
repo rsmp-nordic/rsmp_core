@@ -14,7 +14,7 @@ follow up on the message exchange.
 
 To communicate between sites and supervision systems a pure TCP connection
 is used (TCP/IP), and the data sent is based on the JSon format, i.e.
-formatted text.
+formatted text. The default port for RSMP is 12111.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
@@ -42,53 +42,77 @@ Multiple supervisors
 ^^^^^^^^^^^^^^^^^^^^
 
 .. note::
-   Implementing support for multiple supervisors is not required unless
-   otherwise stated in the :term:`SXL`.
+  Implementing support for multiple supervisors is not required unless
+  stated in the :term:`SXL`.
 
-Each site needs to support the following:
+Supervisor configuration:
 
 * It must be possible to configure the list of supervisors as part of the
   RSMP configuration in the site. In the configuration, supervisors are
-  identified by their IP addresses.
+  identified by their IP addresses or domain names.
+* It must be possible to configure whether to initiate the RSMP connection
+  or to implement the socket server according to section
+  :ref:`transport-between-site-and-supervision-system`.
 
-* It must be possible to configure supervisors as primary or secondary.
+Message IDs:
 
-* There can be multiple secondary supervisors, but only one primary.
+* All messages must have unique message ids. Even when otherwise identical
+  messages are sent to multiple supervisors, (e.g. an alarm or status update)
+  different messages IDs must be used.
 
-* A secondary supervisor does not receive alarms.
+Message Acknowledgements:
 
-* A secondary supervisor receives aggregated status and can request,
-  subscribe and receive statuses.
+* Message acknowledgements are send only to the supervisor that send the
+  original message.
 
-* Watchdog messages from a secondary supervisor does not adjust the clock.
-  See section :ref:`watchdog`.
+Connection:
 
-* Except from not sending alarms to secondary supervisors, a site must
-  handle all types of message from all supervisors, including command requests,
-  status requests and status subscriptions. Commands from multiple supervisors
-  are served on a first-come basis, without any concept of priority.
+* Connections to supervisor are handled in parallel, with messages processed
+  in the order they arrive.
+* Depending on how core/SXL version are set in Version messages, the
+  connections to supervisor can use different core/SXL versions.
 
-* Supervisor connections are handled separately. When a supervisor sends a
-  command or status request, the response is send only to that particular
-  supervisor.
+Aggregated status:
 
+* Aggregated status is sent to all supervisors.
+
+Status:
+
+* All supervisors can request, subscribe to and receive statuses.
+* Status subscriptions are handled separate per supervisor.
+* A status response is sent only to the supervisor that sent the
+  initiating status request.
+
+Commands:
+
+* All supervisors can send commands.
+* Commands from multiple supervisors are served on a first-come basis,
+  without any concept of priority.
+* A command response is sent only to the supervisor that send the
+  initiating command.
+
+Alarms:
+
+* Alarms are send to all supervisors, except those that set `receiveAlarms`
+  to false in their Version message.
+* All supervisors can acknowledge and suspend/resume alarms, even if they
+  set `receiveAlarms` to false in their Version message.
+* If an Alarm is blocked, suspended or acknowledged by one supervisor
+  this affects all supervisors.
+
+
+.. _transport-security:
 
 Security
 ^^^^^^^^
 
-.. note::
-   Implementing support for encryption is not required unless otherwise stated.
+RSMP Core does not provide communication security. A deployment can protect
+the TCP connection carrying RSMP by using an external mechanism such as TLS or
+a VPN. This protection does not change RSMP messages or protocol behaviour.
 
-If encryption is used then the following applies:
-
-* Encryption settings needs to be configurable in both the supervision system as
-  well as the site.
-* For the encrypted communication, TLS 1.3 or later is used.
-* Certificates should be used to verify the identities of equipments.
-* Equipment which uses RSMP should contain a user interface for easy management
-  of certificates.
-* The issuing and renewal of certificates should should be made in cooperation
-  with the purchaser unless other arrangement is agreed upon.
+RSMP Core does not define requirements for selecting, configuring, or
+operating TLS, a VPN, or another external protection mechanism. See
+:ref:`security-considerations`.
 
 .. _communication-establishment-between-sites-and-supervision-system:
 
@@ -126,17 +150,19 @@ implicit in the following figure.
 
 7. The system sends a Watchdog (according to section :ref:`watchdog`)
 
-8. Asynchronous message exchange can begin. This means that commands and
+8. The site sends a ComponentList message (according to section :ref:`component-list`).
+
+9. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-9. Aggregated status (according to section :ref:`aggregated-status-message`).
-   If no object for aggregated status is defined in the signal exchange list
-   then no aggregated status message is sent.
+10. Aggregated status (according to section :ref:`aggregated-status-message`).
+    If no component for aggregated status is defined in the signal exchange list
+    then no aggregated status message is sent.
 
-10. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
+11. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
     are sent. (according to section :ref:`alarm-messages`).
 
-11. Buffered messages in the equipment's outgoing communication buffer are sent,
+12. Buffered messages in the equipment's outgoing communication buffer are sent,
     including alarms, aggregated status and status updates.
 
 The reason for sending all alarms including inactive ones is because alarms
@@ -201,12 +227,14 @@ implicit in the following figure.
 
 7. The leader site sends Watchdog (according to section :ref:`watchdog`)
 
-8. Asynchronous message exchange can begin. This means that commands and
+8. The follower site sends a ComponentList message (according to section :ref:`component-list`).
+
+9. Asynchronous message exchange can begin. This means that commands and
    statuses are allowed to be sent
 
-9. Aggregated status (according to section :ref:`aggregated-status-message`)
-   If no object for aggregated status is defined in the signal exchange list
-   then no aggregated status message is sent.
+10. Aggregated status (according to section :ref:`aggregated-status-message`)
+    If no component for aggregated status is defined in the signal exchange list
+    then no aggregated status message is sent.
 
 For communication between sites the following applies:
 
@@ -330,8 +358,8 @@ Example of wrapping of a packet:
         "mType": "rSMsg",
         "type": "Alarm",
         "mId": "d2e9a9a1-a082-44f5-b4e0-6c9233-a204c",
-        "ntsOId": "AB+81102=881WA001",
-        "xNId": "23055",
+        "ntsOId": "",
+        "xNId": "",
         "cId": "AB+81102=881WA001",
         "aCId": "A001",
         "xACId": "Lamp error #14",
@@ -365,17 +393,33 @@ The following principles applies:
 * FF (formeed) in the beginning of the data exchange (after connection
   establishment) must not be sent, but must be handled
 
+.. _transport-between-site-and-supervision-system:
 
 Transport between site and supervision system
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+By default the following applies:
+
 * The supervision system implements a socket server and waits for the site
   to connect
 * The site initiates the connection to the supervision system
-* The supervision system can request commands, statuses (with optional
-  subscription) and alarms
 * If the communication were to fail it is the site’s responsibility to
   reconnect
+
+Optionally the opposite can be used:
+
+* The site implements a socket server and waits for the supervision system to
+  connect
+* The supervision system initiates the connection to the site
+* If the communication were to fail it is the supervision system's
+  responsibility to reconnect
+
+In both cases it is the supervision system which has the ability to request
+commands, statuses (with optional subscription) and alarms.
+
+.. note::
+   Regardless who implements the socket server and client, the message flow is
+   unaffected
 
 Transport between sites
 ^^^^^^^^^^^^^^^^^^^^^^^
