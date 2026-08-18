@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.10. Site configuration &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.11. Site configuration &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.11. Command Persistence" href="persistence.html" />
-    <link rel="prev" title="4.9. SXL Processing" href="sxl_processing.html" /> 
+    <link rel="next" title="4.12. Command Persistence" href="persistence.html" />
+    <link rel="prev" title="4.10. SXL Processing" href="sxl_processing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,19 +51,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.10. Site configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#components">4.10.1. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.11. Site configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#components">4.11.1. Components</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -84,7 +85,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.10. </span>Site configuration</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.11. </span>Site configuration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/site_configuration.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,12 +96,12 @@
            <div itemprop="articleBody">
              
   <section id="site-configuration">
-<span id="id1"></span><h1><span class="section-number">4.10. </span>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.11. </span>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h1>
 <p>A site configuration defines the individual components that exists
 in a specific site. It also defines the relationship between those components.</p>
 <p>The site configuration is defined using YAML format.</p>
 <section id="components">
-<h2><span class="section-number">4.10.1. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.11.1. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
 <p>A site consists of components, identified by unique component ids (<code class="docutils literal notranslate"><span class="pre">cId</span></code>).</p>
 <p>Each component is defined like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sites</span><span class="p">:</span>
@@ -128,8 +129,8 @@ in a specific site. It also defines the relationship between those components.</
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sxl_processing.html" class="btn btn-neutral float-left" title="4.9. SXL Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="persistence.html" class="btn btn-neutral float-right" title="4.11. Command Persistence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sxl_processing.html" class="btn btn-neutral float-left" title="4.10. SXL Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="persistence.html" class="btn btn-neutral float-right" title="4.12. Command Persistence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

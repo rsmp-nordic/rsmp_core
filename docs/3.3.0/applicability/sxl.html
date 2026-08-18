@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.8. Signal Exchange List (SXL) &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.9. Signal Exchange List (SXL) &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.9. SXL Processing" href="sxl_processing.html" />
-    <link rel="prev" title="4.7. Components" href="components.html" /> 
+    <link rel="next" title="4.10. SXL Processing" href="sxl_processing.html" />
+    <link rel="prev" title="4.8. Components" href="components.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,38 +52,39 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. Signal Exchange List (SXL)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">4.8.1. Overview</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#name-and-description">4.8.1.1. Name and Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#version">4.8.1.2. Version</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#prefix">4.8.1.3. Prefix</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#component-types">4.8.1.4. Component Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.9. Signal Exchange List (SXL)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">4.9.1. Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#name-and-description">4.9.1.1. Name and Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version">4.9.1.2. Version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prefix">4.9.1.3. Prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#component-types">4.9.1.4. Component Types</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#messages">4.8.2. Messages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.8.2.1. Alarm description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.8.2.2. Alarm category</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#alarm-priority">4.8.2.3. Alarm priority</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#functional-differences-between-message-types">4.8.2.4. Functional differences between message types</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.8.2.5. Arguments and return values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#messages">4.9.2. Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-description">4.9.2.1. Alarm description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-category">4.9.2.2. Alarm category</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-priority">4.9.2.3. Alarm priority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functional-differences-between-message-types">4.9.2.4. Functional differences between message types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arguments-and-return-values">4.9.2.5. Arguments and return values</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#composition">4.8.3. Composition</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#dependencies">4.8.3.1. Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#sxl-list">4.8.3.2. SXL List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#composition">4.9.3. Composition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">4.9.3.1. Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sxl-list">4.9.3.2. SXL List</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -104,7 +105,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.8. </span>Signal Exchange List (SXL)</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.9. </span>Signal Exchange List (SXL)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/sxl.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -115,7 +116,7 @@
            <div itemprop="articleBody">
              
   <section id="signal-exchange-list-sxl">
-<span id="signal-exchange-list"></span><h1><span class="section-number">4.8. </span>Signal Exchange List (SXL)<a class="headerlink" href="#signal-exchange-list-sxl" title="Link to this heading"></a></h1>
+<span id="signal-exchange-list"></span><h1><span class="section-number">4.9. </span>Signal Exchange List (SXL)<a class="headerlink" href="#signal-exchange-list-sxl" title="Link to this heading"></a></h1>
 <p>A signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) specifies the interface for a type of equipment or area of functionality.</p>
 <p>An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.</p>
 <p>An SXL is defined using YAML format.</p>
@@ -124,9 +125,9 @@ It also details the meaning of aggregated status bits, functional positions and 
 <p>An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.</p>
 <p>A site implements one or more SXLs.</p>
 <section id="overview">
-<span id="sxl-overview"></span><h2><span class="section-number">4.8.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<span id="sxl-overview"></span><h2><span class="section-number">4.9.1. </span>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
 <section id="name-and-description">
-<span id="sxl-name"></span><h3><span class="section-number">4.8.1.1. </span>Name and Description<a class="headerlink" href="#name-and-description" title="Link to this heading"></a></h3>
+<span id="sxl-name"></span><h3><span class="section-number">4.9.1.1. </span>Name and Description<a class="headerlink" href="#name-and-description" title="Link to this heading"></a></h3>
 <p>An SXL is identified by a <code class="docutils literal notranslate"><span class="pre">name</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code> or <code class="docutils literal notranslate"><span class="pre">traffic_light_controller/advanced</span></code>.</p>
 <p>An SXL also has a <code class="docutils literal notranslate"><span class="pre">description</span></code>, which is a short human-readable text e.g. “Traffic Light Controller”.</p>
 <p>Forward slashes can be used to organize names in a hierarchy.
@@ -150,7 +151,7 @@ must indicate this in the name as <code class="docutils literal notranslate"><sp
 <p>Note: Some legacy SXLs use names without a country code or region, e.g. <code class="docutils literal notranslate"><span class="pre">tlc</span></code> for the Nordic Traffic Light Controller SXL.</p>
 </section>
 <section id="version">
-<span id="sxl-version"></span><h3><span class="section-number">4.8.1.2. </span>Version<a class="headerlink" href="#version" title="Link to this heading"></a></h3>
+<span id="sxl-version"></span><h3><span class="section-number">4.9.1.2. </span>Version<a class="headerlink" href="#version" title="Link to this heading"></a></h3>
 <p>An SXL has a version, e.g. <code class="docutils literal notranslate"><span class="pre">1.3.1</span></code>, which must follow Semantic Versioning conventions.</p>
 <p>Given a version number MAJOR.MINOR.PATCH, you must increment the:</p>
 <ul class="simple">
@@ -169,7 +170,7 @@ and when resolving dependencies between SXLs.</p>
 can establish communication. How this is done is explained in <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>.</p>
 </section>
 <section id="prefix">
-<span id="sxl-prefix"></span><h3><span class="section-number">4.8.1.3. </span>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h3>
+<span id="sxl-prefix"></span><h3><span class="section-number">4.9.1.3. </span>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h3>
 <p>An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. <code class="docutils literal notranslate"><span class="pre">tlc/</span></code> for a traffic light controller SXL.</p>
 <p>A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.</p>
@@ -221,7 +222,7 @@ or are not intended to be used together on the same site. The ability for differ
 </ul>
 </section>
 <section id="component-types">
-<span id="sxl-component-types"></span><h3><span class="section-number">4.8.1.4. </span>Component Types<a class="headerlink" href="#component-types" title="Link to this heading"></a></h3>
+<span id="sxl-component-types"></span><h3><span class="section-number">4.9.1.4. </span>Component Types<a class="headerlink" href="#component-types" title="Link to this heading"></a></h3>
 <p>An SXL defines the available <a class="reference internal" href="../definitions.html#term-Component"><span class="xref std std-term">component</span></a> types. Components are the logical or physical part of a site.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">tlc/sg</span><span class="p">:</span>
@@ -234,7 +235,7 @@ or are not intended to be used together on the same site. The ability for differ
 </section>
 </section>
 <section id="messages">
-<span id="sxl-messages"></span><h2><span class="section-number">4.8.2. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h2>
+<span id="sxl-messages"></span><h2><span class="section-number">4.9.2. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h2>
 <p>The message types <strong>Alarm</strong>, <strong>Aggregated status</strong>, <strong>Status</strong> and <strong>Commands</strong>
 are defined in the SXL.</p>
 <p>Each message type is defined like this:</p>
@@ -337,7 +338,7 @@ optional in alarms.</p>
 description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
 </ul>
 <section id="alarm-description">
-<span id="id1"></span><h3><span class="section-number">4.8.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
+<span id="id1"></span><h3><span class="section-number">4.9.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
 <p>The format of the description is free of choice but has the following
 requirements:</p>
 <ul class="simple">
@@ -346,7 +347,7 @@ requirements:</p>
 </ul>
 </section>
 <section id="alarm-category">
-<span id="id2"></span><h3><span class="section-number">4.8.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h3>
+<span id="id2"></span><h3><span class="section-number">4.9.2.2. </span>Alarm category<a class="headerlink" href="#alarm-category" title="Link to this heading"></a></h3>
 <p>The alarm category is defined by a single character, either <code class="docutils literal notranslate"><span class="pre">T</span></code> or <code class="docutils literal notranslate"><span class="pre">D</span></code>.</p>
 <table class="docutils align-default">
 <thead>
@@ -377,7 +378,7 @@ technical processes that affect traffic.</p>
 One example of technical alarm is when an impulse fan stops working.</p>
 </section>
 <section id="alarm-priority">
-<span id="id3"></span><h3><span class="section-number">4.8.2.3. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h3>
+<span id="id3"></span><h3><span class="section-number">4.9.2.3. </span>Alarm priority<a class="headerlink" href="#alarm-priority" title="Link to this heading"></a></h3>
 <p>The priority of the alarm.</p>
 <p>Defined in the SXL as a single character, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> or <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p>
 <p>The following values are defined:</p>
@@ -401,7 +402,7 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </table>
 </section>
 <section id="functional-differences-between-message-types">
-<h3><span class="section-number">4.8.2.4. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.9.2.4. </span>Functional differences between message types<a class="headerlink" href="#functional-differences-between-message-types" title="Link to this heading"></a></h3>
 <p>The following table defines the functional differences between message types.</p>
 <table class="docutils align-default" id="id5">
 <caption><span class="caption-number">Table 4.36 </span><span class="caption-text">Functional differences</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
@@ -427,7 +428,7 @@ One example of technical alarm is when an impulse fan stops working.</p>
 </table>
 </section>
 <section id="arguments-and-return-values">
-<h3><span class="section-number">4.8.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.9.2.5. </span>Arguments and return values<a class="headerlink" href="#arguments-and-return-values" title="Link to this heading"></a></h3>
 <p>Argument and return values make it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
 pictures or other data, both to a site and to a supervision system. The
@@ -473,9 +474,9 @@ return values.</p>
 </section>
 </section>
 <section id="composition">
-<span id="sxl-composition"></span><h2><span class="section-number">4.8.3. </span>Composition<a class="headerlink" href="#composition" title="Link to this heading"></a></h2>
+<span id="sxl-composition"></span><h2><span class="section-number">4.9.3. </span>Composition<a class="headerlink" href="#composition" title="Link to this heading"></a></h2>
 <section id="dependencies">
-<span id="sxl-dependencies"></span><h3><span class="section-number">4.8.3.1. </span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
+<span id="sxl-dependencies"></span><h3><span class="section-number">4.9.3.1. </span>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h3>
 <p>An SXL can declare dependency on other SXLs. It can then rely on the definitions of component types,
 message codes or behaviour from those SXLs.</p>
 <p>For example, a basic SXL <code class="docutils literal notranslate"><span class="pre">traffic_light_controller</span></code> might define the component type <code class="docutils literal notranslate"><span class="pre">tlc/dl</span></code> for detector logics,
@@ -535,7 +536,7 @@ ensure that dependencies can be met and no component types or message codes clas
 including the SXL itself. The manifest must be published together with the SXL.</p>
 </section>
 <section id="sxl-list">
-<span id="id4"></span><h3><span class="section-number">4.8.3.2. </span>SXL List<a class="headerlink" href="#sxl-list" title="Link to this heading"></a></h3>
+<span id="id4"></span><h3><span class="section-number">4.9.3.2. </span>SXL List<a class="headerlink" href="#sxl-list" title="Link to this heading"></a></h3>
 <p>A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
 the site as part of the connection handshake.</p>
 <p>Each SXL is specified using the SXL name and an exact version. Order is not significant.</p>
@@ -553,8 +554,8 @@ even if <code class="docutils literal notranslate"><span class="pre">traffic_lig
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="components.html" class="btn btn-neutral float-left" title="4.7. Components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sxl_processing.html" class="btn btn-neutral float-right" title="4.9. SXL Processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="components.html" class="btn btn-neutral float-left" title="4.8. Components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sxl_processing.html" class="btn btn-neutral float-right" title="4.10. SXL Processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

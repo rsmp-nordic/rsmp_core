@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.2. Security considerations &mdash; RSMP Specification 3.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
+
+  
+  
+        <script src="../_static/jquery.js?v=8dae8fb0"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=3eb8911e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.3. Object model" href="object_model.html" />
+    <link rel="prev" title="4.1. Scope" href="scope.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RSMP Specification
+          </a>
+              <div class="version">
+                3.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../definitions.html">1. Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">2. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. Security considerations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#security-scope">4.2.1. Security scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-communication-protection">4.2.2. External communication protection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trust-boundary-and-intermediaries">4.2.3. Trust boundary and intermediaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">4.2.4. Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RSMP Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.2. </span>Security considerations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/applicability/security_considerations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="security-considerations">
+<span id="id1"></span><h1><span class="section-number">4.2. </span>Security considerations<a class="headerlink" href="#security-considerations" title="Link to this heading"></a></h1>
+<section id="security-scope">
+<h2><span class="section-number">4.2.1. </span>Security scope<a class="headerlink" href="#security-scope" title="Link to this heading"></a></h2>
+<p>RSMP Core defines an application protocol for exchanging messages between
+sites and supervision systems. RSMP Core does not require protected
+communication and does not add cryptographic protection to RSMP messages.</p>
+<p>When RSMP is used over an unprotected TCP connection, an attacker with access
+to the network can read RSMP data and can attempt to modify, inject, or replay
+messages. Message acknowledgements and message identifiers are protocol
+features, not cryptographic protection. They do not provide
+confidentiality, peer authentication, or protection against a network attacker.</p>
+</section>
+<section id="external-communication-protection">
+<h2><span class="section-number">4.2.2. </span>External communication protection<a class="headerlink" href="#external-communication-protection" title="Link to this heading"></a></h2>
+<p>As described in <a class="reference internal" href="transport_of_data.html#transport-security"><span class="std std-ref">Security</span></a>, a deployment can use TLS, a VPN, or
+another external mechanism to protect the communication carrying RSMP. These
+mechanisms do not change RSMP messages or protocol behaviour and are not part
+of RSMP Core conformance.</p>
+<p>TLS can protect the TCP connection between the endpoints that terminate TLS. A
+VPN can protect network traffic between the endpoints of the VPN tunnel. Both
+can provide confidentiality, integrity, and peer authentication within their
+respective trust boundaries when configured and validated correctly.</p>
+<p>Selection of a protection mechanism and its versions, identities, trust
+configuration, credentials, and operation are deployment responsibilities.
+RSMP Core does not define a TLS or VPN security profile.</p>
+</section>
+<section id="trust-boundary-and-intermediaries">
+<h2><span class="section-number">4.2.3. </span>Trust boundary and intermediaries<a class="headerlink" href="#trust-boundary-and-intermediaries" title="Link to this heading"></a></h2>
+<p>Communication protection applies only between the endpoints that terminate
+it. TLS endpoints are commonly application processes or devices. VPN endpoints
+may instead be hosts or network gateways. Traffic outside those endpoints is
+not protected by that mechanism.</p>
+<p>An intermediary that terminates protection may be able to read or modify RSMP
+messages unless additional end-to-end protection is used. Separate protected
+connections are needed on both sides of such an intermediary when protection
+is required across the complete path.</p>
+</section>
+<section id="limitations">
+<h2><span class="section-number">4.2.4. </span>Limitations<a class="headerlink" href="#limitations" title="Link to this heading"></a></h2>
+<p>External communication protection does not protect against:</p>
+<ul class="simple">
+<li><p>compromise of a site, supervision system, or trusted intermediary</p></li>
+<li><p>disclosure or unauthorized use of endpoint credentials or private keys</p></li>
+<li><p>denial of service or traffic analysis</p></li>
+<li><p>insecure device firmware, operating systems, administrative interfaces, or
+software updates</p></li>
+<li><p>disclosure of RSMP data in application logs, databases, backups, or other
+storage outside the protected connection</p></li>
+<li><p>unsafe application behaviour or incorrect authorization of commands</p></li>
+</ul>
+<p>The system owner and suppliers are responsible for the security and safety of
+the complete deployment, including devices, networks, credentials, operations,
+monitoring, incident response, and compliance. The division of responsibilities
+between RSMP Nordic and deployers is described on the
+<a class="reference external" href="https://rsmp-nordic.org/">RSMP Nordic website</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scope.html" class="btn btn-neutral float-left" title="4.1. Scope" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="object_model.html" class="btn btn-neutral float-right" title="4.3. Object model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright RSMP Nordic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.6. Data types &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.7. Data types &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.7. Components" href="components.html" />
-    <link rel="prev" title="4.5. Error handling" href="error_handling.html" /> 
+    <link rel="next" title="4.8. Components" href="components.html" />
+    <link rel="prev" title="4.6. Error handling" href="error_handling.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,22 +51,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6. Data types</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#json-types">4.6.1. JSON types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#specialized-types">4.6.2. Specialized types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#legacy-types">4.6.3. Legacy types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#natural-sorting">4.6.4. Natural Sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#json-types">4.7.1. JSON types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specialized-types">4.7.2. Specialized types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#legacy-types">4.7.3. Legacy types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#natural-sorting">4.7.4. Natural Sorting</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -87,7 +88,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.6. </span>Data types</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.7. </span>Data types</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/data_types.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -98,11 +99,11 @@
            <div itemprop="articleBody">
              
   <section id="data-types">
-<span id="id1"></span><h1><span class="section-number">4.6. </span>Data types<a class="headerlink" href="#data-types" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.7. </span>Data types<a class="headerlink" href="#data-types" title="Link to this heading"></a></h1>
 <p>The following data types are used in the core spec, and also in Signal Exchange Lists (SXLs).</p>
 <p>Signal Exchange Lists (SXLs) specify which types are allowed in particular statuses, alarms and commands, and can also define additional specialized types.</p>
 <section id="json-types">
-<h2><span class="section-number">4.6.1. </span>JSON types<a class="headerlink" href="#json-types" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.7.1. </span>JSON types<a class="headerlink" href="#json-types" title="Link to this heading"></a></h2>
 <p>RSMP message are send as JSON, which defines these basic types:</p>
 <ul class="simple">
 <li><p>object (hash)</p></li>
@@ -114,7 +115,7 @@
 </ul>
 </section>
 <section id="specialized-types">
-<h2><span class="section-number">4.6.2. </span>Specialized types<a class="headerlink" href="#specialized-types" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.7.2. </span>Specialized types<a class="headerlink" href="#specialized-types" title="Link to this heading"></a></h2>
 <p>The following specialized data types are defined:</p>
 <dl class="simple">
 <dt>integer</dt><dd><p>An integer, e.g. <code class="docutils literal notranslate"><span class="pre">12</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">-5</span></code>.
@@ -132,7 +133,7 @@ Encoded as a JSON string.</p>
 </dl>
 </section>
 <section id="legacy-types">
-<h2><span class="section-number">4.6.3. </span>Legacy types<a class="headerlink" href="#legacy-types" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.7.3. </span>Legacy types<a class="headerlink" href="#legacy-types" title="Link to this heading"></a></h2>
 <p>For historical reasons, basic types are sometimes encoded as JSON strings using these types.
 Whitespace is not allowed in any of these legacy types.</p>
 <dl class="simple">
@@ -157,7 +158,7 @@ Commas are not allowed as part of the strings.</p>
 </dl>
 </section>
 <section id="natural-sorting">
-<span id="id2"></span><h2><span class="section-number">4.6.4. </span>Natural Sorting<a class="headerlink" href="#natural-sorting" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2><span class="section-number">4.7.4. </span>Natural Sorting<a class="headerlink" href="#natural-sorting" title="Link to this heading"></a></h2>
 <p>Natural sorting is the same as alphabetical sorting, except that sequences of digits
 inside the strings are treated and sorted numerically:</p>
 <div class="highlight-default notranslate" id="id-ordering-natural"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dl</span><span class="o">/</span><span class="mi">1</span>
@@ -180,8 +181,8 @@ inside the strings are treated and sorted numerically:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="error_handling.html" class="btn btn-neutral float-left" title="4.5. Error handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="components.html" class="btn btn-neutral float-right" title="4.7. Components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="error_handling.html" class="btn btn-neutral float-left" title="4.6. Error handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="components.html" class="btn btn-neutral float-right" title="4.8. Components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

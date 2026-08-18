@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.3. Transport of data &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.4. Transport of data &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.4. Basic structure" href="basic_structure.html" />
-    <link rel="prev" title="4.2. Object model" href="object_model.html" /> 
+    <link rel="next" title="4.5. Basic structure" href="basic_structure.html" />
+    <link rel="prev" title="4.3. Object model" href="object_model.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,27 +51,28 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. Transport of data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#multiple-supervisors">4.3.1. Multiple supervisors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security">4.3.2. Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system">4.3.3. Communication establishment between sites and supervision system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites">4.3.4. Communication establishment between sites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-rejection">4.3.5. Communication rejection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-disruption">4.3.6. Communication disruption</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wrapping-of-packets">4.3.7. Wrapping of packets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transport-between-site-and-supervision-system">4.3.8. Transport between site and supervision system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transport-between-sites">4.3.9. Transport between sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. Transport of data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-supervisors">4.4.1. Multiple supervisors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security">4.4.2. Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system">4.4.3. Communication establishment between sites and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites">4.4.4. Communication establishment between sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-rejection">4.4.5. Communication rejection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-disruption">4.4.6. Communication disruption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping-of-packets">4.4.7. Wrapping of packets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-site-and-supervision-system">4.4.8. Transport between site and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-sites">4.4.9. Transport between sites</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -92,7 +93,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.3. </span>Transport of data</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.4. </span>Transport of data</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/transport_of_data.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -103,7 +104,7 @@
            <div itemprop="articleBody">
              
   <section id="transport-of-data">
-<span id="id1"></span><h1><span class="section-number">4.3. </span>Transport of data<a class="headerlink" href="#transport-of-data" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.4. </span>Transport of data<a class="headerlink" href="#transport-of-data" title="Link to this heading"></a></h1>
 <p>The message flow is different between different types of messages.
 Some message types are event driven and are sent without a request (push),
 while others are interaction driven, i.e. they sent in response to a
@@ -134,7 +135,7 @@ See <a class="reference internal" href="#communication-establishment-between-sit
 otherwise stated in the <a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>.</p>
 </div>
 <section id="multiple-supervisors">
-<span id="id2"></span><h2><span class="section-number">4.3.1. </span>Multiple supervisors<a class="headerlink" href="#multiple-supervisors" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2><span class="section-number">4.4.1. </span>Multiple supervisors<a class="headerlink" href="#multiple-supervisors" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Implementing support for multiple supervisors is not required unless
@@ -197,28 +198,16 @@ this affects all supervisors.</p></li>
 </ul>
 </section>
 <section id="security">
-<h2><span class="section-number">4.3.2. </span>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Implementing support for encryption is not required unless otherwise stated.</p>
-</div>
-<p>If encryption is used then the following applies:</p>
-<ul class="simple">
-<li><p>Encryption settings needs to be configurable in both the supervision system as
-well as the site.</p></li>
-<li><p>For the encrypted communication, TLS 1.3 or later is used.</p></li>
-<li><p>Encrypted communication should use a separate port number.
-By default this should be port 12112.</p></li>
-<li><p>If both the supervision system and site are configured to use encryption,
-certificates should be used to verify the identities of each other.</p></li>
-<li><p>Equipment which uses RSMP should contain a user interface for easy management
-of certificates.</p></li>
-<li><p>The issuing and renewal of certificates should should be made in cooperation
-with the purchaser unless other arrangement is agreed upon.</p></li>
-</ul>
+<span id="transport-security"></span><h2><span class="section-number">4.4.2. </span>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
+<p>RSMP Core does not provide communication security. A deployment can protect
+the TCP connection carrying RSMP by using an external mechanism such as TLS or
+a VPN. This protection does not change RSMP messages or protocol behaviour.</p>
+<p>RSMP Core does not define requirements for selecting, configuring, or
+operating TLS, a VPN, or another external protection mechanism. See
+<a class="reference internal" href="security_considerations.html#security-considerations"><span class="std std-ref">Security considerations</span></a>.</p>
 </section>
 <section id="communication-establishment-between-sites-and-supervision-system">
-<span id="id3"></span><h2><span class="section-number">4.3.3. </span>Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Link to this heading"></a></h2>
+<span id="id3"></span><h2><span class="section-number">4.4.3. </span>Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Link to this heading"></a></h2>
 <p>When establishing communication between sites and supervision system,
 messages are sent in the following order.</p>
 <p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
@@ -271,7 +260,7 @@ lists depending on the RSMP / SXL version message from the site</p></li>
 </ul>
 </section>
 <section id="communication-establishment-between-sites">
-<span id="id4"></span><h2><span class="section-number">4.3.4. </span>Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Link to this heading"></a></h2>
+<span id="id4"></span><h2><span class="section-number">4.4.4. </span>Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Link to this heading"></a></h2>
 <p>When establishing communication directly between sites, messages are sent in
 the following order.</p>
 <p>One site acts as a leader and the other one as a follower.</p>
@@ -326,7 +315,7 @@ system works.</p>
 </div>
 </section>
 <section id="communication-rejection">
-<span id="id5"></span><h2><span class="section-number">4.3.5. </span>Communication rejection<a class="headerlink" href="#communication-rejection" title="Link to this heading"></a></h2>
+<span id="id5"></span><h2><span class="section-number">4.4.5. </span>Communication rejection<a class="headerlink" href="#communication-rejection" title="Link to this heading"></a></h2>
 <p>During RSMP/SXL Version exchange each communicating party needs to verify:</p>
 <ul class="simple">
 <li><p>RSMP version(s)</p></li>
@@ -347,7 +336,7 @@ during RSMP/SXL Version or <a class="reference internal" href="basic_structure.h
 unless there is a communication disruption.</p>
 </section>
 <section id="communication-disruption">
-<span id="id6"></span><h2><span class="section-number">4.3.6. </span>Communication disruption<a class="headerlink" href="#communication-disruption" title="Link to this heading"></a></h2>
+<span id="id6"></span><h2><span class="section-number">4.4.6. </span>Communication disruption<a class="headerlink" href="#communication-disruption" title="Link to this heading"></a></h2>
 <p>In the event of an communication disruption the following principles applies:</p>
 <ul class="simple">
 <li><p>If the equipment supports buffering of status messages, the status
@@ -410,7 +399,7 @@ be 10 seconds.</p></li>
 </ul>
 </section>
 <section id="wrapping-of-packets">
-<h2><span class="section-number">4.3.7. </span>Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.4.7. </span>Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Link to this heading"></a></h2>
 <p>Both Json and XML packets can be tricky to decode unless one always know that
 the packet is complete. Json lacks an end tag and an XML end tag may be
 embedded in the text source. In order to reliably detect the end of a packet
@@ -462,7 +451,7 @@ establishment) must not be sent, but must be handled</p></li>
 </ul>
 </section>
 <section id="transport-between-site-and-supervision-system">
-<span id="id7"></span><h2><span class="section-number">4.3.8. </span>Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Link to this heading"></a></h2>
+<span id="id7"></span><h2><span class="section-number">4.4.8. </span>Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Link to this heading"></a></h2>
 <p>By default the following applies:</p>
 <ul class="simple">
 <li><p>The supervision system implements a socket server and waits for the site
@@ -488,7 +477,7 @@ unaffected</p>
 </div>
 </section>
 <section id="transport-between-sites">
-<h2><span class="section-number">4.3.9. </span>Transport between sites<a class="headerlink" href="#transport-between-sites" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.4.9. </span>Transport between sites<a class="headerlink" href="#transport-between-sites" title="Link to this heading"></a></h2>
 <p>One site acts as leader and the other site(s) as followers. The leader can
 request commands, statuses (with optional subscription) and alarms to the
 follower site(s). It is the leader one who connects. This is different to
@@ -508,8 +497,8 @@ to reconnect</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="object_model.html" class="btn btn-neutral float-left" title="4.2. Object model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="basic_structure.html" class="btn btn-neutral float-right" title="4.4. Basic structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="object_model.html" class="btn btn-neutral float-left" title="4.3. Object model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="basic_structure.html" class="btn btn-neutral float-right" title="4.5. Basic structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

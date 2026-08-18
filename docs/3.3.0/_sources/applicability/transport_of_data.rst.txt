@@ -101,30 +101,18 @@ Alarms:
   this affects all supervisors.
 
 
+.. _transport-security:
+
 Security
 ^^^^^^^^
 
-.. note::
-   Implementing support for encryption is not required unless otherwise stated.
+RSMP Core does not provide communication security. A deployment can protect
+the TCP connection carrying RSMP by using an external mechanism such as TLS or
+a VPN. This protection does not change RSMP messages or protocol behaviour.
 
-If encryption is used then the following applies:
-
-* Encryption settings needs to be configurable in both the supervision system as
-  well as the site.
-
-* For the encrypted communication, TLS 1.3 or later is used.
-
-* Encrypted communication should use a separate port number.
-  By default this should be port 12112.
-
-* If both the supervision system and site are configured to use encryption,
-  certificates should be used to verify the identities of each other.
-
-* Equipment which uses RSMP should contain a user interface for easy management
-  of certificates.
-
-* The issuing and renewal of certificates should should be made in cooperation
-  with the purchaser unless other arrangement is agreed upon.
+RSMP Core does not define requirements for selecting, configuring, or
+operating TLS, a VPN, or another external protection mechanism. See
+:ref:`security-considerations`.
 
 .. _communication-establishment-between-sites-and-supervision-system:
 

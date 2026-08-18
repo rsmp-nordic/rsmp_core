@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.9. SXL Processing &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.10. SXL Processing &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.10. Site configuration" href="site_configuration.html" />
-    <link rel="prev" title="4.8. Signal Exchange List (SXL)" href="sxl.html" /> 
+    <link rel="next" title="4.11. Site configuration" href="site_configuration.html" />
+    <link rel="prev" title="4.9. Signal Exchange List (SXL)" href="sxl.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,21 +51,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="components.html">4.7. Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.9. SXL Processing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dependency-resolution">4.9.1. Dependency Resolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#conflict-check">4.9.2. Conflict Check</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#manifest">4.9.3. Manifest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">4.8. Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.10. SXL Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependency-resolution">4.10.1. Dependency Resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conflict-check">4.10.2. Conflict Check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manifest">4.10.3. Manifest</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -86,7 +87,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.9. </span>SXL Processing</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.10. </span>SXL Processing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/sxl_processing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,12 +98,12 @@
            <div itemprop="articleBody">
              
   <section id="sxl-processing">
-<span id="id1"></span><h1><span class="section-number">4.9. </span>SXL Processing<a class="headerlink" href="#sxl-processing" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.10. </span>SXL Processing<a class="headerlink" href="#sxl-processing" title="Link to this heading"></a></h1>
 <p>Before an SXL or site SXL list is published or updated, dependencies must be resolved.</p>
 <p>If successful, a manifest is created which lists all SXLs with exact versions, including dependencies.</p>
 <p>SXL processing should be done using official RSMP Nordic tools.</p>
 <section id="dependency-resolution">
-<span id="sxl-dependency-resolution"></span><h2><span class="section-number">4.9.1. </span>Dependency Resolution<a class="headerlink" href="#dependency-resolution" title="Link to this heading"></a></h2>
+<span id="sxl-dependency-resolution"></span><h2><span class="section-number">4.10.1. </span>Dependency Resolution<a class="headerlink" href="#dependency-resolution" title="Link to this heading"></a></h2>
 <p>Dependency resolution establishes a set of exact SXL versions that satisfy all version requirements.</p>
 <p>Dependency resolution can be performed either on a single SXL, or on a list of SXLs.</p>
 <p>Dependency order is ignored.</p>
@@ -111,12 +112,12 @@ For each SXL, the newest version that satisfies all of its collected version req
 <p>If any version requirement is unsatisfiable or a cyclic dependency is detected, resolution fails.</p>
 </section>
 <section id="conflict-check">
-<span id="sxl-conflicts"></span><h2><span class="section-number">4.9.2. </span>Conflict Check<a class="headerlink" href="#conflict-check" title="Link to this heading"></a></h2>
+<span id="sxl-conflicts"></span><h2><span class="section-number">4.10.2. </span>Conflict Check<a class="headerlink" href="#conflict-check" title="Link to this heading"></a></h2>
 <p>Once a set of exact SXL versions have been established by dependency resolution, it must be checked that
 no component types or message codes defined in different SXLs clash.</p>
 </section>
 <section id="manifest">
-<span id="sxl-manifest"></span><h2><span class="section-number">4.9.3. </span>Manifest<a class="headerlink" href="#manifest" title="Link to this heading"></a></h2>
+<span id="sxl-manifest"></span><h2><span class="section-number">4.10.3. </span>Manifest<a class="headerlink" href="#manifest" title="Link to this heading"></a></h2>
 <p>If dependency resolution and conflict check succeeds, a manifest is created.</p>
 <p>A manifest lists the set of SXLs at exact versions that satisfy all version requirements,
 and is guaranteed not to have any conflicting component types or message codes.</p>
@@ -147,8 +148,8 @@ Instead the SXL list reflecting the manifest is included as part of the Version 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sxl.html" class="btn btn-neutral float-left" title="4.8. Signal Exchange List (SXL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="site_configuration.html" class="btn btn-neutral float-right" title="4.10. Site configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sxl.html" class="btn btn-neutral float-left" title="4.9. Signal Exchange List (SXL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="site_configuration.html" class="btn btn-neutral float-right" title="4.11. Site configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4.7. Components &mdash; RSMP Specification 3.3.0 documentation</title>
+  <title>4.8. Components &mdash; RSMP Specification 3.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=86f27845" />
 
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.8. Signal Exchange List (SXL)" href="sxl.html" />
-    <link rel="prev" title="4.6. Data types" href="data_types.html" /> 
+    <link rel="next" title="4.9. Signal Exchange List (SXL)" href="sxl.html" />
+    <link rel="prev" title="4.7. Data types" href="data_types.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,26 +51,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../purpose.html">3. Purpose</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../applicability.html">4. Applicability</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scope.html">4.1. Scope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.2. Object model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.3. Transport of data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.4. Basic structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.5. Error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.6. Data types</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.7. Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#component-type">4.7.1. Component Type</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#component-id">4.7.2. Component ID</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#addressing-components">4.7.2.1. Addressing Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_considerations.html">4.2. Security considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object_model.html">4.3. Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transport_of_data.html">4.4. Transport of data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_handling.html">4.6. Error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_types.html">4.7. Data types</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.8. Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#component-type">4.8.1. Component Type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-id">4.8.2. Component ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#addressing-components">4.8.2.1. Addressing Components</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#component-name">4.7.3. Component Name</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#component-data-and-state">4.7.4. Component Data and State</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#component-ordering">4.7.5. Component Ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-name">4.8.3. Component Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-data-and-state">4.8.4. Component Data and State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#component-ordering">4.8.5. Component Ordering</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.8. Signal Exchange List (SXL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.9. SXL Processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.10. Site configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.11. Command Persistence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl.html">4.9. Signal Exchange List (SXL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sxl_processing.html">4.10. SXL Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_configuration.html">4.11. Site configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">4.12. Command Persistence</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">5. Change log</a></li>
@@ -91,7 +92,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../applicability.html"><span class="section-number">4. </span>Applicability</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">4.7. </span>Components</li>
+      <li class="breadcrumb-item active"><span class="section-number">4.8. </span>Components</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/applicability/components.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="components">
-<span id="id1"></span><h1><span class="section-number">4.7. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4.8. </span>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h1>
 <p>Components represent physical or logical parts of a site.
 For example, a traffic light controller might have signal group and detector logic components.</p>
 <p>A component has:</p>
@@ -113,7 +114,7 @@ For example, a traffic light controller might have signal group and detector log
 <li><p>internal data and state</p></li>
 </ul>
 <section id="component-type">
-<span id="id2"></span><h2><span class="section-number">4.7.1. </span>Component Type<a class="headerlink" href="#component-type" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2><span class="section-number">4.8.1. </span>Component Type<a class="headerlink" href="#component-type" title="Link to this heading"></a></h2>
 <p>Component types are defined by SXLs.</p>
 <p>For example, an SXL for traffic light controllers might define the component types <code class="docutils literal notranslate"><span class="pre">tlc/sg</span></code> for
 signal groups and <code class="docutils literal notranslate"><span class="pre">tlc/dl</span></code> for detector logics.</p>
@@ -123,7 +124,7 @@ The SXLs that define the same component type therefore canont be used together o
 <p>Component type IDs use UTF-8 and must contain only letters, digits, hyphens, underscores and forward slashes.</p>
 </section>
 <section id="component-id">
-<span id="id3"></span><h2><span class="section-number">4.7.2. </span>Component ID<a class="headerlink" href="#component-id" title="Link to this heading"></a></h2>
+<span id="id3"></span><h2><span class="section-number">4.8.2. </span>Component ID<a class="headerlink" href="#component-id" title="Link to this heading"></a></h2>
 <p>Component IDs are used to identify components.
 They can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.</p>
 <p>Forward slashes <code class="docutils literal notranslate"><span class="pre">/</span></code> can be used to organise components into a hierarchy.</p>
@@ -148,7 +149,7 @@ component type in a component ID, or include it at a specific location in the ID
 Instead you should rely on the <code class="docutils literal notranslate"><span class="pre">ComponentList</span></code> message, which will explicitly list the component
 types of all components, e.g. <code class="docutils literal notranslate"><span class="pre">tlc/sg</span></code> for signal group component.</p>
 <section id="addressing-components">
-<span id="id4"></span><h3><span class="section-number">4.7.2.1. </span>Addressing Components<a class="headerlink" href="#addressing-components" title="Link to this heading"></a></h3>
+<span id="id4"></span><h3><span class="section-number">4.8.2.1. </span>Addressing Components<a class="headerlink" href="#addressing-components" title="Link to this heading"></a></h3>
 <p>A single component is addressed using its full ID, e.g. <code class="docutils literal notranslate"><span class="pre">dl/radar/1</span></code> or <code class="docutils literal notranslate"><span class="pre">KK+AG0503=001SG001</span></code>.</p>
 <p>If components are organised in a hierarchy using forward slashes, you can use partial paths ending with <code class="docutils literal notranslate"><span class="pre">/</span></code>
 to reference all component under that path. For example, given the componts example above,
@@ -159,14 +160,14 @@ to indicate the site as a whole, as opposed to any specific compponent or group 
 </section>
 </section>
 <section id="component-name">
-<span id="id5"></span><h2><span class="section-number">4.7.3. </span>Component Name<a class="headerlink" href="#component-name" title="Link to this heading"></a></h2>
+<span id="id5"></span><h2><span class="section-number">4.8.3. </span>Component Name<a class="headerlink" href="#component-name" title="Link to this heading"></a></h2>
 <p>A component can have a human-readable name, e.g. “Radar detector, northbound”.
 A name is recommended, but not required.</p>
 <p>Component names use UTF-8 and can contain any printable character.
 Space is the only allowed whitespace character.</p>
 </section>
 <section id="component-data-and-state">
-<span id="component-data"></span><h2><span class="section-number">4.7.4. </span>Component Data and State<a class="headerlink" href="#component-data-and-state" title="Link to this heading"></a></h2>
+<span id="component-data"></span><h2><span class="section-number">4.8.4. </span>Component Data and State<a class="headerlink" href="#component-data-and-state" title="Link to this heading"></a></h2>
 <p>A component typically has internal data and state relevant to its function.</p>
 <p>Such data can be read and modified using Alarms, Commands and Statuses defined
 in a relevant SXL.</p>
@@ -176,7 +177,7 @@ might define a status to read the current colour of a signal group component, an
 commands to request that a group turns green or red.</p>
 </section>
 <section id="component-ordering">
-<span id="id6"></span><h2><span class="section-number">4.7.5. </span>Component Ordering<a class="headerlink" href="#component-ordering" title="Link to this heading"></a></h2>
+<span id="id6"></span><h2><span class="section-number">4.8.5. </span>Component Ordering<a class="headerlink" href="#component-ordering" title="Link to this heading"></a></h2>
 <p>As part of the connection sequence, the site sends a <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a> message which lists
 all components on the site.</p>
 <p>The site must order the components in the component list using <a class="reference internal" href="data_types.html#natural-sorting"><span class="std std-ref">Natural Sorting</span></a> of their component IDs.
@@ -228,8 +229,8 @@ while the values in status messages will change over time.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="data_types.html" class="btn btn-neutral float-left" title="4.6. Data types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sxl.html" class="btn btn-neutral float-right" title="4.8. Signal Exchange List (SXL)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="data_types.html" class="btn btn-neutral float-left" title="4.7. Data types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sxl.html" class="btn btn-neutral float-right" title="4.9. Signal Exchange List (SXL)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
