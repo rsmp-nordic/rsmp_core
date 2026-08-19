@@ -60,7 +60,9 @@ Note: Some legacy SXLs use names without a country code or region, e.g. ``tlc`` 
 
 Version
 ^^^^^^^
-An SXL has a version, e.g. ``1.3.1``, which must follow Semantic Versioning conventions.
+An SXL has a version, e.g. ``1.3.1``, which must use the Semantic
+Versioning core format ``MAJOR.MINOR.PATCH``. Numeric identifiers must not
+contain leading zeroes.
 
 Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
@@ -68,7 +70,12 @@ Given a version number MAJOR.MINOR.PATCH, you must increment the:
 - MINOR version when you add functionality in a backward compatible manner
 - PATCH version when you make backward compatible bug fixes
 
-Preview and build info cannot be used as part of version strings.
+Prerelease and build information cannot be used as part of SXL version
+strings.
+
+Semantic Versioning applies to both the message structure and behavior defined
+by an SXL. Detailed versioning and communication requirements are defined in
+:ref:`sxl-version-compatibility`.
 
 SXL versions are used to determine whether a site and the supervisor has compatible versions,
 and when resolving dependencies between SXLs.
