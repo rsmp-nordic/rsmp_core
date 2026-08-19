@@ -130,21 +130,22 @@ implicit in the following figure.
 
 1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
-2. The supervision system verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+2. The supervision system verifies the RSMP version and site id, and determines
+   which SXLs have compatible versions. If the RSMP version or site id cannot
+   be accepted, the sequence does not proceed. (See
+   :ref:`communication-rejection`.)
 
 3. The supervision system sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
-4. The site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+4. The site verifies the RSMP version, supervisor id and the compatibility of
+   each accepted SXL. If the response is invalid, the sequence does not
+   proceed. (See :ref:`communication-rejection`.)
 
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The exact RSMP version in the Version response is used for further
+   communication. For each accepted SXL, each party retains both advertised
+   versions and uses the rules in :ref:`sxl-version-error-handling`.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
 
@@ -156,8 +157,8 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 10. Aggregated status (according to section :ref:`aggregated-status-message`).
-    If no component for aggregated status is defined in the signal exchange list
-    then no aggregated status message is sent.
+    If aggregated status is not defined in the signal exchange list, no
+    aggregated status message is sent.
 
 11. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
     are sent. (according to section :ref:`alarm-messages`).
@@ -176,15 +177,10 @@ current ones based on their older alarm timestamps. Any buffered alarm events
 that contains the exact same alarm event and timestamp as sent when sending all
 alarms should not be sent again.
 
-Since only one version of the signal exchange list is allowed to be used
-at the communication establishment (according to the version message),
-each connected site must either:
-
-* Use the same version of the signal exchange list via the same
-  RSMP connection
-* Connect to separate supervision systems (e.g. using separate ports)
-* Connect to a supervision system that can handle separate signal exchange
-  lists depending on the RSMP / SXL version message from the site
+For each accepted SXL, a connection uses one selected site version candidate
+and one supervisor version. A site connected to multiple supervisors must
+track the accepted SXLs and both selected versions separately for each
+connection.
 
 .. _communication-establishment-between-sites:
 
@@ -208,20 +204,21 @@ implicit in the following figure.
 1. The follower site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
-2. The leader site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+2. The leader site verifies the RSMP version and site id, and determines which
+   SXLs have compatible versions. If the RSMP version or site id cannot be
+   accepted, the sequence does not proceed. (See
+   :ref:`communication-rejection`.)
 
 3. The leader site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
-4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+4. The follower site verifies the RSMP version, site id and the compatibility
+   of each accepted SXL. If the response is invalid, the sequence does not
+   proceed. (See :ref:`communication-rejection`.)
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The exact RSMP version in the Version response is used for further
+   communication. For each accepted SXL, each party retains both advertised
+   versions and uses the rules in :ref:`sxl-version-error-handling`.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
@@ -233,8 +230,8 @@ implicit in the following figure.
    statuses are allowed to be sent
 
 10. Aggregated status (according to section :ref:`aggregated-status-message`)
-    If no component for aggregated status is defined in the signal exchange list
-    then no aggregated status message is sent.
+    If aggregated status is not defined in the signal exchange list, no
+    aggregated status message is sent.
 
 For communication between sites the following applies:
 
@@ -264,10 +261,11 @@ Communication rejection
 During RSMP/SXL Version exchange each communicating party needs to verify:
 
 * RSMP version(s)
-* SXL version
-* Site id
+* compatibility of each accepted SXL version
+* site or supervisor id
 
-If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+If the site or supervisor id is not accepted, no RSMP version is supported by
+both parties, or a Version response accepts an incompatible SXL version, then:
 
 1. The communication establishment sequence does not proceed
 2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
@@ -275,11 +273,17 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
 3. The connection is closed
 
+If no compatible version exists for an SXL, the supervisor rejects that SXL in
+the Version response as described in :ref:`rsmpsxl-version`. This does not
+prevent the connection from being established and does not cause the
+connection to be closed.
+
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-Is it not allowed to disconnect for any other circumstance other than mismatch
-during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
+It is not allowed to disconnect for any other circumstance other than failed
+verification during RSMP/SXL Version exchange or
+:ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:

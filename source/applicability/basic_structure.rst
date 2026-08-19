@@ -591,9 +591,10 @@ Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the component which is
-defined by **ComponentType** in the signal exchange list. If no component is defined
-then no aggregated status message is sent.
+overall status of the site. A single aggregated status represents the entire
+site; it is not maintained or sent separately for each component in the
+ComponentList. Its SXL-defined content applies to the site as a whole. If the
+SXL does not define aggregated status, no aggregated status message is sent.
 
 Aggregated status messages are interaction driven and are sent if state,
 functional position or functional status are changed at the site.
@@ -1250,8 +1251,9 @@ If all required arguments are present and valid, the site immediately sends a Me
 and starts executing the command. Once the execution completes, fails or times
 out the site sends a CommandResponse.
 
-If a required argument is missing or any argument is invalid the site responds with a
-MessageNotAck and does not send a CommandResponse.
+If a required argument is missing or a known argument is invalid, the site responds with a
+MessageNotAck and does not send a CommandResponse. Unknown arguments are handled according
+to :ref:`sxl-version-error-handling`.
 
 All arguments in a CommandRequest are required unless specifically marked as optional
 in the SXL.
@@ -1580,8 +1582,9 @@ The supervisor responds with a Version response message.
 Version messages are used to exchange information about supported versions of RSMP and SXL,
 to ensure that the communicating parties are compatible.
 
-If there is a mismatch or if there are no RSMP versions that both
-communicating parties support, see :ref:`communication-rejection`.
+If there are no RSMP versions that both communicating parties support, see
+:ref:`communication-rejection`. An incompatible SXL does not prevent the
+connection from being established, but cannot be used on the connection.
 
 Unknown fields in Version messages must be ignored and not cause a MessageNotAck.
 This allows for backward compatibility when new fields are added in later versions of RSMP or SXL.
@@ -1597,7 +1600,7 @@ The initial Version request sent by the site contains:
 
 * Site Id.
 * Supported RSMP core versions
-* Supported SXLs and their versions
+* Supported SXLs and their version candidates
 
 .. code-block:: json
    :name: json-version-request
@@ -1638,14 +1641,17 @@ The following table describes variable content of the message:
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Array of supported core versions. 
    SXL           string   Optional. Version of the primary SXL, for backward compatibility.
-   SXLS          array    Array of supported SXLs.
+   SXLS          array    Array of supported SXL version candidates.
    ============= ======== ===============
 
 Only one site can use the same connection. The ``sId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` field is included when a primary SXL exists, for backward compatibility with supervisors that only
-support older core versions and ignore the newer ``SXLS`` array.
+The ``SXL`` field is included when a primary SXL exists, for backward
+compatibility with supervisors that only support older core versions and
+ignore the newer ``SXLS`` array. If the site supports the primary SXL in more
+than one compatibility series, ``SXL`` contains the supported version with the
+highest Semantic Versioning precedence.
 
 The ``SXLS`` array may be empty if the site does not support any SXLs.
 Each item in the ``SXLS`` array must be an object with the following content:
@@ -1658,21 +1664,25 @@ Each item in the ``SXLS`` array must be an object with the following content:
    Element Type     Description  
    ======= ======== ==================== 
    name    string   SXL name, e.g. ``traffic_light_controller``          
-   version string   Version of the SXL, e.g. "1.3.0".
+   version string   Version of the SXL supported by the site, e.g. "1.3.0".
    prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
    ======= ======== ====================
 
-If the site supports multiple versions of an SXL the latest must be specified.
+For each SXL, the site must list the latest version it supports in every
+supported non-zero major version. The same SXL name can therefore occur more
+than once, but at most once for each non-zero major version. Because
+major-version-zero versions require an exact match, each supported ``0.y.z``
+version can be listed separately.
 
 
 Version Response
 """""""""""""""""
 Communication can only be established if the supervisor supports one of the core
-versions listed in the version request sent by the site. It must be an exact match of both
-major, minor and patch version.
+versions listed in the version request sent by the site. It must be an exact match of the
+major, minor and patch versions.
 
-An SXL listed by the site can only be used if the supervisor supports the exact same version,
-with an exact match of both major, minor and patch version.
+An SXL listed by the site can be used if the supervisor supports a compatible version,
+as defined in :ref:`sxl-version-compatibility`.
 
 Communication can be established even if the supervisor supports none of the SXLs. In this case, no
 commands, statuses or alarms can be exchanged, only aggregated status.
@@ -1680,12 +1690,15 @@ commands, statuses or alarms can be exchanged, only aggregated status.
 If the supervisor determines that the core version cannot be matched,
 it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
 
-If the core version can be matched, the supervisor returns a Version response containing:
+If the core version can be matched, the supervisor returns a Version response
+containing:
 
 * Supervisor ID.
 * RSMP core version to use.
-* SXLs to use.
-* SXLs not to use and why.
+* Exactly one accepted or rejected result for each distinct SXL name in the
+  Version request.
+* The supervisor's version for each accepted SXL.
+* The reason for each rejected SXL.
 * receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
 
 .. code-block:: json
@@ -1697,26 +1710,28 @@ If the core version can be matched, the supervisor returns a Version response co
          "step": "Response",
          "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
          "RSMP": [
-            { "vers": "3.1.1" }
+            { "vers": "3.3.0" }
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "traffic_light_controller", "version": "1.3.0" },
-            { "name": "variable_message_sign", "version": "1.3.4" },
-            { "name": "variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
+            { "name": "traffic_light_controller", "version": "1.4.0" },
+            { "name": "traffic_light_controller/advanced", "rejected": 2, "reason": "Supervisor only supports 2.0.0" },
+            { "name": "variable_message_sign", "version": "1.0.2" }
          ],
          "receiveAlarms": false
    }
 
 JSon code 25: A Version Response message
 
-In this example, the SXL ``traffic_light_controller`` will be used, as well as the 
-SXL ``variable_message_sign``.
+In this example, the SXL ``traffic_light_controller`` will be used with site
+version 1.3.0 and supervisor version 1.4.0. The SXL
+``variable_message_sign`` will be used with site version 1.0.6 and supervisor
+version 1.0.2.
 
-The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
-does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+The SXL ``traffic_light_controller/advanced`` is not used because the
+supervisor only supports the incompatible major version 2.0.0.
 
-The ``SXLS`` array may be empty if no SXLs will be used.
+The ``SXLS`` array may be empty only if the request's ``SXLS`` array was empty.
 
 The following table describes variable content of the message:
 
@@ -1730,7 +1745,7 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Response'.
    supervisorId  string   The id of the supervisor.
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
-   SXLS          array    List of SXLS which will be used for communication.
+   SXLS          array    List of SXLs which will be used for communication, and SXLs rejected by the supervisor.
    receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
    ============= ======== ===============
 
@@ -1746,10 +1761,16 @@ Each item in the ``SXLS`` array must be an object with the following content:
    Element   Type     Description
    ========= ======== ====================
    name      string   SXL name, e.g. ``traffic_light_controller``, matching the name in the Version request.
-   version   string   Version of the SXL, e.g. "1.3.0", matching the version in the Version request.
+   version   string   Required if the SXL is accepted. Version supported by the supervisor. It can differ from the site version in the Version request.
    rejected  integer  (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.
    reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
    ========= ======== ====================
+
+Each SXL name must occur exactly once in the Version response. If the request
+contains candidates from more than one major version of an SXL, the accepted
+supervisor version identifies the selected major version. A response is
+invalid if it omits a requested SXL name, repeats a name, or contains a name
+which was not included in the request.
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.50}|
 
@@ -1759,7 +1780,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    Code    Description
    ======= ====================
    1       SXL not supported.
-   2       No matching version of the SXL supported.
+   2       No compatible version of the SXL supported.
    3       SXL not needed/wanted.
    ======= ====================
 
@@ -1769,14 +1790,6 @@ A site and a supervisor can only communicate if the core versions are exactly th
 major, minor and patch versions match.
 The core version string returned by the supervisor in the version response must therefore be
 the same as one of the core version strings sent by the site in the Version request.
-
-SXL Version Compatibility
-"""""""""""""""""""""""""
-An SXL can be used if the site and the supervisor support the exact same version, i.e. both
-major, minor and patch versions match.
-A SXL version string returned by the supervisor in the version response must therefore be
-the same as the SXL version strings sent by the site in the Version request.
-
 
 .. _component-list:
 
