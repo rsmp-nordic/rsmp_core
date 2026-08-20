@@ -26,6 +26,7 @@ The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github
 
 - Remove reference to Datex II. :issue:`185`
 - Clarify aggregated status. :issue:`200`
+- Define Semantic Versioning and deprecation rules for RSMP Core.
 - Add security considerations, clarify that communication protection is
   external to RSMP Core, and remove operational TLS recommendations.
 

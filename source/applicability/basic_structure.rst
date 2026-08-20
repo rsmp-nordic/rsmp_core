@@ -1763,12 +1763,37 @@ Each item in the ``SXLS`` array must be an object with the following content:
    3       SXL not needed/wanted.
    ======= ====================
 
-Core Version Compatibility
-""""""""""""""""""""""""""
-A site and a supervisor can only communicate if the core versions are exactly the same, i.e. both
-major, minor and patch versions match.
-The core version string returned by the supervisor in the version response must therefore be
-the same as one of the core version strings sent by the site in the Version request.
+Core Versioning and Compatibility
+"""""""""""""""""""""""""""""""""
+RSMP Core versions follow Semantic Versioning (SemVer). Given a version number
+MAJOR.MINOR.PATCH, the:
+
+* MAJOR version is incremented for incompatible changes
+* MINOR version is incremented when functionality is added in a backward
+  compatible manner, or existing functionality is deprecated
+* PATCH version is incremented for backward compatible corrections
+
+The public protocol interface includes message types and structures,
+attributes, data types, permitted values and their meanings, required message
+sequences, and error handling. Removing part of this interface, restricting
+previously permitted use, or changing its meaning is an incompatible change.
+
+Deprecated functionality remains valid and retains its meaning for the
+remainder of the current major version. Implementations must continue to
+accept previously valid use of deprecated functionality. Deprecation may
+recommend an alternative for new implementations, but removal or restriction
+requires a new major version.
+
+A site and a supervisor can currently communicate only if the Core versions
+are exactly the same, i.e. the major, minor and patch versions all match. The
+Core version string returned by the supervisor in the Version response must
+therefore be the same as one of the Core version strings sent by the site in
+the Version request.
+
+The exact-match requirement is independent of Semantic Versioning and does
+not permit incompatible changes in minor or patch releases. Preserving
+compatibility makes it possible to relax the version negotiation requirement
+in a future Core version.
 
 SXL Version Compatibility
 """""""""""""""""""""""""
