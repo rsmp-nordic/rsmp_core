@@ -591,9 +591,10 @@ Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the component which is
-defined by **ComponentType** in the signal exchange list. If no component is defined
-then no aggregated status message is sent.
+overall status of the site. A single aggregated status represents the entire
+site; it is not maintained or sent separately for each component in the
+ComponentList. Its SXL-defined content applies to the site as a whole. If the
+SXL does not define aggregated status, no aggregated status message is sent.
 
 Aggregated status messages are interaction driven and are sent if state,
 functional position or functional status are changed at the site.
