@@ -137,13 +137,12 @@ implicit in the following figure.
 3. The supervision system sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
-4. The site verifies the RSMP version, SXL version and site id.
+4. The site verifies the RSMP version, SXL version and supervisor id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
+5. The exact RSMP version in the Version response is used for further RSMP
    communication.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
@@ -219,8 +218,7 @@ implicit in the following figure.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
+5. The exact RSMP version in the Version response is used for further RSMP
    communication.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
@@ -265,9 +263,10 @@ During RSMP/SXL Version exchange each communicating party needs to verify:
 
 * RSMP version(s)
 * SXL version
-* Site id
+* site or supervisor id
 
-If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+If there is a mismatch of SXL, site or supervisor id, or unsupported version(s)
+of RSMP then:
 
 1. The communication establishment sequence does not proceed
 2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
@@ -278,7 +277,7 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-Is it not allowed to disconnect for any other circumstance other than mismatch
+It is not allowed to disconnect for any other circumstance other than mismatch
 during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
