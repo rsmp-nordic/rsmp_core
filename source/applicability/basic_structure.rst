@@ -1787,7 +1787,12 @@ It is sent during communication establishment, and whenever the component list c
 i.e. if a component is added, removed or changed.
 
 The ComponentList message is the authoritative source of information about the components on the site.
-It takes precedence over any static configuration that the supervisor might have.
+It contains all components, including components whose type is defined by an
+SXL which the supervisor rejected during Version negotiation. Listing a
+component does not implicitly accept that SXL or permit its alarm, status or
+command messages to be used.
+
+The ComponentList takes precedence over any static configuration that the supervisor might have.
 However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
 If the supervisor doesn't have any configuration for the site, it can use the ComponentList to discover the components.
 
@@ -1848,7 +1853,9 @@ The following table describes the content of each component in the array:
    Element  Type     Description
    ======== ======== ===================================================
    id       string   :ref:`component-id` identifying the component
-   type     string   Component type, as defined in a used SXL. See :ref:`component-type` for information about component types
+   type     string   Component type, as defined by an SXL version advertised by the site.
+                     The SXL does not need to be accepted by the supervisor.
+                     See :ref:`component-type` for information about component types.
    name     string   Human readable name of the component
    ======== ======== ===================================================
 
