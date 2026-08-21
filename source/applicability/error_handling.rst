@@ -45,7 +45,7 @@ Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If a status (``sCI``) or command (``cCI``) is recognized in relation to its SXL
-but not unimplemented, the site answers with CommandResponse/StatusResponse where
+but not implemented, the site answers with CommandResponse/StatusResponse where
 the values are set according to the table below.
 
 .. table:: Unimplemented
@@ -67,8 +67,8 @@ the values are set according to the table below.
 Incomplete commands
 ^^^^^^^^^^^^^^^^^^^
 
-If not all arguments are included in a CommandRequest, then this is considered
-a serious error resulting in MessageNotAck.
+If not all required arguments are included in a CommandRequest, then this is
+considered a serious error resulting in MessageNotAck.
 
 
 .. _more-than-one-command:
@@ -79,4 +79,3 @@ More than one command
 If more than one command (``cCI``) is included in a single CommandRequest or
 CommandResponse, then this is considered a serious error resulting in
 MessageNotAck.
-
