@@ -129,11 +129,17 @@ An alarm message is sent to the supervision system when:
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
 
+An active alarm may also be updated when its return values change.
+
 An acknowledgment of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
+
+Receivers should identify an alarm by the combination of component id
+(``cId``) and alarm code id (``aCId``). Return values provide details about an
+alarm and should not be used as part of its identity.
 
 The ability to request alarms is used in case the supervision system
 loses track of the latest state of the alarms.
@@ -149,6 +155,11 @@ when unsuspending an alarm an alarm can be inactive and not acknowledged.
 Alarm messages are event driven and sent to the supervision system
 when the alarm occurs. Acknowledgement of alarms and alarm suspend
 messages are interaction driven.
+
+Details about an active alarm can be provided in the ``rvs`` (return values)
+array. If the return values of an active alarm change, the site may send a new
+alarm message. Receivers should treat it as an update to the existing alarm.
+See :ref:`return-values`.
 
 Alarm events are referring to 'active' (aSp:Issue), 'suspended' (aSp:Suspend)
 and 'acknowledged' (aSp:Acknowledged).
@@ -292,6 +303,7 @@ and dashed lines define possible changes controlled by user.
 Alarms should not be sent unless:
 
 * Alarms are unblocked and its state changes
+* The return values of an active alarm change
 * Alarms are sent as part of
   :ref:`communication-establishment-between-sites-and-supervision-system`
 * Alarms are explicitly requested using :ref:`alarmmessages-req`
@@ -315,9 +327,18 @@ defined by the SXL.
 Return values
 ~~~~~~~~~~~~~
 
-Return values ("rvs") are used by alarm messages (but not by alarm
-acknowledgment or alarm suspend messages) and is always sent but can
-be empty (i.e. **[]**) if no return values are defined.
+The return values (``rvs``) array provides additional information about an
+alarm. For example, it can indicate which signal head or lamp color is broken.
+
+The ``rvs`` array is always sent in ``Issue`` messages and in ``Suspend`` or
+``Resume`` messages that report the alarm state. Other alarm message
+specializations do not require it.
+
+For an active alarm, senders should include all current return values, not only
+those that changed. Where ``rvs`` is required, it must be an empty array if the
+SXL defines no return values for the alarm. For messages that report an
+inactive alarm, ``rvs`` should also be an empty array, but receivers must accept
+non-empty arrays that conform to the SXL.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.60}|
 
