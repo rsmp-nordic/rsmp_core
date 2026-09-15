@@ -1684,8 +1684,8 @@ If the core version can be matched, the supervisor returns a Version response co
 
 * Supervisor ID.
 * RSMP core version to use.
-* SXLs to use.
-* SXLs not to use and why.
+* The status for each SXL offered by the site.
+* List of SXLs that the supervisor expected the site to offer, but which the site did not offer.
 * receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
 
 .. code-block:: json
@@ -1701,22 +1701,27 @@ If the core version can be matched, the supervisor returns a Version response co
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "traffic_light_controller", "version": "1.3.0" },
-            { "name": "variable_message_sign", "version": "1.3.4" },
-            { "name": "variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
+            { "name": "traffic_light_controller", "status": "ok", "version": "1.3.0" },
+            { "name": "traffic_light_controller/advanced", "status": "unsupported" },
+            { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1","2.1.0"] },
+            { "name": "traffic_data", "status": "expected" }
          ],
          "receiveAlarms": false
    }
 
 JSon code 25: A Version Response message
 
-In this example, the SXL ``traffic_light_controller`` will be used, as well as the 
-SXL ``variable_message_sign``.
+In this example, only the SXL ``traffic_light_controller`` will be used.
 
-The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
-does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+The SXL ``traffic_light_controller/advanced`` is not used, because the supervisor
+does not support that SXL.
 
-The ``SXLS`` array may be empty if no SXLs will be used.
+The SXL ``variable_message_sign`` is not used, because the supervisor does not support the version 1.0.6 specified by the site.
+The supervisor lists the versions it supports, in this case 2.0.0, 2.0.1 and 2.1.0.
+
+The SXL ``traffic_data`` is not used, because the site did not offer it in the Version request. The supervisor informs that it
+expected the site to offer this SXL.
+
 
 The following table describes variable content of the message:
 
@@ -1730,11 +1735,15 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Response'.
    supervisorId  string   The id of the supervisor.
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
-   SXLS          array    List of SXLS which will be used for communication.
+   SXLS          array    List of SXLS and status for each.
    receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
    ============= ======== ===============
 
 The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
+
+The ``SXLS`` array must contain each SXL from the Version request, even if the supervisor does not support them.
+In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer, but which the site did not offer in the Version request.
+Duplicate SXL names are not allowed.
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
@@ -1745,23 +1754,45 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ========= ======== ====================
    Element   Type     Description
    ========= ======== ====================
-   name      string   SXL name, e.g. ``traffic_light_controller``, matching the name in the Version request.
-   version   string   Version of the SXL, e.g. "1.3.0", matching the version in the Version request.
-   rejected  integer  (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.
-   reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
+   name      string   SXL name, e.g. ``traffic_light_controller``. Unless ``status`` is ``expected``, it must match an SXL name in the Version request.
+   status    string   The status code for this SXL (see table below).
+   version   string   (Conditional) If status is "ok" it must match the version in the Version request, otherwise it's omitted.
+   supported array    (Conditional) If status is "mismatch" it must be an array of supported versions, otherwise it's omitted.
    ========= ======== ====================
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.50}|
 
-.. table:: SXL Rejection codes
+.. table:: SXL status codes
 
-   ======= ====================
-   Code    Description
-   ======= ====================
-   1       SXL not supported.
-   2       No matching version of the SXL supported.
-   3       SXL not needed/wanted.
-   ======= ====================
+   ============== ========================
+   Code           Description
+   ============== ========================
+   ok             OK
+   unsupported    SXL not supported by the supervisor.
+   mismatch       SXL version not supported by the supervisor.
+   expected       SXL expected by the supervisor, but not offered by the site.
+   ============== ========================
+
+Details:
+
+* **ok** The SXL will be used, at the exact version specified by the site in the Version request.
+  ``version`` must be set to the exact same version sent by the site in the Version request.
+
+* **unsupported** The SXL is unknown or not supported by the supervisor. ``version`` must be omitted.
+
+* **mismatch** The version specified by the site in the Version request is not supported by the supervisor.
+  ``supported`` must be set to an array of supported versions, in ascending order, with the latest version last.
+
+* **expected** means that the supervisor was expecting the site to offer this SXL but it did not.
+  This status is informational only and does not indicate an error.
+
+A supervisor must not use status codes other than those listed above.
+A site must not reject a Version response based on status codes, as long as all status codes are valid.
+
+An SXL will be used only if the status is ``ok``. All status codes other than ``ok`` mean the SXL will not be used.
+
+If an SXL is not used, neither the site nor the supervisor may send messages defined in the SXL,
+and both must reject incoming messages defined in the SXL.
 
 Core Version Compatibility
 """"""""""""""""""""""""""
