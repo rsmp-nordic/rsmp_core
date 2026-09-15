@@ -1,56 +1,181 @@
 .. _signal-exchange-list:
 
-Signal Exchange List
-====================
+Signal Exchange List (SXL)
+==========================
+A signal exchange list (:term:`SXL`) specifies the interface for a type of equipment or area of functionality.
 
-The signal exchange list is an important functional part of RSMP.
-Since the contents of every message using RSMP is dynamic, a predefined
-signal exchange list (:term:`SXL`) is prerequisite in order to be able to
-establish communication.
+An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.
 
-The signal exchange list defines the alarms, commands and statuses which is
-possible to send and receive for each object type.
+An SXL is defined using YAML format.
 
-The SXL can be defined by either a YAML file or an Excel file using predefined
-principles which is defined below.
+An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
+It also details the meaning of aggregated status bits, functional positions and functional states.
 
-Object types
-------------
+An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.
 
-An **object type** defines a type of object that can exist in a site,
-i.e. "LED". Each object type can have a set of alarms, statuses and
-commands associated with it.
+A site implements one or more SXLs.
 
-Using the Excel format; objects types are defined in it's own sheet.
-Using the YAML format; each object type is defined like this:
+.. _sxl-overview:
+
+Overview
+--------
+
+.. _sxl-name:
+
+Name and Description
+^^^^^^^^^^^^^^^^^^^^
+An SXL is identified by a ``name``, e.g. ``traffic_light_controller`` or ``traffic_light_controller/advanced``.
+
+An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
+
+Forward slashes can be used to organize names in a hierarchy.
+Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
+
+A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.
+
+To enhance visibility and interoperability, RSMP Nordic maintains a global registry of unique SXL names.
+To register an SXL, the name must be unique. If it relates to a specific country or region it
+must include a top-level part in the form ``<country_code>/...`` or ``<region>/...``,
+e.g. ``se/...`` or ``eu/...``.
+
+Unregistered SXLs can be used, but are not guaranteed to be unique and could therefore cause name clashes
+if used together with other SXLs. We therefore recommend registering all SXLs that are intended for public use.
+
+Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
+
+An SXL also has a ``description``, which is a short human-readable text e.g. ``Traffic Light Controller``.
+
+RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
+must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
 
 .. code-block:: yaml
 
-   objects:
-     object-type:
+  meta:
+    name: traffic_light_controller/advanced
+    description: Advanced Traffic Light Controller Functionality
 
-Where ``object-type`` is the name of the object type. For instance,
-"Traffic Light Controller".
+Note: Some legacy SXLs use names without a country code or region, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
 
-Depending on applicability, each object type can either have it's own
-series or common series of alarm suffix (alarmCodeId), status codes
-(statusCodeId) and command codes (commandCodeId).
+.. _sxl-version:
 
-Message types
--------------
+Version
+^^^^^^^
+An SXL has a version, e.g. ``1.3.1``, which must follow Semantic Versioning conventions.
+
+Given a version number MAJOR.MINOR.PATCH, you must increment the:
+
+- MAJOR version when you make incompatible changes
+- MINOR version when you add functionality in a backward compatible manner
+- PATCH version when you make backward compatible bug fixes
+
+Preview and build info cannot be used as part of version strings.
+
+SXL versions are used to determine whether a site and the supervisor has compatible versions,
+and when resolving dependencies between SXLs.
+
+
+.. code-block:: yaml
+
+  meta:
+    version: 1.3.1
+
+SXL versions are used to determine whether a site and the supervisor
+can establish communication. How this is done is explained in :ref:`rsmpsxl-version`.
+
+.. _sxl-prefix:
+
+Prefix
+^^^^^^
+An SXL can optionally define a prefix which will be prepended to all component types and message codes
+in the SXL, e.g. ``tlc/`` for a traffic light controller SXL.
+
+A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
+
+If you intend to define everything under the same scope, e.g. ``tlc/``, it is recommended to define a prefix.
+It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
+string everywhere. It also makes it easy to change the prefix if this is ever needed.
+
+Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
+When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.
+
+For example, this SXL defines everything by manually using ``tlc/`` as a prefix everywhere:
+
+.. code-block:: yaml
+
+  components:
+    tlc/tc:
+      alarms:
+        tlc/deadlock:
+          description: Signal plan causes deadlock
+      statuses:
+        tlc/plan/current:
+          description: Get the current signal plan
+      commands:
+        tlc/plan/set:
+          description: Set signal plan
+
+Using a prefix, the SXL can be defined like this:
+
+.. code-block:: yaml
+
+  prefix: tlc/
+  components:
+    tc:
+      alarms:
+        deadlock:
+          description: Signal plan causes deadlock
+      statuses:
+        plan/current:
+          description: Get the current signal plan
+      commands:
+        plan/set:
+          description: Set signal plan
+
+The result is the same and you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
+or ``tlc/deadlock`` when sending a deadlock alarm.
+
+A prefix should be short and does not have to mirror the SXL name. You must ensure that SXLs expected to
+be used together do not define the same component types or message codes.
+
+For example, a traffic light controller SXL like ``traffic_light_controller`` could use the prefix ``tlc/``.
+
+Two different SXLs can use the same prefix, as long as they either don't define the same component types or message codes,
+or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix supports use cases like:
+
+- modularity: splitting a large SXL into smaller SXLs all using the same prefix.
+- extensions:  a new SXL which adds functionality under a prefix defined in an existing SXL.
+- replacement: a new SXL that is compatible with an existing SXL, and can be used as a replacement.
+
+.. _sxl-component-types:
+
+Component Types
+^^^^^^^^^^^^^^^
+An SXL defines the available :term:`component` types. Components are the logical or physical part of a site.
+
+.. code-block:: yaml
+
+  components:
+    tlc/sg:
+      description: Signal group
+    tlc/dl:
+      description: Detector logic
+
+Each type must have a short description.
+
+.. _sxl-messages:
+
+Messages
+--------
 
 The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
 are defined in the SXL.
 
-Using the Excel format; alarms, aggregated status, status and commands are
-defined in their own sheet.
-
-Using the YAML format; each message type is defined like this:
+Each message type is defined like this:
 
 .. code-block:: yaml
 
-  objects:
-    object-type:
+  components:
+    <component-type>:
       aggregated_status:
         1:
           title: Local mode
@@ -72,8 +197,8 @@ Using the YAML format; each message type is defined like this:
         8:
           title: Not Connected
       functional_position:
-        position-1: start
-        position-2: stop
+        <position-1>: start
+        <position-2>: stop
       alarms:
         A0001:
           description: alarm description text
@@ -82,7 +207,7 @@ Using the YAML format; each message type is defined like this:
           externalAlarmCodeId: manufacturer specific alarm text
           externalNtsAlarmCodeId: 0000
           arguments:
-            argument-1:
+            <argument-1>:
               type: integer
               min: 0
               max: 10
@@ -91,7 +216,7 @@ Using the YAML format; each message type is defined like this:
         S0001:
           description: status description text
           arguments:
-            argument-1:
+            <argument-1>:
               type: string
               description: S0001 argument 1
       commands:
@@ -99,7 +224,7 @@ Using the YAML format; each message type is defined like this:
           description: command description text
           command: setStatus
           arguments:
-            argument-1:
+            <argument-1>:
               type: boolean
               description: M0001 argument 1
 
@@ -111,7 +236,7 @@ This example defines:
 - A status with the :term:`status code id` ``S0001``
 - A command with the :term:`command code id` ``M0001``
 
-Each with one argument named ``argument-1`` using integer, string and boolean
+Each with one argument named ``<argument-1>`` using integer, string and boolean
 data types.
 
 The alarm contains the fields:
@@ -138,16 +263,8 @@ An argument contains the fields:
 - ``max`` is the maximum value (only for *number* or *integer* data types)
 - ``type`` is the :ref:`data type<data_types>`
 
-At least one argument are required for command and statuses, but they are
+At least one argument is required for commands and statuses, but they are
 optional in alarms.
-
-
-.. note::
-
-    In the Excel version of the SXL, there is no separate min and max columns.
-    Instead, allowed values can be defined using the Value column according
-    to the following example: [0-100], where 0 is the minimum value and 100 is
-    the maximum value.
 
 The aggregated status contains the fields:
 
@@ -166,14 +283,14 @@ Alarm description
 The format of the description is free of choice but has the following
 requirements:
 
-- Description is unique for the object type
+- Description is unique for the component type
 - Description is defined in cooperation with the Purchaser before use
 
 .. _alarm-category:
 
 Alarm category
 ^^^^^^^^^^^^^^
-The alarm category is defined in by a single character, either ``T`` or ``D``.
+The alarm category is defined by a single character, either ``T`` or ``D``.
 
 ==========  ===============
 Value       Description
@@ -183,7 +300,7 @@ D           Technical alarm
 ==========  ===============
 
 A **traffic alarm** indicates events in the traffic related functions or the
-technical processes that affects traffic.
+technical processes that affect traffic.
 
 A couple of examples from a tunnel:
 
@@ -218,41 +335,35 @@ Functional differences between message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following table defines the functional differences between message types.
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|
 
 .. table:: Functional differences
 
-   =================  =========================================  ================================
-   Message type       Sent when                                  Adapted to be transmitted to NTS
-   =================  =========================================  ================================
-   Alarm              On change *or* request                     Yes
-   Aggregated status  On change *or* request                     Yes
-   Status             On request *or* according to subscription  No
-   Command            On request                                 Yes, partly (functional status)
-   =================  =========================================  ================================
-
-.. note::
-   In addition of :term:`functional position`, the Excel version of the SXL
-   can also differentiate between different kinds of command messages using
-   :term:`maneuver` and :term:`parameter` sections. However, their use has no
-   functional significance from a protocol point of view.
+   =================  =========================================
+   Message type       Sent when
+   =================  =========================================
+   Alarm              On change *or* request
+   Aggregated status  On change *or* request
+   Status             On request *or* according to subscription
+   Command            On request
+   =================  =========================================
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Argument and return values makes it possible to send extra information in
+Argument and return values make it possible to send extra information in
 messages. It is possible to send binary data (base64), such as bitmap
-pictures or other data, both to a site and to supervision system. The
-signal exchange list must clarify exactly which data type which is used
+pictures or other data, both to a site and to a supervision system. The
+signal exchange list must clarify exactly which data type is used
 in each case. There is no limitation of the number of arguments and
 return values which can be defined for a given message. Argument and return
-values is defined as extra columns for each row in the signal exchange
+values are defined as extra columns for each row in the signal exchange
 list.
 
 - Arguments can be sent with command messages
-- Return values can be send with response on status requests or as extra
+- Return values can be sent with response on status requests or as extra
   information with alarm messages
 
-The following table defines the message types which supports arguments and
+The following table defines the message types which support arguments and
 return values. 
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.20}|
@@ -268,32 +379,83 @@ return values.
    Commands           Yes       No
    =================  ========  ============
 
-Required signals
-----------------
+.. _sxl-composition:
 
-Status messages
-^^^^^^^^^^^^^^^
+Composition
+-----------
 
-Version of component
-""""""""""""""""""""
-To make sure that the site is equipped with the correct version of
-components and to simplify troubleshooting there need to exists a special
-status to request version of a component.
+.. _sxl-dependencies:
 
-Current date and time
-"""""""""""""""""""""
-To make sure that the site is configured with the correct date and time
-there needs to be a special status to request this. This type of status is
-especially important for those implementations where the equipment's
-protocol interface and the rest of it's logic doesn't share the same
-clock. Please note that UTC should be used.
+Dependencies
+^^^^^^^^^^^^
+An SXL can declare dependency on other SXLs. It can then rely on the definitions of component types,
+message codes or behaviour from those SXLs.
 
-Command messages
-^^^^^^^^^^^^^^^^
+For example, a basic SXL ``traffic_light_controller`` might define the component type ``tlc/dl`` for detector logics,
+and some messages to interact with this component type.
 
-Change date and time
-""""""""""""""""""""
-If the automatic time synchronization is missing or disabled there should
-be a possibility to set the date and time using a special command. Please
-note that UTC should be used.
+Another SXL ``traffic_light_controller/advanced`` might depend on ``traffic_light_controller``.
+It can then define a command like ``tlc/adaptive`` which operates on the component type ``tlc/dl`` already
+defined in ``traffic_light_controller``
 
+Dependencies are listed using SXL names and a version requirement string.
+The order of dependencies is not significant.
+
+.. code-block:: yaml
+
+  dependencies:
+    traffic_light_controller: "~4.3"
+
+Version requirement strings support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
+
+.. list-table:: Version requirement operators
+   :header-rows: 1
+
+   * - Requirement
+     - Translation
+   * - "1.3.1"
+     - exact version 1.3.1 only
+   * - ">=1.3.0"
+     - version 1.3.0 or higher
+   * - "<2.0.0"
+     - any version lower than 2.0.0
+   * - "~1.3"
+     - any version from 1.3 compatible with it according to semantic versioning rules, i.e. >=1.3.0 and <2.0.0.
+
+Two comparison operators can be combined with ``and``:
+
+.. list-table:: Version requirement combination
+   :header-rows: 1
+
+   * - Requirement
+     - Translation
+   * - ">=1.3.0 and <2.0.0"
+     - any version from 1.3.0 (inclusive) to 2.0.0 (exclusive)
+
+To ensure that dependency resolution works as intended, you must update
+the SXL version correctly when making changes to an SXL, according to Semantic
+Versioning (SemVer) rules, please see the section on :ref:`sxl-version`.
+
+Before an SXL is published or updated, dependencies must be resolved to
+ensure that dependencies can be met and no component types or message codes clash.
+
+If resolution succeeds, a manifest is produced which lists the exact version of all SXLs in the dependency tree,
+including the SXL itself. The manifest must be published together with the SXL.
+
+
+.. _sxl-list:
+
+SXL List
+^^^^^^^^
+A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
+the site as part of the connection handshake.
+
+Each SXL is specified using the SXL name and an exact version. Order is not significant.
+
+If an SXL is listed, the site must implement the full SXL, including all components, messages and behavior defined
+in the SXL.
+
+Dependency SXLs will not be exposed unless explicitly listed by the site.
+For example, if a site lists ``traffic_light_controller/advanced`` but not ``traffic_light_controller``,
+the supervisor will not be able to use any of the messages defined in ``traffic_light_controller``,
+even if ``traffic_light_controller/advanced`` depends on ``traffic_light_controller``.

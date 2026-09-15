@@ -1,0 +1,61 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 4.0
+  Exclude:
+    - '.bundle/**/*'
+    - 'schema/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/MethodLength:
+  Max: 25
+
+Layout/BlockEndNewline:
+  Enabled: false
+
+Layout/EmptyLines:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/MultilineBlockLayout:
+  Enabled: false
+
+Layout/SpaceAroundOperators:
+  Enabled: false
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Layout/SpaceInsideParens:
+  Enabled: false
+
+Lint/RedundantRequireStatement:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false

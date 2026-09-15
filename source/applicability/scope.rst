@@ -16,3 +16,7 @@ Responsibility
 information only. RSMP Nordic is not responsible for any consequences
 that implementation of the specification can lead to for the supplier
 or any third party.
+
+RSMP Nordic's responsibilities for maintaining the specification, and the
+responsibilities of system owners and suppliers when deploying RSMP, are
+described on the `RSMP Nordic website <https://rsmp-nordic.org/>`_.

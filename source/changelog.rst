@@ -3,6 +3,32 @@
 Change log
 ==========
 
+Version 3.3.0
+-------------
+Release date: 
+
+The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github.
+:compare:`v3.2.2...v3.3.0`
+
+**Important changes**
+
+- Allow all JSON types. :issue:`195`
+- Component id format B, remove references to STA. :issue:`178`
+- Allow optional commands. :issue:`181`
+
+**Minor changes**
+
+- Add option to select the site or supervision system to act server/client.
+  :issue:`199`
+- Disallow multiple commands in a single CommandRequest. :issue:`180`
+
+**Clarifications**
+
+- Remove reference to Datex II. :issue:`185`
+- Clarify aggregated status. :issue:`200`
+- Add security considerations, clarify that communication protection is
+  external to RSMP Core, and remove operational TLS recommendations.
+
 Version 3.2.2
 -------------
 Release date: 2024-06-25
