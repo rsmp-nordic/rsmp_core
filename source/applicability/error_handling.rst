@@ -26,26 +26,21 @@ table below.
    |                 | v       | ``null``  |
    +-----------------+---------+-----------+
 
-SXL mismatch
-^^^^^^^^^^^^
+SXL errors and version differences
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If there is a mismatch of the SXL when receiving a command, status or alarm
-request, which is not caught during communication handshake (See
-:ref:`rsmpsxl-version`), then this is considered a serious error resulting in
-MessageNotAck.
+If a command, status or alarm uses an SXL which was not accepted during the
+Version exchange, the receiver must respond with MessageNotAck.
 
-This includes:
-
-* unknown alarm/status/command code id (``aCId``, ``sCI``, ``cCI``) for the
-  corresponding component type
-
-* unknown name (``n``) in arguments or return values
+A known attribute with an invalid value or data type also results in
+MessageNotAck. Handling of unknown code ids and attributes when compatible SXL
+versions differ is defined in :ref:`sxl-version-error-handling`.
 
 Unimplemented statuses or commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If a status (``sCI``) or command (``cCI``) is recognized in relation to its SXL
-but not unimplemented, the site answers with CommandResponse/StatusResponse where
+but not implemented, the site answers with CommandResponse/StatusResponse where
 the values are set according to the table below.
 
 .. table:: Unimplemented
@@ -67,8 +62,8 @@ the values are set according to the table below.
 Incomplete commands
 ^^^^^^^^^^^^^^^^^^^
 
-If not all arguments are included in a CommandRequest, then this is considered
-a serious error resulting in MessageNotAck.
+If not all required arguments are included in a CommandRequest, then this is
+considered a serious error resulting in MessageNotAck.
 
 
 .. _more-than-one-command:
@@ -79,4 +74,3 @@ More than one command
 If more than one command (``cCI``) is included in a single CommandRequest or
 CommandResponse, then this is considered a serious error resulting in
 MessageNotAck.
-

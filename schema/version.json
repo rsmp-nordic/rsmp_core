@@ -15,11 +15,11 @@
           "description" : "Supported RSMP versions"
         },
         "SXL" : {
-          "$ref": "definitions.json#/version",
+          "$ref": "definitions.json#/sxl_version",
           "description" : "Primary SXL version, for backward compatibility"
         },
         "SXLS" : {
-          "description" : "Supported SXLs",
+          "description" : "Latest SXL version supported by the site in each compatibility series",
           "type" : "array",
           "items" : { "$ref" : "#/$defs/sxl_request" },
           "minItems" : 0,
@@ -60,7 +60,7 @@
           "minLength" : 1
         },
         "SXLS" : {
-          "description" : "SXLs to use, or not use",
+          "description" : "One accepted or rejected result for each SXL name requested by the site",
           "type" : "array",
           "items" : { "$ref" : "#/$defs/sxl_response" },
           "minItems" : 0,
@@ -106,7 +106,7 @@
       "type" : "object",
       "properties" : {
         "name" : { "$ref" : "definitions.json#/sxl_name" },
-        "version" : { "$ref" : "definitions.json#/version" },
+        "version" : { "$ref" : "definitions.json#/sxl_version" },
         "prefix" : { "$ref" : "definitions.json#/sxl_prefix" }
       },
       "required" : [ "name", "version" ],
@@ -118,7 +118,10 @@
         {
           "properties" : {
             "name" : { "$ref" : "definitions.json#/sxl_name" },
-            "version" : { "$ref" : "definitions.json#/version" }
+            "version" : {
+              "$ref" : "definitions.json#/sxl_version",
+              "description" : "SXL version supported by the supervisor"
+            }
           },
           "required" : [ "name", "version" ],
           "additionalProperties" : false
@@ -126,7 +129,7 @@
         {
           "properties" : {
             "name" : { "$ref" : "definitions.json#/sxl_name" },
-            "version" : { "$ref" : "definitions.json#/version" },
+            "version" : { "$ref" : "definitions.json#/sxl_version" },
             "rejected" : {
               "type" : "integer",
               "enum" : [ 1, 2, 3 ]
