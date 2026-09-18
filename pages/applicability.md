@@ -8,6 +8,6 @@ has_children: true
 
 # Applicability
 
-This section covers the applicability of the RSMP protocol, including
-scope, object model, transport, message structure, error handling, data
-types, and the Signal Exchange List (SXL) format.
+This section covers the scope, security considerations, object model, transport,
+message structure, error handling, data types, components, Signal Exchange Lists
+(SXLs), SXL processing, site configuration, and persistence of the RSMP protocol.
