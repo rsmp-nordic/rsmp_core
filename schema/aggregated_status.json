@@ -1,17 +1,12 @@
 {
   "title" :  "Aggregated Status",
-  "description" :  "Aggregated status message",
+  "description" :  "Aggregated status of the entire site",
   "properties" : {
     "mId" : { "$ref": "definitions.json#/message_id" },
     "aSTS" : { "$ref": "definitions.json#/timestamp" },
-    "fP" : {
-      "description" : "Functional position",
-      "type" : ["string", "null"]
-    },
-    "fS" : {
-      "description" : "Functional position",
-      "type" : ["string", "null"]
-    },
+    "cId" : false,
+    "fP" : false,
+    "fS" : false,
     "se" : {
       "type" : "array",
       "minItems": 8,
@@ -21,5 +16,5 @@
       }
     }
   },
-  "required" : [ "mId", "aSTS", "fP", "fS", "se" ]
+  "required" : [ "mId", "aSTS", "se" ]
 }

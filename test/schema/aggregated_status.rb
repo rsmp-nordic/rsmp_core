@@ -6,15 +6,19 @@ describe 'AggregatedStatus' do
     "mType" => "rSMsg",
     "type" => "AggregatedStatus",
     "mId" => "be12ab9a-800c-4c19-8c50-adf832f22420",
-    "cId" => "O+14439=481WA001",
     "aSTS" => "2015-06-08T08:05:06.584Z",
-    "fP" => nil,
-    "fS" => nil,
     "se" => [true, false, false, false, false, false, false, false]
   }}
 
   it 'accepts valid message' do
     expect( validate(message) ).to be_nil
+  end
+
+  %w[cId fP fS].each do |attribute|
+    it "catches removed #{attribute} in a core 3.3.0 message" do
+      message[attribute] = ''
+      expect( validate(message) ).not.to be_nil
+    end
   end
 
   it 'catches missing mId' do

@@ -5,15 +5,15 @@ msc {
 
   a [label="Site"], b [label="Supervision system"];
 
-  a=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
+  b abox b [ label = "Process Version request and verify site id" ];
   |||;
-  a<=b [ label = "RSMP/SXL version" ];
+  a<=b [ label = "Version response" ];
   |||;
-  a abox a [ label = "Verify RSMP version, SXL version and site id" ];
+  a abox a [ label = "Process Version response" ];
   |||;
-  --- [ label = "RSMP version is selected based upon what site/supervisor support" ];
+  --- [ label = "Selected core version is used for subsequent messages" ];
   |||;
   a=>b [ label = "Watchdog" ];
   |||;
@@ -21,12 +21,14 @@ msc {
   |||;
   a=>b [ label = "ComponentList" ];
   |||;
-  --- [ label = "Asynchronous message exchange can begin" ];
+  a=>b [ label = "AggregatedStatus (entire site)" ];
   |||;
-  a=>b [ label = "Aggregated status" ];
+  a<<b [ label = "MessageAck (AggregatedStatus)" ];
   |||;
-  a=>b [ label = "All alarms" ];
+  --- [ label = "Establishment complete; asynchronous message exchange can begin" ];
   |||;
-  a=>b [ label = "Buffered messages" ];
+  a=>b [ label = "Alarms from accepted SXLs (unless useAlarms=false)" ];
+  |||;
+  a=>b [ label = "Permitted buffered messages (no alarms if useAlarms=false)" ];
   |||;
 }

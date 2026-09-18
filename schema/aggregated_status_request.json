@@ -1,9 +1,9 @@
 {
   "title" :  "Aggregated Status Request",
-  "description" :  "Aggregated status request message",
+  "description" :  "Request for the aggregated status of the entire site",
   "properties" : {
     "mId" : { "$ref": "definitions.json#/message_id" },
-    "cId" : { "$ref": "definitions.json#/component_id" }
+    "cId" : false
   },
-  "required" : [ "mId", "cId" ]
+  "required" : [ "mId" ]
 }

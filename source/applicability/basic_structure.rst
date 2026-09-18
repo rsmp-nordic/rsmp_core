@@ -101,9 +101,7 @@ The following table is describing the variable content of all message types.
    * Each message sent should have a new GUID, even if the message is resent or the
      content is the same
 
-The following table describes the variable content in all message types
-which is defined by the signal exchange list (SXL), except version
-messages, message acknowledgement messages and watchdog messages.
+The following table describes attributes used by messages that refer to a component.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
@@ -121,6 +119,8 @@ messages, message acknowledgement messages and watchdog messages.
 
 Alarm messages
 ^^^^^^^^^^^^^^
+
+Alarm message exchange is subject to :ref:`alarm-exchange`.
 
 An alarm message is sent to the supervision system when:
 
@@ -537,6 +537,9 @@ Allowed content in alarm suspend message is the same as for alarm messages
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
+The following sequences apply when Alarm message exchange is permitted
+(see :ref:`alarm-exchange`).
+
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
@@ -590,13 +593,16 @@ implicit in the following figures.
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the component which is
-defined by **ComponentType** in the signal exchange list. If no component is defined
-then no aggregated status message is sent.
+An AggregatedStatus message describes the status of the entire site.
+It is a core message and does not require an SXL to be used on the connection.
+The attributes ``cId``, ``fP`` and ``fS`` must not be included.
 
-Aggregated status messages are interaction driven and are sent if state,
-functional position or functional status are changed at the site.
+AggregatedStatus is sent during communication establishment, when the site's state bits
+change, and in response to an
+:ref:`AggregatedStatusRequest <aggregated-status-req>`.
+The establishment sequences are defined in
+:ref:`communication-establishment-between-sites-and-supervision-system` and
+:ref:`communication-establishment-between-sites`.
 
 Message structure
 """""""""""""""""
@@ -613,10 +619,7 @@ below.
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
 	"ntsOId": "",
 	"xNId": "",
-	"cId": "O+14439=481WA001",
 	"aSTS": "2015-06-08T08:05:06.584Z",
-	"fP": null,
-	"fS": null,
 	"se": [
                 true,false,false,false,false,false,false,false
               ]
@@ -639,32 +642,24 @@ The following tables are describing the variable content of the message:
                          See also the :ref:`data type<data_types>` section.
    ======= ============= =====================================================================
 
-The following table describes the variable content defined by the signal
-exchange list (SXL).
+The following table describes the site status.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Aggregated status SXL content
+.. table:: Aggregated status content
 
    ======= ==============================================
    Element Description
    ======= ==============================================
-   fP      :term:`Functional position`
-   fS      :term:`Functional state`
    se      Array of eight booleans. See :ref:`state-bits`
    ======= ==============================================
-
-``fP`` and ``fS`` is set to ``null`` or empty string if no value is defined
-in the SXL.
 
 .. _state-bits:
 
 State bits
 ~~~~~~~~~~
-**State bits** ``se`` is an array of eight booleans, with the meaning defined below.
-The signal exchange list (SXL) for a particular type of equipment can detail the
-interpretation of each bit, but is not allowed to change the fundamental meaning or
-modify the rules for which bits can or must be set together.
+**State bits** ``se`` is an array of eight booleans. Their meanings and the rules
+for combining them are described below.
 
 .. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
 
@@ -739,8 +734,8 @@ Aggregated status request message
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent from the supervision system to request the
-latest aggregated status, in case the supervision system has lost track
-of the current status.
+latest aggregated status of the entire site, in case the supervision system has lost
+track of the current status. The ``cId`` attribute must not be included.
 
 Message structure
 """""""""""""""""
@@ -756,8 +751,7 @@ below.
 	"type": "AggregatedStatusRequest",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
 	"ntsOId": "",
-	"xNId": "",
-	"cId": "O+14439=481WA001",
+	"xNId": ""
    }
 
 JSon code 12: An aggregated status request message
@@ -769,8 +763,7 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or state booleans changes at the
-site**
+**The site's state bits change**
 
 
 .. image:: /img/msc/aggregated_status.png
@@ -1574,25 +1567,15 @@ Site sends initial message
 
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
-When establishing RSMP communication, the initial message is a Version request message sent by the site.
-The supervisor responds with a Version response message.
+Version messages are used to negotiate RSMP core and SXL versions, as well as to
+send information such as site identity and communication options.
 
-Version messages are used to exchange information about supported versions of RSMP and SXL,
-to ensure that the communicating parties are compatible.
-
-If there is a mismatch or if there are no RSMP versions that both
-communicating parties support, see :ref:`communication-rejection`.
-
-Unknown fields in Version messages must be ignored and not cause a MessageNotAck.
-This allows for backward compatibility when new fields are added in later versions of RSMP or SXL.
-
-The principle of the message exchange is defined by the communication
-establishment (See
-:ref:`communication-establishment-between-sites-and-supervision-system`
-and :ref:`communication-establishment-between-sites`).
+The negotiation procedure is defined in :ref:`version-negotiation`.
 
 Version Request
 """""""""""""""
+The initial Version request sent by the site must include all attributes required by any listed core version.
+
 The initial Version request sent by the site contains:
 
 * Site Id.
@@ -1636,18 +1619,22 @@ The following table describes variable content of the message:
    ============= ======== ===============
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
-   RSMP          array    Array of supported core versions. 
+   RSMP          array    Nonempty array of objects, each with a ``vers`` attribute containing a supported core version string.
    SXL           string   Optional. Version of the primary SXL, for backward compatibility.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
-Only one site can use the same connection. The ``sId`` array must therefore contain
+Only one site can use the same connection. The ``siteId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` field is included when a primary SXL exists, for backward compatibility with supervisors that only
-support older core versions and ignore the newer ``SXLS`` array.
+The ``SXL`` attribute specifies the version of the primary SXL used with supervisors that
+only support older core versions and ignore the newer ``SXLS`` array.
+When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``SXLS``.
 
-The ``SXLS`` array may be empty if the site does not support any SXLs.
+The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
+set to an empty string.
+Duplicate SXL names are not allowed in the request.
+
 Each item in the ``SXLS`` array must be an object with the following content:
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
@@ -1662,31 +1649,19 @@ Each item in the ``SXLS`` array must be an object with the following content:
    prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
    ======= ======== ====================
 
-If the site supports multiple versions of an SXL the latest must be specified.
+If the site supports multiple versions of an SXL, the latest must be specified.
+Version ordering is defined in :ref:`version-negotiation`.
 
 
 Version Response
 """""""""""""""""
-Communication can only be established if the supervisor supports one of the core
-versions listed in the version request sent by the site. It must be an exact match of both
-major, minor and patch version.
-
-An SXL listed by the site can only be used if the supervisor supports the exact same version,
-with an exact match of both major, minor and patch version.
-
-Communication can be established even if the supervisor supports none of the SXLs. In this case, no
-commands, statuses or alarms can be exchanged, only aggregated status.
-
-If the supervisor determines that the core version cannot be matched,
-it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
-
 If the core version can be matched, the supervisor returns a Version response containing:
 
 * Supervisor ID.
 * RSMP core version to use.
-* SXLs to use.
-* SXLs not to use and why.
-* receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
+* The status for each SXL offered by the site.
+* List of SXLs that the supervisor expected the site to offer, but which the site did not offer.
+* Optional ``useAlarms`` flag, indicating whether Alarm messages may be exchanged.
 
 .. code-block:: json
    :name: json-version-response
@@ -1695,28 +1670,33 @@ If the core version can be matched, the supervisor returns a Version response co
          "mType": "rSMsg",
          "type": "Version",
          "step": "Response",
-         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+         "mId": "d2c4815f-8318-4f3d-938a-cb28529fd86f",
          "RSMP": [
-            { "vers": "3.1.1" }
+            { "vers": "3.3.0" }
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "traffic_light_controller", "version": "1.3.0" },
-            { "name": "variable_message_sign", "version": "1.3.4" },
-            { "name": "variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
+            { "name": "traffic_light_controller", "status": "ok", "version": "1.3.0" },
+            { "name": "traffic_light_controller/advanced", "status": "unsupported" },
+            { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1", "2.1.0"] },
+            { "name": "traffic_data", "status": "expected" }
          ],
-         "receiveAlarms": false
+         "useAlarms": false
    }
 
 JSon code 25: A Version Response message
 
-In this example, the SXL ``traffic_light_controller`` will be used, as well as the 
-SXL ``variable_message_sign``.
+In this example, only the SXL ``traffic_light_controller`` will be used.
 
-The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
-does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+The SXL ``traffic_light_controller/advanced`` is not used, because the supervisor
+does not support that SXL.
 
-The ``SXLS`` array may be empty if no SXLs will be used.
+The SXL ``variable_message_sign`` is not used, because the supervisor does not support the version 1.0.6 specified by the site.
+The supervisor lists the versions it supports, in this case 2.0.0, 2.0.1 and 2.1.0.
+
+The SXL ``traffic_data`` is not used, because the site did not offer it in the Version request. The supervisor informs that it
+expected the site to offer this SXL.
+
 
 The following table describes variable content of the message:
 
@@ -1728,13 +1708,18 @@ The following table describes variable content of the message:
    Element       Type     Description
    ============= ======== ===============
    step          string   Must be set to 'Response'.
-   supervisorId  string   The id of the supervisor.
+   supervisorId  string   The id of the supervisor, provided for information (see :ref:`version-negotiation`).
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
-   SXLS          array    List of SXLS which will be used for communication.
-   receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
+   SXLS          array    List of SXLs and status for each.
+   useAlarms     boolean  Optional. Defaults to true. If set to false, no Alarm messages may be exchanged on the connection.
    ============= ======== ===============
 
-The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
+See :ref:`alarm-exchange` for the handling of Alarm messages when ``useAlarms`` is false.
+
+The ``SXLS`` array must contain each SXL from the Version request, even if the supervisor does not support them.
+In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer,
+but which the site did not offer in the Version request.
+Duplicate SXL names are not allowed.
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
@@ -1745,37 +1730,44 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ========= ======== ====================
    Element   Type     Description
    ========= ======== ====================
-   name      string   SXL name, e.g. ``traffic_light_controller``, matching the name in the Version request.
-   version   string   Version of the SXL, e.g. "1.3.0", matching the version in the Version request.
-   rejected  integer  (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted.
-   reason    string   (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted.
+   name      string   SXL name, e.g. ``traffic_light_controller``. Unless ``status`` is ``expected``, it must match an SXL name in the Version request.
+   status    string   The status code for this SXL (see table below).
+   version   string   (Conditional) If status is "ok" it must match the version in the Version request, otherwise it's omitted.
+   supported array    (Conditional) If status is "mismatch" it must be an array of supported versions, otherwise it's omitted.
    ========= ======== ====================
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.50}|
 
-.. table:: SXL Rejection codes
+.. table:: SXL status codes
 
-   ======= ====================
-   Code    Description
-   ======= ====================
-   1       SXL not supported.
-   2       No matching version of the SXL supported.
-   3       SXL not needed/wanted.
-   ======= ====================
+   ============== ========================
+   Code           Description
+   ============== ========================
+   ok             OK
+   unsupported    SXL not supported by the supervisor.
+   mismatch       SXL version not supported by the supervisor.
+   expected       SXL expected by the supervisor, but not offered by the site.
+   ============== ========================
 
-Core Version Compatibility
-""""""""""""""""""""""""""
-A site and a supervisor can only communicate if the core versions are exactly the same, i.e. both
-major, minor and patch versions match.
-The core version string returned by the supervisor in the version response must therefore be
-the same as one of the core version strings sent by the site in the Version request.
+Details:
 
-SXL Version Compatibility
-"""""""""""""""""""""""""
-An SXL can be used if the site and the supervisor support the exact same version, i.e. both
-major, minor and patch versions match.
-A SXL version string returned by the supervisor in the version response must therefore be
-the same as the SXL version strings sent by the site in the Version request.
+* **ok** The SXL will be used, at the exact version specified by the site in the Version request.
+  ``version`` must be set to the exact same version sent by the site in the Version request.
+
+* **unsupported** The SXL is unknown or not supported by the supervisor. ``version`` must be omitted.
+
+* **mismatch** The version specified by the site in the Version request is not supported by the supervisor.
+  ``supported`` must be set to an array of supported version strings, in ascending order, with the latest version last.
+  Version ordering is defined in :ref:`version-negotiation`.
+
+* **expected** means that the supervisor was expecting the site to offer this SXL but it did not.
+  This status is informational only and does not indicate an error.
+
+A supervisor must not use status codes other than those listed above.
+
+An SXL will be used only if the status is ``ok``. All status codes other than ``ok`` mean the SXL will not be used.
+
+See :ref:`version-negotiation` for how SXL status codes affect communication.
 
 
 .. _component-list:

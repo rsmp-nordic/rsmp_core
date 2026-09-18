@@ -5,15 +5,15 @@ msc {
 
   a [label="Site (follower)"], b [label="Site (leader)"];
 
-  a=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
+  b abox b [ label = "Process Version request and verify site id" ];
   |||;
-  a<=b [ label = "RSMP/SXL version" ];
+  a<=b [ label = "Version response" ];
   |||;
-  a abox a [ label = "Verify RSMP version, SXL version and site id" ];
+  a abox a [ label = "Process Version response" ];
   |||;
-  --- [ label = "RSMP version is selected based upon what sites support" ];
+  --- [ label = "Selected core version is used for subsequent messages" ];
   |||;
   a=>b [ label = "Watchdog" ];
   |||;
@@ -21,8 +21,10 @@ msc {
   |||;
   a=>b [ label = "ComponentList" ];
   |||;
-  --- [ label = "Asynchronous message exchange can begin" ];
+  a=>b [ label = "AggregatedStatus (entire follower site)" ];
   |||;
-  a=>b [ label = "Aggregated status" ];
+  a<<b [ label = "MessageAck (AggregatedStatus)" ];
+  |||;
+  --- [ label = "Establishment complete; asynchronous message exchange can begin" ];
   |||;
 }
