@@ -164,6 +164,9 @@ If there is no common core version, see :ref:`communication-rejection`.
 The remaining attributes must then be validated and interpreted according to that version.
 Unknown attributes must be ignored.
 
+If validation of the ``RSMP`` array or the remaining attributes fails in a Version request
+or response, the receiver must follow :ref:`communication-rejection`.
+
 Communication can only be established if the supervisor supports one of the core
 versions listed in the Version request sent by the site. It must be an exact match of
 major, minor and patch version.
@@ -331,19 +334,20 @@ Communication rejection
 
 During RSMP/SXL Version exchange each communicating party needs to verify:
 
+* Message format
 * RSMP version(s)
 * SXL version
 * Site id
 
 Version messages are processed according to :ref:`version-negotiation`.
 
-If the site id does not match or there is no common core version then:
+If a Version request or response fails validation, the site id does not match,
+or there is no common core version, the receiver must:
 
-1. The communication establishment sequence does not proceed
-2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
-   reason (`rea`) set to the cause of rejection. For instance,
+1. Stop the communication establishment sequence.
+2. Send a MessageNotAck with reason (``rea``) set to the cause of rejection. For instance,
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
-3. The connection is closed
+3. Close the connection.
 
 .. image:: /img/msc/communication-rejection.png
    :align: center

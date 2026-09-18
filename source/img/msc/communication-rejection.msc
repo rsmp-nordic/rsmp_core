@@ -7,7 +7,7 @@ msc {
 
   a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Verify site id and find a common core version" ];
+  b abox b [ label = "Check Version format, site id and core compatibility" ];
   |||;
   a<<b [ label = "MessageNotAck" ];
   |||;
