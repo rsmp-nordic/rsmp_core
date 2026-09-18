@@ -5,9 +5,9 @@ msc {
 
   a [label="Site"], b [label="Supervision system/Site"];
 
-  a=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
+  b abox b [ label = "Verify site id and find a common core version" ];
   |||;
   a<<b [ label = "MessageNotAck" ];
   |||;

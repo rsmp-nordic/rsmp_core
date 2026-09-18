@@ -70,7 +70,7 @@ Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
 Preview and build info cannot be used as part of version strings.
 
-SXL versions are used to determine whether a site and the supervisor has compatible versions,
+SXL versions are used to determine whether a site and the supervisor have compatible versions,
 and when resolving dependencies between SXLs.
 
 
@@ -79,8 +79,8 @@ and when resolving dependencies between SXLs.
   meta:
     version: 1.3.1
 
-SXL versions are used to determine whether a site and the supervisor
-can establish communication. How this is done is explained in :ref:`rsmpsxl-version`.
+SXL versions are used to determine which SXLs can be used on the connection.
+How this is done is explained in :ref:`version-negotiation`.
 
 .. _sxl-prefix:
 

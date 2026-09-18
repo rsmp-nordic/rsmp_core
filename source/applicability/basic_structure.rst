@@ -1574,44 +1574,15 @@ Site sends initial message
 
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
-When establishing RSMP communication, the initial message is a Version request message sent by the site.
-The supervisor responds with a Version response message.
-
 Version messages are used to negotiate RSMP core and SXL versions, as well as to
 send information such as site identity and communication options.
 
-The initial Version request sent by the site must include all attributes required by any listed core version.
-
-Version negotiation relies on a common and stable format for the ``RSMP`` array.
-When receiving a Version message, the receiver must first read and validate
-this array and select the latest core version supported by both parties.
-If there is no common core version, see :ref:`communication-rejection`.
-
-The remaining attributes must then be validated and interpreted according to that version.
-Attributes that are unknown to the selected core version must be ignored.
-
-The supervisor sends a Version response message, which must be formatted according to the selected core version.
-
-When the site receives the Version response, it must first read the ``RSMP`` array and select the latest core version
-common to its original Version request and the Version response.
-If there is no common core version, see :ref:`communication-rejection`.
-
-The remaining attributes must then be validated and interpreted according to that version.
-Unknown attributes must be ignored.
-
-The ``step`` attribute makes it easier to identify and validate messages without knowing
-the sequence context, but is absent in earlier core versions. When ``step`` is absent, a Version message must be
-identified as a request or response based on the communication sequence.
-The site sends the request and the supervisor sends the response.
-For site-to-site communication, the follower sends the request and the leader sends the response.
-
-The principle of the message exchange is defined by the communication
-establishment (see
-:ref:`communication-establishment-between-sites-and-supervision-system`
-and :ref:`communication-establishment-between-sites`).
+The negotiation procedure is defined in :ref:`version-negotiation`.
 
 Version Request
 """""""""""""""
+The initial Version request sent by the site must include all attributes required by any listed core version.
+
 The initial Version request sent by the site contains:
 
 * Site Id.
@@ -1655,18 +1626,21 @@ The following table describes variable content of the message:
    ============= ======== ===============
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
-   RSMP          array    Array of supported core versions. 
+   RSMP          array    Array of supported core versions.
    SXL           string   Optional. Version of the primary SXL, for backward compatibility.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
-Only one site can use the same connection. The ``sId`` array must therefore contain
+Only one site can use the same connection. The ``siteId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` attribute is included when a primary SXL exists, for backward compatibility with supervisors that only
-support older core versions and ignore the newer ``SXLS`` array.
+The ``SXL`` attribute specifies the version of the primary SXL used with supervisors that
+only support older core versions and ignore the newer ``SXLS`` array.
+When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``SXLS``.
 
-The ``SXLS`` array may be empty if the site does not support any SXLs.
+The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
+set to an empty string.
+
 Each item in the ``SXLS`` array must be an object with the following content:
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
@@ -1681,24 +1655,12 @@ Each item in the ``SXLS`` array must be an object with the following content:
    prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
    ======= ======== ====================
 
-If the site supports multiple versions of an SXL the latest must be specified.
+If the site supports multiple versions of an SXL, the latest must be specified.
+Version ordering is defined in :ref:`version-negotiation`.
 
 
 Version Response
 """""""""""""""""
-Communication can only be established if the supervisor supports one of the core
-versions listed in the version request sent by the site. It must be an exact match of both
-major, minor and patch version.
-
-An SXL listed by the site can only be used if the supervisor supports the exact same version,
-with an exact match of both major, minor and patch version.
-
-Communication can be established even if the supervisor supports none of the SXLs. In this case, no
-commands, statuses or alarms can be exchanged, only aggregated status.
-
-If the supervisor determines that the core version cannot be matched,
-it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
-
 If the core version can be matched, the supervisor returns a Version response containing:
 
 * Supervisor ID.
@@ -1714,15 +1676,15 @@ If the core version can be matched, the supervisor returns a Version response co
          "mType": "rSMsg",
          "type": "Version",
          "step": "Response",
-         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+         "mId": "d2c4815f-8318-4f3d-938a-cb28529fd86f",
          "RSMP": [
-            { "vers": "3.1.1" }
+            { "vers": "3.3.0" }
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
             { "name": "traffic_light_controller", "status": "ok", "version": "1.3.0" },
             { "name": "traffic_light_controller/advanced", "status": "unsupported" },
-            { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1","2.1.0"] },
+            { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1", "2.1.0"] },
             { "name": "traffic_data", "status": "expected" }
          ],
          "receiveAlarms": false
@@ -1754,14 +1716,16 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Response'.
    supervisorId  string   The id of the supervisor.
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
-   SXLS          array    List of SXLS and status for each.
-   receiveAlarms boolean  Optional. If set to false the site must not send alarms to the supervisor.
+   SXLS          array    List of SXLs and status for each.
+   receiveAlarms boolean  Optional. If set to false, no Alarm message may be exchanged.
    ============= ======== ===============
 
-The supervisor can always request, acknowledge and suspend/resume alarms even if the `receiveAlarms` attribute was set to false in the Version response.
+If the ``receiveAlarms`` attribute was set to false in the Version response, no Alarm messages may be exchanged.
+If either the site or the supervisor receives an Alarm, it must respond with a MessageNotAck.
 
 The ``SXLS`` array must contain each SXL from the Version request, even if the supervisor does not support them.
-In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer, but which the site did not offer in the Version request.
+In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer,
+but which the site did not offer in the Version request.
 Duplicate SXL names are not allowed.
 
 Each item in the ``SXLS`` array must be an object with the following content:
@@ -1800,32 +1764,17 @@ Details:
 * **unsupported** The SXL is unknown or not supported by the supervisor. ``version`` must be omitted.
 
 * **mismatch** The version specified by the site in the Version request is not supported by the supervisor.
-  ``supported`` must be set to an array of supported versions, in ascending order, with the latest version last.
+  ``supported`` must be set to an array of supported version strings, in ascending order, with the latest version last.
+  Version ordering is defined in :ref:`version-negotiation`.
 
 * **expected** means that the supervisor was expecting the site to offer this SXL but it did not.
   This status is informational only and does not indicate an error.
 
 A supervisor must not use status codes other than those listed above.
-A site must not reject a Version response based on status codes, as long as all status codes are valid.
 
 An SXL will be used only if the status is ``ok``. All status codes other than ``ok`` mean the SXL will not be used.
 
-If an SXL is not used, neither the site nor the supervisor may send messages defined in the SXL,
-and both must reject incoming messages defined in the SXL.
-
-Core Version Compatibility
-""""""""""""""""""""""""""
-A site and a supervisor can only communicate if the core versions are exactly the same, i.e. both
-major, minor and patch versions match.
-The core version string returned by the supervisor in the version response must therefore be
-the same as one of the core version strings sent by the site in the Version request.
-
-SXL Version Compatibility
-"""""""""""""""""""""""""
-An SXL can be used if the site and the supervisor support the exact same version, i.e. both
-major, minor and patch versions match.
-A SXL version string returned by the supervisor in the version response must therefore be
-the same as the SXL version strings sent by the site in the Version request.
+See :ref:`version-negotiation` for how SXL status codes affect communication.
 
 
 .. _component-list:

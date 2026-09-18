@@ -114,6 +114,88 @@ RSMP Core does not define requirements for selecting, configuring, or
 operating TLS, a VPN, or another external protection mechanism. See
 :ref:`security-considerations`.
 
+.. _version-negotiation:
+
+Version negotiation
+^^^^^^^^^^^^^^^^^^^
+
+See :ref:`rsmpsxl-version` for the format and content of Version messages.
+
+When establishing RSMP communication, the initial message is a Version request message sent by the site.
+The supervisor responds with a Version response message.
+
+The ``step`` attribute makes it easier to identify and validate messages without knowing
+the sequence context, but is absent in earlier core versions. When ``step`` is absent, a Version message must be
+identified as a request or response based on the communication sequence.
+The site sends the request and the supervisor sends the response.
+For site-to-site communication, the follower sends the request and the leader sends the response.
+
+The principle of the message exchange is defined by the communication
+establishment (see
+:ref:`communication-establishment-between-sites-and-supervision-system`
+and :ref:`communication-establishment-between-sites`).
+
+Core and SXL versions are ordered by comparing their major, minor and patch numbers
+numerically, in that order.
+
+After negotiation, communication establishment and subsequent message exchange must follow
+the selected core version, the SXLs in use and the negotiated communication options.
+
+Core Version Compatibility
+""""""""""""""""""""""""""
+
+Version negotiation relies on the common structure of the ``RSMP`` array across core versions:
+each entry is an object containing a ``vers`` attribute whose value is a core version string.
+
+When receiving a Version message, the receiver must first read and validate
+the ``RSMP`` array and select the latest core version supported by both parties.
+
+If there is no common core version, see :ref:`communication-rejection`.
+
+The remaining attributes must then be validated and interpreted according to that version.
+Attributes that are unknown to the selected core version must be ignored.
+
+The supervisor sends a Version response message, which must be formatted according to the selected core version.
+
+When the site receives the Version response, it must first read the ``RSMP`` array and select the latest core version
+common to its original Version request and the Version response.
+If there is no common core version, see :ref:`communication-rejection`.
+
+The remaining attributes must then be validated and interpreted according to that version.
+Unknown attributes must be ignored.
+
+Communication can only be established if the supervisor supports one of the core
+versions listed in the Version request sent by the site. It must be an exact match of
+major, minor and patch version.
+
+If the supervisor determines that the core version cannot be matched,
+it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
+
+A site and a supervisor can only communicate if the core versions are exactly the same, i.e.
+major, minor and patch versions match.
+The core version string returned by the supervisor in the Version response must therefore be
+the same as one of the core version strings sent by the site in the Version request.
+
+SXL Version Compatibility
+"""""""""""""""""""""""""
+
+An SXL listed by the site can only be used if the supervisor supports the exact same version,
+with an exact match of major, minor and patch version.
+
+For each SXL with status ``ok`` in the Version response, the ``version`` attribute must match
+the version of that SXL in the Version request. Versions listed in ``supported`` for status
+``mismatch`` describe the supervisor's supported versions and need not match the request.
+
+Communication can be established even if the supervisor supports none of the SXLs. In this case, no
+commands, statuses or alarms can be exchanged. But the ComponentList and AggregatedStatus
+will still be sent by the site.
+
+If an SXL is not used, neither the site nor the supervisor may send messages defined in the SXL,
+and both must reject incoming messages defined in the SXL.
+
+A site must not reject a Version response based on status codes, as long as all status codes are valid.
+
+
 .. _communication-establishment-between-sites-and-supervision-system:
 
 Communication establishment between sites and supervision system
@@ -122,34 +204,27 @@ Communication establishment between sites and supervision system
 When establishing communication between sites and supervision system,
 messages are sent in the following order.
 
+The Version exchange follows :ref:`version-negotiation`.
+The remaining sequence below applies when core version 3.3.0 is selected.
+If an earlier core version is selected, its communication establishment sequence applies
+after the Version exchange.
+
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. image:: /img/msc/establish-site-system.png
    :align: center
 
-1. The site sends a Version request message.
+1. The site sends a Version request message (see :ref:`rsmpsxl-version`).
 
-2. The supervisor receives the Version request and uses the latest specified
-   RSMP version to validate the message format.
+2. The supervisor processes the request according to :ref:`version-negotiation`
+   and verifies the site id (see :ref:`communication-rejection`).
 
-3. The supervision system sends Version response message.
+3. The supervisor sends a Version response message (see :ref:`rsmpsxl-version`).
 
-2. The supervision system verifies the RSMP and SXL version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+4. The site processes the response according to :ref:`version-negotiation`.
 
-3. The supervision system sends RSMP / SXL version (according to section
-   :ref:`rsmpsxl-version`).
-
-4. The site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
-
-
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The selected core version is used in all further RSMP communication.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
 
@@ -181,28 +256,23 @@ current ones based on their older alarm timestamps. Any buffered alarm events
 that contains the exact same alarm event and timestamp as sent when sending all
 alarms should not be sent again.
 
-Since only one version of the signal exchange list is allowed to be used
-at the communication establishment (according to the version message),
-each connected site must either:
-
-* Use the same version of the signal exchange list via the same
-  RSMP connection
-* Connect to separate supervision systems (e.g. using separate ports)
-* Connect to a supervision system that can handle separate signal exchange
-  lists depending on the RSMP / SXL version message from the site
+The SXLs used on the connection are determined by :ref:`version-negotiation`.
 
 .. _communication-establishment-between-sites:
 
 Communication establishment between sites
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When establishing communication directly between sites, messages are sent in
-the following order.
-
-One site acts as a leader and the other one as a follower.
+When establishing communication directly between sites, one site acts as a leader
+and the other as a follower.
 
 When establishing communication between sites, messages are sent in the
 following order.
+
+The Version exchange follows :ref:`version-negotiation`.
+The remaining sequence below applies when core version 3.3.0 is selected.
+If an earlier core version is selected, its communication establishment sequence applies
+after the Version exchange.
 
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
@@ -210,23 +280,16 @@ implicit in the following figure.
 .. image:: /img/msc/establish-site-site.png
    :align: center
 
-1. The follower site sends RSMP / SXL version (according to section
-   :ref:`rsmpsxl-version`).
+1. The follower site sends a Version request message (see :ref:`rsmpsxl-version`).
 
-2. The leader site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+2. The leader site processes the request according to :ref:`version-negotiation`
+   and verifies the site id (see :ref:`communication-rejection`).
 
-3. The leader site sends RSMP / SXL version (according to section
-   :ref:`rsmpsxl-version`).
+3. The leader site sends a Version response message (see :ref:`rsmpsxl-version`).
 
-4. The follower site verifies the RSMP version, SXL version and site id.
-   If there is a mismatch the sequence does not proceed.
-   (see section :ref:`communication-rejection`)
+4. The follower site processes the response according to :ref:`version-negotiation`.
 
-5. The latest version of RSMP that both communicating parties exchange in the
-   RSMP/SXL Version is implicitly selected and used in any further RSMP
-   communication.
+5. The selected core version is used in all further RSMP communication.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
@@ -243,7 +306,7 @@ implicit in the following figure.
 
 For communication between sites the following applies:
 
-* The SXL used is the SXL of the follower site
+* The SXLs used are selected from those offered by the follower site
 * The site id (siteId) which is sent in RSMP / SXL version is the
   follower site's site id
 * If the site id does not match with the expected site id the connection
@@ -272,7 +335,9 @@ During RSMP/SXL Version exchange each communicating party needs to verify:
 * SXL version
 * Site id
 
-If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
+Version messages are processed according to :ref:`version-negotiation`.
+
+If the site id does not match or there is no common core version then:
 
 1. The communication establishment sequence does not proceed
 2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
@@ -283,8 +348,8 @@ If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-Is it not allowed to disconnect for any other circumstance other than mismatch
-during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
+It is not allowed to disconnect for any other circumstance than the Version
+negotiation failures described above or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:
@@ -392,7 +457,7 @@ The following principles applies:
 
 * All packets must be ended with a FF (formeed). This includes message
   acknowledgement (see section :ref:`message-acknowledgement`).
-  For example if NotAck is used as a consequence for signal exchange list
+  For example if NotAck is used as a consequence for core version
   mismatch during communication establishment
 * Several consecutive FF (formeed) must not be sent, but must be handled
 * FF (formeed) in the beginning of the data exchange (after connection
