@@ -155,7 +155,10 @@ If there is no common core version, see :ref:`communication-rejection`.
 The remaining attributes must then be validated and interpreted according to that version.
 Attributes that are unknown to the selected core version must be ignored.
 
+The supervisor must verify the ``siteId`` in the request against the expected site identity.
 The supervisor sends a Version response message, which must be formatted according to the selected core version.
+When core 3.3.0 is selected, the ``supervisorId`` in the response is informational;
+the site does not compare it with an expected supervisor identity.
 
 When the site receives the Version response, it must first read the ``RSMP`` array and select the latest core version
 common to its original Version request and the Version response.
@@ -172,12 +175,15 @@ versions listed in the Version request sent by the site. It must be an exact mat
 major, minor and patch version.
 
 If the supervisor determines that the core version cannot be matched,
-it must send a MessageNotAck and close the connection, see :ref:`communication-rejection`.
+it must reject the connection according to :ref:`communication-rejection`.
 
 A site and a supervisor can only communicate if the core versions are exactly the same, i.e.
 major, minor and patch versions match.
-The core version string returned by the supervisor in the Version response must therefore be
-the same as one of the core version strings sent by the site in the Version request.
+The selected core version must be one of the versions offered in the site's Version request.
+For core 3.3.0, the ``RSMP`` array in the response contains only the selected version.
+For earlier core versions, the response may list all versions supported by the supervisor,
+including versions not offered by the site. The latest version common to the request and
+response is selected.
 
 SXL Version Compatibility
 """""""""""""""""""""""""
@@ -226,8 +232,8 @@ The remaining sequence below applies when core version 3.3.0 is selected.
 If an earlier core version is selected, its communication establishment sequence applies
 after the Version exchange.
 
-Message acknowledgement (see section :ref:`message-acknowledgement`) is
-implicit in the following figure.
+Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
+following figure, except for the acknowledgement of AggregatedStatus.
 
 .. image:: /img/msc/establish-site-system.png
    :align: center
@@ -251,9 +257,11 @@ implicit in the following figure.
 
 9. The site must send one AggregatedStatus message with the current status of the entire site
    (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
-   This message completes the communication establishment sequence.
+   The site must wait for the supervisor's MessageAck for this message.
+   This acknowledgement completes the communication establishment sequence.
 
-10. Asynchronous message exchange can begin. Commands and statuses defined by
+10. The supervisor may start asynchronous message exchange after sending the MessageAck,
+    and the site may start after receiving it. Commands and statuses defined by
     accepted SXLs are allowed to be sent.
 
 11. If ``useAlarms`` is true or omitted, all alarms defined by accepted SXLs
@@ -295,8 +303,8 @@ The remaining sequence below applies when core version 3.3.0 is selected.
 If an earlier core version is selected, its communication establishment sequence applies
 after the Version exchange.
 
-Message acknowledgement (see section :ref:`message-acknowledgement`) is
-implicit in the following figure.
+Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
+following figure, except for the acknowledgement of AggregatedStatus.
 
 .. image:: /img/msc/establish-site-site.png
    :align: center
@@ -320,9 +328,11 @@ implicit in the following figure.
 
 9. The follower site must send one AggregatedStatus message with the current status of the entire follower site
    (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
-   This message completes the communication establishment sequence.
+   The follower site must wait for the leader site's MessageAck for this message.
+   This acknowledgement completes the communication establishment sequence.
 
-10. Asynchronous message exchange can begin. Commands and statuses defined by
+10. The leader site may start asynchronous message exchange after sending the MessageAck,
+    and the follower site may start after receiving it. Commands and statuses defined by
     accepted SXLs are allowed to be sent.
 
 For communication between sites the following applies:
@@ -330,11 +340,10 @@ For communication between sites the following applies:
 * The SXLs used are selected from those offered by the follower site
 * The site id (siteId) which is sent in RSMP / SXL version is the
   follower site's site id
-* If the site id does not match with the expected site id the connection
-  should be terminated. The purpose is to reduce the risk of establishing
-  connection with the wrong site
-* The component id which is used in all messages is the follower site's
-  component id
+* The leader site verifies the follower site's site id against the expected site id
+  (see :ref:`communication-rejection`).
+* For messages that refer to a component, the component id is the follower site's
+  component id.
 * Watchdog messages does not adjust the clock. See section :ref:`watchdog`.
 * Alarm messages must not be exchanged, regardless of ``useAlarms``
   (see :ref:`alarm-exchange`).
@@ -351,22 +360,19 @@ For communication between sites the following applies:
 Communication rejection
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-During RSMP/SXL Version exchange each communicating party needs to verify:
-
-* Message format
-* RSMP version(s)
-* SXL version
-* Site id
-
-Version messages are processed according to :ref:`version-negotiation`.
+Version requests and responses are validated according to :ref:`version-negotiation`.
+The supervisor verifies the site id in the request. For site-to-site communication,
+the leader site verifies the follower site's site id.
 
 If a Version request or response fails validation, the site id does not match,
 or there is no common core version, the receiver must:
 
 1. Stop the communication establishment sequence.
-2. Send a MessageNotAck with reason (``rea``) set to the cause of rejection. For instance,
+2. If the message contains a valid ``mId``, send a MessageNotAck with ``oMId`` set to that
+   id and reason (``rea``) set to the cause of rejection. For instance,
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
-3. Close the connection.
+   If ``mId`` is missing or invalid, no MessageNotAck is sent.
+3. Close the connection, whether or not a MessageNotAck could be sent.
 
 .. image:: /img/msc/communication-rejection.png
    :align: center

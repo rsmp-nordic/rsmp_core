@@ -23,6 +23,8 @@ msc {
   |||;
   a=>b [ label = "AggregatedStatus (entire site)" ];
   |||;
+  a<<b [ label = "MessageAck (AggregatedStatus)" ];
+  |||;
   --- [ label = "Establishment complete; asynchronous message exchange can begin" ];
   |||;
   a=>b [ label = "Alarms from accepted SXLs (unless useAlarms=false)" ];

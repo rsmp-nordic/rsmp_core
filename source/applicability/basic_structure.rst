@@ -101,9 +101,7 @@ The following table is describing the variable content of all message types.
    * Each message sent should have a new GUID, even if the message is resent or the
      content is the same
 
-The following table describes the variable content in all message types
-which is defined by the signal exchange list (SXL), except version
-messages, message acknowledgement messages and watchdog messages.
+The following table describes attributes used by messages that refer to a component.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
@@ -597,9 +595,10 @@ Aggregated status message
 
 An AggregatedStatus message describes the status of the entire site.
 It is a core message and does not require an SXL to be used on the connection.
+The attributes ``cId``, ``fP`` and ``fS`` must not be included.
 
-AggregatedStatus is sent during communication establishment, when the site's state,
-functional position or functional state changes, and in response to an
+AggregatedStatus is sent during communication establishment, when the site's state bits
+change, and in response to an
 :ref:`AggregatedStatusRequest <aggregated-status-req>`.
 The establishment sequences are defined in
 :ref:`communication-establishment-between-sites-and-supervision-system` and
@@ -620,10 +619,7 @@ below.
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
 	"ntsOId": "",
 	"xNId": "",
-	"cId": "O+14439=481WA001",
 	"aSTS": "2015-06-08T08:05:06.584Z",
-	"fP": null,
-	"fS": null,
 	"se": [
                 true,false,false,false,false,false,false,false
               ]
@@ -646,8 +642,7 @@ The following tables are describing the variable content of the message:
                          See also the :ref:`data type<data_types>` section.
    ======= ============= =====================================================================
 
-The following table describes the status attributes. An SXL may define functional
-positions and functional states, and detail the interpretation of the state bits.
+The following table describes the site status.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
@@ -656,22 +651,15 @@ positions and functional states, and detail the interpretation of the state bits
    ======= ==============================================
    Element Description
    ======= ==============================================
-   fP      :term:`Functional position`
-   fS      :term:`Functional state`
    se      Array of eight booleans. See :ref:`state-bits`
    ======= ==============================================
-
-``fP`` and ``fS`` are set to ``null`` or an empty string if no value is defined
-by an SXL used on the connection.
 
 .. _state-bits:
 
 State bits
 ~~~~~~~~~~
-**State bits** ``se`` is an array of eight booleans, with the meaning defined below.
-The signal exchange list (SXL) for a particular type of equipment can detail the
-interpretation of each bit, but is not allowed to change the fundamental meaning or
-modify the rules for which bits can or must be set together.
+**State bits** ``se`` is an array of eight booleans. Their meanings and the rules
+for combining them are described below.
 
 .. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
 
@@ -746,8 +734,8 @@ Aggregated status request message
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent from the supervision system to request the
-latest aggregated status, in case the supervision system has lost track
-of the current status.
+latest aggregated status of the entire site, in case the supervision system has lost
+track of the current status. The ``cId`` attribute must not be included.
 
 Message structure
 """""""""""""""""
@@ -763,8 +751,7 @@ below.
 	"type": "AggregatedStatusRequest",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
 	"ntsOId": "",
-	"xNId": "",
-	"cId": "O+14439=481WA001",
+	"xNId": ""
    }
 
 JSon code 12: An aggregated status request message
@@ -776,8 +763,7 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or state booleans changes at the
-site**
+**The site's state bits change**
 
 
 .. image:: /img/msc/aggregated_status.png
@@ -1721,7 +1707,7 @@ The following table describes variable content of the message:
    Element       Type     Description
    ============= ======== ===============
    step          string   Must be set to 'Response'.
-   supervisorId  string   The id of the supervisor.
+   supervisorId  string   The id of the supervisor, provided for information (see :ref:`version-negotiation`).
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
    SXLS          array    List of SXLs and status for each.
    useAlarms     boolean  Optional. Defaults to true. If set to false, no Alarm messages may be exchanged on the connection.

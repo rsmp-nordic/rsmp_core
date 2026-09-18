@@ -9,7 +9,7 @@ msc {
   |||;
   b abox b [ label = "Check Version format, site id and core compatibility" ];
   |||;
-  a<<b [ label = "MessageNotAck" ];
+  a<<b [ label = "MessageNotAck (if mId is valid)" ];
   |||;
   --- [ label = "Connection closed" ];
 

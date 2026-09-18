@@ -1,6 +1,7 @@
 {
   "title" :  "Version",
   "description" :  "Version message",
+  "$comment" : "Validate with this schema only after selecting core 3.3.0. Checks requiring the original request, unique SXL names, numeric version ordering and compatibility with other offered core versions are handled by the negotiation procedure. Unknown attributes are allowed.",
   "oneOf" : [
     {
       "description" : "Version request",
@@ -15,7 +16,10 @@
           "description" : "Supported RSMP versions"
         },
         "SXL" : {
-          "$ref": "definitions.json#/version",
+          "anyOf" : [
+            { "$ref": "definitions.json#/version" },
+            { "const": "" }
+          ],
           "description" : "Primary SXL version, for backward compatibility"
         },
         "SXLS" : {
@@ -34,7 +38,15 @@
           "uniqueItems" : true
         }
       },
-      "required" : [ "mId", "RSMP", "SXLS", "siteId" ]
+      "required" : [ "mId", "step", "RSMP", "SXLS", "siteId" ],
+      "if" : {
+        "properties" : { "SXLS" : { "maxItems" : 0 } },
+        "required" : [ "SXLS" ]
+      },
+      "then" : {
+        "properties" : { "SXL" : { "const" : "" } },
+        "required" : [ "SXL" ]
+      }
     },
     {
       "description" : "Version response",
@@ -68,7 +80,8 @@
         },
         "useAlarms" : {
           "description" : "Whether Alarm messages may be exchanged on the connection",
-          "type" : "boolean"
+          "type" : "boolean",
+          "default" : true
         }
       },
       "required" : [ "mId", "step", "RSMP", "supervisorId", "SXLS" ]
@@ -85,8 +98,7 @@
             "description" : "RSMP version"
           }
         },
-        "required" : [ "vers" ],
-        "additionalProperties" : false
+        "required" : [ "vers" ]
       },
       "minItems" : 1,
       "uniqueItems" : true
@@ -99,8 +111,7 @@
           "minLength": 1
         }
       },
-      "required" : [ "sId" ],
-      "additionalProperties" : false
+      "required" : [ "sId" ]
     },
     "sxl_request" : {
       "type" : "object",
@@ -109,34 +120,44 @@
         "version" : { "$ref" : "definitions.json#/version" },
         "prefix" : { "$ref" : "definitions.json#/sxl_prefix" }
       },
-      "required" : [ "name", "version" ],
-      "additionalProperties" : false
+      "required" : [ "name", "version" ]
     },
     "sxl_response" : {
       "type" : "object",
+      "properties" : {
+        "name" : { "$ref" : "definitions.json#/sxl_name" },
+        "status" : {
+          "type" : "string",
+          "enum" : [ "ok", "unsupported", "mismatch", "expected" ]
+        },
+        "version" : { "$ref" : "definitions.json#/version" },
+        "supported" : {
+          "type" : "array",
+          "items" : { "$ref" : "definitions.json#/version" }
+        }
+      },
+      "required" : [ "name", "status" ],
       "oneOf" : [
         {
           "properties" : {
-            "name" : { "$ref" : "definitions.json#/sxl_name" },
-            "version" : { "$ref" : "definitions.json#/version" }
+            "status" : { "const" : "ok" },
+            "supported" : false
           },
-          "required" : [ "name", "version" ],
-          "additionalProperties" : false
+          "required" : [ "version" ]
         },
         {
           "properties" : {
-            "name" : { "$ref" : "definitions.json#/sxl_name" },
-            "version" : { "$ref" : "definitions.json#/version" },
-            "rejected" : {
-              "type" : "integer",
-              "enum" : [ 1, 2, 3 ]
-            },
-            "reason" : {
-              "type" : "string"
-            }
+            "status" : { "const" : "mismatch" },
+            "version" : false
           },
-          "required" : [ "name", "rejected" ],
-          "additionalProperties" : false
+          "required" : [ "supported" ]
+        },
+        {
+          "properties" : {
+            "status" : { "enum" : [ "unsupported", "expected" ] },
+            "version" : false,
+            "supported" : false
+          }
         }
       ]
     }
