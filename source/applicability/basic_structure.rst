@@ -28,7 +28,7 @@ In the following example the message type is an alarm message.
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
-       "xNACId": "3143",
+       "xNACId": "",
        "aSp": "Issue",
        "ack": "notAcknowledged",
        "aS": "Active",
@@ -178,7 +178,7 @@ An alarm message has the structure according to the example below.
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
-       "xNACId": "3143",
+       "xNACId": "",
        "aSp": "Issue",
        "ack": "notAcknowledged",
        "aS": "Active",
@@ -209,7 +209,7 @@ defined by the SXL.
    ============ ==================================
    aCId         :term:`Alarm code id`
    xACId        :term:`External alarm code id`
-   xNACId       :term:`External NTS alarm code id`
+   xNACId       *deprecated (empty string)*
    ============ ==================================
 
 The following table describes additional variable content of the message.

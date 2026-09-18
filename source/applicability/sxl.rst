@@ -205,7 +205,6 @@ Each message type is defined like this:
           priority: 1
           category: D
           externalAlarmCodeId: manufacturer specific alarm text
-          externalNtsAlarmCodeId: 0000
           arguments:
             <argument-1>:
               type: integer
@@ -245,7 +244,6 @@ The alarm contains the fields:
 - ``category`` is the alarm category
 - ``priority`` is the alarm priority
 - ``externalAlarmCodeId`` is the :term:`External alarm code id`
-- ``externalNtsAlarmCodeId`` is the :term:`External NTS alarm code id`
 
 The status contains the fields:
 
