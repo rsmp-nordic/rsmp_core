@@ -194,13 +194,16 @@ with an exact match of major, minor and patch version.
 For each SXL with status ``ok`` in the Version response, the ``version`` attribute must match
 the version of that SXL in the Version request. Versions listed in ``supported`` for status
 ``mismatch`` describe the supervisor's supported versions and need not match the request.
+The ``supported`` list is diagnostic only. No fallback to an older SXL version takes
+place during this exchange, even if both parties support that version.
 
 Communication can be established even if the supervisor supports none of the SXLs. In this case, no
 commands, statuses or alarms can be exchanged. But the ComponentList and AggregatedStatus
 will still be sent by the site.
 
 If an SXL is not used, neither the site nor the supervisor may send messages defined in the SXL,
-and both must reject incoming messages defined in the SXL.
+and both must reject incoming messages defined in the SXL with a MessageNotAck
+(see :ref:`message-acknowledgement`).
 
 A site must not reject a Version response based on status codes, as long as all status codes are valid.
 

@@ -1619,7 +1619,7 @@ The following table describes variable content of the message:
    ============= ======== ===============
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
-   RSMP          array    Array of supported core versions.
+   RSMP          array    Nonempty array of objects, each with a ``vers`` attribute containing a supported core version string.
    SXL           string   Optional. Version of the primary SXL, for backward compatibility.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
@@ -1633,6 +1633,7 @@ When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``S
 
 The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
 set to an empty string.
+Duplicate SXL names are not allowed in the request.
 
 Each item in the ``SXLS`` array must be an object with the following content:
 
