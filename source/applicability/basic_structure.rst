@@ -1577,17 +1577,36 @@ RSMP/SXL Version
 When establishing RSMP communication, the initial message is a Version request message sent by the site.
 The supervisor responds with a Version response message.
 
-Version messages are used to exchange information about supported versions of RSMP and SXL,
-to ensure that the communicating parties are compatible.
+Version messages are used to negotiate RSMP core and SXL versions, as well as to
+send information such as site identity and communication options.
 
-If there is a mismatch or if there are no RSMP versions that both
-communicating parties support, see :ref:`communication-rejection`.
+The initial Version request sent by the site must include all attributes required by any listed core version.
 
-Unknown fields in Version messages must be ignored and not cause a MessageNotAck.
-This allows for backward compatibility when new fields are added in later versions of RSMP or SXL.
+Version negotiation relies on a common and stable format for the ``RSMP`` array.
+When receiving a Version message, the receiver must first read and validate
+this array and select the latest core version supported by both parties.
+If there is no common core version, see :ref:`communication-rejection`.
+
+The remaining attributes must then be validated and interpreted according to that version.
+Attributes that are unknown to the selected core version must be ignored.
+
+The supervisor sends a Version response message, which must be formatted according to the selected core version.
+
+When the site receives the Version response, it must first read the ``RSMP`` array and select the latest core version
+common to its original Version request and the Version response.
+If there is no common core version, see :ref:`communication-rejection`.
+
+The remaining attributes must then be validated and interpreted according to that version.
+Unknown attributes must be ignored.
+
+The ``step`` attribute makes it easier to identify and validate messages without knowing
+the sequence context, but is absent in earlier core versions. When ``step`` is absent, a Version message must be
+identified as a request or response based on the communication sequence.
+The site sends the request and the supervisor sends the response.
+For site-to-site communication, the follower sends the request and the leader sends the response.
 
 The principle of the message exchange is defined by the communication
-establishment (See
+establishment (see
 :ref:`communication-establishment-between-sites-and-supervision-system`
 and :ref:`communication-establishment-between-sites`).
 
@@ -1644,7 +1663,7 @@ The following table describes variable content of the message:
 Only one site can use the same connection. The ``sId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` field is included when a primary SXL exists, for backward compatibility with supervisors that only
+The ``SXL`` attribute is included when a primary SXL exists, for backward compatibility with supervisors that only
 support older core versions and ignore the newer ``SXLS`` array.
 
 The ``SXLS`` array may be empty if the site does not support any SXLs.

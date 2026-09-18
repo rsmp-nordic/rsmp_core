@@ -128,9 +128,14 @@ implicit in the following figure.
 .. image:: /img/msc/establish-site-system.png
    :align: center
 
-1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
+1. The site sends a Version request message.
 
-2. The supervision system verifies the RSMP version, SXL version and site id.
+2. The supervisor receives the Version request and uses the latest specified
+   RSMP version to validate the message format.
+
+3. The supervision system sends Version response message.
+
+2. The supervision system verifies the RSMP and SXL version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
