@@ -9,7 +9,7 @@ An SXL is identified by its name, and is published with a version following Sema
 An SXL is defined using YAML format.
 
 An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
-It also details the meaning of aggregated status bits, functional positions and functional states.
+It may also detail the meaning of aggregated status bits, functional positions and functional states.
 
 An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.
 
@@ -167,8 +167,9 @@ Each type must have a short description.
 Messages
 --------
 
-The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
-are defined in the SXL.
+The content of **Alarm**, **Status** and **Command** messages is defined in the SXL.
+An SXL may also provide definitions for the core :ref:`aggregated-status-message`.
+These definitions are optional and do not determine whether AggregatedStatus is sent.
 
 Each message type is defined like this:
 
@@ -343,7 +344,7 @@ The following table defines the functional differences between message types.
    Message type       Sent when
    =================  =========================================
    Alarm              On change *or* request
-   Aggregated status  On change *or* request
+   Aggregated status  On establishment, change *or* request
    Status             On request *or* according to subscription
    Command            On request
    =================  =========================================

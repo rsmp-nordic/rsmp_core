@@ -122,6 +122,8 @@ messages, message acknowledgement messages and watchdog messages.
 Alarm messages
 ^^^^^^^^^^^^^^
 
+Alarm message exchange is subject to :ref:`alarm-exchange`.
+
 An alarm message is sent to the supervision system when:
 
 - An alarm becomes active / inactive
@@ -537,6 +539,9 @@ Allowed content in alarm suspend message is the same as for alarm messages
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
+The following sequences apply when Alarm message exchange is permitted
+(see :ref:`alarm-exchange`).
+
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
@@ -590,13 +595,15 @@ implicit in the following figures.
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the component which is
-defined by **ComponentType** in the signal exchange list. If no component is defined
-then no aggregated status message is sent.
+An AggregatedStatus message describes the status of the entire site.
+It is a core message and does not require an SXL to be used on the connection.
 
-Aggregated status messages are interaction driven and are sent if state,
-functional position or functional status are changed at the site.
+AggregatedStatus is sent during communication establishment, when the site's state,
+functional position or functional state changes, and in response to an
+:ref:`AggregatedStatusRequest <aggregated-status-req>`.
+The establishment sequences are defined in
+:ref:`communication-establishment-between-sites-and-supervision-system` and
+:ref:`communication-establishment-between-sites`.
 
 Message structure
 """""""""""""""""
@@ -639,12 +646,12 @@ The following tables are describing the variable content of the message:
                          See also the :ref:`data type<data_types>` section.
    ======= ============= =====================================================================
 
-The following table describes the variable content defined by the signal
-exchange list (SXL).
+The following table describes the status attributes. An SXL may define functional
+positions and functional states, and detail the interpretation of the state bits.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Aggregated status SXL content
+.. table:: Aggregated status content
 
    ======= ==============================================
    Element Description
@@ -654,8 +661,8 @@ exchange list (SXL).
    se      Array of eight booleans. See :ref:`state-bits`
    ======= ==============================================
 
-``fP`` and ``fS`` is set to ``null`` or empty string if no value is defined
-in the SXL.
+``fP`` and ``fS`` are set to ``null`` or an empty string if no value is defined
+by an SXL used on the connection.
 
 .. _state-bits:
 
@@ -1667,7 +1674,7 @@ If the core version can be matched, the supervisor returns a Version response co
 * RSMP core version to use.
 * The status for each SXL offered by the site.
 * List of SXLs that the supervisor expected the site to offer, but which the site did not offer.
-* receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
+* Optional ``useAlarms`` flag, indicating whether Alarm messages may be exchanged.
 
 .. code-block:: json
    :name: json-version-response
@@ -1687,7 +1694,7 @@ If the core version can be matched, the supervisor returns a Version response co
             { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1", "2.1.0"] },
             { "name": "traffic_data", "status": "expected" }
          ],
-         "receiveAlarms": false
+         "useAlarms": false
    }
 
 JSon code 25: A Version Response message
@@ -1717,11 +1724,10 @@ The following table describes variable content of the message:
    supervisorId  string   The id of the supervisor.
    RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
    SXLS          array    List of SXLs and status for each.
-   receiveAlarms boolean  Optional. If set to false, no Alarm message may be exchanged.
+   useAlarms     boolean  Optional. Defaults to true. If set to false, no Alarm messages may be exchanged on the connection.
    ============= ======== ===============
 
-If the ``receiveAlarms`` attribute was set to false in the Version response, no Alarm messages may be exchanged.
-If either the site or the supervisor receives an Alarm, it must respond with a MessageNotAck.
+See :ref:`alarm-exchange` for the handling of Alarm messages when ``useAlarms`` is false.
 
 The ``SXLS`` array must contain each SXL from the Version request, even if the supervisor does not support them.
 In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer,

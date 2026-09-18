@@ -66,8 +66,8 @@
           "minItems" : 0,
           "uniqueItems" : true
         },
-        "receiveAlarms" : {
-          "description" : "Whether the supervisor wants to receive alarms",
+        "useAlarms" : {
+          "description" : "Whether Alarm messages may be exchanged on the connection",
           "type" : "boolean"
         }
       },

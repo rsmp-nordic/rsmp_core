@@ -93,10 +93,10 @@ Commands:
 
 Alarms:
 
-* Alarms are send to all supervisors, except those that set `receiveAlarms`
-  to false in their Version message.
-* All supervisors can acknowledge and suspend/resume alarms, even if they
-  set `receiveAlarms` to false in their Version message.
+* Alarms are sent to all supervisors, except those that set ``useAlarms``
+  to false in their Version response (see :ref:`alarm-exchange`).
+* A supervisor may request, acknowledge or suspend/resume alarms only if
+  ``useAlarms`` is true or omitted in its Version response.
 * If an Alarm is blocked, suspended or acknowledged by one supervisor
   this affects all supervisors.
 
@@ -198,6 +198,20 @@ and both must reject incoming messages defined in the SXL.
 
 A site must not reject a Version response based on status codes, as long as all status codes are valid.
 
+.. _alarm-exchange:
+
+Alarm exchange
+""""""""""""""
+
+The ``useAlarms`` attribute in the Version response applies to that connection only
+and defaults to true when omitted.
+
+If ``useAlarms`` is false, neither the site nor the supervisor may send any Alarm messages
+on the connection. This applies to all values of ``aSp``, including alarm requests,
+acknowledgements and suspend/resume operations, as well as to notifications, responses,
+initial alarms and buffered alarms.
+If either party receives an Alarm message on such a connection, it must respond with a MessageNotAck.
+
 
 .. _communication-establishment-between-sites-and-supervision-system:
 
@@ -235,18 +249,22 @@ implicit in the following figure.
 
 8. The site sends a ComponentList message (according to section :ref:`component-list`).
 
-9. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
+9. The site must send one AggregatedStatus message with the current status of the entire site
+   (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
+   This message completes the communication establishment sequence.
 
-10. Aggregated status (according to section :ref:`aggregated-status-message`).
-    If no component for aggregated status is defined in the signal exchange list
-    then no aggregated status message is sent.
+10. Asynchronous message exchange can begin. Commands and statuses defined by
+    accepted SXLs are allowed to be sent.
 
-11. All alarms (including active, inactive, suspended, unsuspended and acknowledged)
-    are sent. (according to section :ref:`alarm-messages`).
+11. If ``useAlarms`` is true or omitted, all alarms defined by accepted SXLs
+    (including active, inactive, suspended, unsuspended and acknowledged) are sent
+    (according to section :ref:`alarm-messages`).
+    If ``useAlarms`` is false, this step is skipped (see :ref:`alarm-exchange`).
 
 12. Buffered messages in the equipment's outgoing communication buffer are sent,
     including alarms, aggregated status and status updates.
+    Buffered Alarm and StatusUpdate messages are sent only for accepted SXLs.
+    Buffered alarms must not be sent on the connection if ``useAlarms`` is false.
 
 The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -300,12 +318,12 @@ implicit in the following figure.
 
 8. The follower site sends a ComponentList message (according to section :ref:`component-list`).
 
-9. Asynchronous message exchange can begin. This means that commands and
-   statuses are allowed to be sent
+9. The follower site must send one AggregatedStatus message with the current status of the entire follower site
+   (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
+   This message completes the communication establishment sequence.
 
-10. Aggregated status (according to section :ref:`aggregated-status-message`)
-    If no component for aggregated status is defined in the signal exchange list
-    then no aggregated status message is sent.
+10. Asynchronous message exchange can begin. Commands and statuses defined by
+    accepted SXLs are allowed to be sent.
 
 For communication between sites the following applies:
 
@@ -318,7 +336,8 @@ For communication between sites the following applies:
 * The component id which is used in all messages is the follower site's
   component id
 * Watchdog messages does not adjust the clock. See section :ref:`watchdog`.
-* Alarm messages are not sent
+* Alarm messages must not be exchanged, regardless of ``useAlarms``
+  (see :ref:`alarm-exchange`).
 * No communication buffer exist
 
 .. note::

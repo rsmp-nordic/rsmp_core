@@ -21,8 +21,8 @@ msc {
   |||;
   a=>b [ label = "ComponentList" ];
   |||;
-  --- [ label = "Asynchronous message exchange can begin" ];
+  a=>b [ label = "AggregatedStatus (entire follower site)" ];
   |||;
-  a=>b [ label = "Aggregated status" ];
+  --- [ label = "Establishment complete; asynchronous message exchange can begin" ];
   |||;
 }

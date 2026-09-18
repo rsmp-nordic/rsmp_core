@@ -43,7 +43,7 @@ describe 'Version' do
         "reason" => "Supervisor only supports 2.0.0"
       }
     ],
-    "receiveAlarms" => false
+    "useAlarms" => false
   }}
 
   it 'accepts valid request without step for backward compatibility' do
@@ -175,8 +175,8 @@ describe 'Version' do
     expect( validate(response) ).not.to be_nil
   end
 
-  it 'catches bad receiveAlarms in response' do
-    response['receiveAlarms'] = 'false'
+  it 'catches bad useAlarms in response' do
+    response['useAlarms'] = 'false'
     expect( validate(response) ).not.to be_nil
   end
 end
