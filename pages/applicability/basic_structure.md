@@ -1,0 +1,1587 @@
+---
+layout: page
+title: Basic Structure
+permalink: /3.3.0/basic-structure/
+parent: Applicability
+nav_order: 5
+---
+
+# Basic structure {#basic-structure}
+
+Unicode (ISO 10646) and UTF-8 are used for all messages.
+
+Parsing needs to be performed case sensitive.
+
+All enum values (e.g. [Alarm status]({{ '/3.3.0/basic-structure/#alarm-status' | relative_url }})) must use the exact casing stated in this specification.
+
+Empty values are sent as **""** for simple values and as **\[\]** for arrays. Optional values can be omitted, but can not be sent as **null** unless otherwise stated.
+
+In the following example the message type is an alarm message.
+
+<a id="json-basic"></a>
+
+```json
+{
+    "mType": "rSMsg",
+    "type": "Alarm",
+    "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+    "ntsOId": "",
+    "xNId": "",
+    "cId": "AB+84001=860SG001",
+    "aCId": "A0001",
+    "xACId": "Serious lamp error",
+    "xNACId": "3143",
+    "aSp": "Issue",
+    "ack": "notAcknowledged",
+    "aS": "Active",
+    "sS": "notSuspended",
+    "aTs": "2009-10-01T11:59:31.571Z",
+    "cat": "D",
+    "pri": "2",
+    "rvs": [
+        {
+            "n": "color",
+            "v": "red"
+        }
+    ]
+}
+```
+
+JSon code 2: An RSMP message
+
+The following table is describing the variable content of all message types.
+
+**Variable content**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| mType | rSMsg | RSMP identifier |
+| type | Alarm | Alarm message |
+| type | AggregatedStatus | Aggregated status message |
+| type | AggregatedStatusRequest | Aggregated status request message |
+| type | StatusRequest | Status message. Request status |
+| type | StatusResponse | Status message. Status response |
+| type | StatusSubscribe | Status message. Start subscription |
+| type | StatusUpdate | Status message. Update of status |
+| type | StatusUnsubscribe | Status message. End subscription |
+| type | CommandRequest | Command message. Request command |
+| type | CommandResponse | Command message. Response of command |
+| type | MessageAck | Message acknowledgement. Successful |
+| type | MessageNotAck | Message acknowledgement. Unsuccessful |
+| type | Version | RSMP / SXL version message |
+| type | ComponentList | Component list message |
+| type | Watchdog | Watchdog message |
+| mId *(or)* oMId | *(GUID)* | Message identity |
+
+> Note
+>
+> - **mId** is a generated GUID (Globally unique identifier) in the equipment that sent the message
+> - **mId** is used in all messages as a reference for the message ack
+> - **oMId** is used in the message ack to refer to the message which is being acked
+> - Only version 4 of Leach-Salz UUID is used for the GUID
+> - Each message sent should have a new GUID, even if the message is resent or the content is the same
+
+The following table describes the variable content in all message types which is defined by the signal exchange list (SXL), except version messages, message acknowledgement messages and watchdog messages.
+
+**Variable content**
+
+| Element | Description |
+| --- | --- |
+| ntsOId | *deprecated (empty string)* |
+| xNId | *deprecated (empty string)* |
+| cId | [Component ID]({{ '/3.3.0/components/#component-id' | relative_url }}) |
+
+## Alarm messages {#alarm-messages}
+
+An alarm message is sent to the supervision system when:
+
+- An alarm becomes active / inactive
+- An alarm is requested
+- An alarm is acknowledged
+- An alarm is being suspended / un-suspended
+
+An acknowledgment of an alarm does not cause a single alarm event to be acknowledged but all alarm events for the specific component with the associated alarm code id. This approach simplifies both in implementation but also in handling - if many alarms occur on the same equipment with short time intervals.
+
+The ability to request alarms is used in case the supervision system loses track of the latest state of the alarms.
+
+A suspend of an alarm causes all alarms from the specific component with the associated alarm code id to be suspended. This means that alarm messages stop being sent from the site as long as the suspension is active. As soon as the suspension is inactivated alarms can be sent again.
+
+Suspending alarms does not affect alarm acknowledgment. This means that when unsuspending an alarm an alarm can be inactive and not acknowledged.
+
+Alarm messages are event driven and sent to the supervision system when the alarm occurs. Acknowledgement of alarms and alarm suspend messages are interaction driven.
+
+Alarm events are referring to 'active' (aSp:Issue), 'suspended' (aSp:Suspend) and 'acknowledged' (aSp:Acknowledged).
+
+The timestamp (aTs) reflects the individual event according to the element 'aSp'.
+
+### Message structure {#message-structure}
+
+#### Structure of an alarm message {#structure-of-an-alarm-message}
+
+An alarm message has the structure according to the example below.
+
+<a id="json-alarm-issue"></a>
+
+```json
+{
+    "mType": "rSMsg",
+    "type": "Alarm",
+    "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
+    "ntsOId": "",
+    "xNId": "",
+    "cId": "AB+84001=860SG001",
+    "aCId": "A0001",
+    "xACId": "Serious lamp error",
+    "xNACId": "3143",
+    "aSp": "Issue",
+    "ack": "notAcknowledged",
+    "aS": "Active",
+    "sS": "notSuspended",
+    "aTs": "2009-10-01T11:59:31.571Z",
+    "cat": "D",
+    "pri": "2",
+    "rvs": [
+        {
+            "n": "color",
+            "v": "red"
+        }
+    ]
+}
+```
+
+JSon code 3: An alarm message
+
+The following table describes the variable content of the message which is defined by the SXL.
+
+**Alarm message**
+
+| Element | Description |
+| --- | --- |
+| aCId | [Alarm code id]({{ '/3.3.0/definitions/#alarm-code-id' | relative_url }}) |
+| xACId | [External alarm code id]({{ '/3.3.0/definitions/#external-alarm-code-id' | relative_url }}) |
+| xNACId | [External NTS alarm code id]({{ '/3.3.0/definitions/#external-nts-alarm-code-id' | relative_url }}) |
+
+The following table describes additional variable content of the message.
+
+**Alarm status change**
+
+| Element | Value | Origin | Description |
+| --- | --- | --- | --- |
+| aSp | Issue | Site | An alarm becomes active/inactive. |
+| aSp | Request | Supervision system | Request the current state of an alarm |
+| aSp | Acknowledge | Supervision system | Acknowledge an alarm |
+| aSp | Acknowledge | Site | An alarm becomes acknowledged. |
+| aSp | Suspend | Supervision system | Suspend an alarm |
+| aSp | Suspend | Site | An alarm becomes suspended/unsuspended |
+| aSp | Resume | Supervision system | Unsuspend an alarm |
+
+#### Alarm status {#alarm-status}
+
+Alarm status are only used by alarm messages (not by alarm acknowledgement or alarm suspend messages).
+
+**Alarm status**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| ack | Acknowledged | The alarm is acknowledged |
+| ack | notAcknowledged | The alarm is not acknowledged |
+| aS | inActive | The alarm is inactive |
+| aS | Active | The alarm is active |
+| sS | Suspended | The alarm is suspended |
+| sS | notSuspended | The alarm is not suspended |
+| aTs | *(timestamp)* | Timestamp for when the alarm changes status. See the contents of aSp to determine which type of timestamp is used  \- aSp: Issue: When the alarm gets **active** or **inactive**\ - aSp: Acknowledge: When the alarm gets **acknowledged** or **not acknowledged**\ - aSp: Suspend: When the alarm gets **suspended** or **not suspended**  All timestamps are set at the local level (and not in the supervision system) when the alarm occurs (and not when the message is sent). See also the [data type]({{ '/3.3.0/data-types/#data_types' | relative_url }}) section. |
+
+[alarm-transitions]({{ '/3.3.0/basic-structure/#alarm-transitions' | relative_url }}) show possible transitions between different alarm states.
+
+Continuous lines define possible alarm status changes controlled by logic and dashed lines define possible changes controlled by user.
+
+<a id="alarm-transitions"></a>
+
+```mermaid
+stateDiagram-v2
+    state "Inactive" as Inactive
+    state "Inactive / Not acknowledged" as InactiveNA
+    state "Active / Not acknowledged" as ActiveNA
+    state "Active / Acknowledged" as ActiveA
+    state "Suspended" as Suspended
+
+    [*] --> Inactive
+    Inactive --> ActiveNA: Issue active
+    InactiveNA --> ActiveNA: Issue active
+    Inactive --> Suspended: Suspend
+    Suspended --> Inactive: Resume
+    ActiveNA --> Suspended: Suspend
+    Suspended --> ActiveNA: Resume
+    ActiveA --> Suspended: Suspend
+    InactiveNA --> Suspended: Suspend
+    ActiveNA --> ActiveA: Acknowledge
+    InactiveNA --> Inactive: Acknowledge
+    ActiveNA --> InactiveNA: Issue inactive
+    ActiveA --> Inactive: Issue inactive
+```
+
+Alarms should not be sent unless:
+
+- Alarms are unblocked and its state changes
+- Alarms are sent as part of [Communication establishment between sites and supervision system]({{ '/3.3.0/transport-of-data/#communication-establishment-between-sites-and-supervision-system' | relative_url }})
+- Alarms are explicitly requested using [Structure for an alarm request message]({{ '/3.3.0/basic-structure/#alarmmessages-req' | relative_url }})
+
+The following table describes the variable content of the message which is defined by the SXL.
+
+**Alarm status details defined by SXL**
+
+| Element | Description |
+| --- | --- |
+| cat | [Alarm category]({{ '/3.3.0/signal-exchange-list/#alarm-category' | relative_url }}) |
+| pri | [Alarm priority]({{ '/3.3.0/signal-exchange-list/#alarm-priority' | relative_url }}) |
+
+#### Return values {#return-values}
+
+Return values ("rvs") are used by alarm messages (but not by alarm acknowledgment or alarm suspend messages) and is always sent but can be empty (i.e. **\[\]**) if no return values are defined.
+
+**Alarm return values**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| rvs | *(array)* | Return values. Contains the element **n** and **v** in an array |
+
+The following table describes the content for each return value which is defined by the signal exchange list (SXL).
+
+**Return values**
+
+| Element | Description |
+| --- | --- |
+| n | Name of the return value |
+| v | Value from equipment |
+
+#### Structure for an alarm request message {#alarmmessages-req}
+
+An alarm request message has the structure according to the example below.
+
+<a id="json-alarm-req"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "3d2a0097-f91c-4249-956b-dac702545b8f",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Request"
+}
+```
+
+JSon code 4: An alarm request message
+
+#### Structure for an alarm acknowledgement message {#alarmmessages-ack}
+
+An alarm acknowledgement message has the structure according to the example below.
+
+<a id="json-alarm-ack"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "3d2a0097-f91c-4249-956b-dac702545b8f",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Acknowledge"
+}
+```
+
+JSon code 5: An alarm acknowledgement message which acknowledges an alarm
+
+An alarm acknowledgement response message has the structure according to the example below.
+
+<a id="json-alarm-ack-resp"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "f6843ac0-40a0-424e-8ddf-d109f4cfe487",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Acknowledge",
+     "ack": "Acknowledged",
+     "aS": "Active",
+     "sS": "notSuspended",
+     "aTs": "2015-05-29T08:55:04.691Z",
+     "cat": "D",
+     "pri": "3",
+     "rvs": [
+         {
+             "n": "Temp",
+             "v": "-18.5"
+         }
+     ]
+}
+```
+
+JSon code 6: Response of an alarm acknowledgement message
+
+#### Structure for an alarm suspend message {#alarmmessages-suspend}
+
+An alarm suspend message has the structure according to the example below.
+
+<a id="json-alarm-suspend"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "b6579d6d-3a9d-4169-b777-f094946a863e",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Suspend"
+}
+```
+
+JSon code 7: Suspending an alarm using an alarm suspend message
+
+<a id="json-alarm-suspend-response"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "2ea7edfc-8e3a-4765-85e7-db844c4702a0",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Suspend",
+     "ack": "Acknowledged",
+     "aS": "Active",
+     "sS": "Suspended",
+     "aTs": "2015-05-29T08:56:25.390Z",
+     "cat": "D",
+     "pri": "3",
+     "rvs": [
+         {
+             "n": "Temp",
+             "v": "-18.5"
+         }
+     ]
+}
+```
+
+JSon code 8: Response of alarm suspend message
+
+<a id="json-alarm-resume"></a>
+
+```json
+{
+     "mType": "rSMsg",
+ "type": "Alarm",
+ "mId": "2a744145-403a-423f-ba80-f38e283a778e",
+ "ntsOId": "",
+ "xNId": "",
+ "cId": "AB+84001=860VA001",
+ "aCId": "A0004",
+ "xACId": "",
+ "xNACId": "",
+ "aSp": "Resume"
+}
+```
+
+JSon code 9: Resuming an alarm using an alarm suspend message
+
+<a id="json-alarm-resume-response"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Alarm",
+     "mId": "3313526e-b744-434a-b4dd-0cfa956512e0",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "AB+84001=860VA001",
+     "aCId": "A0004",
+     "xACId": "",
+     "xNACId": "",
+     "aSp": "Suspend",
+     "ack": "Acknowledged",
+     "aS": "Active",
+     "sS": "notSuspended",
+     "aTs": "2015-05-29T08:58:28.166Z",
+     "cat": "D",
+     "pri": "3",
+     "rvs": [
+         {
+             "n": "Temp",
+             "v": "-18.5"
+         }
+     ]
+}
+```
+
+JSon code 10: Response of a resume message
+
+Allowed content in alarm suspend message is the same as for alarm messages (See [Structure of an alarm message]({{ '/3.3.0/basic-structure/#structure-of-an-alarm-message' | relative_url }})) with the exception for alarm status (See [Alarm status]({{ '/3.3.0/basic-structure/#alarm-status' | relative_url }})) and (See [Return values]({{ '/3.3.0/basic-structure/#return-values' | relative_url }})).
+
+### Message exchange between site and supervision system {#message-exchange-between-site-and-supervision-system}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figures.
+
+**An alarm is active/inactive**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over A: An alarm changes status
+    A->>B: Alarm
+```
+
+1.  An alarm message is sent to supervision system with the status of the alarm (the alarm is active/inactive)
+
+**An alarm is requested**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over B: An alarm is requested
+    B->>A: Alarm request
+    A->>B: Alarm
+```
+
+1.  An alarm is requested from the supervision system
+2.  An alarm message is sent to supervision system with the status of the alarm
+
+**An alarm is acknowledged at the supervision system**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over B: An alarm is acknowledged
+    B->>A: Alarm acknowledgement
+    A->>B: Alarm
+```
+
+1.  An alarm acknowledgement message is sent to the site
+2.  An alarm message is sent to the supervision system (that the alarm is acknowledged)
+
+**An alarm is acknowledged at the site**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over A: An alarm is acknowledged
+    A->>B: Alarm
+```
+
+1.  An alarm message is being sent to the supervision system with the status of the alarm (that the alarm is acknowledged)
+
+**An alarm is suspended/unsuspended from the supervision system**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over B: An alarm is suspended/unsuspended
+    B->>A: Alarm suspend (on/off)
+    A->>B: Alarm
+```
+
+1.  An alarm suspend message is being sent to the site
+2.  An alarm message is sent to the supervision system with the status of the alarm (that the suspension is activated/deactivated)
+
+**An alarm is suspended/unsuspended from the site**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over A: An alarm is suspended/unsuspended
+    A->>B: Alarm
+```
+
+1.  An alarm message is sent to the supervision system with the status of the alarm (that suspension is activated/deactivated)
+
+## Aggregated status message {#aggregated-status-message}
+
+This type of message is sent to the supervision system to inform about the status of the site. The aggregated status applies to the component which is defined by **ComponentType** in the signal exchange list. If no component is defined then no aggregated status message is sent.
+
+Aggregated status messages are interaction driven and are sent if state, functional position or functional status are changed at the site.
+
+### Message structure {#message-structure-1}
+
+An aggregated status message has the structure according to the example below.
+
+<a id="json-agg-status"></a>
+
+```json
+{
+     "mType": "rSMsg",
+ "type": "AggregatedStatus",
+ "mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
+ "ntsOId": "",
+ "xNId": "",
+ "cId": "O+14439=481WA001",
+ "aSTS": "2015-06-08T08:05:06.584Z",
+ "fP": null,
+ "fS": null,
+ "se": [
+             true,false,false,false,false,false,false,false
+           ]
+}
+```
+
+JSon code 11: An aggregated status message
+
+The following tables are describing the variable content of the message:
+
+**Aggregated status**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| aSTS | *(timestamp)* | Timestamp for the aggregated status. All timestamps are set at the site (and not in the supervision system) when the event occurs (and not when the message is sent). See also the [data type]({{ '/3.3.0/data-types/#data_types' | relative_url }}) section. |
+
+The following table describes the variable content defined by the signal exchange list (SXL).
+
+**Aggregated status SXL content**
+
+| Element | Description |
+| --- | --- |
+| fP | [Functional position]({{ '/3.3.0/definitions/#functional-position' | relative_url }}) |
+| fS | [Functional state]({{ '/3.3.0/definitions/#functional-state' | relative_url }}) |
+| se | Array of eight booleans. See [State bits]({{ '/3.3.0/basic-structure/#state-bits' | relative_url }}) |
+
+`fP` and `fS` is set to `null` or empty string if no value is defined in the SXL.
+
+#### State bits {#state-bits}
+
+**State bits** `se` is an array of eight booleans, with the meaning defined below. The signal exchange list (SXL) for a particular type of equipment can detail the interpretation of each bit, but is not allowed to change the fundamental meaning or modify the rules for which bits can or must be set together.
+
+**State bits**
+
+| Bit | Status | Description | Color |
+| --- | --- | --- | --- |
+| 1 | Local | The site is controlled locally | ![cyan]({{ "/assets/images/cyan.svg" | relative_url }}) |
+| 2 | Disconnected | Connection lost (not used by sites) | ![purple]({{ "/assets/images/purple.svg" | relative_url }}) |
+| 3 | Error | The site has one or more alarm with priority 1 | ![red]({{ "/assets/images/red.svg" | relative_url }}) |
+| 4 | Warning | The site has one or more alarm with priority 2 | ![yellow]({{ "/assets/images/yellow.svg" | relative_url }}) |
+| 5 | Notice | The site has one or more alarm with priority 3 | ![blue]({{ "/assets/images/blue.svg" | relative_url }}) |
+| 6 | Active | The site is in active mode | ![green]({{ "/assets/images/green.svg" | relative_url }}) |
+| 7 | Idle | The site is in idle mode | ![black]({{ "/assets/images/black.svg" | relative_url }}) |
+| 8 | Not configured | Connection not configured (not used by sites) | ![grey]({{ "/assets/images/grey.svg" | relative_url }}) |
+
+Bit 1: Local  
+In case equipment require on-street maintenance it might be necessary to override operating modes for safety or testing purposes. For example, the site might be put in idle mode. When local overrides are active, the site is in local control and this bit is set.
+
+Bit 2: Disconnected (not used by sites)  
+Set by supervisor when reporting that connection to a site was lost. Not used by sites, which must always clear this bit.
+
+Bit 3: Error  
+Set if one or more alarm with priority 1 (high) is active.
+
+Bit 4: Warning  
+Set if one or more alarm with priority 2 (medium) is active.
+
+Bit 5: Notice  
+Set if one or more alarm with priority 3 (low) is active.
+
+Bit 6: Active  
+Set if the site is in active mode, i.e. intended to operate normally. This bit is unaffected by alarms and can be set at the same time as bits 3, 4 and 5. A site can be either in active or idle mode, not both, so bits 6 and 7 cannot both be set at the same time.
+
+Bit 7: Idle  
+Set if the site is in idle mode, meaning it is turned on but not in active use. For example, a traffic light controller in idle mode might have all lamps turned off or in flashing yellow. This bit is unaffected by alarms and can be set at the same time as bits 3, 4 and 5. A site can be either in active or idle mode, not both, so bits 6 and 7 cannot both be set at the same time.
+
+Bit 8: Not configured  
+Set by supervisors when reporting that connection to a site is not configured. Not used by sites, which must always clear this bit.
+
+Alarm priorities  
+For more details about alarm priorities, please see section [Alarm priority]({{ '/3.3.0/signal-exchange-list/#alarm-priority' | relative_url }}).
+
+## Aggregated status request message {#aggregated-status-req}
+
+This type of message is sent from the supervision system to request the latest aggregated status, in case the supervision system has lost track of the current status.
+
+### Message structure {#message-structure-2}
+
+An aggregated status request message has the structure according to the example below.
+
+<a id="json-agg-req-status"></a>
+
+```json
+{
+     "mType": "rSMsg",
+ "type": "AggregatedStatusRequest",
+ "mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
+ "ntsOId": "",
+ "xNId": "",
+ "cId": "O+14439=481WA001",
+}
+```
+
+JSon code 12: An aggregated status request message
+
+### Message exchange between site and supervision system {#message-exchange-between-site-and-supervision-system-1}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figures.
+
+**Functional state, functional position or state booleans changes at the site**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    Note over A: Change of functional state, functional position or<br/>status bits
+```
+
+1.  An aggregated status message is sent to the supervision system.
+
+**The supervision system requests aggregated status**
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+```
+
+1.  An aggregated status request message is sent to the site.
+2.  An aggregated status message is sent to the supervision system.
+
+## Status Messages {#status-messages}
+
+The status message is a type of message that is sent to the supervision system or other equipment with the value of one or more requested statuses, for the referenced component.
+
+The status message can both be interaction driven or event driven and can be sent during the following prerequisites:
+
+- When status is requested from the supervision system or other equipment.
+- According to subscription – either by using a fixed time interval or when the status changes.
+
+### Message structure {#message-structure-3}
+
+#### Structure of a status request {#structure-of-a-status-request}
+
+A status request message has the structure according to the example below.
+
+<a id="json-status-req"></a>
+
+```json
+{
+     "mType": "rSMsg",
+ "type": "StatusRequest",
+ "mId": "f1a13213-b90a-4abc-8953-2b8142923c55",
+ "ntsOId": "",
+ "xNId": "",
+ "cId": "O+14439=481WA001",
+ "sS": [
+         {
+             "sCI": "S0003",
+             "n": "inputstatus"
+         },{
+             "sCI": "S0003",
+         "n": "extendedinputstatus"
+         }
+     ]
+}
+```
+
+JSon code 13: A status request message
+
+The status code id (`sCI`) and name (`n`) are placed in an array (`sS`) in order to enable support for requesting multiple statuses at once.
+
+The following table is describing the variable content of the message.
+
+<a id="table-statusrequest"></a>
+
+**Status request**
+
+| Element | Description |
+| --- | --- |
+| sCI | [Status code id]({{ '/3.3.0/definitions/#status-code-id' | relative_url }}) |
+| n | Name of the return value |
+
+#### Structure for a status response message {#structure-for-a-status-response-message}
+
+A status response message has the structure according to the example below.
+
+The status code id (`sCI`) and name (`n`) are placed in an array (`sS`) in order to enable support for responding to multiple statuses at once. The following table is describing the variable content of the message.
+
+<a id="json-status-response"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusResponse",
+     "mId": "0a95e463-192a-4dd7-8b57-d2c2da636584",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sTs": "2015-06-08T09:15:18.266Z",
+     "sS": [
+         {
+             "sCI": "S0003",
+             "n": "inputstatus",
+             "s": "100101",
+             "q": "recent"
+         },{
+             "sCI": "S0003",
+             "n": "extendedinputstatus",
+             "s": "100100101",
+             "q": "recent"
+         }
+    ]
+}
+```
+
+JSon code 14: A status response message
+
+The following table is describing the variable content of the message:
+
+<a id="table-statusresponse"></a>
+
+**Status response**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| sTs | *(timestamp)* | Timestamp |
+
+All timestamps are set at the site (and not in the supervision system) when the status is fetched (and not when the message is sent). See also the [data type]({{ '/3.3.0/data-types/#data_types' | relative_url }}) section.
+
+#### Return values (returnvalue) {#return-values-returnvalue}
+
+Return values ("sS") are always sent but can be empty if no return values exist.
+
+**Return values (returnvalue)**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| sS | *(array)* | Return values. Contains the elements "sCI", "s", "n" and "q" in an array. |
+
+<a id="table-statusresponse-returnvalues"></a>
+
+**Return values**
+
+| Element | Description |
+| --- | --- |
+| sCI | [Status code id]({{ '/3.3.0/definitions/#status-code-id' | relative_url }}) |
+| n | Name of the return value |
+| s | Value from equipment |
+
+The following table describes additional variable content of the message.
+
+**Return value quality**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| q | recent | The value is up to date |
+| q | old | The value is not up to date. Used when sending buffered values |
+| q | undefined | The component does not exist |
+| q | unknown | The value is unknown |
+
+If the component does not exist or the value `s` is unknown then:
+
+- Subscription will not be performed
+- `q` is set according to the table above
+- `s` must be set to `null`
+
+#### Structure for a status subscription request message {#structure-for-a-status-subscription-request-message}
+
+A message with the request of subscription to a status has the structure according to the example below. The message is used for constructing a list of subscriptions of statuses, digital and analogue values and events that are desirable to send to supervision system, e.g. temperature, wind speed, power consumption, manual control.
+
+It's allowed to change **updateRate** and **sendOnChange** by sending a new StatusSubscribe during an active subscription.
+
+The site must not establish a new subscription but use the existing one.
+
+<a id="json-status-subscribe"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusSubscribe",
+     "mId": "d6d97f8b-e9db-4572-8084-70b55e312584",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sS": [
+         {
+             "sCI": "S0001",
+             "n": "signalgroupstatus",
+             "uRt": "5",
+             "sOc": false
+         },{
+             "sCI": "S0001",
+             "n": "cyclecounter",
+             "uRt": "5",
+             "sOc": false
+         },{
+             "sCI": "S0001",
+             "n": "basecyclecounter",
+             "uRt": "5",
+             "sOc": false
+         },{
+             "sCI": "S0001",
+             "n": "stage",
+             "uRt": "5",
+             "sOc": false
+         }
+     ]
+}
+```
+
+JSon code 15: A status subscribe message
+
+The following table is describing the variable content of the message:
+
+**Status Request**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| uRt | number_as_string | updateRate |
+| sOc | boolean | sendOnChange |
+
+The **updateRate** `uRt` and **sendOnChange** `sOc` determines when a status update should be sent.
+
+The following applies:
+
+- **updateRate** defines a specific interval when to send updates. Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
+- If **updateRate** is set to 0 it means that no update is sent using an interval.
+- **sendOnChange** defines if an status update should be sent as soon as the value changes. Note that an SXL can define when an attribute is updated, e.g. a timestamp might only update when another attribute changes.
+- It is possible to combine **updateRate** and **sendOnChange** to send an update when the value changes and at the same time using a specific interval.
+- If **updateRate** and **sendOnChange=true** are combined, the updateRate timer is reset when the value changes. For example, if updateRate is set to 5 seconds but the value changes after 2 seconds (triggering sendOnChange) the updateRate timer starts over and waits another 5 seconds to trigger.
+- It is not valid to set **updateRate=0** and **sendOnChange=false** since it means that no subscription updates will be sent.
+
+#### Attribute updates {#attribute-updates}
+
+When you set **sendOnChange** to true you will get an update whenever that attribute changes. However, the SXL can define when a particular attribute is updated. For example, a traffic light that report changes to signal groups might need to include a precise timestamp that indicates when in the cycle the change happened. But even though the cycle counter updates continuously, this should not in itself trigger an update. Instead the cycle counter should be sent along when the signal group state changes. In this case the SXL can define that the cycle counter is updated only when the signal group state changes.
+
+#### Structure for a status update message {#structure-for-a-status-update-message}
+
+The status update message is an answer to a request for status subscription. It has the structure according to the example below.
+
+In addition to being sent according to **updateRate** and **sendOnChange**, it is also always sent immediately after subscription request (even if the subscription is already active). The reason for sending the response immediately is because subscriptions usually are established shortly after RSMP connection establishment and the supervision system needs to update with the current statuses.
+
+<a id="json-status-update"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusUpdate",
+     "mId": "dabb67f9-2601-4db9-bb8a-c7c47f57e100",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sTs": "2015-06-08T09:33:04.735Z",
+     "sS": [
+         {
+             "sCI": "S0001",
+             "n": "signalgroupstatus",
+             "s": "A021BC01",
+             "q": "recent"
+         },{
+             "sCI": "S0001",
+             "n": "cyclecounter",
+             "s": "20",
+             "q": "recent"
+         },{
+             "sCI": "S0001",
+             "n": "basecyclecounter",
+             "s": "10",
+             "q": "recent"
+         },{
+             "sCI": "S0001",
+             "n": "stage",
+             "s": "1",
+             "q": "recent"
+         }
+     ]
+}
+```
+
+JSon code 16: A status update message
+
+The allowed content is described in Table [Status response]({{ '/3.3.0/basic-structure/#table-statusresponse' | relative_url }}) and [Return values]({{ '/3.3.0/basic-structure/#table-statusresponse-returnvalues' | relative_url }}).
+
+Since different UpdateRate can be defined for different components it means that partial StatusUpdates can be sent.
+
+<a id="json-status-request-partial"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusSubscribe",
+     "mId": "6bbcb26e-78fe-4517-9e3d-8bb4f972c076",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sS": [
+         {
+             "sCI": "S0096",
+             "n": "hour",
+             "uRt": "120",
+             "sOc": false
+         },{
+             "sCI": "S0096",
+             "n": "minute",
+             "uRt": "60",
+             "sOc": false
+         }
+     ]
+}
+```
+
+JSon code 17: A subscription request to subscribe to statuses with different update rates
+
+<a id="json-status-request-partial-resp"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusUpdate",
+     "mId": "b6bd7c96-f150-4756-9752-47a661e116db",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sTs": "2015-05-29T13:47:56.740Z",
+     "sS": [
+         {
+             "sCI": "S0096",
+             "n": "minute",
+             "s": "47",
+             "q": "recent"
+         }
+     ]
+}
+```
+
+JSon code 18: A partial status update. Only a single status is updated
+
+#### Structure for a status unsubscription message {#structure-for-a-status-unsubscription-message}
+
+A message with the request of unsubscription to a status has the structure according to the example below. The request unsubscribes on one or several statuses. No particular answer is sent for this request, other than the usual message acknowledgement.
+
+<a id="json-status-unsubscribe"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "StatusUnsubscribe",
+     "mId": "5ff528c5-f2f0-4bc4-a335-280c52b6e6d8",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "sS": [
+         {
+             "sCI": "S0001",
+             "n": "signalgroupstatus"
+         },{
+             "sCI": "S0001",
+             "n": "cyclecounter"
+         },{
+             "sCI": "S0001",
+             "n": "basecyclecounter"
+         },{
+             "sCI": "S0001",
+             "n": "stage"
+         }
+     ]
+}
+```
+
+JSon code 19: A status unsubscribe message
+
+The allowed content is described in Table [Status Request]({{ '/3.3.0/basic-structure/#table-statusrequest' | relative_url }})
+
+### Message exchange between site and supervision system/other equipment - request {#message-exchange-between-site-and-supervision-systemother-equipment---request}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figure.
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    B->>A: Status request
+    A->>B: Status response
+```
+
+1.  Status request
+2.  Status response
+
+### Message exchange between site and supervision system/other equipment - subscription {#message-exchange-between-site-and-supervision-systemother-equipment---subscription}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figure.
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    B->>A: Status subscription
+    A->>B: Status update
+    Note over A: Status changed (sOc) or interval time reached (uRt)
+    A->>B: Status update
+    Note over A: Status changed (sOc) or interval time reached (uRt)
+    A->>B: Status update
+    B->>A: Status unsubscription
+```
+
+Example of message exchange with subscription, status updates and unsubscription.
+
+## Command messages {#command-messages}
+
+A command request is sent to a specific component on a site to execute a command.
+
+If all required arguments are present and valid, the site immediately sends a MessageAck and starts executing the command. Once the execution completes, fails or times out the site sends a CommandResponse.
+
+If a required argument is missing or any argument is invalid the site responds with a MessageNotAck and does not send a CommandResponse.
+
+All arguments in a CommandRequest are required unless specifically marked as optional in the SXL. See the section about [Incomplete commands]({{ '/3.3.0/error-handling/#incomplete-commands' | relative_url }}).
+
+Only a single command (`cCI`) is allowed in a CommandRequest or CommandResponse. See the section about [More than one command]({{ '/3.3.0/error-handling/#more-than-one-command' | relative_url }}).
+
+### Message structure {#message-structure-4}
+
+#### Structure of a command request {#structure-of-a-command-request}
+
+A command request message has the structure according to the example below. A command request message with the intent to change a value of the requested component.
+
+<a id="json-command-req"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "CommandRequest",
+     "mId": "cf76365e-9c7b-44a4-86bd-d107cdfc3fcf",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "arg": [
+         {
+             "cCI": "M0001",
+             "n": "status",
+             "cO": "setValue",
+             "v": "YellowFlash"
+         },{
+             "cCI": "M0001",
+             "n": "securityCode",
+             "cO": "setValue",
+             "v": "123"
+         },{
+             "cCI": "M0001",
+             "n": "timeout",
+             "cO": "setValue",
+             "v": "30"
+         },{
+             "cCI": "M0001",
+             "n": "intersection",
+             "cO": "setValue",
+             "v": "1"
+         }
+     ]
+}
+```
+
+JSon code 20: A command request message
+
+The command code (`cCI`) and name of the argument (`n`) are placed in an array (`arg`).
+
+The following table is describing the variable content of the message:
+
+Values to send with the command (arguments)
+
+**Command argument**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| arg | array | Arguments. Contains the elements **cCI**, **n**, **cO**, **v** in an array |
+
+The following table describes the variable content of the message which is defined by the SXL.
+
+**Command arguments defined by SXL**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| cCI | string | [Command code id]({{ '/3.3.0/definitions/#command-code-id' | relative_url }}) |
+| n | string | Name of the argument |
+| cO | string | Command. Optionally used for RPC (Remote Procedure Call) |
+| v | (defined in SXL) | (defined in SXL) |
+
+#### Structure of a command response message {#structure-of-a-command-response-message}
+
+A command response message has the structure according to the example below. A command response message informs about the updated value of the requested component.
+
+The command code (`cCI`) and name (`n`) are placed in an array (`rvs`) in order to enable support for responding to multiple commands at once.
+
+<a id="json-command-response"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "CommandResponse",
+     "mId": "0fd63726-be19-4c09-8553-48451735cb0b",
+     "ntsOId": "",
+     "xNId": "",
+     "cId": "O+14439=481WA001",
+     "cTS": "2015-06-08T11:49:03.293Z",
+     "rvs": [
+          {
+             "cCI": "M0001",
+             "n": "status",
+             "v": "YellowFlash",
+             "age": "recent"
+          },{
+             "cCI": "M0001",
+             "n": "securityCode",
+             "v": "123",
+             "age": "recent"
+          },{
+             "cCI": "M0001",
+             "n": "timeout",
+             "v": "30",
+             "age": "recent"
+          },{
+             "cCI": "M0001",
+             "n": "intersection",
+             "v": "1",
+             "age": "recent"
+          }
+     ]
+}
+```
+
+JSon code 21: A command response message
+
+The following table is describing the variable content of the message:
+
+**Command response**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| cTS | *(timestamp)* | Timestamp for the command response. All timestamps are set at the site (and not in the supervision system) when the event occurs (and not when the message is sent). See also the [data type]({{ '/3.3.0/data-types/#data_types' | relative_url }}) section. |
+
+#### Return values (returnvalue) {#return-values-returnvalue-1}
+
+Return values (**rvs**) is always sent but can be empty if no return values are defined.
+
+**Command return values**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| rvs | *(array)* | Return values. Contains the elements **cCI**, **v**, **n** and **q** in an array. |
+
+The following table describes the variable content defined by the signal exchange list (SXL).
+
+**Return values**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| cCI | string | [Command code id]({{ '/3.3.0/definitions/#command-code-id' | relative_url }}) |
+| n | string | Name of the return value |
+| v | (defined in SXL) | (defined in SXL) |
+
+The following table describes additional variable content of the message.
+
+**Command return value**
+
+| Element | Value | Description |
+| --- | --- | --- |
+| age | recent | The value is up to date |
+| age | old | The value is not up to date |
+| age | undefined | The component does not exist. **v** should be set to **null**. |
+| age | unknown | The value is unknown. **v** should be set to **null**. |
+
+### Message exchange between site and supervision system/other equipment {#message-exchange-between-site-and-supervision-systemother-equipment}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figure.
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    B->>A: Command request
+    Note over A: Command is accepted
+    A->>B: Command response
+```
+
+1.  Command request
+2.  Command response
+
+## Message acknowledgement {#message-acknowledgement}
+
+Message acknowledgement is sent as an initial answer to all other messages. This type of message should not be mixed up with alarm acknowledgement, which has a different function. The purpose of message acknowledgement is to detect communication disruptions, function as an acknowledgment that the message has reached its destination and to verify that the message was understood.
+
+There are two types of message acknowledgement – **Message acknowledgment** (MessageAck) which confirms that the message was understood and **Message not acknowledged** (MessageNotAck) which indicates that the message was not understood.
+
+- If no message acknowledgement is received within a predefined time, then each communicating party should treat it as a communication disruption. (See [Communication disruption]({{ '/3.3.0/transport-of-data/#communication-disruption' | relative_url }}))
+- The default timeout value should be 30 seconds.
+- If the version messages have not been exchanged according to communication establishment sequence (See [Communication establishment between sites and supervision system]({{ '/3.3.0/transport-of-data/#communication-establishment-between-sites-and-supervision-system' | relative_url }}) and [Communication establishment between sites]({{ '/3.3.0/transport-of-data/#communication-establishment-between-sites' | relative_url }})) then message acknowledgement (MessageAck/MessageNotAck) should not be sent as a response to any other messages other than the version message (See [RSMP/SXL Version]({{ '/3.3.0/basic-structure/#rsmpsxl-version' | relative_url }})). The lack of acknowledgement forces the other communicating party to treat it as communication disruption and disconnect and reconnect, ensuring that the connection restarts with communication establishment sequence.
+
+The acknowledgement messages are interaction driven and are sent when any other type of message is received.
+
+### Message structure – Message acknowledgement {#message-structure-message-acknowledgement}
+
+An acknowledgement message has the structure according to the example below.
+
+<a id="json-ack"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "MessageAck",
+     "oMId": "49c6c824-d593-4c16-b335-f04feda16986"
+}
+```
+
+JSon code 22: An acknowledgement message
+
+### Message structure – Message not acknowledged {#message-structure-message-not-acknowledged}
+
+A "not acknowledgement" message has the structure according to the example below.
+
+<a id="json-notack"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "MessageNotAck",
+     "oMId": "554dff0-9cc5-4232-97a9-018d5796e86a",
+     "rea": "Unknown packet type: Watchdddog"
+}
+```
+
+JSon code 23: A not acknowledgement message
+
+The following table is describing the variable content of the message:
+
+**Message not ack**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| rea | string | (optional) Error message where all relevant information about the nature of the error can be provided. |
+
+### Message exchange between site and supervision system/other equipment {#message-exchange-between-site-and-supervision-systemother-equipment-1}
+
+Supervision system sends initial message
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system or other equipment
+    B->>A: Any RSMP message
+    A->>B: MessageAck
+```
+
+1.  A message is sent from supervision system or other equipment
+2.  The site responds with an message acknowledgement
+
+Site sends initial message
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system or other equipment
+    A->>B: Any RSMP message
+    B->>A: MessageAck
+```
+
+1.  A message is sent from the site
+2.  The supervision system or other equipment responds with an message acknowledgement
+
+## RSMP/SXL Version {#rsmpsxl-version}
+
+When establishing RSMP communication, the initial message is a Version request message sent by the site. The supervisor responds with a Version response message.
+
+Version messages are used to exchange information about supported versions of RSMP and SXL, to ensure that the communicating parties are compatible.
+
+If there is a mismatch or if there are no RSMP versions that both communicating parties support, see [Communication rejection]({{ '/3.3.0/transport-of-data/#communication-rejection' | relative_url }}).
+
+Unknown fields in Version messages must be ignored and not cause a MessageNotAck. This allows for backward compatibility when new fields are added in later versions of RSMP or SXL.
+
+The principle of the message exchange is defined by the communication establishment (See [Communication establishment between sites and supervision system]({{ '/3.3.0/transport-of-data/#communication-establishment-between-sites-and-supervision-system' | relative_url }}) and [Communication establishment between sites]({{ '/3.3.0/transport-of-data/#communication-establishment-between-sites' | relative_url }})).
+
+### Version Request {#version-request}
+
+The initial Version request sent by the site contains:
+
+- Site Id.
+- Supported RSMP core versions
+- Supported SXLs and their versions
+
+<a id="json-version-request"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Version",
+     "step": "Request",
+     "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+     "RSMP": [
+         { "vers": "3.2.1" },
+         { "vers": "3.3.0" }
+     ],
+     "siteId": [
+         { "sId": "O+14439=481WA001" }
+     ],
+     "SXL": "1.3.0",
+     "SXLS": [
+         { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/" },
+         { "name": "traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
+         { "name": "variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
+     ]
+}
+```
+
+JSon code 24: A Version Request message
+
+The following table describes variable content of the message:
+
+**Version information**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| step | string | Must be set to 'Request'. |
+| siteId | array | Array of site ids. Must contain exactly one object with `sId` set to the site id string. |
+| RSMP | array | Array of supported core versions. |
+| SXL | string | Optional. Version of the primary SXL, for backward compatibility. |
+| SXLS | array | Array of supported SXLs. |
+
+Only one site can use the same connection. The `sId` array must therefore contain exactly one element.
+
+The `SXL` field is included when a primary SXL exists, for backward compatibility with supervisors that only support older core versions and ignore the newer `SXLS` array.
+
+The `SXLS` array may be empty if the site does not support any SXLs. Each item in the `SXLS` array must be an object with the following content:
+
+**SXLS item content**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| name | string | SXL name, e.g. `traffic_light_controller` |
+| version | string | Version of the SXL, e.g. "1.3.0". |
+| prefix | string | (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix. |
+
+If the site supports multiple versions of an SXL the latest must be specified.
+
+### Version Response {#version-response}
+
+Communication can only be established if the supervisor supports one of the core versions listed in the version request sent by the site. It must be an exact match of both major, minor and patch version.
+
+An SXL listed by the site can only be used if the supervisor supports the exact same version, with an exact match of both major, minor and patch version.
+
+Communication can be established even if the supervisor supports none of the SXLs. In this case, no commands, statuses or alarms can be exchanged, only aggregated status.
+
+If the supervisor determines that the core version cannot be matched, it must send a MessageNotAck and close the connection, see [Communication rejection]({{ '/3.3.0/transport-of-data/#communication-rejection' | relative_url }}).
+
+If the core version can be matched, the supervisor returns a Version response containing:
+
+- Supervisor ID.
+- RSMP core version to use.
+- SXLs to use.
+- SXLs not to use and why.
+- receiveAlarms flag, indicating whether the supervisor wants to receive alarms.
+
+<a id="json-version-response"></a>
+
+```json
+{
+      "mType": "rSMsg",
+      "type": "Version",
+      "step": "Response",
+      "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
+      "RSMP": [
+         { "vers": "3.1.1" }
+      ],
+      "supervisorId": "O+14439=481WA001",
+      "SXLS": [
+         { "name": "traffic_light_controller", "version": "1.3.0" },
+         { "name": "variable_message_sign", "version": "1.3.4" },
+         { "name": "variable_message_sign", "rejected": 2, "reason": "Supervisor only supports 2.0.0" }
+      ],
+      "receiveAlarms": false
+}
+```
+
+JSon code 25: A Version Response message
+
+In this example, the SXL `traffic_light_controller` will be used, as well as the SXL `variable_message_sign`.
+
+The SXL `traffic_light_controller/advanced` is not used, either because the supervisor does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+
+The `SXLS` array may be empty if no SXLs will be used.
+
+The following table describes variable content of the message:
+
+**Version information**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| step | string | Must be set to 'Response'. |
+| supervisorId | string | The id of the supervisor. |
+| RSMP | array | Core version used. Array with exactly one object with the attribute `vers` set to the core version string. |
+| SXLS | array | List of SXLS which will be used for communication. |
+| receiveAlarms | boolean | Optional. If set to false the site must not send alarms to the supervisor. |
+
+The supervisor can always request, acknowledge and suspend/resume alarms even if the <span class="title-ref">receiveAlarms</span> attribute was set to false in the Version response.
+
+Each item in the `SXLS` array must be an object with the following content:
+
+**SXLS item content**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| name | string | SXL name, e.g. `traffic_light_controller`, matching the name in the Version request. |
+| version | string | Version of the SXL, e.g. "1.3.0", matching the version in the Version request. |
+| rejected | integer | (Optional) If the SXL will not be used, then a code indicating why (see table below), otherwise omitted. |
+| reason | string | (Optional) If SXL will not be used, then this is a human readable explanation of why, otherwise omitted. |
+
+**SXL Rejection codes**
+
+| Code | Description |
+| --- | --- |
+| 1 | SXL not supported. |
+| 2 | No matching version of the SXL supported. |
+| 3 | SXL not needed/wanted. |
+
+### Core Version Compatibility {#core-version-compatibility}
+
+A site and a supervisor can only communicate if the core versions are exactly the same, i.e. both major, minor and patch versions match. The core version string returned by the supervisor in the version response must therefore be the same as one of the core version strings sent by the site in the Version request.
+
+### SXL Version Compatibility {#sxl-version-compatibility}
+
+An SXL can be used if the site and the supervisor support the exact same version, i.e. both major, minor and patch versions match. A SXL version string returned by the supervisor in the version response must therefore be the same as the SXL version strings sent by the site in the Version request.
+
+## ComponentList {#component-list}
+
+A ComponentList message is used to list the components on a site. It is sent during communication establishment, and whenever the component list changes, i.e. if a component is added, removed or changed.
+
+The ComponentList message is the authoritative source of information about the components on the site. It contains all components, including components whose type is defined by an SXL which the supervisor rejected during Version negotiation. Listing a component does not implicitly accept that SXL or permit its alarm, status or command messages to be used.
+
+The ComponentList takes precedence over any static configuration that the supervisor might have. However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system. If the supervisor doesn't have any configuration for the site, it can use the ComponentList to discover the components.
+
+The list of components is sent as an array, and must be ordered by component IDs, using [Natural Sorting]({{ '/3.3.0/data-types/#natural-sorting' | relative_url }}). IDs must be unique on the site.
+
+### Message structure {#message-structure-5}
+
+A ComponentList message has the structure according to the example below.
+
+<a id="json-componentlist"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "ComponentList",
+     "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
+     "components": [
+         {
+             "id": "detectors/radar/1",
+             "type": "tlc/dl",
+             "name": "Bus Detection A1 Northbound"
+         },
+         {
+             "id": "groups/2",
+             "type": "tlc/sg",
+             "name": "Signal Group A1 North"
+         },
+         {
+             "id": "groups/10",
+             "type": "tlc/sg",
+             "name": "Signal Group B2 South"
+         }
+     ]
+}
+```
+
+JSon code 26: A ComponentList message
+
+The following table describes the variable content of the message:
+
+**ComponentList**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| components | array | List of components on the site, ordered by their IDs, using [Natural Sorting]({{ '/3.3.0/data-types/#natural-sorting' | relative_url }}) |
+
+The following table describes the content of each component in the array:
+
+**Component entry**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| id | string | [Component ID]({{ '/3.3.0/components/#component-id' | relative_url }}) identifying the component |
+| type | string | Component type, as defined by an SXL version advertised by the site. The SXL does not need to be accepted by the supervisor. See [Component Type]({{ '/3.3.0/components/#component-type' | relative_url }}) for information about component types. |
+| name | string | Human readable name of the component |
+
+## Watchdog {#watchdog}
+
+The primary purpose of watchdog messages is to ensure that the communication remains established and to detect any communication disruptions between site and supervision system. For any subsystem alarms are used instead.
+
+The secondary purpose of watchdog messages is to provide a timestamp that can be used to check time synchronization. However watchdog messages should not be used to adjust the clock. Instead more robust synchronization methods, e.g. NTP or GPS, should be used to synchronize clocks.
+
+The interval duration for sending watchdog messages should be configurable at both the site and the supervision system. The default setting should be (1) once a minute.
+
+Watchdog messages are sent in both directions, both from the site and from the supervision system. At initial communication establishment (after version message) the watchdog message should be sent.
+
+### Message structure {#message-structure-6}
+
+A watchdog message has the structure according to the example below.
+
+<a id="json-watchdog"></a>
+
+```json
+{
+     "mType": "rSMsg",
+     "type": "Watchdog",
+     "mId": "f48900bc-e6fb-431a-8ca4-05070016f64a",
+     "wTs": "2015-06-08T12:01:39.654Z"
+}
+```
+
+JSon code 27: A watchdog message
+
+The following table is describing the variable content of the message:
+
+**Watchdog**
+
+| Element | Type | Description |
+| --- | --- | --- |
+| wTs | *(timestamp)* | Timestamp for the watchdog. See also the [data type]({{ '/3.3.0/data-types/#data_types' | relative_url }}) section. |
+
+### Message exchange between site and supervision system/other equipment {#message-exchange-between-site-and-supervision-systemother-equipment-2}
+
+Message acknowledgement (see section [Message acknowledgement]({{ '/3.3.0/basic-structure/#message-acknowledgement' | relative_url }})) is implicit in the following figures.
+
+Site sends watchdog message
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    A->>B: Watchdog
+```
+
+1.  Watchdog message is sent from site
+
+Supervision system/other equipment sends watchdog message
+
+```mermaid
+sequenceDiagram
+    participant A as Site
+    participant B as Supervision system
+    B->>A: Watchdog
+```
+
+1.  Watchdog message is sent from supervision system/other equipment

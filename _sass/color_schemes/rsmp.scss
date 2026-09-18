@@ -1,0 +1,6 @@
+$purple-000: #6E448E;
+$purple-100: scale-color($purple-000,$lightness:-10%);
+$purple-200: scale-color($purple-000,$lightness:-20%);
+$purple-300: scale-color($purple-000,$lightness:-30%);
+
+$link-color: scale-color($purple-000,$lightness:20%);
