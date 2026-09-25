@@ -15,9 +15,11 @@ describe 'AggregatedStatus' do
   end
 
   %w[cId fP fS].each do |attribute|
-    it "catches removed #{attribute} in a core 3.3.0 message" do
+    it "rejects removed #{attribute} in a core 3.3.0 message" do
       message[attribute] = ''
-      expect( validate(message) ).not.to be_nil
+      expect( validate(message) ).to be == (
+        [["/#{attribute}", "schema"]]
+      )
     end
   end
 

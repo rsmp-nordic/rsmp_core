@@ -15,6 +15,7 @@ The full list of changes between version 3.3.0 and 3.2.2 can be viewed on github
 - Allow all JSON types. :issue:`195`
 - Component id format B, remove references to STA. :issue:`178`
 - Allow optional commands. :issue:`181`
+- Remove ``cId``, ``fS`` and ``fP`` from AggregatedStatus. :issue:`200`
 
 **Minor changes**
 
