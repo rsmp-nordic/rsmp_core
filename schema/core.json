@@ -19,6 +19,7 @@
             "MessageAck",
             "MessageNotAck",
             "Version",
+            "ComponentList",
             "AggregatedStatus",
             "AggregatedStatusRequest",
             "Watchdog",

@@ -24,6 +24,22 @@ describe 'Core message fields' do
     expect( validate(message) ).to be_nil
   end
 
+  it 'accepts ComponentList message type' do
+    message.replace(
+      "mType" => "rSMsg",
+      "type" => "ComponentList",
+      "mId" => "a1b2c3d4-e5f6-47a8-89b0-a1b2c3d4e5f6",
+      "components" => [
+        {
+          "id" => "groups/1",
+          "type" => "tlc/sg",
+          "name" => "Signal Group 1"
+        }
+      ]
+    )
+    expect( validate(message) ).to be_nil
+  end
+
   it 'catches missing mType' do
     message.delete 'mType'
     expect( validate(message) ).to be == (

@@ -24,7 +24,7 @@ In the following example the message type is an alarm message.
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
        "ntsOId": "",
-       "xNId": "23055",
+       "xNId": "",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
@@ -1637,16 +1637,17 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Array of supported core versions. 
-   SXL           string   Version of the primary SXL, for backward compatibility.
+   SXL           string   Optional. Version of the primary SXL, for backward compatibility.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
 Only one site can use the same connection. The ``sId`` array must therefore contain
 exactly one element.
 
-The ``SXL`` field is included for backward compatibility with supervisors that only support older core versions
-and ignore the newer ``SXLS`` array.
+The ``SXL`` field is included when a primary SXL exists, for backward compatibility with supervisors that only
+support older core versions and ignore the newer ``SXLS`` array.
 
+The ``SXLS`` array may be empty if the site does not support any SXLs.
 Each item in the ``SXLS`` array must be an object with the following content:
 
 .. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
@@ -1714,6 +1715,8 @@ SXL ``variable_message_sign``.
 
 The SXL ``traffic_light_controller/advanced`` is not used, either because the supervisor
 does not support the version 1.3.4 specified by the site, or the supervisor does not want to use it.
+
+The ``SXLS`` array may be empty if no SXLs will be used.
 
 The following table describes variable content of the message:
 
@@ -1784,7 +1787,12 @@ It is sent during communication establishment, and whenever the component list c
 i.e. if a component is added, removed or changed.
 
 The ComponentList message is the authoritative source of information about the components on the site.
-It takes precedence over any static configuration that the supervisor might have.
+It contains all components, including components whose type is defined by an
+SXL which the supervisor rejected during Version negotiation. Listing a
+component does not implicitly accept that SXL or permit its alarm, status or
+command messages to be used.
+
+The ComponentList takes precedence over any static configuration that the supervisor might have.
 However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
 If the supervisor doesn't have any configuration for the site, it can use the ComponentList to discover the components.
 
@@ -1845,7 +1853,9 @@ The following table describes the content of each component in the array:
    Element  Type     Description
    ======== ======== ===================================================
    id       string   :ref:`component-id` identifying the component
-   type     string   Component type, as defined in a used SXL. See :ref:`component-type` for information about component types
+   type     string   Component type, as defined by an SXL version advertised by the site.
+                     The SXL does not need to be accepted by the supervisor.
+                     See :ref:`component-type` for information about component types.
    name     string   Human readable name of the component
    ======== ======== ===================================================
 
@@ -1939,4 +1949,3 @@ Supervision system/other equipment sends watchdog message
 .. |br_latex| raw:: latex
 
    \newline
-

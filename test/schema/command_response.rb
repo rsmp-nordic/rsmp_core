@@ -22,6 +22,39 @@ describe 'CommandResponse' do
     expect( validate(message) ).to be_nil
   end
 
+  it 'accepts multiple return values for one command' do
+    message["rvs"] << {
+      "cCI" => "M0001",
+      "n" => "securityCode",
+      "v" => "123",
+      "age" => "recent"
+    }
+    expect( validate(message) ).to be_nil
+  end
+
+  it 'accepts all JSON value types' do
+    [true, 1, 1.5, nil, ["a"], {"a" => "b"}].each do |value|
+      message["rvs"].first["v"] = value
+      expect( validate(message) ).to be_nil
+    end
+  end
+
+  it 'accepts null value when age is unknown or undefined' do
+    %w[unknown undefined].each do |age|
+      message["rvs"].first["age"] = age
+      message["rvs"].first["v"] = nil
+      expect( validate(message) ).to be_nil
+    end
+  end
+
+  it 'catches non-null value when age is unknown or undefined' do
+    %w[unknown undefined].each do |age|
+      message["rvs"].first["age"] = age
+      message["rvs"].first["v"] = "YellowFlash"
+      expect( validate(message) ).not.to be_nil
+    end
+  end
+
   it 'catches missing component id' do
     message.delete 'cId'
     expect( validate(message) ).to be == (

@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out rsmp_core repository (gh-pages)
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         ref: gh-pages
     - name: Check out rsmp_core repository (3.3.0 branch)
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         path: 3.3.0
         ref: 3.3.0
@@ -59,7 +59,7 @@ jobs:
         branch: gh-pages
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload PDF as artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: rsmp-spec.pdf
         path: 3.3.0/build/latex/rsmp-spec.pdf

@@ -7,6 +7,7 @@ Applicability
    :maxdepth: 2
     
    applicability/scope
+   applicability/security_considerations
    applicability/object_model
    applicability/transport_of_data
    applicability/basic_structure
@@ -17,4 +18,3 @@ Applicability
    applicability/sxl_processing
    applicability/site_configuration
    applicability/persistence
-

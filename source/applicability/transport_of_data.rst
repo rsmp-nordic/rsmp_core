@@ -2,42 +2,52 @@
 
 Transport of data
 -----------------
-RSMP uses TCP/IP for transport of data. The default port is 12111, but other ports can be used.
 
-Messages are encoded in JSon format.
+RSMP uses TCP/IP for transport of data. The default port is 12111, but other ports can be used.
+Messages are encoded in JSON format.
 
 Site-to-supervisor
 ^^^^^^^^^^^^^^^^^^
-For communication between a site and a supervisor, the default is that the site
-acts as the TCP client and opens the connection to the supervision system,
-which acts as the TCP server.
 
-The supervisor will typically accept connections from multiple sites.
+For communication between a site and a supervision system, the site acts as the
+TCP client by default and opens the connection to the supervision system,
+which acts as the TCP server. The supervision system can accept connections
+from multiple sites.
 
-However, the oppositite can be used, where the supervisor is the TCP client
-and opens the connection to the site, which acts as the TCP server.
+The opposite can also be configured: the supervision system acts as the TCP
+client and opens the connection to the site, which acts as the TCP server.
+See :ref:`transport-between-site-and-supervision-system`.
 
-See :ref:`communication establishment between sites and supervision system <communication-establishment-between-sites-and-supervision-system>`.
-Sites must support connections to multiple supervisors, see :ref:`Multiple supervisors <multiple-supervisors>`.
+Regardless of which party opens the TCP connection, the site sends the first
+RSMP message, a Version request. See
+:ref:`communication-establishment-between-sites-and-supervision-system`.
+
+A site can connect to multiple supervisors. Support for this is required only
+when stated in the SXL. See :ref:`multiple-supervisors`.
 
 Site-to-site
 ^^^^^^^^^^^^
-For communication between two sites, one site acts as a supervisor.
-The site acting as the supervisor alway acts as the TCP client,
-opening the TCP connection to the other site which acts as the TCP server.
 
-The sites will typically maintain one or more separate site-to-supervisor connections.
+For communication between sites, one site acts as the leader and the other as
+the follower. The leader acts as the RSMP supervisor and the TCP client.
+It opens the TCP connection to the follower, which acts as the TCP server.
+The follower sends the first RSMP message, a Version request. See
+:ref:`communication-establishment-between-sites`.
 
-See :ref:`communication establishment between sites <communication-establishment-between-sites>`.
+A leader can connect to multiple followers, using a separate TCP connection
+for each follower. Site-to-site connections operate independently of
+site-to-supervisor connections, so both sites can also maintain connections
+to supervision systems.
 
 .. note::
    Implementing support for communication between sites is not required unless
    stated in the :term:`SXL`.
 
-Message Flow
+Message flow
 ^^^^^^^^^^^^
-RSMP message flow is determined by who acts as the RSMP supervisor,
-not by who acts as the TCP client/server.
+
+RSMP message flow is determined by the site and supervisor roles, not by the
+TCP client and server roles.
 
 The message flow is different for different types of messages.
 Some message types are event driven and are sent without a request (push),
@@ -50,10 +60,9 @@ follow up on the message exchange.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
-can continue to send messages. The exception is during the first part of
+continue to send messages. The exception is during the first part of
 communication establishment (see section :ref:`communication-establishment-between-sites-and-supervision-system`
 and :ref:`communication-establishment-between-sites`).
-
 
 .. _multiple-supervisors:
 
@@ -112,7 +121,7 @@ Commands:
 
 Alarms:
 
-* Alarms are sent to all supervisors, except those that set `receiveAlarms`
+* Alarms are send to all supervisors, except those that set `receiveAlarms`
   to false in their Version message.
 * All supervisors can acknowledge and suspend/resume alarms, even if they
   set `receiveAlarms` to false in their Version message.
@@ -120,30 +129,18 @@ Alarms:
   this affects all supervisors.
 
 
+.. _transport-security:
+
 Security
 ^^^^^^^^
 
-.. note::
-   Implementing support for encryption is not required unless otherwise stated.
+RSMP Core does not provide communication security. A deployment can protect
+the TCP connection carrying RSMP by using an external mechanism such as TLS or
+a VPN. This protection does not change RSMP messages or protocol behaviour.
 
-If encryption is used then the following applies:
-
-* Encryption settings needs to be configurable in both the supervision system as
-  well as the site.
-
-* For the encrypted communication, TLS 1.3 or later is used.
-
-* Encrypted communication should use a separate port number.
-  By default this should be port 12112.
-
-* If both the supervision system and site are configured to use encryption,
-  certificates should be used to verify the identities of each other.
-
-* Equipment which uses RSMP should contain a user interface for easy management
-  of certificates.
-
-* The issuing and renewal of certificates should should be made in cooperation
-  with the purchaser unless other arrangement is agreed upon.
+RSMP Core does not define requirements for selecting, configuring, or
+operating TLS, a VPN, or another external protection mechanism. See
+:ref:`security-considerations`.
 
 .. _communication-establishment-between-sites-and-supervision-system:
 
@@ -159,21 +156,23 @@ implicit in the following figure.
 .. image:: /img/msc/establish-site-system.png
    :align: center
 
-1. Site sends RSMP / SXL versions (according to section :ref:`rsmpsxl-version`).
+1. Site sends RSMP / SXL version (according to section :ref:`rsmpsxl-version`).
 
-2. The supervision system verifies the RSMP core versions and site id.
-   If none of the core versions are supported or the site id is not recognized,
-   the sequence does not proceed. (see section :ref:`communication-rejection`)
-
-3. The supervision system selects the core version and SXLs to use, and sends a Version
-   Response (according to section :ref:`rsmpsxl-version`).
-
-4. The site verifies the RSMP core and SXL versions selected.
+2. The supervision system verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-5. The core version and SXLs selected by the supervision system are used in any
-   further RSMP communication.
+3. The supervision system sends RSMP / SXL version (according to section
+   :ref:`rsmpsxl-version`).
+
+4. The site verifies the RSMP version, SXL version and site id.
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
+
+
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
 6. The site sends a Watchdog (according to section :ref:`watchdog`)
 
@@ -205,6 +204,15 @@ current ones based on their older alarm timestamps. Any buffered alarm events
 that contains the exact same alarm event and timestamp as sent when sending all
 alarms should not be sent again.
 
+Since only one version of the signal exchange list is allowed to be used
+at the communication establishment (according to the version message),
+each connected site must either:
+
+* Use the same version of the signal exchange list via the same
+  RSMP connection
+* Connect to separate supervision systems (e.g. using separate ports)
+* Connect to a supervision system that can handle separate signal exchange
+  lists depending on the RSMP / SXL version message from the site
 
 .. _communication-establishment-between-sites:
 
@@ -216,28 +224,32 @@ the following order.
 
 One site acts as a leader and the other one as a follower.
 
+When establishing communication between sites, messages are sent in the
+following order.
+
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figure.
 
 .. image:: /img/msc/establish-site-site.png
    :align: center
 
-1. The follower site sends RSMP / SXL versions (according to section
+1. The follower site sends RSMP / SXL version (according to section
    :ref:`rsmpsxl-version`).
 
-2. The leader site verifies the RSMP core versions and site id.
-   If none of the core versions are supported or the site id does not match, 
-   the sequence does not proceed. (see section :ref:`communication-rejection`)
-
-3. The leader site selects the core version and SXLs to use, and sends a Version
-   Response (according to section :ref:`rsmpsxl-version`).
-
-4. The follower site verifies the RSMP core and SXL versions selected.
+2. The leader site verifies the RSMP version, SXL version and site id.
    If there is a mismatch the sequence does not proceed.
    (see section :ref:`communication-rejection`)
 
-5. The core version and SXLs selected by the leader are used in any
-   further RSMP communication.
+3. The leader site sends RSMP / SXL version (according to section
+   :ref:`rsmpsxl-version`).
+
+4. The follower site verifies the RSMP version, SXL version and site id.
+   If there is a mismatch the sequence does not proceed.
+   (see section :ref:`communication-rejection`)
+
+5. The latest version of RSMP that both communicating parties exchange in the
+   RSMP/SXL Version is implicitly selected and used in any further RSMP
+   communication.
 
 6. The follower site sends Watchdog (according to section :ref:`watchdog`)
 
@@ -254,6 +266,7 @@ implicit in the following figure.
 
 For communication between sites the following applies:
 
+* The SXL used is the SXL of the follower site
 * The site id (siteId) which is sent in RSMP / SXL version is the
   follower site's site id
 * If the site id does not match with the expected site id the connection
@@ -266,16 +279,23 @@ For communication between sites the following applies:
 * No communication buffer exist
 
 .. note::
-   Please note that it's the leader site that connects to the follower site,
-   but it's also the leader site that requests commands and statuses.
-   This is different to how the RSMP connection between sites and supervision
-   system works by default.
+   The leader initiates the TCP connection, but the follower sends the first
+   RSMP message. The leader then acts as the supervisor, requesting commands
+   and statuses. This TCP connection direction differs from the default for
+   site-to-supervisor connections.
 
 .. _communication-rejection:
 
 Communication rejection
 ^^^^^^^^^^^^^^^^^^^^^^^
-If a received Version message cannot be accepted then:
+
+During RSMP/SXL Version exchange each communicating party needs to verify:
+
+* RSMP version(s)
+* SXL version
+* Site id
+
+If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:
 
 1. The communication establishment sequence does not proceed
 2. The receiver of the RSMP/SXL version message sends a MessageNotAck with
@@ -286,8 +306,8 @@ If a received Version message cannot be accepted then:
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-It is not allowed to disconnect for any other circumstance other than a rejected
-Version message or :ref:`missing message acknowledgement<message-acknowledgement>`
+Is it not allowed to disconnect for any other circumstance other than mismatch
+during RSMP/SXL Version or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:
@@ -366,8 +386,8 @@ Example of wrapping of a packet:
         "mType": "rSMsg",
         "type": "Alarm",
         "mId": "d2e9a9a1-a082-44f5-b4e0-6c9233-a204c",
-        "ntsOId": "AB+81102=881WA001",
-        "xNId": "23055",
+        "ntsOId": "",
+        "xNId": "",
         "cId": "AB+81102=881WA001",
         "aCId": "A001",
         "xACId": "Lamp error #14",
@@ -432,15 +452,14 @@ commands, statuses (with optional subscription) and alarms.
 Transport between sites
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-One site acts as leader and the other site(s) as followers. The leader can
-request commands, statuses (with optional subscription) and alarms to the
-follower site(s). It is the leader one who connects (using TCP). This is
-different to how the RSMP connection between sites and supervision system works
-by default.
+One site acts as leader and the other sites as followers. The leader can
+request commands and statuses (with optional subscription) from each follower.
+Alarm messages are not exchanged on site-to-site connections.
 
-* The follower site(s) implements a socket server and waits for the leader
-  site to connect
-* The leader site initiates the connection to the follower site(s)
-* The leader can request commands, statuses (with optional subscription)
-* If the communication were to fail it is the leader site’s responsibility
-  to reconnect
+* Each follower implements a TCP server and waits for the leader to connect.
+* The leader initiates a separate TCP connection to each follower.
+* If communication fails, the leader is responsible for reconnecting.
+
+The TCP client and server roles cannot be reversed for site-to-site connections.
+On each connection, the follower sends the first RSMP message regardless of
+the leader initiating the TCP connection.

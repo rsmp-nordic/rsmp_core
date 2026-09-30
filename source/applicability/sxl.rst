@@ -6,6 +6,8 @@ A signal exchange list (:term:`SXL`) specifies the interface for a type of equip
 
 An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.
 
+An SXL is defined using YAML format.
+
 An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
 It also details the meaning of aggregated status bits, functional positions and functional states.
 
@@ -168,10 +170,7 @@ Messages
 The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
 are defined in the SXL.
 
-Using the Excel format; alarms, aggregated status, status and commands are
-defined in their own sheet.
-
-Using the YAML format; each message type is defined like this:
+Each message type is defined like this:
 
 .. code-block:: yaml
 
@@ -267,14 +266,6 @@ An argument contains the fields:
 At least one argument is required for commands and statuses, but they are
 optional in alarms.
 
-
-.. note::
-
-    In the Excel version of the SXL, there is no separate min and max columns.
-    Instead, allowed values can be defined using the Value column according
-    to the following example: [0-100], where 0 is the minimum value and 100 is
-    the maximum value.
-
 The aggregated status contains the fields:
 
 - ``functional_position`` is the :term:`Functional position`
@@ -344,24 +335,18 @@ Functional differences between message types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following table defines the functional differences between message types.
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|\Yl{0.40}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.40}|
 
 .. table:: Functional differences
 
-   =================  =========================================  ================================
-   Message type       Sent when                                  Adapted to be transmitted to NTS
-   =================  =========================================  ================================
-   Alarm              On change *or* request                     Yes
-   Aggregated status  On change *or* request                     Yes
-   Status             On request *or* according to subscription  No
-   Command            On request                                 Yes, partly (functional status)
-   =================  =========================================  ================================
-
-.. note::
-   In addition to :term:`functional position`, the Excel version of the SXL
-   can also differentiate between different kinds of command messages using
-   :term:`maneuver` and :term:`parameter` sections. However, their use has no
-   functional significance from a protocol point of view.
+   =================  =========================================
+   Message type       Sent when
+   =================  =========================================
+   Alarm              On change *or* request
+   Aggregated status  On change *or* request
+   Status             On request *or* according to subscription
+   Command            On request
+   =================  =========================================
 
 Arguments and return values
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
