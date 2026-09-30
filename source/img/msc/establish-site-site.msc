@@ -19,6 +19,8 @@ msc {
   |||;
   a<=b [ label = "Watchdog" ];
   |||;
+  a=>b [ label = "ComponentList" ];
+  |||;
   --- [ label = "Asynchronous message exchange can begin" ];
   |||;
   a=>b [ label = "Aggregated status" ];

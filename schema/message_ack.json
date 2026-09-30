@@ -1,0 +1,11 @@
+{
+  "title" :  "MessageAck",
+  "description" :  "Message acknowledged",
+  "properties" : {
+    "oMId" : {
+      "$ref": "definitions.json#/message_id",
+      "description" : "Old message id"
+    }
+  },
+  "required" : [ "oMId" ]
+}

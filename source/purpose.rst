@@ -12,8 +12,8 @@ guidelines. This means that the protocol, as opposed to many other
 standards and protocols do not include detailed information about the
 signal exchange but is focused on defining the types of signals which
 are then described construction or items specifically. The goal is
-that in the long term, based on installed systems and objects, is to
-be able to produce signal exchange lists of type object that can be
+that in the long term, based on installed systems and components, is to
+be able to produce signal exchange lists of type component that can be
 reused in new contracts so that alarm messages, commands, etc. have
 the same names regardless of facility or provider.
 
@@ -56,5 +56,5 @@ facilities and equipment. The four message types are:
   subscription (either at status change or at set time interval).
 
 - **Command**. Commands sent from a supervision system or other
-  facility to alter the equipment / object status or control
+  facility to alter the equipment / component status or control
   principle.
