@@ -593,9 +593,8 @@ implicit in the following figures.
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-An AggregatedStatus message describes the status of the entire site.
+An AggregatedStatus message provides a summarized status of the site.
 It is a core message and does not require an SXL to be used on the connection.
-The attributes ``cId``, ``fP`` and ``fS`` must not be included.
 
 AggregatedStatus is sent during communication establishment, when the site's state bits
 change, and in response to an
@@ -651,15 +650,33 @@ The following table describes the site status.
    ======= ==============================================
    Element Description
    ======= ==============================================
-   se      Array of eight booleans. See :ref:`state-bits`
+   se      Array of eight booleans. See :ref:`state-bits`.
    ======= ==============================================
 
 .. _state-bits:
 
 State bits
 ~~~~~~~~~~
-**State bits** ``se`` is an array of eight booleans. Their meanings and the rules
-for combining them are described below.
+**State bits** ``se`` is an array of eight booleans. The first element is bit 1.
+
+Each bit represents an error, warning or special state. A set bit indicates that the
+corresponding condition is present, while a cleared bit indicates that it is absent.
+When all bits are cleared, the aggregated status indicates normal operation of the site.
+
+The condition for each bit is defined below.
+
+An SXL may specify equipment-specific conditions for setting state bits,
+but these conditions must preserve the meanings and constraints defined
+by the core specification.
+
+An AggregatedStatus bit must be set if any applicable condition defined by core or an SXL is true.
+The bit must be cleared if all applicable conditions are false.
+
+All SXLs implemented by the site must be considered when determining bits, including SXLs
+not accepted during version negotiation.
+
+For a given site state, identical AggregatedStatus bits must be sent
+across connections using the same core version.
 
 .. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
 
@@ -668,57 +685,47 @@ for combining them are described below.
    +-----+-------------------+-------------------------------------------------+-----------+
    | Bit | Status            | Description                                     | Color     |
    +=====+===================+=================================================+===========+
-   | 1   | Local             | The site is controlled locally                  | |cyan|    |
+   | 1   | Local             | Local control                                   | |cyan|    |
    +-----+-------------------+-------------------------------------------------+-----------+
    | 2   | Disconnected      | Connection lost (not used by sites)             | |purple|  |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 3   | Error             | The site has one or more alarm with priority 1  | |red|     |
+   | 3   | Error             | One or more alarm with priority 1               | |red|     |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 4   | Warning           | The site has one or more alarm with priority 2  | |yellow|  |
+   | 4   | Warning           | One or more alarm with priority 2               | |yellow|  |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 5   | Notice            | The site has one or more alarm with priority 3  | |blue|    |
+   | 5   | Notice            | One or more alarm with priority 3               | |blue|    |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 6   | Active            | The site is in active mode                      | |green|   |
+   | 6   | (Unused)          | Not used, must be cleared                       |           |
    +-----+-------------------+-------------------------------------------------+-----------+
-   | 7   | Idle              | The site is in idle mode                        | |black|   |
+   | 7   | Idle              | Idle mode                                       | |black|   |
    +-----+-------------------+-------------------------------------------------+-----------+
    | 8   | Not configured    | Connection not configured (not used by sites)   | |grey|    |
    +-----+-------------------+-------------------------------------------------+-----------+
 
 Bit 1: Local
-    In case equipment require on-street maintenance it might be necessary to
-    override operating modes for safety or testing purposes. For example, the
-    site might be put in idle mode. When local overrides are active, the site
-    is in local control and this bit is set.
+    Local overrides are in effect, so commands from supervisors may be restricted or overridden.
+    Typically used during on-street maintenance when operating modes must be overridden for safety or testing purposes.
 
-Bit 2: Disconnected (not used by sites)
+Bit 2: Disconnected
     Set by supervisor when reporting that connection to a site was lost.
     Not used by sites, which must always clear this bit.
 
 Bit 3: Error
-    Set if one or more alarm with priority 1 (high) is active.
+    One or more alarms with priority 1 (high) are active.
 
 Bit 4: Warning
-    Set if one or more alarm with priority 2 (medium) is active.
+    One or more alarms with priority 2 (medium) are active.
 
 Bit 5: Notice
-    Set if one or more alarm with priority 3 (low) is active.
+    One or more alarms with priority 3 (low) are active.
 
-Bit 6: Active
-    Set if the site is in active mode, i.e. intended to operate normally.
-    This bit is unaffected by alarms and can be set at the same time as bits 3,
-    4 and 5.
-    A site can be either in active or idle mode, not both, so bits 6 and 7
-    cannot both be set at the same time.
+Bit 6: (Unused)
+    Not used, but reserved for future use. Must be cleared.
 
 Bit 7: Idle
-    Set if the site is in idle mode, meaning it is turned on but not in active
-    use. For example, a traffic light controller in idle mode might have all
-    lamps turned off or in flashing yellow.
+    The site is turned on but not in active use.
     This bit is unaffected by alarms and can be set at the same time as bits 3,
     4 and 5.
-    A site can be either in active or idle mode, not both, so bits 6 and 7
-    cannot both be set at the same time.
 
 Bit 8: Not configured
     Set by supervisors when reporting that connection to a site is not configured.

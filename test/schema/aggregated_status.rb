@@ -14,6 +14,24 @@ describe 'AggregatedStatus' do
     expect( validate(message) ).to be_nil
   end
 
+  it 'accepts normal operation with all state bits cleared' do
+    message['se'] = [false, false, false, false, false, false, false, false]
+    expect( validate(message) ).to be_nil
+  end
+
+  it 'accepts local control, alarms and idle at the same time' do
+    message['se'] = [true, false, true, true, true, false, true, false]
+    expect( validate(message) ).to be_nil
+  end
+
+  [2, 6, 8].each do |bit|
+    it "rejects state bit #{bit} set by a site" do
+      message['se'] = [false, false, false, false, false, false, false, false]
+      message['se'][bit - 1] = true
+      expect( validate(message) ).not.to be_nil
+    end
+  end
+
   %w[cId fP fS].each do |attribute|
     it "rejects removed #{attribute} in a core 3.3.0 message" do
       message[attribute] = ''
@@ -66,18 +84,18 @@ describe 'AggregatedStatus' do
   end
 
   it 'catches se too long' do
-    message['se'] = [true, false, false, false, false, false, false, true, true]
+    message['se'] = [true, false, false, false, false, false, false, false, true]
     expect( validate(message) ).to be == (
       [["/se", "maxItems"]]
     )
   end
 
   it 'catches bad se item types' do
-    message['se'] = [false, false, false, 1, nil, "", false, false]
+    message['se'] = [false, false, false, 1, nil, false, "", false]
     expect( validate(message) ).to be == (
       [["/se/3", "boolean"],
        ["/se/4", "boolean"],
-       ["/se/5", "boolean"]]
+       ["/se/6", "boolean"]]
     )
   end
 end

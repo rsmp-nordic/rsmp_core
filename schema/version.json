@@ -1,7 +1,6 @@
 {
   "title" :  "Version",
   "description" :  "Version message",
-  "$comment" : "Validate with this schema only after selecting core 3.3.0. Checks requiring the original request, unique SXL names, numeric version ordering and compatibility with other offered core versions are handled by the negotiation procedure. Unknown attributes are allowed.",
   "oneOf" : [
     {
       "description" : "Version request",
