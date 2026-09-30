@@ -121,10 +121,10 @@ Commands:
 
 Alarms:
 
-* Alarms are send to all supervisors, except those that set `receiveAlarms`
+* Alarms are sent to all supervisors, except those that set `useAlarms`
   to false in their Version message.
 * All supervisors can acknowledge and suspend/resume alarms, even if they
-  set `receiveAlarms` to false in their Version message.
+  set `useAlarms` to false in their Version message.
 * If an Alarm is blocked, suspended or acknowledged by one supervisor
   this affects all supervisors.
 
