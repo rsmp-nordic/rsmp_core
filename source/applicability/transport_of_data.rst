@@ -260,10 +260,11 @@ following figure, except for the acknowledgement of AggregatedStatus.
 
 9. The site must send one AggregatedStatus message with the current status of the entire site
    (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
-   The site must wait for the supervisor's MessageAck for this message.
-   This acknowledgement completes the communication establishment sequence.
+   The site must wait for the supervisor's MessageAck or MessageNotAck for this message.
+   Either acknowledgement completes the communication establishment sequence.
+   If rejected, the AggregatedStatus is discarded and communication continues.
 
-10. The supervisor may start asynchronous message exchange after sending the MessageAck,
+10. The supervisor may start asynchronous message exchange after sending either acknowledgement,
     and the site may start after receiving it. Commands and statuses defined by
     accepted SXLs are allowed to be sent.
 
@@ -331,10 +332,11 @@ following figure, except for the acknowledgement of AggregatedStatus.
 
 9. The follower site must send one AggregatedStatus message with the current status of the entire follower site
    (see :ref:`aggregated-status-message`), even if no SXL is used on the connection.
-   The follower site must wait for the leader site's MessageAck for this message.
-   This acknowledgement completes the communication establishment sequence.
+   The follower site must wait for the leader site's MessageAck or MessageNotAck for this message.
+   Either acknowledgement completes the communication establishment sequence.
+   If rejected, the AggregatedStatus is discarded and communication continues.
 
-10. The leader site may start asynchronous message exchange after sending the MessageAck,
+10. The leader site may start asynchronous message exchange after sending either acknowledgement,
     and the follower site may start after receiving it. Commands and statuses defined by
     accepted SXLs are allowed to be sent.
 

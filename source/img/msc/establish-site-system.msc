@@ -23,7 +23,7 @@ msc {
   |||;
   a=>b [ label = "AggregatedStatus (entire site)" ];
   |||;
-  a<<b [ label = "MessageAck (AggregatedStatus)" ];
+  a<<b [ label = "MessageAck / MessageNotAck (AggregatedStatus)" ];
   |||;
   --- [ label = "Establishment complete; asynchronous message exchange can begin" ];
   |||;
