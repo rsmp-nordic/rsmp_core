@@ -149,7 +149,7 @@ corresponding component type</p></li>
 <section id="unimplemented-statuses-or-commands">
 <h2><span class="section-number">4.6.3. </span>Unimplemented statuses or commands<a class="headerlink" href="#unimplemented-statuses-or-commands" title="Link to this heading"></a></h2>
 <p>If a status (<code class="docutils literal notranslate"><span class="pre">sCI</span></code>) or command (<code class="docutils literal notranslate"><span class="pre">cCI</span></code>) is recognized in relation to its SXL
-but not unimplemented, the site answers with CommandResponse/StatusResponse where
+but not implemented, the site answers with CommandResponse/StatusResponse where
 the values are set according to the table below.</p>
 <table class="docutils align-default" id="id5">
 <caption><span class="caption-number">Table 4.35 </span><span class="caption-text">Unimplemented</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
@@ -179,8 +179,8 @@ the values are set according to the table below.</p>
 </section>
 <section id="incomplete-commands">
 <span id="id2"></span><h2><span class="section-number">4.6.4. </span>Incomplete commands<a class="headerlink" href="#incomplete-commands" title="Link to this heading"></a></h2>
-<p>If not all arguments are included in a CommandRequest, then this is considered
-a serious error resulting in MessageNotAck.</p>
+<p>If not all required arguments are included in a CommandRequest, then this is
+considered a serious error resulting in MessageNotAck.</p>
 </section>
 <section id="more-than-one-command">
 <span id="id3"></span><h2><span class="section-number">4.6.5. </span>More than one command<a class="headerlink" href="#more-than-one-command" title="Link to this heading"></a></h2>
