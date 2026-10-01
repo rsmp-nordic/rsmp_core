@@ -26,9 +26,6 @@ Definitions
        Includes manufacturer, model, internal alarm code och additional
        alarm description.
 
-   External NTS alarm code id
-       Alarm code in order to identify alarm type during communication with NTS
-
    Functional position
        Provides command options for a site. For instance, "start" or "stop"
        It is meant to be used for the entire site and not for an individual
