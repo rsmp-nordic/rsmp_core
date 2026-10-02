@@ -3,17 +3,10 @@
 Basic structure
 ---------------
 
-Unicode (ISO 10646) and UTF-8 are used for all messages. Please note that
-the JSon elements are formatted as JSon string elements and not as JSon
-number elements or as JSon boolean elements, with the exception of the
-message type "aggregated status" and "status subscribe" where
-JSon boolean elements are used.
-
-The reason why JSon string elements are heavily used is to simplify
-deserialisation of values where the data type in unknown before casting is
-performed, for instance for the values in "return values".
+Unicode (ISO 10646) and UTF-8 are used for all messages.
 
 Parsing needs to be performed case sensitive.
+
 All enum values (e.g. :ref:`alarm-status`) must use the exact casing stated
 in this specification.
 
@@ -30,8 +23,8 @@ In the following example the message type is an alarm message.
        "mType": "rSMsg",
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
-       "ntsOId": "F+40100=416CG100",
-       "xNId": "23055",
+       "ntsOId": "",
+       "xNId": "",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
@@ -84,11 +77,13 @@ The following table is describing the variable content of all message types.
    |         +-------------------------+---------------------------------------+
    |         | CommandResponse         | Command message. Response of command  |
    |         +-------------------------+---------------------------------------+
-   |         | MessageAck              | Message acknowledegment. Successful   |
+   |         | MessageAck              | Message acknowledgement. Successful   |
    |         +-------------------------+---------------------------------------+
-   |         | MessageNotAck           | Message acknowledegment. Unsuccessful |
+   |         | MessageNotAck           | Message acknowledgement. Unsuccessful |
    |         +-------------------------+---------------------------------------+
    |         | Version                 | RSMP / SXL version message            |
+   |         +-------------------------+---------------------------------------+
+   |         | ComponentList           | Component list message                |
    |         +-------------------------+---------------------------------------+
    |         | Watchdog                | Watchdog message                      |
    +---------+-------------------------+---------------------------------------+
@@ -98,7 +93,7 @@ The following table is describing the variable content of all message types.
    +---------+-------------------------+---------------------------------------+
 
 .. note::
-   * **mId** is generated as GUID (Globally unique identifier) in the equipment
+   * **mId** is a generated GUID (Globally unique identifier) in the equipment
      that sent the message
    * **mId** is used in all messages as a reference for the message ack
    * **oMId** is used in the message ack to refer to the message which is being acked
@@ -106,9 +101,7 @@ The following table is describing the variable content of all message types.
    * Each message sent should have a new GUID, even if the message is resent or the
      content is the same
 
-The following table describes the variable content in all message types
-which is defined by the signal exchange list (SXL), except version
-messages, message acknowledgement messages and watchdog messages.
+The following table describes attributes used by messages that refer to a component.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
@@ -117,15 +110,17 @@ messages, message acknowledgement messages and watchdog messages.
    ============ ================================================
    Element      Description
    ============ ================================================
-   ntsOId       :term:`Component id` for the :term:`NTS object`
-   xNId         :term:`External NTS id`
-   cId          :term:`Component id`
+   ntsOId       *deprecated (empty string)*
+   xNId         *deprecated (empty string)*
+   cId          :ref:`Component-id`
    ============ ================================================
 
 .. _alarm-messages:
 
 Alarm messages
 ^^^^^^^^^^^^^^
+
+Alarm message exchange is subject to :ref:`alarm-exchange`.
 
 An alarm message is sent to the supervision system when:
 
@@ -135,17 +130,17 @@ An alarm message is sent to the supervision system when:
 - An alarm is being suspended / un-suspended
 
 An acknowledgment of an alarm does not cause a single alarm event to
-be acknowledged but all alarm events for the specific object with the
+be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
 
-The ability to request an alarms is used in case the supervision system
-looses track of the latest state of the alarms.
+The ability to request alarms is used in case the supervision system
+loses track of the latest state of the alarms.
 
-A suspend of an alarm causes all alarms from the specific object with
+A suspend of an alarm causes all alarms from the specific component with
 the associated alarm code id to be suspended. This means that alarm messages
-stops being sent from the site as long as the suspension is active. As soon
+stop being sent from the site as long as the suspension is active. As soon
 as the suspension is inactivated alarms can be sent again.
 
 Suspending alarms does not affect alarm acknowledgment. This means that
@@ -178,8 +173,8 @@ An alarm message has the structure according to the example below.
        "mType": "rSMsg",
        "type": "Alarm",
        "mId": "E68A0010-C336-41ac-BD58-5C80A72C7092",
-       "ntsOId": "F+40100=416CG100",
-       "xNId": "23055",
+       "ntsOId": "",
+       "xNId": "",
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
@@ -284,8 +279,8 @@ or alarm suspend messages).
 :numref:`alarm-transitions` show possible transitions between
 different alarm states.
 
-Continuous lines defines possible alarm status changes controlled by logic
-and dashed lines defines possible changes controlled by user.
+Continuous lines define possible alarm status changes controlled by logic
+and dashed lines define possible changes controlled by user.
 
 .. figure:: /img/dot/alarm_transitions.png
    :name: alarm-transitions
@@ -296,7 +291,7 @@ and dashed lines defines possible changes controlled by user.
 
 Alarms should not be sent unless:
 
-* Alarms are unblocked and it's state changes
+* Alarms are unblocked and its state changes
 * Alarms are sent as part of
   :ref:`communication-establishment-between-sites-and-supervision-system`
 * Alarms are explicitly requested using :ref:`alarmmessages-req`
@@ -350,8 +345,8 @@ defined by the signal exchange list (SXL).
 
 .. _alarmmessages-req:
 
-Structure for alarm request message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm request message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm request message has the structure according to the example below.
 
@@ -375,8 +370,8 @@ JSon code 4: An alarm request message
 
 .. _alarmmessages-ack:
 
-Structure for alarm acknowledgement message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm acknowledgement message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm acknowledgement message has the structure according to the example
 below.
@@ -434,8 +429,8 @@ JSon code 6: Response of an alarm acknowledgement message
 
 .. _alarmmessages-suspend:
 
-Structure for alarm suspend message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for an alarm suspend message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An alarm suspend message has the structure according to the example below.
 
@@ -542,6 +537,9 @@ Allowed content in alarm suspend message is the same as for alarm messages
 Message exchange between site and supervision system
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 
+The following sequences apply when Alarm message exchange is permitted
+(see :ref:`alarm-exchange`).
+
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
@@ -595,13 +593,15 @@ implicit in the following figures.
 Aggregated status message
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This type of message is sent to the supervision system to inform about the
-status of the site. The aggregated status applies to the object which is
-defined by **ObjectType** in the signal exchange list. If no object is defined
-then no aggregated status message is sent.
+An AggregatedStatus message provides a summarized status of the site.
+It is a core message and does not require an SXL to be used on the connection.
 
-Aggregated status message are interaction driven and are sent if state,
-functional position or functional status are changed at the site.
+AggregatedStatus is sent during communication establishment, when the site's state bits
+change, and in response to an
+:ref:`AggregatedStatusRequest <aggregated-status-req>`.
+The establishment sequences are defined in
+:ref:`communication-establishment-between-sites-and-supervision-system` and
+:ref:`communication-establishment-between-sites`.
 
 Message structure
 """""""""""""""""
@@ -616,12 +616,9 @@ below.
         "mType": "rSMsg",
 	"type": "AggregatedStatus",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22420",
-	"ntsOId": "O+14439=481WA001",
+	"ntsOId": "",
 	"xNId": "",
-	"cId": "O+14439=481WA001",
 	"aSTS": "2015-06-08T08:05:06.584Z",
-	"fP": null,
-	"fS": null,
 	"se": [
                 true,false,false,false,false,false,false,false
               ]
@@ -644,47 +641,99 @@ The following tables are describing the variable content of the message:
                          See also the :ref:`data type<data_types>` section.
    ======= ============= =====================================================================
 
-The following table describes the variable content defined by the signal
-exchange list (SXL).
+The following table describes the site status.
 
 .. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
 
-.. table:: Aggregated status SXL content
+.. table:: Aggregated status content
 
    ======= ==============================================
    Element Description
    ======= ==============================================
-   fP      :term:`Functional position`
-   fS      :term:`Functional state`
-   se      Array of eight booleans. See :ref:`state-bits`
+   se      Array of eight booleans. See :ref:`state-bits`.
    ======= ==============================================
-
-``fP`` and ``fS`` is set to ``null`` or empty string if no value is defined
-in the SXL.
 
 .. _state-bits:
 
 State bits
 ~~~~~~~~~~
+**State bits** ``se`` is an array of eight booleans. The first element is bit 1.
 
-* **State bits** ``se`` is an array of eight booleans. The boolean elements defines
-  the status of the site to :term:`NTS`.
+Each bit represents an error, warning or special state. A set bit indicates that the
+corresponding condition is present, while a cleared bit indicates that it is absent.
+When all bits are cleared, the aggregated status indicates normal operation of the site.
 
-* It is technically valid in RSMP to set the boolean elements to a nonsensical
-  values, e.g. all boolean elements to ``false``, but it is not defined how to
-  interpret it at the receiving end
+The condition for each bit is defined below.
 
-A definition of each boolean element (1-8) is presented in the figure below.
-The signal exchange list (SXL) may define a more detailed definition.
+An SXL may specify equipment-specific conditions for setting state bits,
+but these conditions must preserve the meanings and constraints defined
+by the core specification.
 
-.. image:: /img/msc/agg_state_array.png
-   :align: center
+An AggregatedStatus bit must be set if any applicable condition defined by core or an SXL is true.
+The bit must be cleared if all applicable conditions are false.
 
-* Bit 3 is true if there are any active alarms with priority 1
-* Bit 4 is true if there are any active alarms with priority 2
-* Bit 5 is true if there are any active alarms with priority 3
+All SXLs implemented by the site must be considered when determining bits, including SXLs
+not accepted during version negotiation.
 
-Please see section :ref:`alarm-priority`.
+For a given site state, identical AggregatedStatus bits must be sent
+across connections using the same core version.
+
+.. tabularcolumns:: |\Yl{0.08}|\Yl{0.15}|\Yl{0.53}|\Yl{0.10}|
+
+.. table:: State bits
+
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | Bit | Status            | Description                                     | Color     |
+   +=====+===================+=================================================+===========+
+   | 1   | Local             | Local control                                   | |cyan|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 2   | Disconnected      | Connection lost (not used by sites)             | |purple|  |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 3   | Error             | One or more alarm with priority 1               | |red|     |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 4   | Warning           | One or more alarm with priority 2               | |yellow|  |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 5   | Notice            | One or more alarm with priority 3               | |blue|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 6   | (Unused)          | Not used, must be cleared                       |           |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 7   | Idle              | Idle mode                                       | |black|   |
+   +-----+-------------------+-------------------------------------------------+-----------+
+   | 8   | Not configured    | Connection not configured (not used by sites)   | |grey|    |
+   +-----+-------------------+-------------------------------------------------+-----------+
+
+Bit 1: Local
+    Local overrides are in effect, so commands from supervisors may be restricted or overridden.
+    Typically used during on-street maintenance when operating modes must be overridden for safety or testing purposes.
+
+Bit 2: Disconnected
+    Set by supervisor when reporting that connection to a site was lost.
+    Not used by sites, which must always clear this bit.
+
+Bit 3: Error
+    One or more alarms with priority 1 (high) are active.
+
+Bit 4: Warning
+    One or more alarms with priority 2 (medium) are active.
+
+Bit 5: Notice
+    One or more alarms with priority 3 (low) are active.
+
+Bit 6: (Unused)
+    Not used, but reserved for future use. Must be cleared.
+
+Bit 7: Idle
+    The site is turned on but not in active use.
+    This bit is unaffected by alarms and can be set at the same time as bits 3,
+    4 and 5.
+
+Bit 8: Not configured
+    Set by supervisors when reporting that connection to a site is not configured.
+    Not used by sites, which must always clear this bit.
+
+Alarm priorities
+    For more details about alarm priorities, please see section
+    :ref:`alarm-priority`.
 
 .. _aggregated-status-req:
 
@@ -692,8 +741,8 @@ Aggregated status request message
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This type of message is sent from the supervision system to request the
-latest aggregated status, in case the supervision system has lost track
-of the current status.
+latest aggregated status of the entire site, in case the supervision system has lost
+track of the current status. The ``cId`` attribute must not be included.
 
 Message structure
 """""""""""""""""
@@ -708,9 +757,8 @@ below.
         "mType": "rSMsg",
 	"type": "AggregatedStatusRequest",
 	"mId": "be12ab9a-800c-4c19-8c50-adf832f22425",
-	"ntsOId": "O+14439=481WA001",
-	"xNId": "",
-	"cId": "O+14439=481WA001",
+	"ntsOId": "",
+	"xNId": ""
    }
 
 JSon code 12: An aggregated status request message
@@ -722,8 +770,7 @@ Message exchange between site and supervision system
 Message acknowledgement (see section :ref:`message-acknowledgement`) is
 implicit in the following figures.
 
-**Functional state, functional position or state booleans changes at the
-site**
+**The site's state bits change**
 
 
 .. image:: /img/msc/aggregated_status.png
@@ -731,7 +778,7 @@ site**
 
 1. An aggregated status message is sent to the supervision system.
 
-**The supervision system request aggregated status**
+**The supervision system requests aggregated status**
 
 .. image:: /img/msc/aggregated_status_request.png
    :align: center
@@ -744,9 +791,9 @@ Status Messages
 
 The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
-statuses, for the referenced object.
+statuses, for the referenced component.
 
-The status message can both be interaction driven or event driver and
+The status message can both be interaction driven or event driven and
 can be sent during the following prerequisites:
 
 - When status is requested from the supervision system or other equipment.
@@ -769,7 +816,7 @@ below.
         "mType": "rSMsg",
 	"type": "StatusRequest",
 	"mId": "f1a13213-b90a-4abc-8953-2b8142923c55",
-	"ntsOId": "O+14439=481WA001",
+	"ntsOId": "",
 	"xNId": "",
 	"cId": "O+14439=481WA001",
 	"sS": [
@@ -786,14 +833,14 @@ below.
 JSon code 13: A status request message
 
 The status code id (``sCI``) and name (``n``) are placed in an array
-(``sS``) in order to enable support for requesting multiple status at
+(``sS``) in order to enable support for requesting multiple statuses at
 once.
 
 The following table is describing the variable content of the message.
 
 .. _table-statusrequest:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.40}|
 
 .. table:: Status request
 
@@ -805,8 +852,8 @@ The following table is describing the variable content of the message.
    ============ ===============================
 
 
-Structure for status response message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Structure for a status response message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status response message has the structure according to the example below.
 
@@ -821,7 +868,7 @@ The following table is describing the variable content of the message.
         "mType": "rSMsg",
         "type": "StatusResponse",
         "mId": "0a95e463-192a-4dd7-8b57-d2c2da636584",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sTs": "2015-06-08T09:15:18.266Z",
@@ -846,7 +893,7 @@ The following table is describing the variable content of the message:
 
 .. _table-statusresponse:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.15}|
 
 .. table:: Status response
 
@@ -863,7 +910,7 @@ See also the :ref:`data type<data_types>` section.
 Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Return values ("sS") are always sent but can be empty if no return values exists.
+Return values ("sS") are always sent but can be empty if no return values exist.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
 
@@ -925,6 +972,11 @@ constructing a list of subscriptions of statuses, digital and analogue
 values and events that are desirable to send to supervision system,
 e.g. temperature, wind speed, power consumption, manual control.
 
+It's allowed to change **updateRate** and **sendOnChange** by sending a new
+StatusSubscribe during an active subscription.
+
+The site must not establish a new subscription but use the existing one.
+
 .. code-block:: json
    :name: json-status-subscribe
 
@@ -932,7 +984,7 @@ e.g. temperature, wind speed, power consumption, manual control.
         "mType": "rSMsg",
         "type": "StatusSubscribe",
         "mId": "d6d97f8b-e9db-4572-8084-70b55e312584",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sS": [
@@ -964,16 +1016,16 @@ JSon code 15: A status subscribe message
 
 The following table is describing the variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.75}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.50}|
 
 .. table:: Status Request
 
-   ======== ========== =============
-   Element  Value      Description
-   ======== ========== =============
-   uRt      *(string)* updateRate
-   sOc      boolean    sendOnChange
-   ======== ========== =============
+   ======== ================== =============
+   Element  Type               Description
+   ======== ================== =============
+   uRt      number_as_string   updateRate
+   sOc      boolean            sendOnChange
+   ======== ================== =============
 
 The **updateRate** ``uRt`` and **sendOnChange** ``sOc`` determines when a
 status update should be sent.
@@ -982,13 +1034,13 @@ The following applies:
 
 * **updateRate** defines a specific interval when to send updates.
   Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
-  Dot (.) is used as a decimal point.
 
-* If **updateRate** is set to "0" it means that no update is sent using an
+* If **updateRate** is set to 0 it means that no update is sent using an
   interval.
 
 * **sendOnChange** defines if an status update should be sent as soon as the
-  value changes.
+  value changes. Note that an SXL can define when an attribute is updated,
+  e.g. a timestamp might only update when another attribute changes.
 
 * It is possible to combine **updateRate** and **sendOnChange** to send an
   update when the value changes and at the same time using a specific
@@ -1003,8 +1055,18 @@ The following applies:
 * It is not valid to set **updateRate=0** and **sendOnChange=false** since
   it means that no subscription updates will be sent.
 
-* It is allowed to change **updateRate** and **sendOnChange** by sending a
-  new StatusSubscribe during an active subscription.
+Attribute updates
+~~~~~~~~~~~~~~~~~
+When you set **sendOnChange** to true you will get an update whenever that
+attribute changes. However, the SXL can define when a particular attribute
+is updated.
+For example, a traffic light that report changes to signal groups might
+need to include a precise timestamp that indicates when in the cycle the
+change happened. But even though the cycle counter updates continuously,
+this should not in itself trigger an update. Instead the cycle counter
+should be sent along when the signal group state changes.
+In this case the SXL can define that the cycle counter is updated only
+when the signal group state changes.
 
 
 Structure for a status update message
@@ -1013,17 +1075,12 @@ Structure for a status update message
 The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.
 
-The following applies:
-
-* A StatusUpdate is always sent immediately after subscription request,
-  unless the subscription is already active. The reason for sending the
-  response immediately is because subscriptions usually are established
-  shortly after RSMP connection establishment and the supervision system
-  needs to update with the current statuses.
-
-* If an subscription is already active then the site must not establish
-  a new subscription but use the existing one. It's allowed to change
-  **updateRate** and **sendOnChange**.
+In addition to being sent according to **updateRate** and **sendOnChange**,
+it is also always sent immediately after subscription request (even if the
+subscription is already active). The reason for sending the response
+immediately is because subscriptions usually are established shortly after
+RSMP connection establishment and the supervision system needs to update with
+the current statuses.
 
 .. code-block:: json
    :name: json-status-update
@@ -1032,7 +1089,7 @@ The following applies:
         "mType": "rSMsg",
         "type": "StatusUpdate",
         "mId": "dabb67f9-2601-4db9-bb8a-c7c47f57e100",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sTs": "2015-06-08T09:33:04.735Z",
@@ -1067,7 +1124,7 @@ The allowed content is described in Table
 :ref:`Status response<table-statusresponse>` and
 :ref:`Return values<table-statusresponse-returnvalues>`.
 
-Since different UpdateRate can be defined for different objects it means that
+Since different UpdateRate can be defined for different components it means that
 partial StatusUpdates can be sent.
 
 .. code-block:: json
@@ -1095,7 +1152,7 @@ partial StatusUpdates can be sent.
         ]
    }
 
-JSon code 17: A subscription request to subscribe to statues with different update rates
+JSon code 17: A subscription request to subscribe to statuses with different update rates
 
 .. code-block:: json
    :name: json-status-request-partial-resp
@@ -1136,7 +1193,7 @@ usual message acknowledgement.
         "mType": "rSMsg",
         "type": "StatusUnsubscribe",
         "mId": "5ff528c5-f2f0-4bc4-a335-280c52b6e6d8",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "sS": [
@@ -1187,15 +1244,21 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-Command messages are used to give order using one or more commands, for the
-referenced object.
-The site responds with a command acknowledgement.
+A command request is sent to a specific component on a site to execute a command.
 
-All arguments needs to included in a command, otherwise it results a serious
-error resulting in MessageNotAck. See section about :ref:`incomplete-commands`.
+If all required arguments are present and valid, the site immediately sends a MessageAck
+and starts executing the command. Once the execution completes, fails or times
+out the site sends a CommandResponse.
 
-Command messages are interaction driven and are sent when command are
-requested on any given object by the supervision system or other equipment
+If a required argument is missing or any argument is invalid the site responds with a
+MessageNotAck and does not send a CommandResponse.
+
+All arguments in a CommandRequest are required unless specifically marked as optional
+in the SXL.
+See the section about :ref:`incomplete-commands`.
+
+Only a single command (``cCI``) is allowed in a CommandRequest or CommandResponse.
+See the section about :ref:`more-than-one-command`.
 
 Message structure
 """""""""""""""""
@@ -1205,7 +1268,7 @@ Structure of a command request
 
 A command request message has the structure according to the example
 below. A command request message with the intent to change a value of the
-requested object
+requested component.
 
 .. code-block:: json
    :name: json-command-req
@@ -1214,7 +1277,7 @@ requested object
         "mType": "rSMsg",
         "type": "CommandRequest",
         "mId": "cf76365e-9c7b-44a4-86bd-d107cdfc3fcf",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "arg": [
@@ -1244,9 +1307,8 @@ requested object
 
 JSon code 20: A command request message
 
-The command code (``cCI``) and name (``n``) are placed in an array
-(``arg``) in order to enable support for requesting multiple commands at
-once.
+The command code (``cCI``) and name of the argument (``n``) are placed in an
+array (``arg``).
 
 The following table is describing the variable content of the message:
 
@@ -1257,33 +1319,33 @@ Values to send with the command (arguments)
 .. table:: Command argument
 
    ============ ============ =============
-   Element      Value        Description
+   Element      Type         Description
    ============ ============ =============
-   arg          *(array)*    Argument. Contains the element **cCI**, **n**, **cO**, **v** in an array
+   arg          array        Arguments. Contains the elements **cCI**, **n**, **cO**, **v** in an array
    ============ ============ =============
 
 The following table describes the variable content of the message which is
 defined by the SXL.
 
-.. tabularcolumns:: |\Yl{0.25}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.10}|\Yl{0.20}|\Yl{0.70}|
 
 .. table:: Command arguments defined by SXL
 
-   =============  ========================================================
-   Element        Description
-   =============  ========================================================
-   cCI            :term:`Command code id`
-   n              Name of the argument
-   cO             Command. Optionally used for RPC (Remote Procedure Call)
-   v              Value
-   =============  ========================================================
+   ============= ================ ============
+   Element       Type             Description
+   ============= ================ ============
+   cCI           string           :term:`Command code id`
+   n             string           Name of the argument
+   cO            string           Command. Optionally used for RPC (Remote Procedure Call)
+   v             (defined in SXL) (defined in SXL)
+   ============= ================ ============
 
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A command response message has the structure according to the example
 below. A command response message informs about the updated value of the
-requested object.
+requested component.
 
 The command code (``cCI``) and name (``n``) are placed in an array
 (``rvs``) in order to enable support for responding to multiple commands at
@@ -1296,7 +1358,7 @@ once.
         "mType": "rSMsg",
         "type": "CommandResponse",
         "mId": "0fd63726-be19-4c09-8553-48451735cb0b",
-        "ntsOId": "O+14439=481WA001",
+        "ntsOId": "",
         "xNId": "",
         "cId": "O+14439=481WA001",
         "cTS": "2015-06-08T11:49:03.293Z",
@@ -1334,9 +1396,9 @@ The following table is describing the variable content of the message:
 .. table:: Command response
 
    ======= ============= =====================================================================
-   Element Value         Description
+   Element Type          Description
    ======= ============= =====================================================================
-   cTS     *(timestamp)* Timestamp for the command reponse.
+   cTS     *(timestamp)* Timestamp for the command response.
                          All timestamps are set at the site (and not in the supervision
                          system) when the event occurs (and not when the message is sent).
                          See also the :ref:`data type<data_types>` section.
@@ -1346,14 +1408,14 @@ Return values (returnvalue)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Return values (**rvs**) is always sent but can
-be empty if not return values are defined.
+be empty if no return values are defined.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.70}|
 
 .. table:: Command return values
 
    ========= ========= =============
-   Element   Value     Description
+   Element   Type      Description
    ========= ========= =============
    rvs       *(array)* Return values. Contains the elements **cCI**, **v**, **n** and **q** in an array.
    ========= ========= =============
@@ -1361,17 +1423,17 @@ be empty if not return values are defined.
 The following table describes the variable content defined by the signal
 exchange list (SXL).
 
-.. tabularcolumns:: |\Yl{0.20}|\Yl{0.65}|
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.20}|\Yl{0.60}|
 
 .. table:: Return values
 
-   =============  ===============================================
-   Element        Description
-   =============  ===============================================
-   cCI            :term:`Command code id`
-   n              Name of the return value
-   v              Value from equipment
-   =============  ===============================================
+   ============= ================ ============
+   Element       Type             Description
+   ============= ================ ============
+   cCI           string           :term:`Command code id`
+   n             string           Name of the return value
+   v             (defined in SXL) (defined in SXL)
+   ============= ================ ============
 
 The following table describes additional variable content of the message.
 
@@ -1428,7 +1490,7 @@ was not understood.
 
 * The default timeout value should be 30 seconds.
 
-* If the version messages has not been exchanged according to communication
+* If the version messages have not been exchanged according to communication
   establishment sequence
   (See :ref:`communication-establishment-between-sites-and-supervision-system`
   and :ref:`communication-establishment-between-sites`) then
@@ -1440,7 +1502,7 @@ was not understood.
   establishment sequence.
 
 The acknowledgement messages are interaction driven and are sent when
-any other type message are received.
+any other type of message is received.
 
 Message structure – Message acknowledgement
 """""""""""""""""""""""""""""""""""""""""""
@@ -1483,11 +1545,11 @@ The following table is describing the variable content of the message:
 
 .. table:: Message not ack
 
-   ======== ============ ===============
-   Element  Value        Description
-   ======== ============ ===============
-   rea      *(optional)* Error message where all relevant information about the nature of the error can be provided.
-   ======== ============ ===============
+   ======== ======== ===============
+   Element  Type     Description
+   ======== ======== ===============
+   rea      string   (optional) Error message where all relevant information about the nature of the error can be provided.
+   ======== ======== ===============
 
 Message exchange between site and supervision system/other equipment
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1512,92 +1574,289 @@ Site sends initial message
 
 RSMP/SXL Version
 ^^^^^^^^^^^^^^^^
+Version messages are used to negotiate RSMP core and SXL versions, as well as to
+send information such as site identity and communication options.
 
-RSMP/SXL Version is the initial message when establishing communication.
+The negotiation procedure is defined in :ref:`version-negotiation`.
 
-It contains:
+Version Request
+"""""""""""""""
+The initial Version request sent by the site must include all attributes required by any listed core version.
 
-* Site Id
-* SXL revision
-* All supported RSMP versions
+The initial Version request sent by the site contains:
 
-The Site Id and SXL revision must match between the communicating parties.
-
-If there is a mismatch or if there are no RSMP version that both
-communicating parties support, see :ref:`communication-rejection`.
-
-The version message should be implemented in such a way that it should be
-possible to add additional tags/variables (e.g. date) without affecting
-existing implementations.
-
-The principle of the message exchange is defined by the communication
-establishment (See
-:ref:`communication-establishment-between-sites-and-supervision-system`
-and :ref:`communication-establishment-between-sites`).
-
-Message structure
-"""""""""""""""""
-
-A version message has the structure according to the example below. In
-the example below the system has support for RSMP version **3.1.1**,
-**3.1.2** and SXL version **1.0.13** for site **O+14439=481WA001**.
+* Site Id.
+* Supported RSMP core versions
+* Supported SXLs and their versions
 
 .. code-block:: json
-   :name: json-version
+   :name: json-version-request
 
    {
         "mType": "rSMsg",
         "type": "Version",
+        "step": "Request",
         "mId": "6f968141-4de5-42ff-8032-45f8093762c5",
         "RSMP": [
-            {
-                "vers": "3.1.1"
-            },{
-                "vers": "3.1.2"
-            }
+            { "vers": "3.2.1" },
+            { "vers": "3.3.0" }
         ],
         "siteId": [
-            {
-                "sId": "O+14439=481WA001"
-            }
+            { "sId": "O+14439=481WA001" }
         ],
-        "SXL": "1.0.13"
+        "SXL": "1.3.0",
+        "SXLS": [
+            { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/" },
+            { "name": "traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
+            { "name": "variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
+        ]
    }
 
-JSon code 24: A RSMP / SXL message
+JSon code 24: A Version Request message
 
-The following table describes the variable content of the message which is
-defined by the SXL.
 
-The *Site config* columns describes the correlation between the JSon
-elements and the titles in the site configuration.
+The following table describes variable content of the message:
 
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.20}|\Yl{0.20}|\Yl{0.45}|
-
-.. table:: Version information defined by site configuration
-
-   ======= ==================== ================== ===========================
-   Element Site config (Excel)  Site config (YAML) Description
-   ======= ==================== ================== ===========================
-   sId     SiteId                                  :term:`Site id`
-   SXL     SXL revision         version            Revision of SXL. E.g ”1.3”
-   ======= ==================== ================== ===========================
-
-It is possible to use more than one site id in a single RSMP connection.
-Therefore the site ids that are used in the RSMP connection are sent
-in the message using an array with ``sId``.
-
-The following table describes additional variable content of the message.
-
-.. tabularcolumns:: |\Yl{0.15}|\Yl{0.85}|
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
 
 .. table:: Version information
 
-   ========= ===============
-   Element   Description
-   ========= ===============
-   vers      Version of RSMP. E.g. ”3.1.2”, ”3.1.3” or ”3.1.4”. All the supported RSMP versions are sent in the message using an array (**RSMP**).
-   ========= ===============
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   step          string   Must be set to 'Request'.
+   siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
+   RSMP          array    Nonempty array of objects, each with a ``vers`` attribute containing a supported core version string.
+   SXL           string   Optional. Version of the primary SXL, for backward compatibility.
+   SXLS          array    Array of supported SXLs.
+   ============= ======== ===============
+
+Only one site can use the same connection. The ``siteId`` array must therefore contain
+exactly one element.
+
+The ``SXL`` attribute specifies the version of the primary SXL used with supervisors that
+only support older core versions and ignore the newer ``SXLS`` array.
+When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``SXLS``.
+
+The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
+set to an empty string.
+Duplicate SXL names are not allowed in the request.
+
+Each item in the ``SXLS`` array must be an object with the following content:
+
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.08}|\Yl{0.81}|
+
+.. table:: SXLS item content
+
+   ======= ======== ====================
+   Element Type     Description  
+   ======= ======== ==================== 
+   name    string   SXL name, e.g. ``traffic_light_controller``          
+   version string   Version of the SXL, e.g. "1.3.0".
+   prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
+   ======= ======== ====================
+
+If the site supports multiple versions of an SXL, the latest must be specified.
+Version ordering is defined in :ref:`version-negotiation`.
+
+
+Version Response
+"""""""""""""""""
+If the core version can be matched, the supervisor returns a Version response containing:
+
+* Supervisor ID.
+* RSMP core version to use.
+* The status for each SXL offered by the site.
+* List of SXLs that the supervisor expected the site to offer, but which the site did not offer.
+* Optional ``useAlarms`` flag, indicating whether Alarm messages may be exchanged.
+
+.. code-block:: json
+   :name: json-version-response
+
+   {
+         "mType": "rSMsg",
+         "type": "Version",
+         "step": "Response",
+         "mId": "d2c4815f-8318-4f3d-938a-cb28529fd86f",
+         "RSMP": [
+            { "vers": "3.3.0" }
+         ],
+         "supervisorId": "O+14439=481WA001",
+         "SXLS": [
+            { "name": "traffic_light_controller", "status": "ok", "version": "1.3.0" },
+            { "name": "traffic_light_controller/advanced", "status": "unsupported" },
+            { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1", "2.1.0"] },
+            { "name": "traffic_data", "status": "expected" }
+         ],
+         "useAlarms": false
+   }
+
+JSon code 25: A Version Response message
+
+In this example, only the SXL ``traffic_light_controller`` will be used.
+
+The SXL ``traffic_light_controller/advanced`` is not used, because the supervisor
+does not support that SXL.
+
+The SXL ``variable_message_sign`` is not used, because the supervisor does not support the version 1.0.6 specified by the site.
+The supervisor lists the versions it supports, in this case 2.0.0, 2.0.1 and 2.1.0.
+
+The SXL ``traffic_data`` is not used, because the site did not offer it in the Version request. The supervisor informs that it
+expected the site to offer this SXL.
+
+
+The following table describes variable content of the message:
+
+.. tabularcolumns:: |\Yl{0.20}|\Yl{0.15}|\Yl{0.65}|
+
+.. table:: Version information
+
+   ============= ======== ===============
+   Element       Type     Description
+   ============= ======== ===============
+   step          string   Must be set to 'Response'.
+   supervisorId  string   The id of the supervisor, provided for information (see :ref:`version-negotiation`).
+   RSMP          array    Core version used. Array with exactly one object with the attribute ``vers`` set to the core version string.
+   SXLS          array    List of SXLs and status for each.
+   useAlarms     boolean  Optional. Defaults to true. If set to false, no Alarm messages may be exchanged on the connection.
+   ============= ======== ===============
+
+See :ref:`alarm-exchange` for the handling of Alarm messages when ``useAlarms`` is false.
+
+The ``SXLS`` array must contain each SXL from the Version request, even if the supervisor does not support them.
+In addition, the ``SXLS`` array should contain all SXLs that the supervisor expected the site to offer,
+but which the site did not offer in the Version request.
+Duplicate SXL names are not allowed.
+
+Each item in the ``SXLS`` array must be an object with the following content:
+
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.10}|\Yl{0.79}|
+
+.. table:: SXLS item content
+
+   ========= ======== ====================
+   Element   Type     Description
+   ========= ======== ====================
+   name      string   SXL name, e.g. ``traffic_light_controller``. Unless ``status`` is ``expected``, it must match an SXL name in the Version request.
+   status    string   The status code for this SXL (see table below).
+   version   string   (Conditional) If status is "ok" it must match the version in the Version request, otherwise it's omitted.
+   supported array    (Conditional) If status is "mismatch" it must be an array of supported versions, otherwise it's omitted.
+   ========= ======== ====================
+
+.. tabularcolumns:: |\Yl{0.11}|\Yl{0.50}|
+
+.. table:: SXL status codes
+
+   ============== ========================
+   Code           Description
+   ============== ========================
+   ok             OK
+   unsupported    SXL not supported by the supervisor.
+   mismatch       SXL version not supported by the supervisor.
+   expected       SXL expected by the supervisor, but not offered by the site.
+   ============== ========================
+
+Details:
+
+* **ok** The SXL will be used, at the exact version specified by the site in the Version request.
+  ``version`` must be set to the exact same version sent by the site in the Version request.
+
+* **unsupported** The SXL is unknown or not supported by the supervisor. ``version`` must be omitted.
+
+* **mismatch** The version specified by the site in the Version request is not supported by the supervisor.
+  ``supported`` must be set to an array of supported version strings, in ascending order, with the latest version last.
+  Version ordering is defined in :ref:`version-negotiation`.
+
+* **expected** means that the supervisor was expecting the site to offer this SXL but it did not.
+  This status is informational only and does not indicate an error.
+
+A supervisor must not use status codes other than those listed above.
+
+An SXL will be used only if the status is ``ok``. All status codes other than ``ok`` mean the SXL will not be used.
+
+See :ref:`version-negotiation` for how SXL status codes affect communication.
+
+
+.. _component-list:
+
+ComponentList
+^^^^^^^^^^^^^
+A ComponentList message is used to list the components on a site.
+It is sent during communication establishment, and whenever the component list changes,
+i.e. if a component is added, removed or changed.
+
+The ComponentList message is the authoritative source of information about the components on the site.
+It contains all components, including components whose type is defined by an
+SXL which the supervisor rejected during Version negotiation. Listing a
+component does not implicitly accept that SXL or permit its alarm, status or
+command messages to be used.
+
+The ComponentList takes precedence over any static configuration that the supervisor might have.
+However, it is up to the supervisor implementation to decide how to handle discrepancies, e.g. by automatically updating its configuration or raising an alarm in the supervisor system.
+If the supervisor doesn't have any configuration for the site, it can use the ComponentList to discover the components.
+
+The list of components is sent as an array, and must be ordered by component IDs, using :ref:`natural-sorting`. IDs must be unique on the site.
+
+
+Message structure
+"""""""""""""""""
+A ComponentList message has the structure according to the example below.
+
+.. code-block:: json
+   :name: json-componentlist
+
+   {
+        "mType": "rSMsg",
+        "type": "ComponentList",
+        "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
+        "components": [
+            {
+                "id": "detectors/radar/1",
+                "type": "tlc/dl",
+                "name": "Bus Detection A1 Northbound"
+            },
+            {
+                "id": "groups/2",
+                "type": "tlc/sg",
+                "name": "Signal Group A1 North"
+            },
+            {
+                "id": "groups/10",
+                "type": "tlc/sg",
+                "name": "Signal Group B2 South"
+            }
+        ]
+   }
+
+JSon code 26: A ComponentList message
+
+The following table describes the variable content of the message:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: ComponentList
+
+   ========== ======== ===============================
+   Element    Type     Description
+   ========== ======== ===============================
+   components array    List of components on the site, ordered by their IDs, using :ref:`natural-sorting`
+   ========== ======== ===============================
+
+The following table describes the content of each component in the array:
+
+.. tabularcolumns:: |\Yl{0.15}|\Yl{0.15}|\Yl{0.70}|
+
+.. table:: Component entry
+
+   ======== ======== ===================================================
+   Element  Type     Description
+   ======== ======== ===================================================
+   id       string   :ref:`component-id` identifying the component
+   type     string   Component type, as defined by an SXL version advertised by the site.
+                     The SXL does not need to be accepted by the supervisor.
+                     See :ref:`component-type` for information about component types.
+   name     string   Human readable name of the component
+   ======== ======== ===================================================
 
 .. _watchdog:
 
@@ -1609,17 +1868,15 @@ communication remains established and to detect any communication
 disruptions between site and supervision system. For any subsystem
 alarms are used instead.
 
-The secondary purpose of watchdog messages is to provide a timestamp that can
-be used for simple time synchronization.
+The secondary purpose of watchdog messages is to provide a timestamp
+that can be used to check time synchronization. However watchdog
+messages should not be used to adjust the clock. Instead
+more robust synchronization methods, e.g. NTP or GPS, should be used to
+synchronize clocks.
 
-* Time synchronization using the watchdog message should be configurable at the
-  site (enabled/disabled)
-* If time synchronization is enabled, the site should synchronize its clock
-  using the timestamp from watchdog messages – at communication establishment and
-  then at least once every 24 hours.
-* The interval duration for sending watchdog messages should be
-  configurable at both the site and the supervision system. The default
-  setting should be (1) once a minute.
+The interval duration for sending watchdog messages should be
+configurable at both the site and the supervision system. The default
+setting should be (1) once a minute.
 
 Watchdog messages are sent in both directions, both from the site and
 from the supervision system. At initial communication establishment
@@ -1640,7 +1897,7 @@ A watchdog message has the structure according to the example below.
         "wTs": "2015-06-08T12:01:39.654Z"
    }
 
-JSon code 25: A watchdog message
+JSon code 27: A watchdog message
 
 The following table is describing the variable content of the message:
 
@@ -1649,7 +1906,7 @@ The following table is describing the variable content of the message:
 .. table:: Watchdog
 
    ======= ============= =====================================================================
-   Element Value         Description
+   Element Type          Description
    ======= ============= =====================================================================
    wTs     *(timestamp)* Timestamp for the watchdog.
                          See also the :ref:`data type<data_types>` section.
@@ -1673,6 +1930,15 @@ Supervision system/other equipment sends watchdog message
 
 1. Watchdog message is sent from supervision system/other equipment
 
+.. |cyan| image:: /img/svg/cyan.svg
+.. |purple| image:: /img/svg/purple.svg
+.. |red| image:: /img/svg/red.svg
+.. |yellow| image:: /img/svg/yellow.svg
+.. |blue| image:: /img/svg/blue.svg
+.. |green| image:: /img/svg/green.svg
+.. |black| image:: /img/svg/black.svg
+.. |grey| image:: /img/svg/grey.svg
+
 .. |br| replace:: |br_html| |br_latex|
 
 .. |br_html| raw:: html
@@ -1682,4 +1948,3 @@ Supervision system/other equipment sends watchdog message
 .. |br_latex| raw:: latex
 
    \newline
-

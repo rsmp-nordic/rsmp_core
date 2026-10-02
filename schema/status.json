@@ -1,0 +1,21 @@
+{
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "cId" : { "$ref": "definitions.json#/component_id" },
+    "sS" : {
+      "description" : "Status request arguments",
+      "type" : "array",
+      "minItems": 1,
+      "items" : {
+        "type" : "object",
+        "properties": {
+          "sCI" : { "$ref": "definitions.json#/status_code" },
+          "n" : { "description" : "Unique reference of the value", "type" : "string" }
+        },
+        "required" : [ "sCI", "n" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required" : [ "mId", "cId", "sS"]
+}
