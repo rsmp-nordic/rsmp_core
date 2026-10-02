@@ -30,6 +30,27 @@ describe 'StatusSubscribe' do
     end
   end
 
+  it 'rejects negative intervals regardless of sendOnChange' do
+    %w[-1 -0.5].each do |interval|
+      [true, false].each do |on_change|
+        message['sS'].first.merge!('uRt' => interval, 'sOc' => on_change)
+        expect( validate(message) ).not.to be_nil
+      end
+    end
+  end
+
+  it 'requires sendOnChange for zero intervals but not positive intervals' do
+    message['sS'].first['sOc'] = false
+    %w[0 0.0 0.00].each do |interval|
+      message['sS'].first['uRt'] = interval
+      expect( validate(message) ).not.to be_nil
+    end
+    %w[1 0.5].each do |interval|
+      message['sS'].first['uRt'] = interval
+      expect( validate(message) ).to be_nil
+    end
+  end
+
   it 'catches missing component id' do
     message.delete 'cId'
     expect( validate(message) ).to be == (
@@ -100,9 +121,7 @@ describe 'StatusSubscribe' do
 
   it 'catches bad uRt type' do
     message['sS'].first['uRt'] = 3
-    expect( validate(message) ).to be == (
-      [["/sS/0/uRt", "string"]]
-    )
+    expect( validate(message).include?(["/sS/0/uRt", "string"]) ).to be == true
 
     message['sS'].first['uRt'] = "fast"
     expect( validate(message) ).to be == (
@@ -112,9 +131,7 @@ describe 'StatusSubscribe' do
 
   it 'catches sOc wrongly typed as string' do
     message['sS'].first['sOc'] = "True"
-    expect( validate(message) ).to be == (
-      [["/sS/0/sOc", "boolean"]]
-    )
+    expect( validate(message).include?(["/sS/0/sOc", "boolean"]) ).to be == true
   end
 
   it 'catches missing sOc' do
