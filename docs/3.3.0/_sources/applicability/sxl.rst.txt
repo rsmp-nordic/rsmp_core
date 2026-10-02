@@ -9,7 +9,6 @@ An SXL is identified by its name, and is published with a version following Sema
 An SXL is defined using YAML format.
 
 An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
-It also details the meaning of aggregated status bits, functional positions and functional states.
 
 An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.
 
@@ -70,7 +69,7 @@ Given a version number MAJOR.MINOR.PATCH, you must increment the:
 
 Preview and build info cannot be used as part of version strings.
 
-SXL versions are used to determine whether a site and the supervisor has compatible versions,
+SXL versions are used to determine whether a site and the supervisor have compatible versions,
 and when resolving dependencies between SXLs.
 
 
@@ -79,8 +78,8 @@ and when resolving dependencies between SXLs.
   meta:
     version: 1.3.1
 
-SXL versions are used to determine whether a site and the supervisor
-can establish communication. How this is done is explained in :ref:`rsmpsxl-version`.
+SXL versions are used to determine which SXLs can be used on the connection.
+How this is done is explained in :ref:`version-negotiation`.
 
 .. _sxl-prefix:
 
@@ -167,8 +166,9 @@ Each type must have a short description.
 Messages
 --------
 
-The message types **Alarm**, **Aggregated status**, **Status** and **Commands**
-are defined in the SXL.
+The content of **Alarm**, **Status** and **Command** messages is defined in the SXL.
+The :ref:`aggregated-status-message` and its :ref:`state-bits` are defined solely
+by the core specification.
 
 Each message type is defined like this:
 
@@ -176,29 +176,6 @@ Each message type is defined like this:
 
   components:
     <component-type>:
-      aggregated_status:
-        1:
-          title: Local mode
-          description: In local mode
-        2:
-          title: No Communications
-        3:
-          title: High priority fault
-          description: Fail safe mode
-        4:
-          title: Medium Priority Fault
-          description: Medium priority fault, but not in fail safe mode
-        5:
-          title: Low Priority Fault
-        6:
-          title: Connected / Normal - In Use
-        7:
-          title: Connected / Normal - Idle
-        8:
-          title: Not Connected
-      functional_position:
-        <position-1>: start
-        <position-2>: stop
       alarms:
         A0001:
           description: alarm description text
@@ -265,16 +242,6 @@ An argument contains the fields:
 
 At least one argument is required for commands and statuses, but they are
 optional in alarms.
-
-The aggregated status contains the fields:
-
-- ``functional_position`` is the :term:`Functional position`
-
-- ``functional_state`` is the :term:`Functional state`
-
-- ``1-8`` is an array of eight booleans. Each with a title and optional
-  description. See :ref:`state-bits`
-
 
 .. _alarm-description:
 
@@ -343,7 +310,7 @@ The following table defines the functional differences between message types.
    Message type       Sent when
    =================  =========================================
    Alarm              On change *or* request
-   Aggregated status  On change *or* request
+   Aggregated status  On establishment, change *or* request
    Status             On request *or* according to subscription
    Command            On request
    =================  =========================================

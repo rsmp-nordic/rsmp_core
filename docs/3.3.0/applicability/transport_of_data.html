@@ -56,13 +56,19 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.4. Transport of data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-supervisors">4.4.1. Multiple supervisors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#security">4.4.2. Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system">4.4.3. Communication establishment between sites and supervision system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites">4.4.4. Communication establishment between sites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-rejection">4.4.5. Communication rejection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#communication-disruption">4.4.6. Communication disruption</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wrapping-of-packets">4.4.7. Wrapping of packets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transport-between-site-and-supervision-system">4.4.8. Transport between site and supervision system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transport-between-sites">4.4.9. Transport between sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-negotiation">4.4.3. Version negotiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#core-version-compatibility">4.4.3.1. Core Version Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sxl-version-compatibility">4.4.3.2. SXL Version Compatibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#alarm-exchange">4.4.3.3. Alarm exchange</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system">4.4.4. Communication establishment between sites and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-establishment-between-sites">4.4.5. Communication establishment between sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-rejection">4.4.6. Communication rejection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-disruption">4.4.7. Communication disruption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping-of-packets">4.4.8. Wrapping of packets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-site-and-supervision-system">4.4.9. Transport between site and supervision system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transport-between-sites">4.4.10. Transport between sites</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="basic_structure.html">4.5. Basic structure</a></li>
@@ -189,10 +195,10 @@ initiating command.</p></li>
 </ul>
 <p>Alarms:</p>
 <ul class="simple">
-<li><p>Alarms are send to all supervisors, except those that set <cite>receiveAlarms</cite>
-to false in their Version message.</p></li>
-<li><p>All supervisors can acknowledge and suspend/resume alarms, even if they
-set <cite>receiveAlarms</cite> to false in their Version message.</p></li>
+<li><p>Alarms are sent to all supervisors, except those that set <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code>
+to false in their Version response (see <a class="reference internal" href="#alarm-exchange"><span class="std std-ref">Alarm exchange</span></a>).</p></li>
+<li><p>A supervisor may request, acknowledge or suspend/resume alarms only if
+<code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> is true or omitted in its Version response.</p></li>
 <li><p>If an Alarm is blocked, suspended or acknowledged by one supervisor
 this affects all supervisors.</p></li>
 </ul>
@@ -206,38 +212,122 @@ a VPN. This protection does not change RSMP messages or protocol behaviour.</p>
 operating TLS, a VPN, or another external protection mechanism. See
 <a class="reference internal" href="security_considerations.html#security-considerations"><span class="std std-ref">Security considerations</span></a>.</p>
 </section>
+<section id="version-negotiation">
+<span id="id3"></span><h2><span class="section-number">4.4.3. </span>Version negotiation<a class="headerlink" href="#version-negotiation" title="Link to this heading"></a></h2>
+<p>See <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a> for the format and content of Version messages.</p>
+<p>When establishing RSMP communication, the initial message is a Version request message sent by the site.
+The supervisor responds with a Version response message.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">step</span></code> attribute makes it easier to identify and validate messages without knowing
+the sequence context, but is absent in earlier core versions. When <code class="docutils literal notranslate"><span class="pre">step</span></code> is absent, a Version message must be
+identified as a request or response based on the communication sequence.
+The site sends the request and the supervisor sends the response.
+For site-to-site communication, the follower sends the request and the leader sends the response.</p>
+<p>The principle of the message exchange is defined by the communication
+establishment (see
+<a class="reference internal" href="#communication-establishment-between-sites-and-supervision-system"><span class="std std-ref">Communication establishment between sites and supervision system</span></a>
+and <a class="reference internal" href="#communication-establishment-between-sites"><span class="std std-ref">Communication establishment between sites</span></a>).</p>
+<p>Core and SXL versions are ordered by comparing their major, minor and patch numbers
+numerically, in that order.</p>
+<p>After negotiation, communication establishment and subsequent message exchange must follow
+the selected core version, the SXLs in use and the negotiated communication options.</p>
+<section id="core-version-compatibility">
+<h3><span class="section-number">4.4.3.1. </span>Core Version Compatibility<a class="headerlink" href="#core-version-compatibility" title="Link to this heading"></a></h3>
+<p>Version negotiation relies on the common structure of the <code class="docutils literal notranslate"><span class="pre">RSMP</span></code> array across core versions:
+each entry is an object containing a <code class="docutils literal notranslate"><span class="pre">vers</span></code> attribute whose value is a core version string.</p>
+<p>When receiving a Version message, the receiver must first read and validate
+the <code class="docutils literal notranslate"><span class="pre">RSMP</span></code> array and select the latest core version supported by both parties.</p>
+<p>If there is no common core version, see <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
+<p>The remaining attributes must then be validated and interpreted according to that version.
+Attributes that are unknown to the selected core version must be ignored.</p>
+<p>The supervisor must verify the <code class="docutils literal notranslate"><span class="pre">siteId</span></code> in the request against the expected site identity.
+The supervisor sends a Version response message, which must be formatted according to the selected core version.
+When core 3.3.0 is selected, the <code class="docutils literal notranslate"><span class="pre">supervisorId</span></code> in the response is informational;
+the site does not compare it with an expected supervisor identity.</p>
+<p>When the site receives the Version response, it must first read the <code class="docutils literal notranslate"><span class="pre">RSMP</span></code> array and select the latest core version
+common to its original Version request and the Version response.
+If there is no common core version, see <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
+<p>The remaining attributes must then be validated and interpreted according to that version.
+Unknown attributes must be ignored.</p>
+<p>If validation of the <code class="docutils literal notranslate"><span class="pre">RSMP</span></code> array or the remaining attributes fails in a Version request
+or response, the receiver must follow <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
+<p>Communication can only be established if the supervisor supports one of the core
+versions listed in the Version request sent by the site. It must be an exact match of
+major, minor and patch version.</p>
+<p>If the supervisor determines that the core version cannot be matched,
+it must reject the connection according to <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>.</p>
+<p>A site and a supervisor can only communicate if the core versions are exactly the same, i.e.
+major, minor and patch versions match.
+The selected core version must be one of the versions offered in the site’s Version request.
+For core 3.3.0, the <code class="docutils literal notranslate"><span class="pre">RSMP</span></code> array in the response contains only the selected version.
+For earlier core versions, the response may list all versions supported by the supervisor,
+including versions not offered by the site. The latest version common to the request and
+response is selected.</p>
+</section>
+<section id="sxl-version-compatibility">
+<h3><span class="section-number">4.4.3.2. </span>SXL Version Compatibility<a class="headerlink" href="#sxl-version-compatibility" title="Link to this heading"></a></h3>
+<p>An SXL listed by the site can only be used if the supervisor supports the exact same version,
+with an exact match of major, minor and patch version.</p>
+<p>For each SXL with status <code class="docutils literal notranslate"><span class="pre">ok</span></code> in the Version response, the <code class="docutils literal notranslate"><span class="pre">version</span></code> attribute must match
+the version of that SXL in the Version request. Versions listed in <code class="docutils literal notranslate"><span class="pre">supported</span></code> for status
+<code class="docutils literal notranslate"><span class="pre">mismatch</span></code> describe the supervisor’s supported versions and need not match the request.
+The <code class="docutils literal notranslate"><span class="pre">supported</span></code> list is diagnostic only. No fallback to an older SXL version takes
+place during this exchange, even if both parties support that version.</p>
+<p>Communication can be established even if the supervisor supports none of the SXLs. In this case, no
+commands, statuses or alarms can be exchanged. But the ComponentList and AggregatedStatus
+will still be sent by the site.</p>
+<p>If an SXL is not used, neither the site nor the supervisor may send messages defined in the SXL,
+and both must reject incoming messages defined in the SXL with a MessageNotAck
+(see <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>).</p>
+<p>A site must not reject a Version response based on status codes, as long as all status codes are valid.</p>
+</section>
+<section id="alarm-exchange">
+<span id="id4"></span><h3><span class="section-number">4.4.3.3. </span>Alarm exchange<a class="headerlink" href="#alarm-exchange" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> attribute in the Version response applies to that connection only
+and defaults to true when omitted.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> is false, neither the site nor the supervisor may send any Alarm messages
+on the connection. This applies to all values of <code class="docutils literal notranslate"><span class="pre">aSp</span></code>, including alarm requests,
+acknowledgements and suspend/resume operations, as well as to notifications, responses,
+initial alarms and buffered alarms.
+If either party receives an Alarm message on such a connection, it must respond with a MessageNotAck.</p>
+</section>
+</section>
 <section id="communication-establishment-between-sites-and-supervision-system">
-<span id="id3"></span><h2><span class="section-number">4.4.3. </span>Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Link to this heading"></a></h2>
+<span id="id5"></span><h2><span class="section-number">4.4.4. </span>Communication establishment between sites and supervision system<a class="headerlink" href="#communication-establishment-between-sites-and-supervision-system" title="Link to this heading"></a></h2>
 <p>When establishing communication between sites and supervision system,
 messages are sent in the following order.</p>
-<p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
-implicit in the following figure.</p>
+<p>The Version exchange follows <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.
+The remaining sequence below applies when core version 3.3.0 is selected.
+If an earlier core version is selected, its communication establishment sequence applies
+after the Version exchange.</p>
+<p>Message acknowledgements (see <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) are implicit in the
+following figure, except for the acknowledgement of AggregatedStatus.</p>
 <img alt="../_images/establish-site-system.png" class="align-center" src="../_images/establish-site-system.png" />
 <ol class="arabic simple">
-<li><p>Site sends RSMP / SXL version (according to section <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
-<li><p>The supervision system verifies the RSMP version, SXL version and site id.
-If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The supervision system sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
-<li><p>The site verifies the RSMP version, SXL version and site id.
-If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The latest version of RSMP that both communicating parties exchange in the
-RSMP/SXL Version is implicitly selected and used in any further RSMP
-communication.</p></li>
+<li><p>The site sends a Version request message (see <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The supervisor processes the request according to <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>
+and verifies the site id (see <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>).</p></li>
+<li><p>The supervisor sends a Version response message (see <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The site processes the response according to <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.</p></li>
+<li><p>The selected core version is used in all further RSMP communication.</p></li>
 <li><p>The site sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
 <li><p>The system sends a Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
 <li><p>The site sends a ComponentList message (according to section <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a>).</p></li>
-<li><p>Asynchronous message exchange can begin. This means that commands and
-statuses are allowed to be sent</p></li>
-<li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>).
-If no component for aggregated status is defined in the signal exchange list
-then no aggregated status message is sent.</p></li>
-<li><p>All alarms (including active, inactive, suspended, unsuspended and acknowledged)
-are sent. (according to section <a class="reference internal" href="basic_structure.html#alarm-messages"><span class="std std-ref">Alarm messages</span></a>).</p></li>
+<li><p>The site must send one AggregatedStatus message with the current status of the entire site
+(see <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>), even if no SXL is used on the connection.
+The site must wait for the supervisor’s MessageAck or MessageNotAck for this message.
+Either acknowledgement completes the communication establishment sequence.
+If rejected, the AggregatedStatus is discarded and communication continues.</p></li>
+<li><p>The supervisor may start asynchronous message exchange after sending either acknowledgement,
+and the site may start after receiving it. Commands and statuses defined by
+accepted SXLs are allowed to be sent.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> is true or omitted, all alarms defined by accepted SXLs
+(including active, inactive, suspended, unsuspended and acknowledged) are sent
+(according to section <a class="reference internal" href="basic_structure.html#alarm-messages"><span class="std std-ref">Alarm messages</span></a>).
+If <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> is false, this step is skipped (see <a class="reference internal" href="#alarm-exchange"><span class="std std-ref">Alarm exchange</span></a>).</p></li>
 <li><p>Buffered messages in the equipment’s outgoing communication buffer are sent,
-including alarms, aggregated status and status updates.</p></li>
+including alarms, aggregated status and status updates.
+Buffered Alarm and StatusUpdate messages are sent only for accepted SXLs.
+Buffered alarms must not be sent on the connection if <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code> is false.</p></li>
 </ol>
 <p>The reason for sending all alarms including inactive ones is because alarms
 might otherwise incorrectly remain active in the supervision system if the alarm
@@ -248,62 +338,52 @@ all historical alarm events. The buffered alarms can be distinguished from the
 current ones based on their older alarm timestamps. Any buffered alarm events
 that contains the exact same alarm event and timestamp as sent when sending all
 alarms should not be sent again.</p>
-<p>Since only one version of the signal exchange list is allowed to be used
-at the communication establishment (according to the version message),
-each connected site must either:</p>
-<ul class="simple">
-<li><p>Use the same version of the signal exchange list via the same
-RSMP connection</p></li>
-<li><p>Connect to separate supervision systems (e.g. using separate ports)</p></li>
-<li><p>Connect to a supervision system that can handle separate signal exchange
-lists depending on the RSMP / SXL version message from the site</p></li>
-</ul>
+<p>The SXLs used on the connection are determined by <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.</p>
 </section>
 <section id="communication-establishment-between-sites">
-<span id="id4"></span><h2><span class="section-number">4.4.4. </span>Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Link to this heading"></a></h2>
-<p>When establishing communication directly between sites, messages are sent in
-the following order.</p>
-<p>One site acts as a leader and the other one as a follower.</p>
+<span id="id6"></span><h2><span class="section-number">4.4.5. </span>Communication establishment between sites<a class="headerlink" href="#communication-establishment-between-sites" title="Link to this heading"></a></h2>
+<p>When establishing communication directly between sites, one site acts as a leader
+and the other as a follower.</p>
 <p>When establishing communication between sites, messages are sent in the
 following order.</p>
-<p>Message acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) is
-implicit in the following figure.</p>
+<p>The Version exchange follows <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.
+The remaining sequence below applies when core version 3.3.0 is selected.
+If an earlier core version is selected, its communication establishment sequence applies
+after the Version exchange.</p>
+<p>Message acknowledgements (see <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>) are implicit in the
+following figure, except for the acknowledgement of AggregatedStatus.</p>
 <img alt="../_images/establish-site-site.png" class="align-center" src="../_images/establish-site-site.png" />
 <ol class="arabic simple">
-<li><p>The follower site sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
-<li><p>The leader site verifies the RSMP version, SXL version and site id.
-If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The leader site sends RSMP / SXL version (according to section
-<a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
-<li><p>The follower site verifies the RSMP version, SXL version and site id.
-If there is a mismatch the sequence does not proceed.
-(see section <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>)</p></li>
-<li><p>The latest version of RSMP that both communicating parties exchange in the
-RSMP/SXL Version is implicitly selected and used in any further RSMP
-communication.</p></li>
+<li><p>The follower site sends a Version request message (see <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The leader site processes the request according to <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>
+and verifies the site id (see <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>).</p></li>
+<li><p>The leader site sends a Version response message (see <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>).</p></li>
+<li><p>The follower site processes the response according to <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.</p></li>
+<li><p>The selected core version is used in all further RSMP communication.</p></li>
 <li><p>The follower site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
 <li><p>The leader site sends Watchdog (according to section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>)</p></li>
 <li><p>The follower site sends a ComponentList message (according to section <a class="reference internal" href="basic_structure.html#component-list"><span class="std std-ref">ComponentList</span></a>).</p></li>
-<li><p>Asynchronous message exchange can begin. This means that commands and
-statuses are allowed to be sent</p></li>
-<li><p>Aggregated status (according to section <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>)
-If no component for aggregated status is defined in the signal exchange list
-then no aggregated status message is sent.</p></li>
+<li><p>The follower site must send one AggregatedStatus message with the current status of the entire follower site
+(see <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a>), even if no SXL is used on the connection.
+The follower site must wait for the leader site’s MessageAck or MessageNotAck for this message.
+Either acknowledgement completes the communication establishment sequence.
+If rejected, the AggregatedStatus is discarded and communication continues.</p></li>
+<li><p>The leader site may start asynchronous message exchange after sending either acknowledgement,
+and the follower site may start after receiving it. Commands and statuses defined by
+accepted SXLs are allowed to be sent.</p></li>
 </ol>
 <p>For communication between sites the following applies:</p>
 <ul class="simple">
-<li><p>The SXL used is the SXL of the follower site</p></li>
+<li><p>The SXLs used are selected from those offered by the follower site</p></li>
 <li><p>The site id (siteId) which is sent in RSMP / SXL version is the
 follower site’s site id</p></li>
-<li><p>If the site id does not match with the expected site id the connection
-should be terminated. The purpose is to reduce the risk of establishing
-connection with the wrong site</p></li>
-<li><p>The component id which is used in all messages is the follower site’s
-component id</p></li>
+<li><p>The leader site verifies the follower site’s site id against the expected site id
+(see <a class="reference internal" href="#communication-rejection"><span class="std std-ref">Communication rejection</span></a>).</p></li>
+<li><p>For messages that refer to a component, the component id is the follower site’s
+component id.</p></li>
 <li><p>Watchdog messages does not adjust the clock. See section <a class="reference internal" href="basic_structure.html#watchdog"><span class="std std-ref">Watchdog</span></a>.</p></li>
-<li><p>Alarm messages are not sent</p></li>
+<li><p>Alarm messages must not be exchanged, regardless of <code class="docutils literal notranslate"><span class="pre">useAlarms</span></code>
+(see <a class="reference internal" href="#alarm-exchange"><span class="std std-ref">Alarm exchange</span></a>).</p></li>
 <li><p>No communication buffer exist</p></li>
 </ul>
 <div class="admonition note">
@@ -315,28 +395,27 @@ system works.</p>
 </div>
 </section>
 <section id="communication-rejection">
-<span id="id5"></span><h2><span class="section-number">4.4.5. </span>Communication rejection<a class="headerlink" href="#communication-rejection" title="Link to this heading"></a></h2>
-<p>During RSMP/SXL Version exchange each communicating party needs to verify:</p>
-<ul class="simple">
-<li><p>RSMP version(s)</p></li>
-<li><p>SXL version</p></li>
-<li><p>Site id</p></li>
-</ul>
-<p>If there is a mismatch of SXL, Site id or unsupported version(s) of RSMP then:</p>
+<span id="id7"></span><h2><span class="section-number">4.4.6. </span>Communication rejection<a class="headerlink" href="#communication-rejection" title="Link to this heading"></a></h2>
+<p>Version requests and responses are validated according to <a class="reference internal" href="#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.
+The supervisor verifies the site id in the request. For site-to-site communication,
+the leader site verifies the follower site’s site id.</p>
+<p>If a Version request or response fails validation, the site id does not match,
+or there is no common core version, the receiver must:</p>
 <ol class="arabic simple">
-<li><p>The communication establishment sequence does not proceed</p></li>
-<li><p>The receiver of the RSMP/SXL version message sends a MessageNotAck with
-reason (<cite>rea</cite>) set to the cause of rejection. For instance,
-<code class="docutils literal notranslate"><span class="pre">RSMP</span> <span class="pre">versions</span> <span class="pre">[3.1.5]</span> <span class="pre">requested,</span> <span class="pre">but</span> <span class="pre">only</span> <span class="pre">[3.1.1,3.1.2,3.1.3,3.1.4]</span> <span class="pre">supported</span></code></p></li>
-<li><p>The connection is closed</p></li>
+<li><p>Stop the communication establishment sequence.</p></li>
+<li><p>If the message contains a valid <code class="docutils literal notranslate"><span class="pre">mId</span></code>, send a MessageNotAck with <code class="docutils literal notranslate"><span class="pre">oMId</span></code> set to that
+id and reason (<code class="docutils literal notranslate"><span class="pre">rea</span></code>) set to the cause of rejection. For instance,
+<code class="docutils literal notranslate"><span class="pre">RSMP</span> <span class="pre">versions</span> <span class="pre">[3.1.5]</span> <span class="pre">requested,</span> <span class="pre">but</span> <span class="pre">only</span> <span class="pre">[3.1.1,3.1.2,3.1.3,3.1.4]</span> <span class="pre">supported</span></code>
+If <code class="docutils literal notranslate"><span class="pre">mId</span></code> is missing or invalid, no MessageNotAck is sent.</p></li>
+<li><p>Close the connection, whether or not a MessageNotAck could be sent.</p></li>
 </ol>
 <img alt="../_images/communication-rejection.png" class="align-center" src="../_images/communication-rejection.png" />
-<p>Is it not allowed to disconnect for any other circumstance other than mismatch
-during RSMP/SXL Version or <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">missing message acknowledgement</span></a>
+<p>It is not allowed to disconnect for any other circumstance than the Version
+negotiation failures described above or <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">missing message acknowledgement</span></a>
 unless there is a communication disruption.</p>
 </section>
 <section id="communication-disruption">
-<span id="id6"></span><h2><span class="section-number">4.4.6. </span>Communication disruption<a class="headerlink" href="#communication-disruption" title="Link to this heading"></a></h2>
+<span id="id8"></span><h2><span class="section-number">4.4.7. </span>Communication disruption<a class="headerlink" href="#communication-disruption" title="Link to this heading"></a></h2>
 <p>In the event of an communication disruption the following principles applies:</p>
 <ul class="simple">
 <li><p>If the equipment supports buffering of status messages, the status
@@ -356,8 +435,8 @@ sized to be able to store 10000 messages.</p></li>
 </ul>
 <p>The following message types should be buffered in the equipment’s outgoing
 communication buffer in the event of an communication disruption.</p>
-<table class="docutils align-default" id="id8">
-<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Message types that should be buffered</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">Message types that should be buffered</span><a class="headerlink" href="#id10" title="Link to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Message type</p></th>
 <th class="head"><p>Buffered during communication outage</p></th>
@@ -399,7 +478,7 @@ be 10 seconds.</p></li>
 </ul>
 </section>
 <section id="wrapping-of-packets">
-<h2><span class="section-number">4.4.7. </span>Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.4.8. </span>Wrapping of packets<a class="headerlink" href="#wrapping-of-packets" title="Link to this heading"></a></h2>
 <p>Both Json and XML packets can be tricky to decode unless one always know that
 the packet is complete. Json lacks an end tag and an XML end tag may be
 embedded in the text source. In order to reliably detect the end of a packet
@@ -443,7 +522,7 @@ ex &lt;0x0c&gt; is ASCII code 12, e.g. FF (formfeed).</p>
 <ul class="simple">
 <li><p>All packets must be ended with a FF (formeed). This includes message
 acknowledgement (see section <a class="reference internal" href="basic_structure.html#message-acknowledgement"><span class="std std-ref">Message acknowledgement</span></a>).
-For example if NotAck is used as a consequence for signal exchange list
+For example if NotAck is used as a consequence for core version
 mismatch during communication establishment</p></li>
 <li><p>Several consecutive FF (formeed) must not be sent, but must be handled</p></li>
 <li><p>FF (formeed) in the beginning of the data exchange (after connection
@@ -451,7 +530,7 @@ establishment) must not be sent, but must be handled</p></li>
 </ul>
 </section>
 <section id="transport-between-site-and-supervision-system">
-<span id="id7"></span><h2><span class="section-number">4.4.8. </span>Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Link to this heading"></a></h2>
+<span id="id9"></span><h2><span class="section-number">4.4.9. </span>Transport between site and supervision system<a class="headerlink" href="#transport-between-site-and-supervision-system" title="Link to this heading"></a></h2>
 <p>By default the following applies:</p>
 <ul class="simple">
 <li><p>The supervision system implements a socket server and waits for the site
@@ -477,7 +556,7 @@ unaffected</p>
 </div>
 </section>
 <section id="transport-between-sites">
-<h2><span class="section-number">4.4.9. </span>Transport between sites<a class="headerlink" href="#transport-between-sites" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.4.10. </span>Transport between sites<a class="headerlink" href="#transport-between-sites" title="Link to this heading"></a></h2>
 <p>One site acts as leader and the other site(s) as followers. The leader can
 request commands, statuses (with optional subscription) and alarms to the
 follower site(s). It is the leader one who connects. This is different to

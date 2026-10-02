@@ -120,8 +120,7 @@
 <p>A signal exchange list (<a class="reference internal" href="../definitions.html#term-SXL"><span class="xref std std-term">SXL</span></a>) specifies the interface for a type of equipment or area of functionality.</p>
 <p>An SXL is identified by its name, and is published with a version following Semantic Versioning (SemVer) rules.</p>
 <p>An SXL is defined using YAML format.</p>
-<p>An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.
-It also details the meaning of aggregated status bits, functional positions and functional states.</p>
+<p>An SXL defines component types, and the alarm, command, and status messages used to interact with these component types.</p>
 <p>An SXL can depend on other SXLs, and can then rely on component types and message codes from these SXLs.</p>
 <p>A site implements one or more SXLs.</p>
 <section id="overview">
@@ -160,14 +159,14 @@ must indicate this in the name as <code class="docutils literal notranslate"><sp
 <li><p>PATCH version when you make backward compatible bug fixes</p></li>
 </ul>
 <p>Preview and build info cannot be used as part of version strings.</p>
-<p>SXL versions are used to determine whether a site and the supervisor has compatible versions,
+<p>SXL versions are used to determine whether a site and the supervisor have compatible versions,
 and when resolving dependencies between SXLs.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">meta</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.3.1</span>
 </pre></div>
 </div>
-<p>SXL versions are used to determine whether a site and the supervisor
-can establish communication. How this is done is explained in <a class="reference internal" href="basic_structure.html#rsmpsxl-version"><span class="std std-ref">RSMP/SXL Version</span></a>.</p>
+<p>SXL versions are used to determine which SXLs can be used on the connection.
+How this is done is explained in <a class="reference internal" href="transport_of_data.html#version-negotiation"><span class="std std-ref">Version negotiation</span></a>.</p>
 </section>
 <section id="prefix">
 <span id="sxl-prefix"></span><h3><span class="section-number">4.9.1.3. </span>Prefix<a class="headerlink" href="#prefix" title="Link to this heading"></a></h3>
@@ -236,34 +235,12 @@ or are not intended to be used together on the same site. The ability for differ
 </section>
 <section id="messages">
 <span id="sxl-messages"></span><h2><span class="section-number">4.9.2. </span>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h2>
-<p>The message types <strong>Alarm</strong>, <strong>Aggregated status</strong>, <strong>Status</strong> and <strong>Commands</strong>
-are defined in the SXL.</p>
+<p>The content of <strong>Alarm</strong>, <strong>Status</strong> and <strong>Command</strong> messages is defined in the SXL.
+The <a class="reference internal" href="basic_structure.html#aggregated-status-message"><span class="std std-ref">Aggregated status message</span></a> and its <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a> are defined solely
+by the core specification.</p>
 <p>Each message type is defined like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">&lt;component-type&gt;</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">aggregated_status</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">1</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local mode</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In local mode</span>
-<span class="w">      </span><span class="nt">2</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">No Communications</span>
-<span class="w">      </span><span class="nt">3</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">High priority fault</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fail safe mode</span>
-<span class="w">      </span><span class="nt">4</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium Priority Fault</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium priority fault, but not in fail safe mode</span>
-<span class="w">      </span><span class="nt">5</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Low Priority Fault</span>
-<span class="w">      </span><span class="nt">6</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected / Normal - In Use</span>
-<span class="w">      </span><span class="nt">7</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connected / Normal - Idle</span>
-<span class="w">      </span><span class="nt">8</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Not Connected</span>
-<span class="w">    </span><span class="nt">functional_position</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">&lt;position-1&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">start</span>
-<span class="w">      </span><span class="nt">&lt;position-2&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stop</span>
 <span class="w">    </span><span class="nt">alarms</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">A0001</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alarm description text</span>
@@ -330,13 +307,6 @@ data types.</p>
 </ul>
 <p>At least one argument is required for commands and statuses, but they are
 optional in alarms.</p>
-<p>The aggregated status contains the fields:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">functional_position</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-position"><span class="xref std std-term">Functional position</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">functional_state</span></code> is the <a class="reference internal" href="../definitions.html#term-Functional-state"><span class="xref std std-term">Functional state</span></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1-8</span></code> is an array of eight booleans. Each with a title and optional
-description. See <a class="reference internal" href="basic_structure.html#state-bits"><span class="std std-ref">State bits</span></a></p></li>
-</ul>
 <section id="alarm-description">
 <span id="id1"></span><h3><span class="section-number">4.9.2.1. </span>Alarm description<a class="headerlink" href="#alarm-description" title="Link to this heading"></a></h3>
 <p>The format of the description is free of choice but has the following
@@ -416,7 +386,7 @@ One example of technical alarm is when an impulse fan stops working.</p>
 <td><p>On change <em>or</em> request</p></td>
 </tr>
 <tr class="row-odd"><td><p>Aggregated status</p></td>
-<td><p>On change <em>or</em> request</p></td>
+<td><p>On establishment, change <em>or</em> request</p></td>
 </tr>
 <tr class="row-even"><td><p>Status</p></td>
 <td><p>On request <em>or</em> according to subscription</p></td>

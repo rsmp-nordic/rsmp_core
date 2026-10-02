@@ -29,15 +29,6 @@ Definitions
    External NTS alarm code id
        Alarm code in order to identify alarm type during communication with NTS
 
-   Functional position
-       Provides command options for a site. For instance, "start" or "stop"
-       It is meant to be used for the entire site and not for an individual
-       component. It can be implemented using a command and can be read from
-       the site using the aggregated status message.
-
-   Functional state
-       Not used
-
    ITS site
        Road side equipment. Covers both field level and local level
 
@@ -109,4 +100,3 @@ Definitions
 
    XML
        eXtensible Markup Language
-
