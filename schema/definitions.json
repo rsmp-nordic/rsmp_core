@@ -31,6 +31,13 @@
       { "pattern": "^\\-?[0-9]+$" }
     ]
   },
+  "number_as_string": {
+    "description" : "Integer or decimal number as string",
+    "allOf" : [
+      { "$ref" : "#/rsmp_string" },
+      { "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$" }
+    ]
+  },
   "version": {
     "description" : "Version",
     "$comment" : "Example: 1.2.3 or 1.2",
@@ -129,5 +136,4 @@
     ]
   }
 }
-
 

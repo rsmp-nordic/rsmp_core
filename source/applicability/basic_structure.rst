@@ -1033,7 +1033,8 @@ status update should be sent.
 The following applies:
 
 * **updateRate** defines a specific interval when to send updates.
-  Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
+  It is a nonnegative **number_as_string**, expressed in seconds, e.g. "2"
+  for 2 seconds or "2.5" for 2.5 seconds. Negative values are not valid.
 
 * If **updateRate** is set to 0 it means that no update is sent using an
   interval.

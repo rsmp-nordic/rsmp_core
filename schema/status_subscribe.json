@@ -14,8 +14,11 @@
           "sCI" : { "$ref": "definitions.json#/status_code" },
           "n" : { "description" : "Unique reference of the value", "type" : "string" },
           "uRt" : {
-            "$ref": "definitions.json#/integer",
-            "description" : "Update interval in seconds, 0 means send when value changes"
+            "allOf" : [
+              { "$ref": "definitions.json#/number_as_string" },
+              { "not": { "pattern": "^-" } }
+            ],
+            "description" : "Nonnegative update interval in seconds; zero disables periodic updates and requires sOc to be true"
           },
           "sOc" : {
             "type": "boolean",
@@ -23,7 +26,14 @@
           }
         },
         "required" : [ "sCI", "n", "uRt", "sOc" ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "if": {
+          "properties": { "uRt": { "pattern": "^0(?:\\.0+)?$" } },
+          "required": [ "uRt" ]
+        },
+        "then": {
+          "properties": { "sOc": { "const": true } }
+        }
       }
     }
   },
