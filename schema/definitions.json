@@ -68,9 +68,23 @@
     ]
   },
   "component_id": {
-    "description" : "Compoment id",
+    "description" : "Component ID",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" }
+      { "$ref" : "#/rsmp_string" },
+      { "pattern" : "^[A-Za-z0-9_+=-]+(?:/[A-Za-z0-9_+=-]+)*$" }
+    ]
+  },
+  "component_id_selector": {
+    "description" : "Component selector",
+    "anyOf" : [
+      { "$ref" : "#/component_id" },
+      {
+        "allOf" : [
+          { "$ref" : "#/rsmp_string" },
+          { "pattern" : "^[A-Za-z0-9_+=-]+(?:/[A-Za-z0-9_+=-]+)*/$" }
+        ]
+      },
+      { "enum" : [ "/", "", null ] }
     ]
   },
   "component_type": {
