@@ -14,7 +14,7 @@
           "sCI" : { "$ref": "definitions.json#/status_code" },
           "n" : { "description" : "Unique reference of the value", "type" : "string" },
           "uRt" : {
-            "$ref": "definitions.json#/integer",
+            "$ref": "definitions.json#/number_as_string",
             "description" : "Update interval in seconds, 0 means send when value changes"
           }
         },
