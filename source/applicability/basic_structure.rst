@@ -1488,19 +1488,23 @@ was not understood.
 
 * The default timeout value should be 30 seconds.
 
-* If the version messages have not been exchanged according to communication
-  establishment sequence
-  (See :ref:`communication-establishment-between-sites-and-supervision-system`
-  and :ref:`communication-establishment-between-sites`) then
-  message acknowledgement (MessageAck/MessageNotAck) should not be sent as a
-  response to any other messages other than the version message
-  (See :ref:`rsmpsxl-version`). The lack of acknowledgement forces the other
-  communicating party to treat it as communication disruption and disconnect
-  and reconnect, ensuring that the connection restarts with communication
-  establishment sequence.
+* Before the Version exchange is complete, MessageAck/MessageNotAck must only
+  be sent in response to a Version message. Premature messages are rejected
+  without validating their message-specific attributes, and the connection is
+  closed according to :ref:`communication-rejection`.
 
 The acknowledgement messages are interaction driven and are sent when
-any other type of message is received.
+any other type of message is received, subject to the Version exchange rule above.
+MessageAck and MessageNotAck must not themselves be acknowledged.
+
+Before a core version has been selected, only acknowledgements with a valid ``oMId``
+matching a Version message awaiting acknowledgement on this connection are allowed.
+Receiving an acknowledgement does not select a core version.
+
+During the Version exchange, acknowledgements must be constructed and validated
+according to the newest core version supported by the implementation until a common
+core version has been selected. After selection, the selected version's rules apply,
+including when the selection is provisional and the full Version message fails validation.
 
 Message structure – Message acknowledgement
 """""""""""""""""""""""""""""""""""""""""""
@@ -1625,7 +1629,7 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Nonempty array of objects, each with a ``vers`` attribute containing a supported core version string.
-   SXL           string   Optional. Version of the primary SXL, for backward compatibility.
+   SXL           string   Version of the primary SXL. Required when offering earlier core versions; otherwise optional, except when ``SXLS`` is empty.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
@@ -1634,10 +1638,12 @@ exactly one element.
 
 The ``SXL`` attribute specifies the version of the primary SXL used with supervisors that
 only support older core versions and ignore the newer ``SXLS`` array.
-When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``SXLS``.
+When offering any core version earlier than 3.3.0, ``SXL`` must contain a valid,
+nonempty SXL version supported by the site. When present and nonempty, ``SXL``
+must match the ``version`` of that SXL in ``SXLS``.
 
 The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
-set to an empty string.
+set to an empty string, and the request must not offer core versions earlier than 3.3.0.
 Duplicate SXL names are not allowed in the request.
 
 Each item in the ``SXLS`` array must be an object with the following content:

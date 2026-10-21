@@ -124,6 +124,10 @@ See :ref:`rsmpsxl-version` for the format and content of Version messages.
 When establishing RSMP communication, the initial message is a Version request message sent by the site.
 The supervisor responds with a Version response message.
 
+Each new connection requires a new Version exchange. The version selected on a previous
+connection must not be assumed. The initial request advertises supported versions;
+it does not select one.
+
 The ``step`` attribute makes it easier to identify and validate messages without knowing
 the sequence context, but is absent in earlier core versions. When ``step`` is absent, a Version message must be
 identified as a request or response based on the communication sequence.
@@ -141,52 +145,66 @@ numerically, in that order.
 After negotiation, communication establishment and subsequent message exchange must follow
 the selected core version, the SXLs in use and the negotiated communication options.
 
+Initial message validation
+""""""""""""""""""""""""""
+
+Before a core version has been selected, incoming packets must be valid JSON objects
+with ``mType`` equal to ``"rSMsg"`` and a ``type`` permitted by the communication
+establishment sequence. Unexpected message types must be rejected without validating
+or interpreting their message-specific attributes.
+
+For a Version message, preliminary validation must check exactly these fields:
+
+* ``mType`` is ``"rSMsg"``.
+* ``type`` is ``"Version"``.
+* ``RSMP`` is a nonempty array of objects, each containing a ``vers`` string
+  with two or three dot-separated numeric components.
+
+Other attributes are allowed but not validated at this stage.
+
+Preliminary validation must succeed before core version selection. Full Version
+validation then uses the selected version, as described below. Acknowledgements
+are validated according to :ref:`message-acknowledgement`.
+Validation failures are handled according to :ref:`communication-rejection`.
+
 Core Version Compatibility
 """"""""""""""""""""""""""
 
 Version negotiation relies on the common structure of the ``RSMP`` array across core versions:
 each entry is an object containing a ``vers`` attribute whose value is a core version string.
 
-When receiving a Version message, the receiver must first read and validate
-the ``RSMP`` array and select the latest core version supported by both parties.
+After preliminary validation succeeds, the receiver selects a core version:
 
-If there is no common core version, see :ref:`communication-rejection`.
+* For a request, the supervisor selects the latest version common to the request
+  and the versions it supports.
+* For a response, the site selects the latest version common to its original request
+  and the response. For core 3.3.0, the response lists only the selected version.
+  Earlier core versions allow the supervisor to list all versions it supports,
+  including versions not offered by the site.
 
-The remaining attributes must then be validated and interpreted according to that version.
-Attributes that are unknown to the selected core version must be ignored.
+A common version requires an exact match of major, minor and patch version.
+The selection is provisional until the full Version message, including ``mId``,
+has been validated according to that version. Only then may its remaining attributes
+be interpreted. An invalid ``mId`` causes the connection to be closed without
+sending a MessageNotAck, even if a common version has already been selected.
+This procedure also applies when an earlier core version is selected.
+Attributes unknown to the selected version must be ignored.
+
+If no common version exists, or validation of the version array or the full message
+fails, the receiver must follow :ref:`communication-rejection`.
 
 The supervisor must verify the ``siteId`` in the request against the expected site identity.
-The supervisor sends a Version response message, which must be formatted according to the selected core version.
+Its Version response must be formatted according to the selected core version.
 When core 3.3.0 is selected, the ``supervisorId`` in the response is informational;
 the site does not compare it with an expected supervisor identity.
 
-When the site receives the Version response, it must first read the ``RSMP`` array and select the latest core version
-common to its original Version request and the Version response.
-If there is no common core version, see :ref:`communication-rejection`.
-
-The remaining attributes must then be validated and interpreted according to that version.
-Unknown attributes must be ignored.
-
-If validation of the ``RSMP`` array or the remaining attributes fails in a Version request
-or response, the receiver must follow :ref:`communication-rejection`.
-
-Communication can only be established if the supervisor supports one of the core
-versions listed in the Version request sent by the site. It must be an exact match of
-major, minor and patch version.
-
-If the supervisor determines that the core version cannot be matched,
-it must reject the connection according to :ref:`communication-rejection`.
-
-A site and a supervisor can only communicate if the core versions are exactly the same, i.e.
-major, minor and patch versions match.
-The selected core version must be one of the versions offered in the site's Version request.
-For core 3.3.0, the ``RSMP`` array in the response contains only the selected version.
-For earlier core versions, the response may list all versions supported by the supervisor,
-including versions not offered by the site. The latest version common to the request and
-response is selected.
-
 SXL Version Compatibility
 """""""""""""""""""""""""
+
+SXL negotiation follows the selected core version. For earlier core versions,
+the ``SXL`` attribute identifies the single SXL version, which must match between
+the parties. An SXL mismatch prevents communication establishment.
+The following rules for ``SXLS`` and its status codes apply when core 3.3.0 is selected.
 
 An SXL listed by the site can only be used if the supervisor supports the exact same version,
 with an exact match of major, minor and patch version.
@@ -231,9 +249,8 @@ When establishing communication between sites and supervision system,
 messages are sent in the following order.
 
 The Version exchange follows :ref:`version-negotiation`.
-The remaining sequence below applies when core version 3.3.0 is selected.
-If an earlier core version is selected, its communication establishment sequence applies
-after the Version exchange.
+The remaining sequence below applies when he version described by this specification document is selected.
+If an earlier core version is selected, its communication establishment sequence applies.
 
 Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
 following figure, except for the acknowledgement of AggregatedStatus.
@@ -369,21 +386,29 @@ Version requests and responses are validated according to :ref:`version-negotiat
 The supervisor verifies the site id in the request. For site-to-site communication,
 the leader site verifies the follower site's site id.
 
-If a Version request or response fails validation, the site id does not match,
-or there is no common core version, the receiver must:
+If initial message validation fails, a Version request or response fails validation,
+the site id does not match, or there is no common core version, the receiver must:
 
 1. Stop the communication establishment sequence.
-2. If the message contains a valid ``mId``, send a MessageNotAck with ``oMId`` set to that
-   id and reason (``rea``) set to the cause of rejection. For instance,
+2. Send a MessageNotAck only if the received packet is a JSON object with
+   ``mType`` equal to ``"rSMsg"``, ``type`` equal to ``"Version"``, and a valid
+   ``mId`` as defined in :ref:`basic-structure`. Set ``oMId`` to that id and
+   ``rea`` to the cause of rejection. For instance,
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
-   If ``mId`` is missing or invalid, no MessageNotAck is sent.
+   Use the format specified by the version rules in :ref:`message-acknowledgement`.
+   If any of these envelope or identifier
+   checks fails, or the received message is not a Version, no acknowledgement is sent.
+   Acknowledgements must not themselves be acknowledged.
 3. Close the connection, whether or not a MessageNotAck could be sent.
+
+Receiving a MessageNotAck for the Version message awaiting acknowledgement also
+terminates the exchange and closes the connection, without sending a reply.
 
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-It is not allowed to disconnect for any other circumstance than the Version
-negotiation failures described above or :ref:`missing message acknowledgement<message-acknowledgement>`
+It is not allowed to disconnect for any other circumstance than the initial message
+or Version negotiation failures described above or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:
