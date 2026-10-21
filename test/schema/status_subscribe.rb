@@ -16,6 +16,20 @@ describe 'StatusSubscribe' do
     expect( validate(message) ).to be_nil
   end
 
+  %w[0 1 0.0 0.001 0.5 2.5].each do |interval|
+    it "accepts update interval #{interval.inspect}" do
+      message['sS'].first['uRt'] = interval
+      expect( validate(message) ).to be_nil
+    end
+  end
+
+  ['NaN', 'Infinity', '0.5s', '0,5', '', 0.5, nil].each do |interval|
+    it "rejects update interval #{interval.inspect}" do
+      message['sS'].first['uRt'] = interval
+      expect( validate(message) ).not.to be_nil
+    end
+  end
+
   it 'catches missing component id' do
     message.delete 'cId'
     expect( validate(message) ).to be == (
