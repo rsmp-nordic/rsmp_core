@@ -9,7 +9,7 @@ msc {
   |||;
   b abox b [ label = "Check envelope, Version format, site id and core compatibility" ];
   |||;
-  a<<b [ label = "MessageNotAck (if Version envelope and mId are valid)" ];
+  a<<b [ label = "MessageNotAck (if type is Version and mId is valid)" ];
   |||;
   --- [ label = "Connection closed" ];
 

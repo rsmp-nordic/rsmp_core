@@ -1489,22 +1489,28 @@ was not understood.
 * The default timeout value should be 30 seconds.
 
 * Before the Version exchange is complete, MessageAck/MessageNotAck must only
-  be sent in response to a Version message. Premature messages are rejected
-  without validating their message-specific attributes, and the connection is
-  closed according to :ref:`communication-rejection`.
+  be sent in response to a Version message. Premature messages other than
+  MessageAck and MessageNotAck are ignored without validating their
+  message-specific attributes. The lack of acknowledgement causes the sender
+  to treat the acknowledgement timeout as a communication disruption and
+  disconnect and reconnect, restarting the communication establishment sequence.
 
 The acknowledgement messages are interaction driven and are sent when
 any other type of message is received, subject to the Version exchange rule above.
 MessageAck and MessageNotAck must not themselves be acknowledged.
+For handling malformed messages, see :ref:`message-validation`.
 
-Before a core version has been selected, only acknowledgements with a valid ``oMId``
-matching a Version message awaiting acknowledgement on this connection are allowed.
 Receiving an acknowledgement does not select a core version.
 
 During the Version exchange, acknowledgements must be constructed and validated
 according to the newest core version supported by the implementation until a common
 core version has been selected. After selection, the selected version's rules apply,
 including when the selection is provisional and the full Version message fails validation.
+
+Before selection, the peer's supported core versions may be unknown, and the newest
+version may be the only version supported locally. MessageAck and MessageNotAck
+formats are kept backward compatible to allow this exchange between implementations
+supporting different core versions.
 
 Message structure – Message acknowledgement
 """""""""""""""""""""""""""""""""""""""""""

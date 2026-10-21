@@ -145,13 +145,18 @@ numerically, in that order.
 After negotiation, communication establishment and subsequent message exchange must follow
 the selected core version, the SXLs in use and the negotiated communication options.
 
+.. _initial-message-validation:
+
 Initial message validation
 """"""""""""""""""""""""""
 
-Before a core version has been selected, incoming packets must be valid JSON objects
-with ``mType`` equal to ``"rSMsg"`` and a ``type`` permitted by the communication
-establishment sequence. Unexpected message types must be rejected without validating
-or interpreting their message-specific attributes.
+Incoming packets are handled according to :ref:`message-validation`, with the
+following exceptions during communication establishment.
+
+Before the Version exchange is complete, messages other than Version must not
+receive an acknowledgement. Premature messages other than Version, MessageAck
+and MessageNotAck are ignored according to :ref:`message-acknowledgement`, without
+validating or interpreting their message-specific attributes.
 
 For a Version message, preliminary validation must check exactly these fields:
 
@@ -163,9 +168,13 @@ For a Version message, preliminary validation must check exactly these fields:
 Other attributes are allowed but not validated at this stage.
 
 Preliminary validation must succeed before core version selection. Full Version
-validation then uses the selected version, as described below. Acknowledgements
-are validated according to :ref:`message-acknowledgement`.
-Validation failures are handled according to :ref:`communication-rejection`.
+validation then uses the selected version, as described below.
+
+Version validation failures close the connection according to
+:ref:`communication-rejection`, which specifies when to send MessageNotAck
+before closure, including when ``mType`` is missing or invalid.
+
+Acknowledgements are validated according to :ref:`message-acknowledgement`.
 
 Core Version Compatibility
 """"""""""""""""""""""""""
@@ -386,18 +395,21 @@ Version requests and responses are validated according to :ref:`version-negotiat
 The supervisor verifies the site id in the request. For site-to-site communication,
 the leader site verifies the follower site's site id.
 
-If initial message validation fails, a Version request or response fails validation,
+Premature messages ignored according to :ref:`message-acknowledgement` do not
+trigger this rejection procedure.
+
+If a Version request or response fails preliminary or full validation,
 the site id does not match, or there is no common core version, the receiver must:
 
 1. Stop the communication establishment sequence.
-2. Send a MessageNotAck only if the received packet is a JSON object with
-   ``mType`` equal to ``"rSMsg"``, ``type`` equal to ``"Version"``, and a valid
-   ``mId`` as defined in :ref:`basic-structure`. Set ``oMId`` to that id and
+2. Send a MessageNotAck if the received packet is a JSON object with
+   ``type`` equal to ``"Version"`` and a valid ``mId`` as defined in
+   :ref:`basic-structure`, even if ``mType`` is missing or invalid.
+   Set ``oMId`` to that id and
    ``rea`` to the cause of rejection. For instance,
    ``RSMP versions [3.1.5] requested, but only [3.1.1,3.1.2,3.1.3,3.1.4] supported``
    Use the format specified by the version rules in :ref:`message-acknowledgement`.
-   If any of these envelope or identifier
-   checks fails, or the received message is not a Version, no acknowledgement is sent.
+   If ``mId`` is missing or invalid, no acknowledgement is sent.
    Acknowledgements must not themselves be acknowledged.
 3. Close the connection, whether or not a MessageNotAck could be sent.
 
@@ -407,8 +419,8 @@ terminates the exchange and closes the connection, without sending a reply.
 .. image:: /img/msc/communication-rejection.png
    :align: center
 
-It is not allowed to disconnect for any other circumstance than the initial message
-or Version negotiation failures described above or :ref:`missing message acknowledgement<message-acknowledgement>`
+It is not allowed to disconnect for any other circumstance than the Version
+negotiation failures described above or :ref:`missing message acknowledgement<message-acknowledgement>`
 unless there is a communication disruption.
 
 .. _communication-disruption:
