@@ -129,11 +129,21 @@ An alarm message is sent to the supervision system when:
 - An alarm is acknowledged
 - An alarm is being suspended / un-suspended
 
+An active alarm that is not suspended may also be updated when its return
+values change.
+
 An acknowledgment of an alarm does not cause a single alarm event to
 be acknowledged but all alarm events for the specific component with the
 associated alarm code id. This approach simplifies both in
 implementation but also in handling - if many alarms occur on the same
 equipment with short time intervals.
+
+Receivers should identify an alarm by the combination of component id
+(``cId``) and alarm code id (``aCId``). Return values provide details about an
+alarm and should not be used as part of its identity.
+
+An ``aS`` value of ``inActive`` applies to the entire alarm identified by
+``cId`` and ``aCId``, regardless of previously reported return values.
 
 The ability to request alarms is used in case the supervision system
 loses track of the latest state of the alarms.
@@ -149,6 +159,12 @@ when unsuspending an alarm an alarm can be inactive and not acknowledged.
 Alarm messages are event driven and sent to the supervision system
 when the alarm occurs. Acknowledgement of alarms and alarm suspend
 messages are interaction driven.
+
+Details about an active alarm can be provided in the ``rvs`` (return values)
+array. If the return values of an active alarm change while it is not
+suspended, the site may send a new ``Issue`` message with ``aTs`` set to the
+time the return values changed. Receivers should treat it as an update to the
+existing alarm. See :ref:`return-values`.
 
 Alarm events are referring to 'active' (aSp:Issue), 'suspended' (aSp:Suspend)
 and 'acknowledged' (aSp:Acknowledged).
@@ -222,6 +238,7 @@ The following table describes additional variable content of the message.
    | Element      | Value              | Origin             | Description                                  |
    +==============+====================+====================+==============================================+
    | aSp          | Issue              | Site               | An alarm becomes active/inactive.            |
+   |              |                    |                    | Return values of an active alarm change.     |
    |              +--------------------+--------------------+----------------------------------------------+
    |              | Request            | Supervision system | Request the current state of an alarm        |
    |              +--------------------+--------------------+----------------------------------------------+
@@ -264,17 +281,23 @@ or alarm suspend messages).
    |                   +--------------------+------------------------------------------------------------------------------------+
    |                   | notSuspended       | The alarm is not suspended                                                         |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
-   | aTs               | *(timestamp)*      | Timestamp for when the alarm changes status.                                       |
+   | aTs               | *(timestamp)*      | Timestamp of the reported alarm event.                                             |
    |                   |                    | See the contents of aSp to determine which type of timestamp is used               |
    |                   |                    |                                                                                    |
    |                   |                    | | - aSp: Issue: When the alarm gets **active** or **inactive**                     |
+   |                   |                    | |   or the return values of an active alarm change                                 |
    |                   |                    | | - aSp: Acknowledge: When the alarm gets **acknowledged** or **not acknowledged** |
    |                   |                    | | - aSp: Suspend: When the alarm gets **suspended** or **not suspended**           |
    |                   |                    |                                                                                    |
    |                   |                    | All timestamps are set at the local level (and not in the supervision system) when |
-   |                   |                    | the alarm occurs (and not when the message is sent).                               |
+   |                   |                    | the reported event occurs (and not when the message is sent).                      |
    |                   |                    | See also the :ref:`data type<data_types>` section.                                 |
    +-------------------+--------------------+------------------------------------------------------------------------------------+
+
+Buffered alarm messages retain their original ``aTs`` when sent after
+reconnection. Responses to alarm requests retain the timestamp of the most
+recent event corresponding to ``aSp``; the request itself does not change
+``aTs``.
 
 :numref:`alarm-transitions` show possible transitions between
 different alarm states.
@@ -292,6 +315,7 @@ and dashed lines define possible changes controlled by user.
 Alarms should not be sent unless:
 
 * Alarms are unblocked and its state changes
+* The return values of an active alarm change while it is not suspended
 * Alarms are sent as part of
   :ref:`communication-establishment-between-sites-and-supervision-system`
 * Alarms are explicitly requested using :ref:`alarmmessages-req`
@@ -315,9 +339,18 @@ defined by the SXL.
 Return values
 ~~~~~~~~~~~~~
 
-Return values ("rvs") are used by alarm messages (but not by alarm
-acknowledgment or alarm suspend messages) and is always sent but can
-be empty (i.e. **[]**) if no return values are defined.
+The return values (``rvs``) array provides additional information about an
+alarm. For example, it can indicate which signal head or lamp color is broken.
+
+The ``rvs`` array is always sent in ``Issue`` messages and in ``Suspend`` or
+``Resume`` messages that report the alarm state. Other alarm message
+specializations do not require it.
+
+For an active alarm, senders should include all current return values, not only
+those that changed. Where ``rvs`` is required, it must be an empty array if the
+SXL defines no return values for the alarm. For messages that report an
+inactive alarm, ``rvs`` should also be an empty array, but receivers must accept
+non-empty arrays that conform to the SXL.
 
 .. tabularcolumns:: |\Yl{0.15}|\Yl{0.10}|\Yl{0.60}|
 
