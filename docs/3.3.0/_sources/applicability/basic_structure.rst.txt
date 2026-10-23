@@ -28,7 +28,6 @@ In the following example the message type is an alarm message.
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
-       "xNACId": "3143",
        "aSp": "Issue",
        "ack": "notAcknowledged",
        "aS": "Active",
@@ -178,7 +177,6 @@ An alarm message has the structure according to the example below.
        "cId": "AB+84001=860SG001",
        "aCId": "A0001",
        "xACId": "Serious lamp error",
-       "xNACId": "3143",
        "aSp": "Issue",
        "ack": "notAcknowledged",
        "aS": "Active",
@@ -209,7 +207,6 @@ defined by the SXL.
    ============ ==================================
    aCId         :term:`Alarm code id`
    xACId        :term:`External alarm code id`
-   xNACId       :term:`External NTS alarm code id`
    ============ ==================================
 
 The following table describes additional variable content of the message.
@@ -1033,7 +1030,8 @@ status update should be sent.
 The following applies:
 
 * **updateRate** defines a specific interval when to send updates.
-  Defined in seconds with decimals, e.g. "2.5" for 2.5 seconds.
+  It is a nonnegative **number_as_string**, expressed in seconds, e.g. "2"
+  for 2 seconds or "2.5" for 2.5 seconds. Negative values are not valid.
 
 * If **updateRate** is set to 0 it means that no update is sent using an
   interval.

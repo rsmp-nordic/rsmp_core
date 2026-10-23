@@ -158,7 +158,6 @@ otherwise stated.</p>
 <span class="w">    </span><span class="nt">&quot;cId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AB+84001=860SG001&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aCId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A0001&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;xACId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Serious lamp error&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;xNACId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3143&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aSp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Issue&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;ack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;notAcknowledged&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Active&quot;</span><span class="p">,</span>
@@ -320,7 +319,6 @@ element ‘aSp’.</p>
 <span class="w">    </span><span class="nt">&quot;cId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AB+84001=860SG001&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aCId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A0001&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;xACId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Serious lamp error&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;xNACId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3143&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aSp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Issue&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;ack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;notAcknowledged&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;aS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Active&quot;</span><span class="p">,</span>
@@ -353,9 +351,6 @@ defined by the SXL.</p>
 </tr>
 <tr class="row-odd"><td><p>xACId</p></td>
 <td><p><a class="reference internal" href="../definitions.html#term-External-alarm-code-id"><span class="xref std std-term">External alarm code id</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>xNACId</p></td>
-<td><p><a class="reference internal" href="../definitions.html#term-External-NTS-alarm-code-id"><span class="xref std std-term">External NTS alarm code id</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1170,7 +1165,8 @@ status update should be sent.</p>
 <p>The following applies:</p>
 <ul class="simple">
 <li><p><strong>updateRate</strong> defines a specific interval when to send updates.
-Defined in seconds with decimals, e.g. “2.5” for 2.5 seconds.</p></li>
+It is a nonnegative <strong>number_as_string</strong>, expressed in seconds, e.g. “2”
+for 2 seconds or “2.5” for 2.5 seconds. Negative values are not valid.</p></li>
 <li><p>If <strong>updateRate</strong> is set to 0 it means that no update is sent using an
 interval.</p></li>
 <li><p><strong>sendOnChange</strong> defines if an status update should be sent as soon as the
