@@ -1855,8 +1855,11 @@ The following table describes the content of each component in the array:
    type     string   Component type, as defined by an SXL version advertised by the site.
                      The SXL does not need to be accepted by the supervisor.
                      See :ref:`component-type` for information about component types.
-   name     string   Human readable name of the component
+   name     string   (Optional) Human readable name of the component.
    ======== ======== ===================================================
+
+If the name is omitted, the supervisor may use the component ID as a name.
+Empty strings are not allowed as component names.
 
 .. _watchdog:
 

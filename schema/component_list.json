@@ -14,7 +14,7 @@
           "type" : { "$ref": "definitions.json#/component_type" },
           "name" : { "$ref": "definitions.json#/component_name" }
         },
-        "required" : [ "id", "type", "name" ],
+        "required" : [ "id", "type" ],
         "additionalProperties" : false
       },
       "uniqueItems" : true
