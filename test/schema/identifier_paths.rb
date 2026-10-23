@@ -21,11 +21,11 @@ describe 'Identifier paths in messages' do
 
   let(:code_messages) { [
     envelope.merge('type' => 'CommandRequest', 'cId' => 'tc',
-      'arg' => [{ 'cCI' => 'M0001', 'n' => 'plan', 'cO' => 'setValue', 'v' => 1 }]),
+                   'arg' => [{ 'cCI' => 'M0001', 'n' => 'plan', 'cO' => 'setValue', 'v' => 1 }]),
     envelope.merge('type' => 'StatusRequest', 'cId' => 'tc',
-      'sS' => [{ 'sCI' => 'S0001', 'n' => 'plan' }]),
+                   'sS' => [{ 'sCI' => 'S0001', 'n' => 'plan' }]),
     envelope.merge('type' => 'Alarm', 'cId' => 'tc',
-      'aCId' => 'A0001', 'aSp' => 'Request', 'xACId' => '')
+                   'aCId' => 'A0001', 'aSp' => 'Request', 'xACId' => '')
   ] }
 
   it 'accepts component paths and legacy Nordic IDs' do
@@ -64,8 +64,8 @@ describe 'Identifier paths in messages' do
 
   it 'rejects malformed or uppercase SXL names in requests and responses' do
     response = envelope.merge('type' => 'Version', 'step' => 'Response',
-      'RSMP' => [{ 'vers' => '3.3.0' }], 'supervisorId' => 'supervisor',
-      'SXLS' => [{ 'name' => 'nordic/tlc', 'status' => 'ok', 'version' => '1.0.0' }])
+                              'RSMP' => [{ 'vers' => '3.3.0' }], 'supervisorId' => 'supervisor',
+                              'SXLS' => [{ 'name' => 'nordic/tlc', 'status' => 'ok', 'version' => '1.0.0' }])
     [version, response].each do |message|
       ['', '/nordic/tlc', 'nordic/tlc/', 'nordic//tlc', 'Nordic/tlc', 'nordic/tlc+1', "tlc\n"].each do |name|
         message['SXLS'].first['name'] = name
