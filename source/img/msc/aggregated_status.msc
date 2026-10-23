@@ -6,7 +6,7 @@ msc {
   Site, "Supervision system";
 
   |||;
-  Site abox Site [ label = "Change of functional state, functional position or status bits" ];
+  Site abox Site [ label = "Change of site state bits" ];
   |||;
   Site->"Supervision system" [ label = "Aggregated status" ];
   |||;
