@@ -6,20 +6,19 @@ Definitions
 .. glossary::
 
    Alarm code id
-       Identity of an alarm
+       Identity of an alarm. See :ref:`message code ID syntax <message-code-ids>`.
 
-       The examples in this document are defined according to the following
-       format: *Ayyyy*, where *yyyy* is a unique number.
+       Examples include *Ayyyy*, where *yyyy* is a unique number.
 
    Code id
        A code id identifies alarms, commands and statuses. See :term:`Alarm code id`,
        :term:`Command code id` and :term:`Status code id`.
+       The syntax is defined under :ref:`message code IDs <message-code-ids>`.
 
    Command code id
-       Identity of a command
+       Identity of a command. See :ref:`message code ID syntax <message-code-ids>`.
 
-       The examples in this document are defined according to the following
-       format: *Myyyy* where *yyyy* is a unique number.
+       Examples include *Myyyy*, where *yyyy* is a unique number.
 
    External alarm code id
        Manufacturer specific alarm code and alarm description.
@@ -93,10 +92,9 @@ Definitions
       E.g. alarms, statuses and commands
 
    Status code id
-      Identitiy for a status
+      Identity of a status. See :ref:`message code ID syntax <message-code-ids>`.
 
-      The examples in this document are defined according to the following
-      format: *Syyyy* where *yyyy* is a unique number.
+      Examples include *Syyyy*, where *yyyy* is a unique number.
 
    TCP/IP
        Transfer Control Protocol/Internet Protocol

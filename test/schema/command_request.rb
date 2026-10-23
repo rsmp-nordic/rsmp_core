@@ -79,7 +79,7 @@ describe 'CommandRequest' do
       [["/arg/0/cCI", "string"]]
     )
 
-    message["arg"].first['cCI'] = '3'
+    message["arg"].first['cCI'] = '/invalid'
     expect( validate(message) ).to be == (
       [["/arg/0/cCI", "pattern"]]
     )
