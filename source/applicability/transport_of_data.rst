@@ -154,8 +154,10 @@ minor and patch numbers numerically, in that order, after treating an omitted
 patch number as zero. This normalization is for comparison; it does not change
 the spelling to be returned to the requester.
 
-After negotiation, communication establishment and subsequent message exchange must follow
-the selected core version, the SXLs in use and the negotiated communication options.
+Once a core version has been selected (see :ref:`core-version-selection`), its
+specification governs full Version validation, the Version response, the remaining
+communication establishment sequence and subsequent communication. Communication
+must also follow the SXLs in use and the negotiated communication options.
 
 .. _initial-message-validation:
 
@@ -361,8 +363,7 @@ following order.
 
 The Version exchange follows :ref:`version-negotiation`.
 The remaining sequence below applies when core version 3.3.0 is selected.
-If an earlier core version is selected, its communication establishment sequence applies
-after the Version exchange.
+If an earlier core version is selected, its communication establishment sequence applies.
 
 Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
 following figure, except for the acknowledgement of AggregatedStatus.
