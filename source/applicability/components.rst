@@ -12,6 +12,24 @@ A component has:
 * a name
 * internal data and state
 
+.. _identifier-paths:
+
+Identifier Paths
+----------------
+Component IDs, component types, SXL names and message code IDs use nonempty
+paths consisting of one or more segments separated by a single forward slash
+``/``. They must not start or end with a slash, and segments must not be empty.
+For example, ``tlc/sg`` is valid, while ``/tlc/sg``, ``tlc/sg/`` and ``tlc//sg``
+are not.
+
+Segments contain only ASCII letters (``A-Z``, ``a-z``), digits (``0-9``),
+hyphens and underscores. SXL names use only lowercase letters. Component IDs
+also allow plus signs and equal signs.
+
+An :ref:`SXL prefix <sxl-prefix>` follows the same path rules but ends with
+exactly one slash. :ref:`Component selectors <addressing-components>` have
+separate syntax for selecting subtrees, all components or no component.
+
 .. _component-type:
 
 Component Type
@@ -26,14 +44,16 @@ Component types are used in SXLs when defining which alarms, commands and status
 Component types must be unique within the SXL where they are defined, but does not have to be globally unique.
 The SXLs that define the same component type therefore canont be used together on the same site.
 
-Component type IDs use UTF-8 and must contain only letters, digits, hyphens, underscores and forward slashes.
+Component type IDs follow :ref:`identifier-paths`, using ASCII letters,
+digits, hyphens and underscores within each segment.
 
 .. _component-id:
 
 Component ID
 ------------
 Component IDs are used to identify components.
-They can contain only letters, digits, hyphens, plus signs, equal signs, underscores and forward slashes.
+They follow :ref:`identifier-paths`, using ASCII letters, digits, hyphens,
+plus signs, equal signs and underscores within each segment.
 
 Forward slashes ``/`` can be used to organise components into a hierarchy.
 
@@ -50,7 +70,7 @@ Examples::
   sg/1
   tc
 
-An component ID must not start or end with a slash.
+A component ID must not start or end with a slash.
 Empty levels, e.g. ``sg//1``, are not allowed.
 
 Even though it's often natural to organize components by type, for example by placing signal groups
@@ -75,6 +95,9 @@ A single forward slash ``/`` indicate the root and references all components.
 
 An empty string or null mean no component. Depending on context this can be used
 to indicate the site as a whole, as opposed to any specific compponent or group of components.
+
+These selectors are not component IDs and must not be used as IDs in
+ComponentList. Their use in a message depends on that message's addressing rules.
 
 .. _component-name:
 

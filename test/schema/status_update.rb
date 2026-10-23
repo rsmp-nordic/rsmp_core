@@ -25,7 +25,7 @@ describe 'StatusUpdate' do
   end
 
   it 'catches bad status code' do
-    message['sS'].first['sCI'] = '99'
+    message['sS'].first['sCI'] = '/invalid'
     expect( validate(message) ).to be == (
       [["/sS/0/sCI", "pattern"]]
     )
@@ -65,7 +65,7 @@ describe 'StatusUpdate' do
       [["/sS/0/sCI", "string"]]
     )
 
-    message['sS'].first['sCI'] = '3'
+    message['sS'].first['sCI'] = '/invalid'
     expect( validate(message) ).to be == (
       [["/sS/0/sCI", "pattern"]]
     )
