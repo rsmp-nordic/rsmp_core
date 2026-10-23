@@ -22,8 +22,8 @@ Regardless of which party opens the TCP connection, the site sends the first
 RSMP message, a Version request. See
 :ref:`communication-establishment-between-sites-and-supervision-system`.
 
-A site can connect to multiple supervisors. Support for this is required only
-when stated in the SXL. See :ref:`multiple-supervisors`.
+A site can be connected to multiple supervisors. Support for this is required
+only when stated in the SXL. See :ref:`multiple-supervisors`.
 
 Site-to-site
 ^^^^^^^^^^^^
