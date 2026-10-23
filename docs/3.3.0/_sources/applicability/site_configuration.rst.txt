@@ -31,5 +31,3 @@ Where:
 * ``<component-1>`` is the name of the component. For instance "signal group 1"
 * ``componentId`` is the :ref:`Component-id`
 
-The site must have exactly one main component.
-
