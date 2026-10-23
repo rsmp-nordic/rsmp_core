@@ -38,7 +38,7 @@ describe 'Alarm Request' do
   end
 
   it 'catches bad alarm code id' do
-    message['aCId'] = "001"
+    message['aCId'] = '/invalid'
     expect( validate(message) ).to be == (
       [["/aCId", "pattern"]]
     )
