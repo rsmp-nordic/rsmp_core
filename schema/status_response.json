@@ -1,0 +1,41 @@
+{
+  "title" :  "StatusResponse",
+  "description" :  "Status response",
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "cId" : { "$ref": "definitions.json#/component_id" },
+    "sTs" : { "$ref": "definitions.json#/timestamp" },
+    "sS" : {
+      "description" : "Status response arguments",
+      "type" : "array",
+      "minItems": 1,
+      "items" : {
+        "type" : "object",
+        "properties": {
+          "sCI" : { "$ref": "definitions.json#/status_code" },
+          "n" : { "description" : "Unique reference of the value", "type" : "string" },
+          "s" : { "description" : "Value"},
+          "q" : { "description" : "Quality", "type" : "string", "enum" : [ "recent", "old", "undefined", "unknown"] }
+        },
+        "if": {
+          "properties": {
+            "q" : { "enum" : ["unknown","undefined"] }
+          }
+        },
+        "then": {
+          "properties": {
+            "s" : { "type" : "null" }
+          }
+        },
+        "else": {
+          "properties": {
+            "s" : { "type" : ["string","array"] }
+          }
+        },
+        "required" : [ "sCI", "n", "s", "q" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required" : [ "mId", "cId", "sTs", "sS" ]
+}

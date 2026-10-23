@@ -1,0 +1,11 @@
+{
+  "properties" : {
+    "ack" : {
+      "description" : "Acknowledgement",
+      "type" : "string",
+      "enum" : [ "Acknowledged", "notAcknowledged" ]
+    },
+    "aTs" : { "$ref": "definitions.json#/timestamp" }
+  },
+  "required" : [ "mId", "cId", "aCId", "xACId", "aSp", "aTs" ]
+}

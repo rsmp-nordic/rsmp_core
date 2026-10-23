@@ -5,11 +5,11 @@ msc {
 
   a [label="Site"], b [label="Supervision system/Site"];
 
-  a=>b [ label = "RSMP/SXL version" ];
+  a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Verify RSMP version, SXL version and site id" ];
+  b abox b [ label = "Check Version format, site id and core compatibility" ];
   |||;
-  a<<b [ label = "MessageNotAck" ];
+  a<<b [ label = "MessageNotAck (if mId is valid)" ];
   |||;
   --- [ label = "Connection closed" ];
 

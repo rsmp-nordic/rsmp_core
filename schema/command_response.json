@@ -1,0 +1,46 @@
+{
+  "title" :  "CommandRequest",
+  "description" :  "Command request",
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "cId" : { "$ref": "definitions.json#/component_id" },
+    "cTS" : { "$ref": "definitions.json#/timestamp" },
+    "rvs" : {
+      "description" : "Command arguments",
+      "type" : "array",
+      "minItems" : 1,
+      "items" : {
+        "type" : "object",
+        "properties": {
+          "cCI" : { "$ref": "definitions.json#/command_code" },
+          "n" : {
+            "description" : "Unique reference of the value",
+            "type" : "string"
+          },
+          "v" : {
+            "description" : "Value"
+          },
+          "age" : {
+            "description" : "Age of the value",
+            "type" : "string",
+            "enum" : [ "recent", "old", "undefined", "unknown" ]
+          }
+        },
+        "if": {
+          "required": [ "age" ],
+          "properties": {
+            "age" : { "enum" : [ "unknown", "undefined" ] }
+          }
+        },
+        "then": {
+          "properties": {
+            "v" : { "type" : "null" }
+          }
+        },
+        "required" : [ "cCI", "n", "v", "age" ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required" : [ "mId", "cId", "cTS", "rvs" ]
+}
