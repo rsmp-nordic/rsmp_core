@@ -1587,6 +1587,7 @@ Version messages are used to negotiate RSMP core and SXL versions, as well as to
 send information such as site identity and communication options.
 
 The negotiation procedure is defined in :ref:`version-negotiation`.
+See also the rules for :ref:`version number formatting and comparison <version-number-format>`.
 
 Version Request
 """""""""""""""

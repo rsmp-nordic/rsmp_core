@@ -18,8 +18,9 @@ formatted text. The default port for RSMP is 12111.
 
 Messages can be sent asynchronously, i.e. while the site or supervision
 system is waiting for an answer to a previously sent message it can
-can continue to send messages. The exception is during the first part of
-communication establishment (see section :ref:`communication-establishment-between-sites-and-supervision-system`
+continue to send messages. During communication establishment, messages must
+follow the applicable sequence and its explicit waiting requirements (see
+:ref:`communication-establishment-between-sites-and-supervision-system`
 and :ref:`communication-establishment-between-sites`).
 
 RSMP connections can be established:
@@ -139,8 +140,19 @@ establishment (see
 :ref:`communication-establishment-between-sites-and-supervision-system`
 and :ref:`communication-establishment-between-sites`).
 
-Core and SXL versions are ordered by comparing their major, minor and patch numbers
-numerically, in that order.
+.. _version-number-format:
+
+Nonempty core and SXL version strings sent in Version messages must use the normalized
+``major.minor.patch`` format, with no leading zeroes in any component, except
+when preserving the request's spelling in a response as specified below.
+For compatibility with earlier cores, receivers must also accept two-component
+version strings and treat an omitted patch number as zero. For example, ``3.2``
+and ``3.2.0`` identify the same version.
+
+Core and SXL versions are compared for equality and ordered by their major,
+minor and patch numbers numerically, in that order, after treating an omitted
+patch number as zero. This normalization is for comparison; it does not change
+the spelling to be returned to the requester.
 
 After negotiation, communication establishment and subsequent message exchange must follow
 the selected core version, the SXLs in use and the negotiated communication options.
@@ -194,7 +206,8 @@ After preliminary validation succeeds, the receiver selects a core version:
   Earlier core versions allow the supervisor to list all versions it supports,
   including versions not offered by the site.
 
-A common version requires an exact match of major, minor and patch version.
+A common version requires an exact match of major, minor and patch version
+after normalization according to the :ref:`version number rules <version-number-format>`.
 The selection is provisional until the full Version message, including ``mId``,
 has been validated according to that version. Only then may its remaining attributes
 be interpreted. An invalid ``mId`` causes the connection to be closed without
@@ -207,6 +220,12 @@ fails, the receiver must follow :ref:`communication-rejection`.
 
 The supervisor must verify the ``siteId`` in the request against the expected site identity.
 Its Version response must be formatted according to the selected core version.
+For each core version in the response that matches a version in the request,
+the supervisor must copy the ``vers`` string from a matching request entry.
+For example, if the request offers ``3.2`` and that version is selected, the
+response must use ``3.2``, not ``3.2.0``. An older requester might compare version
+strings without normalization. Versions listed in an earlier-core response
+that were not offered in the request use the normalized format.
 When core 3.3.0 is selected, the ``supervisorId`` in the response is informational;
 the site does not compare it with an expected supervisor identity.
 
@@ -215,14 +234,17 @@ SXL Version Compatibility
 
 SXL negotiation follows the selected core version. For earlier core versions,
 the ``SXL`` attribute identifies the single SXL version, which must match between
-the parties. An SXL mismatch prevents communication establishment.
+the parties after normalization according to the :ref:`version number rules <version-number-format>`.
+The response must preserve the request's ``SXL`` version string.
+An SXL mismatch prevents communication establishment.
 The following rules for ``SXLS`` and its status codes apply when core 3.3.0 is selected.
 
 An SXL listed by the site can only be used if the supervisor supports the exact same version,
-with an exact match of major, minor and patch version.
+with an exact match of major, minor and patch version after normalization.
 
 For each SXL with status ``ok`` in the Version response, the ``version`` attribute must match
-the version of that SXL in the Version request. Versions listed in ``supported`` for status
+the version of that SXL in the Version request and preserve its spelling.
+Versions listed in ``supported`` for status
 ``mismatch`` describe the supervisor's supported versions and need not match the request.
 The ``supported`` list is diagnostic only. No fallback to an older SXL version takes
 place during this exchange, even if both parties support that version.
@@ -261,11 +283,17 @@ When establishing communication between sites and supervision system,
 messages are sent in the following order.
 
 The Version exchange follows :ref:`version-negotiation`.
-The remaining sequence below applies when he version described by this specification document is selected.
+The remaining sequence below applies when the version described by this specification document is selected.
 If an earlier core version is selected, its communication establishment sequence applies.
 
 Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
 following figure, except for the acknowledgement of AggregatedStatus.
+
+In this sequence, each received handshake message must be validated and acknowledged
+according to the applicable validation and acknowledgement rules before the receiver
+proceeds to the next step. Sending a message does not require waiting for its
+acknowledgement before continuing, unless explicitly stated. Outstanding
+acknowledgements remain subject to the :ref:`acknowledgement timeout <message-acknowledgement>`.
 
 .. image:: /img/msc/establish-site-system.png
    :align: center
@@ -338,6 +366,12 @@ after the Version exchange.
 
 Message acknowledgements (see :ref:`message-acknowledgement`) are implicit in the
 following figure, except for the acknowledgement of AggregatedStatus.
+
+In this sequence, each received handshake message must be validated and acknowledged
+according to the applicable validation and acknowledgement rules before the receiver
+proceeds to the next step. Sending a message does not require waiting for its
+acknowledgement before continuing, unless explicitly stated. Outstanding
+acknowledgements remain subject to the :ref:`acknowledgement timeout <message-acknowledgement>`.
 
 .. image:: /img/msc/establish-site-site.png
    :align: center
