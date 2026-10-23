@@ -1488,15 +1488,16 @@ was not understood.
 
 * The default timeout value should be 30 seconds.
 
-* Before the Version exchange is complete, MessageAck/MessageNotAck must only
-  be sent in response to a Version message. Premature messages other than
+* Before a core version has been selected (see :ref:`core-version-selection`),
+  MessageAck/MessageNotAck must only be sent in response to a Version message.
+  Premature messages other than
   MessageAck and MessageNotAck are ignored without validating their
   message-specific attributes. The lack of acknowledgement causes the sender
   to treat the acknowledgement timeout as a communication disruption and
   disconnect and reconnect, restarting the communication establishment sequence.
 
 The acknowledgement messages are interaction driven and are sent when
-any other type of message is received, subject to the Version exchange rule above.
+any other type of message is received, subject to the core version selection rule above.
 MessageAck and MessageNotAck must not themselves be acknowledged.
 For handling malformed messages, see :ref:`message-validation`.
 

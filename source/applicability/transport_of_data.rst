@@ -153,8 +153,9 @@ Initial message validation
 Incoming packets are handled according to :ref:`message-validation`, with the
 following exceptions during communication establishment.
 
-Before the Version exchange is complete, messages other than Version must not
-receive an acknowledgement. Premature messages other than Version, MessageAck
+Before a core version has been selected (see :ref:`core-version-selection`),
+messages other than Version must not receive an acknowledgement.
+Premature messages other than Version, MessageAck
 and MessageNotAck are ignored according to :ref:`message-acknowledgement`, without
 validating or interpreting their message-specific attributes.
 
@@ -175,6 +176,8 @@ Version validation failures close the connection according to
 before closure, including when ``mType`` is missing or invalid.
 
 Acknowledgements are validated according to :ref:`message-acknowledgement`.
+
+.. _core-version-selection:
 
 Core Version Compatibility
 """"""""""""""""""""""""""
