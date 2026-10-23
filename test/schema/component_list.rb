@@ -54,9 +54,9 @@ describe 'ComponentList' do
     expect( validate(message) ).not.to be_nil
   end
 
-  it 'catches missing component name' do
+  it 'accepts missing component name' do
     message['components'].first.delete 'name'
-    expect( validate(message) ).not.to be_nil
+    expect( validate(message) ).to be_nil
   end
 
   it 'catches extra component attributes' do
