@@ -46,38 +46,42 @@
       { "pattern" : "^[0-9]{1,2}\\.[0-9]{1,2}(\\.[0-9]{1,2})?" }
     ]
   },
+  "identifier_path": {
+    "description" : "Nonempty path of ASCII letters, digits, underscores and hyphens, without leading or trailing slashes or empty segments",
+    "allOf" : [
+      { "$ref" : "#/rsmp_string" },
+      { "pattern" : "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*$" }
+    ]
+  },
   "command_code": {
     "description" : "Command code id",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^M" }
+      { "$ref" : "#/identifier_path" }
     ]
   },
   "status_code": {
     "description" : "Status code id",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^S" }
+      { "$ref" : "#/identifier_path" }
     ]
   },
   "alarm_code": {
     "description" : "Alarm code id",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^A" }
+      { "$ref" : "#/identifier_path" }
     ]
   },
   "component_id": {
-    "description" : "Compoment id",
+    "description" : "Component ID without leading or trailing slashes or empty segments",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" }
+      { "$ref" : "#/rsmp_string" },
+      { "pattern" : "^[A-Za-z0-9_+=-]+(?:/[A-Za-z0-9_+=-]+)*$" }
     ]
   },
   "component_type": {
     "description" : "Component type",
     "allOf" : [
-      { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*$" }
+      { "$ref" : "#/identifier_path" }
     ]
   },
   "component_name": {
@@ -91,14 +95,14 @@
     "description" : "SXL name",
     "allOf" : [
       { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*$" }
+      { "pattern" : "^[a-z0-9_-]+(?:/[a-z0-9_-]+)*$" }
     ]
   },
   "sxl_prefix": {
     "description" : "SXL prefix",
     "allOf" : [
       { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^[A-Za-z0-9_-]+/$" }
+      { "pattern" : "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*/$" }
     ]
   },
   "boolean": {

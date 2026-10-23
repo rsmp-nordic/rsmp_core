@@ -103,7 +103,7 @@ describe 'CommandResponse' do
       [["/rvs/0/cCI", "string"]]
     )
 
-    message["rvs"].first['cCI'] = '3'
+    message["rvs"].first['cCI'] = '/invalid'
     expect( validate(message) ).to be == (
       [["/rvs/0/cCI", "pattern"]]
     )
