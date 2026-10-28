@@ -1488,19 +1488,30 @@ was not understood.
 
 * The default timeout value should be 30 seconds.
 
-* If the version messages have not been exchanged according to communication
-  establishment sequence
-  (See :ref:`communication-establishment-between-sites-and-supervision-system`
-  and :ref:`communication-establishment-between-sites`) then
-  message acknowledgement (MessageAck/MessageNotAck) should not be sent as a
-  response to any other messages other than the version message
-  (See :ref:`rsmpsxl-version`). The lack of acknowledgement forces the other
-  communicating party to treat it as communication disruption and disconnect
-  and reconnect, ensuring that the connection restarts with communication
-  establishment sequence.
+* Before a core version has been selected (see :ref:`core-version-selection`),
+  MessageAck/MessageNotAck must only be sent in response to a Version message.
+  Premature messages other than
+  MessageAck and MessageNotAck are ignored without validating their
+  message-specific attributes. The lack of acknowledgement causes the sender
+  to treat the acknowledgement timeout as a communication disruption and
+  disconnect and reconnect, restarting the communication establishment sequence.
 
 The acknowledgement messages are interaction driven and are sent when
-any other type of message is received.
+any other type of message is received, subject to the core version selection rule above.
+MessageAck and MessageNotAck must not themselves be acknowledged.
+For handling malformed messages, see :ref:`message-validation`.
+
+Receiving an acknowledgement does not select a core version.
+
+During the Version exchange, acknowledgements must be constructed and validated
+according to the newest core version supported by the implementation until a common
+core version has been selected. After selection, the selected version's rules apply,
+including when the selection is provisional and the full Version message fails validation.
+
+Before selection, the peer's supported core versions may be unknown, and the newest
+version may be the only version supported locally. MessageAck and MessageNotAck
+formats are kept backward compatible to allow this exchange between implementations
+supporting different core versions.
 
 Message structure – Message acknowledgement
 """""""""""""""""""""""""""""""""""""""""""
@@ -1576,6 +1587,7 @@ Version messages are used to negotiate RSMP core and SXL versions, as well as to
 send information such as site identity and communication options.
 
 The negotiation procedure is defined in :ref:`version-negotiation`.
+See also the rules for :ref:`version number formatting and comparison <version-number-format>`.
 
 Version Request
 """""""""""""""
@@ -1625,7 +1637,7 @@ The following table describes variable content of the message:
    step          string   Must be set to 'Request'.
    siteId        array    Array of site ids. Must contain exactly one object with ``sId`` set to the site id string.
    RSMP          array    Nonempty array of objects, each with a ``vers`` attribute containing a supported core version string.
-   SXL           string   Optional. Version of the primary SXL, for backward compatibility.
+   SXL           string   Version of the primary SXL. Required when offering earlier core versions; otherwise optional, except when ``SXLS`` is empty.
    SXLS          array    Array of supported SXLs.
    ============= ======== ===============
 
@@ -1634,10 +1646,12 @@ exactly one element.
 
 The ``SXL`` attribute specifies the version of the primary SXL used with supervisors that
 only support older core versions and ignore the newer ``SXLS`` array.
-When present and nonempty, ``SXL`` must match the ``version`` of that SXL in ``SXLS``.
+When offering any core version earlier than 3.3.0, ``SXL`` must contain a valid,
+nonempty SXL version supported by the site. When present and nonempty, ``SXL``
+must match the ``version`` of that SXL in ``SXLS``.
 
 The ``SXLS`` array may be empty if the site does not support any SXLs. In this case ``SXL`` must be
-set to an empty string.
+set to an empty string, and the request must not offer core versions earlier than 3.3.0.
 Duplicate SXL names are not allowed in the request.
 
 Each item in the ``SXLS`` array must be an object with the following content:
