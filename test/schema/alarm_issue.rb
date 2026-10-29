@@ -25,6 +25,18 @@ describe 'Alarm Issue' do
     expect( validate(message) ).to be_nil
   end
 
+  it 'accepts suspended alarm' do
+    message["sS"] = 'Suspended'
+    expect( validate(message) ).to be_nil
+  end
+
+  it 'rejects lowercase suspended' do
+    message["sS"] = 'suspended'
+    expect( validate(message) ).to be == (
+      [["/sS", "enum"]]
+    )
+  end
+
   it 'rejects lowercase aSp' do
     message["aSp"] = 'issue'
     expect( validate(message) ).to be == (
