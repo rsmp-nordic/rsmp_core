@@ -8,8 +8,7 @@ Definitions
    Alarm code id
        Identity of an alarm
 
-       The examples in this document are defined according to the following
-       format: *Ayyyy*, where *yyyy* is a unique number.
+       Examples on the wire include ``A0001`` and ``nordic/tlc/deadlock``. See :ref:`sxl-scope`.
 
    Code id
        A code id identifies alarms, commands and statuses. See :term:`Alarm code id`,
@@ -18,8 +17,7 @@ Definitions
    Command code id
        Identity of a command
 
-       The examples in this document are defined according to the following
-       format: *Myyyy* where *yyyy* is a unique number.
+       Examples on the wire include ``M0001`` and ``nordic/tlc/plan/set``.
 
    External alarm code id
        Manufacturer specific alarm code and alarm description.
@@ -93,10 +91,9 @@ Definitions
       E.g. alarms, statuses and commands
 
    Status code id
-      Identitiy for a status
+      Identity of a status
 
-      The examples in this document are defined according to the following
-      format: *Syyyy* where *yyyy* is a unique number.
+      Examples on the wire include ``S0001`` and ``nordic/tlc/plan/current``.
 
    TCP/IP
        Transfer Control Protocol/Internet Protocol
