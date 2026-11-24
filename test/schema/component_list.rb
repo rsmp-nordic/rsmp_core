@@ -9,12 +9,12 @@ describe 'ComponentList' do
     "components" => [
       {
         "id" => "detectors/radar/1",
-        "type" => "tlc/dl",
+        "type" => "nordic/tlc/dl",
         "name" => "Bus Detection A1 Northbound"
       },
       {
         "id" => "groups/2",
-        "type" => "tlc/sg",
+        "type" => "nordic/tlc/sg",
         "name" => "Signal Group A1 North"
       }
     ]

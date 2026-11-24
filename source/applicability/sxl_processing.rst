@@ -48,9 +48,9 @@ SXLs are listed using their names and exact versions, and must be ordered by nam
     created_by: sxl-tool v1.0.0
     format: 3.3.0
   sxls:
+    nordic/traffic_light_controller: 1.3.0
+    nordic/traffic_light_controller/advanced: 1.0.0
     public_priority: 2.1.0
-    traffic_light_controller: 1.3.0
-    traffic_light_controller_advanced: 1.0.0
 
 The ``meta`` section contains metadata about the manifest itself, including:
 - ``created_at`` is the timestamp when the manifest was created

@@ -117,9 +117,9 @@
       "properties" : {
         "name" : { "$ref" : "definitions.json#/sxl_name" },
         "version" : { "$ref" : "definitions.json#/version" },
-        "prefix" : { "$ref" : "definitions.json#/sxl_prefix" }
+        "scope" : { "$ref" : "definitions.json#/sxl_scope" }
       },
-      "required" : [ "name", "version" ]
+      "required" : [ "name", "version", "scope" ]
     },
     "sxl_response" : {
       "type" : "object",

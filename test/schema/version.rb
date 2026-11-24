@@ -17,19 +17,19 @@ describe 'Version' do
     "SXL" => "1.3.0",
     "SXLS" => [
       {
-        "name" => "traffic_light_controller",
+        "name" => "nordic/traffic_light_controller",
         "version" => "1.3.0",
-        "prefix" => "tlc/"
+        "scope" => "/nordic/tlc"
       },
       {
-        "name" => "traffic_light_controller/advanced",
+        "name" => "nordic/traffic_light_controller/advanced",
         "version" => "1.3.4",
-        "prefix" => "tlc/"
+        "scope" => "/nordic/tlc"
       },
       {
         "name" => "variable_message_sign",
         "version" => "1.0.6",
-        "prefix" => "vms/"
+        "scope" => "/eu/vms"
       }
     ]
   }}
@@ -45,12 +45,12 @@ describe 'Version' do
     "supervisorId" => "RN+SI0001",
     "SXLS" => [
       {
-        "name" => "traffic_light_controller",
+        "name" => "nordic/traffic_light_controller",
         "status" => "ok",
         "version" => "1.3.0"
       },
       {
-        "name" => "traffic_light_controller/advanced",
+        "name" => "nordic/traffic_light_controller/advanced",
         "status" => "unsupported"
       },
       {
@@ -179,8 +179,25 @@ describe 'Version' do
   end
 
   it 'catches malformed SXLS item in request' do
-    request['SXLS'] = [{ 'name' => 'traffic_light_controller' }]
+    request['SXLS'] = [{ 'name' => 'nordic/traffic_light_controller' }]
     expect( validate(request) ).not.to be_nil
+  end
+
+  it 'accepts the root scope' do
+    request['SXLS'].first['scope'] = '/'
+    expect( validate(request) ).to be_nil
+  end
+
+  it 'requires a scope for each SXL in the request' do
+    request['SXLS'].last.delete 'scope'
+    expect( validate(request) ).not.to be_nil
+  end
+
+  it 'rejects malformed SXL scopes' do
+    ['', 'nordic/tlc', '/nordic/tlc/', '/nordic//tlc', '/nordic/..'].each do |scope|
+      request['SXLS'].first['scope'] = scope
+      expect( validate(request) ).not.to be_nil
+    end
   end
 
   it 'catches bad request step' do
@@ -248,7 +265,7 @@ describe 'Version' do
   end
 
   it 'catches numeric rejection codes without a status' do
-    response['SXLS'] = [{ 'name' => 'traffic_light_controller', 'rejected' => 2 }]
+    response['SXLS'] = [{ 'name' => 'nordic/traffic_light_controller', 'rejected' => 2 }]
     expect( validate(response) ).not.to be_nil
   end
 

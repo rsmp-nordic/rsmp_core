@@ -1585,7 +1585,7 @@ The initial Version request sent by the site contains:
 
 * Site Id.
 * Supported RSMP core versions
-* Supported SXLs and their versions
+* Supported SXLs, their versions and their scopes
 
 .. code-block:: json
    :name: json-version-request
@@ -1604,9 +1604,9 @@ The initial Version request sent by the site contains:
         ],
         "SXL": "1.3.0",
         "SXLS": [
-            { "name": "traffic_light_controller", "version": "1.3.0", "prefix": "tlc/" },
-            { "name": "traffic_light_controller/advanced", "version": "1.3.4", "prefix": "tlc/" },
-            { "name": "variable_message_sign", "version": "1.0.6", "prefix": "vms/" }
+            { "name": "nordic/traffic_light_controller", "version": "1.3.0", "scope": "/nordic/tlc" },
+            { "name": "nordic/traffic_light_controller/advanced", "version": "1.3.4", "scope": "/nordic/tlc" },
+            { "name": "variable_message_sign", "version": "1.0.6", "scope": "/eu/vms" }
         ]
    }
 
@@ -1649,9 +1649,9 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ======= ======== ====================
    Element Type     Description  
    ======= ======== ==================== 
-   name    string   SXL name, e.g. ``traffic_light_controller``          
+   name    string   SXL name, e.g. ``nordic/traffic_light_controller``
    version string   Version of the SXL, e.g. "1.3.0".
-   prefix  string   (Optional) Prefix defined in the SXL. Omitted if the SXL does not define a prefix.
+   scope   string   :ref:`Scope <sxl-scope>` of the SXL. The site must send ``/`` if the document uses the root scope.
    ======= ======== ====================
 
 If the site supports multiple versions of an SXL, the latest must be specified.
@@ -1681,8 +1681,8 @@ If the core version can be matched, the supervisor returns a Version response co
          ],
          "supervisorId": "O+14439=481WA001",
          "SXLS": [
-            { "name": "traffic_light_controller", "status": "ok", "version": "1.3.0" },
-            { "name": "traffic_light_controller/advanced", "status": "unsupported" },
+            { "name": "nordic/traffic_light_controller", "status": "ok", "version": "1.3.0" },
+            { "name": "nordic/traffic_light_controller/advanced", "status": "unsupported" },
             { "name": "variable_message_sign", "status": "mismatch", "supported": ["2.0.0", "2.0.1", "2.1.0"] },
             { "name": "traffic_data", "status": "expected" }
          ],
@@ -1691,9 +1691,9 @@ If the core version can be matched, the supervisor returns a Version response co
 
 JSon code 25: A Version Response message
 
-In this example, only the SXL ``traffic_light_controller`` will be used.
+In this example, only the SXL ``nordic/traffic_light_controller`` will be used.
 
-The SXL ``traffic_light_controller/advanced`` is not used, because the supervisor
+The SXL ``nordic/traffic_light_controller/advanced`` is not used, because the supervisor
 does not support that SXL.
 
 The SXL ``variable_message_sign`` is not used, because the supervisor does not support the version 1.0.6 specified by the site.
@@ -1735,7 +1735,7 @@ Each item in the ``SXLS`` array must be an object with the following content:
    ========= ======== ====================
    Element   Type     Description
    ========= ======== ====================
-   name      string   SXL name, e.g. ``traffic_light_controller``. Unless ``status`` is ``expected``, it must match an SXL name in the Version request.
+   name      string   SXL name, e.g. ``nordic/traffic_light_controller``. Unless ``status`` is ``expected``, it must match an SXL name in the Version request.
    status    string   The status code for this SXL (see table below).
    version   string   (Conditional) If status is "ok" it must match the version in the Version request, otherwise it's omitted.
    supported array    (Conditional) If status is "mismatch" it must be an array of supported versions, otherwise it's omitted.
@@ -1806,21 +1806,21 @@ A ComponentList message has the structure according to the example below.
    {
         "mType": "rSMsg",
         "type": "ComponentList",
-        "mId": "a1b2c3d4-e5f6-47g8-h9i0-j1k2l3m4n5o6",
+        "mId": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
         "components": [
             {
                 "id": "detectors/radar/1",
-                "type": "tlc/dl",
+                "type": "nordic/tlc/dl",
                 "name": "Bus Detection A1 Northbound"
             },
             {
                 "id": "groups/2",
-                "type": "tlc/sg",
+                "type": "nordic/tlc/sg",
                 "name": "Signal Group A1 North"
             },
             {
                 "id": "groups/10",
-                "type": "tlc/sg",
+                "type": "nordic/tlc/sg",
                 "name": "Signal Group B2 South"
             }
         ]

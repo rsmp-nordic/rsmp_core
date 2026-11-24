@@ -108,11 +108,11 @@
       { "pattern" : "^[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*$" }
     ]
   },
-  "sxl_prefix": {
-    "description" : "SXL prefix",
+  "sxl_scope": {
+    "description" : "Absolute scope of the SXL document",
     "allOf" : [
       { "$ref" : "#/rsmp_string" },
-      { "pattern" : "^[A-Za-z0-9_-]+/$" }
+      { "pattern" : "^/(?:[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*)?$" }
     ]
   },
   "boolean": {

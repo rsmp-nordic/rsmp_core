@@ -18,8 +18,8 @@ Component Type
 --------------
 Component types are defined by SXLs.
 
-For example, an SXL for traffic light controllers might define the component types ``tlc/sg`` for
-signal groups and ``tlc/dl`` for detector logics.
+For example, an SXL for traffic light controllers might define the component types ``nordic/tlc/sg`` for
+signal groups and ``nordic/tlc/dl`` for detector logics.
 
 Component types are used in SXLs when defining which alarms, commands and statuses apply to which components.
 
@@ -59,7 +59,7 @@ component type in a component ID, or include it at a specific location in the ID
 
 You cannot safely infer the component type from the component ID alone.
 Instead you should rely on the ``ComponentList`` message, which will explicitly list the component
-types of all components, e.g. ``tlc/sg`` for signal group component.
+types of all components, e.g. ``nordic/tlc/sg`` for signal group component.
 
 .. _addressing-components:
 

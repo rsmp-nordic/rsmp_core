@@ -32,7 +32,7 @@ describe 'Core message fields' do
       "components" => [
         {
           "id" => "groups/1",
-          "type" => "tlc/sg",
+          "type" => "nordic/tlc/sg",
           "name" => "Signal Group 1"
         }
       ]

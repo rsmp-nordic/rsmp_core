@@ -23,9 +23,7 @@ Overview
 
 Name and Description
 ^^^^^^^^^^^^^^^^^^^^
-An SXL is identified by a ``name``, e.g. ``traffic_light_controller`` or ``traffic_light_controller/advanced``.
-
-An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
+An SXL is identified by a ``name``, e.g. ``nordic/traffic_light_controller`` or ``nordic/traffic_light_controller/advanced``.
 
 Forward slashes can be used to organize names in a hierarchy.
 Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
@@ -44,16 +42,11 @@ Some legacy SXL use names without slashes, e.g. ``tlc`` for the Nordic Traffic L
 
 An SXL also has a ``description``, which is a short human-readable text e.g. ``Traffic Light Controller``.
 
-RSMP Nordic maintains a registry of unique SXL names. An SXL that relates to a specific country or region
-must indicate this in the name as ``<country_code>/...`` or ``<region>/...``.
-
 .. code-block:: yaml
 
   meta:
-    name: traffic_light_controller/advanced
-    description: Advanced Traffic Light Controller Functionality
-
-Note: Some legacy SXLs use names without a country code or region, e.g. ``tlc`` for the Nordic Traffic Light Controller SXL.
+    name: nordic/traffic_light_controller/advanced
+    description: Nordic Traffic Light Controller Advanced Functionality
 
 .. _sxl-version:
 
@@ -81,43 +74,42 @@ and when resolving dependencies between SXLs.
 SXL versions are used to determine which SXLs can be used on the connection.
 How this is done is explained in :ref:`version-negotiation`.
 
-.. _sxl-prefix:
+.. _sxl-scope:
 
-Prefix
-^^^^^^
-An SXL can optionally define a prefix which will be prepended to all component types and message codes
-in the SXL, e.g. ``tlc/`` for a traffic light controller SXL.
+Scope
+^^^^^
+The top-level ``scope`` sets the scope for component types and message codes throughout an SXL document.
+The scope is an absolute path, e.g. ``/nordic/tlc``. Each path segment consists of one or more
+letters (A-Z, a-z), digits, hyphens or underscores. A single slash separates segments.
+Only the root scope (``/``) ends with a slash. If ``scope`` is omitted, the scope is the root.
 
-A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
+A name without a leading slash resolves from the document scope. For example, in scope
+``/nordic/tlc``, the command ``plan/set`` resolves to ``nordic/tlc/plan/set``.
+A reference beginning with a slash resolves from the root. For example, ``/other/dl`` refers
+to the component type ``other/dl`` supplied by a dependency. A message defined for that component
+type still takes its scope from the document.
 
-If you intend to define everything under the same scope, e.g. ``tlc/``, it is recommended to define a prefix.
-It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
-string everywhere. It also makes it easy to change the prefix if this is ever needed.
-
-Using a prefix has no functional difference from manually including the same prefix in all component types and message codes definitions.
-When using the SXL you must still refer to component types and message code ids using their full paths including the prefix.
-
-For example, this SXL defines everything by manually using ``tlc/`` as a prefix everywhere:
+The following SXL does not define a scope and therefore default to root scope:
 
 .. code-block:: yaml
 
   components:
-    tlc/tc:
+    nordic/tlc/tc:
       alarms:
-        tlc/deadlock:
+        nordic/tlc/deadlock:
           description: Signal plan causes deadlock
       statuses:
-        tlc/plan/current:
+        nordic/tlc/plan/current:
           description: Get the current signal plan
       commands:
-        tlc/plan/set:
+        nordic/tlc/plan/set:
           description: Set signal plan
 
-Using a prefix, the SXL can be defined like this:
+The same definitions can be written relative to a scope:
 
 .. code-block:: yaml
 
-  prefix: tlc/
+  scope: /nordic/tlc
   components:
     tc:
       alarms:
@@ -130,20 +122,13 @@ Using a prefix, the SXL can be defined like this:
         plan/set:
           description: Set signal plan
 
-The result is the same and you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
-or ``tlc/deadlock`` when sending a deadlock alarm.
+RSMP messages must use fully qualified component types and message codes without a leading slash.
+For either example, a command request uses ``nordic/tlc/plan/set`` and a deadlock alarm uses ``nordic/tlc/deadlock``.
 
-A prefix should be short and does not have to mirror the SXL name. You must ensure that SXLs expected to
-be used together do not define the same component types or message codes.
-
-For example, a traffic light controller SXL like ``traffic_light_controller`` could use the prefix ``tlc/``.
-
-Two different SXLs can use the same prefix, as long as they either don't define the same component types or message codes,
-or are not intended to be used together on the same site. The ability for different SXLs to use the same prefix supports use cases like:
-
-- modularity: splitting a large SXL into smaller SXLs all using the same prefix.
-- extensions:  a new SXL which adds functionality under a prefix defined in an existing SXL.
-- replacement: a new SXL that is compatible with an existing SXL, and can be used as a replacement.
+An SXL's name and scope are independent. For example, ``nordic/traffic_light_controller`` and
+``nordic/traffic_light_controller/advanced`` can both use the scope ``/nordic/tlc``.
+SXLs used together must define distinct fully qualified component types and message codes.
+Sharing a scope allows an SXL to be split into modules, extended, or replaced while preserving existing identifiers.
 
 .. _sxl-component-types:
 
@@ -154,9 +139,9 @@ An SXL defines the available :term:`component` types. Components are the logical
 .. code-block:: yaml
 
   components:
-    tlc/sg:
+    nordic/tlc/sg:
       description: Signal group
-    tlc/dl:
+    nordic/tlc/dl:
       description: Detector logic
 
 Each type must have a short description.
@@ -170,7 +155,7 @@ The content of **Alarm**, **Status** and **Command** messages is defined in the 
 The :ref:`aggregated-status-message` and its :ref:`state-bits` are defined solely
 by the core specification.
 
-Each message type is defined like this:
+The following example defines messages in the root scope:
 
 .. code-block:: yaml
 
@@ -203,8 +188,6 @@ Each message type is defined like this:
             <argument-1>:
               type: boolean
               description: M0001 argument 1
-
-  ..
 
 This example defines:
 
@@ -356,12 +339,12 @@ Dependencies
 An SXL can declare dependency on other SXLs. It can then rely on the definitions of component types,
 message codes or behaviour from those SXLs.
 
-For example, a basic SXL ``traffic_light_controller`` might define the component type ``tlc/dl`` for detector logics,
+For example, a basic SXL ``nordic/traffic_light_controller`` might define the component type ``nordic/tlc/dl`` for detector logics,
 and some messages to interact with this component type.
 
-Another SXL ``traffic_light_controller/advanced`` might depend on ``traffic_light_controller``.
-It can then define a command like ``tlc/adaptive`` which operates on the component type ``tlc/dl`` already
-defined in ``traffic_light_controller``
+Another SXL ``nordic/traffic_light_controller/advanced`` might depend on ``nordic/traffic_light_controller``.
+It can then define a command like ``nordic/tlc/adaptive`` which operates on the component type ``nordic/tlc/dl`` already
+defined in ``nordic/traffic_light_controller``
 
 Dependencies are listed using SXL names and a version requirement string.
 The order of dependencies is not significant.
@@ -369,7 +352,7 @@ The order of dependencies is not significant.
 .. code-block:: yaml
 
   dependencies:
-    traffic_light_controller: "~4.3"
+    nordic/traffic_light_controller: "~4.3"
 
 Version requirement strings support exact version, comparison operators ``>``, ``>=``, ``<``, ``<=`` and the compatibility operator ``~``.
 
@@ -415,12 +398,12 @@ SXL List
 A site can support one or more SXL. The supported SXLs are listed as part of the Version message sent by
 the site as part of the connection handshake.
 
-Each SXL is specified using the SXL name and an exact version. Order is not significant.
+For each SXL, the site must send its name, exact version and :ref:`scope <sxl-scope>`. Order is not significant.
 
 If an SXL is listed, the site must implement the full SXL, including all components, messages and behavior defined
 in the SXL.
 
 Dependency SXLs will not be exposed unless explicitly listed by the site.
-For example, if a site lists ``traffic_light_controller/advanced`` but not ``traffic_light_controller``,
-the supervisor will not be able to use any of the messages defined in ``traffic_light_controller``,
-even if ``traffic_light_controller/advanced`` depends on ``traffic_light_controller``.
+For example, if a site lists ``nordic/traffic_light_controller/advanced`` but not ``nordic/traffic_light_controller``,
+the supervisor will not be able to use any of the messages defined in ``nordic/traffic_light_controller``,
+even if ``nordic/traffic_light_controller/advanced`` depends on ``nordic/traffic_light_controller``.
