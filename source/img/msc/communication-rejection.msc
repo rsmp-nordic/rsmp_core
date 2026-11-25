@@ -7,9 +7,9 @@ msc {
 
   a=>b [ label = "Version request" ];
   |||;
-  b abox b [ label = "Check Version format, site id and core compatibility" ];
+  b abox b [ label = "Check envelope, Version format, site id and core compatibility" ];
   |||;
-  a<<b [ label = "MessageNotAck (if mId is valid)" ];
+  a<<b [ label = "MessageNotAck (if type is Version and mId is valid)" ];
   |||;
   --- [ label = "Connection closed" ];
 

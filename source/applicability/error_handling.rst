@@ -5,6 +5,43 @@ Error handling
 
 The following sections defines how errors should be handled.
 
+.. _message-validation:
+
+Message validation
+^^^^^^^^^^^^^^^^^^
+
+Messages must conform to :ref:`basic-structure` and the requirements of their
+message type in the selected core version and SXLs in use. Validation failures
+must be handled according to the first applicable rule below:
+
+1. If a packet is not valid UTF-8 encoded JSON, or its JSON value is not an object,
+   discard it without acknowledgement.
+2. If ``type`` is ``"MessageAck"`` or ``"MessageNotAck"``, never send an
+   acknowledgement in response, even if other fields are invalid. Discard an
+   invalid acknowledgement; process a valid one according to
+   :ref:`message-acknowledgement`.
+3. If ``mId`` is missing or invalid according to :ref:`basic-structure`, discard
+   the message without acknowledgement.
+4. If ``mType`` is missing or is not ``"rSMsg"``, or ``type`` is missing, has an
+   invalid value or identifies an unknown message type, reject the message with
+   MessageNotAck.
+5. If a recognized message has missing required fields or invalid field values,
+   reject it with MessageNotAck, unless a message-specific rule defines another
+   response, such as the rules for unknown components below.
+
+When sending MessageNotAck, set ``oMId`` to the received ``mId`` and ``rea`` to
+the cause of rejection. Rejected or discarded messages must not be processed
+further. Valid messages are processed and acknowledged according to their
+message-specific rules.
+
+During communication establishment, the exceptions and validation order in
+:ref:`initial-message-validation` apply.
+
+After communication establishment, these validation failures must not themselves
+cause the receiver to close the connection. The acknowledgement and Watchdog
+timeout rules still apply (see :ref:`message-acknowledgement` and :ref:`watchdog`).
+
+
 Unknown component
 ^^^^^^^^^^^^^^^^^
 
