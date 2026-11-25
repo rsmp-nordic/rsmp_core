@@ -28,7 +28,9 @@ An SXL is identified by a ``name``, e.g. ``traffic_light_controller`` or ``traff
 An SXL also has a ``description``, which is a short human-readable text e.g. "Traffic Light Controller".
 
 Forward slashes can be used to organize names in a hierarchy.
-Names can contain only lowercase letters, digits, hyphens, underscores and forward slashes.
+Names follow :ref:`identifier-paths`, using only lowercase ASCII letters,
+digits, hyphens and underscores within each segment. Leading or trailing
+slashes and empty segments are not allowed.
 
 A site cannot use two SXLs with the same name. SXL names should therefore be globally unique.
 
@@ -88,7 +90,10 @@ Prefix
 An SXL can optionally define a prefix which will be prepended to all component types and message codes
 in the SXL, e.g. ``tlc/`` for a traffic light controller SXL.
 
-A prefix can contain letters, digits, hyphens, underscores and forward slashes. It must end with a forward slash.
+A prefix follows :ref:`identifier-paths`, using ASCII letters, digits, hyphens
+and underscores within each segment, followed by exactly one trailing slash.
+It must not start with a slash or contain empty segments. Multiple segments
+are allowed, e.g. ``nordic/tlc/``.
 
 If you intend to define everything under the same scope, e.g. ``tlc/``, it is recommended to define a prefix.
 It guarantees that everything in the SXL will be scoped under the same prefix and avoids having to repeat the same prefix
@@ -169,6 +174,14 @@ Messages
 The content of **Alarm**, **Status** and **Command** messages is defined in the SXL.
 The :ref:`aggregated-status-message` and its :ref:`state-bits` are defined solely
 by the core specification.
+
+.. _message-code-ids:
+
+Message code IDs follow :ref:`identifier-paths`, using ASCII letters, digits,
+hyphens and underscores within each segment. They must not have leading or
+trailing slashes or empty segments. The full code ID includes any
+:ref:`SXL prefix <sxl-prefix>`, e.g. ``tlc/plan/set``.
+The message type determines whether a code identifies an alarm, status or command.
 
 Each message type is defined like this:
 
