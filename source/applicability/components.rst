@@ -85,19 +85,34 @@ types of all components, e.g. ``tlc/sg`` for signal group component.
 
 Addressing Components
 ^^^^^^^^^^^^^^^^^^^^^
-A single component is addressed using its full ID, e.g. ``dl/radar/1`` or ``KK+AG0503=001SG001``.
+In SXL-defined messages, ``cId`` selects a target for the command, status or alarm.
+The SXL declares the accepted forms and component types in :ref:`sxl-targets`.
 
-If components are organised in a hierarchy using forward slashes, you can use partial paths ending with ``/``
-to reference all component under that path. For example, given the componts example above,
-the path ``dl/radar/`` would reference ``dl/radar/1`` and ``dl/radar/2``.
+.. list-table:: Component selectors
+   :header-rows: 1
 
-A single forward slash ``/`` indicate the root and references all components.
+   * - Form
+     - Example ``cId`` (JSON)
+     - Meaning
+   * - Component
+     - ``"north/groups/1"``
+     - The component with that exact ID. Its type must be one of the accepted component types.
+   * - Subtree
+     - ``"north/"``
+     - All matching descendants at any depth. The ID must begin with ``north/``, which excludes ``north`` itself.
+   * - Subtree (root)
+     - ``"/"``
+     - All matching components in the site's component list.
+   * - Site
+     - ``null``
+     - The site as a single entity.
 
-An empty string or null mean no component. Depending on context this can be used
-to indicate the site as a whole, as opposed to any specific compponent or group of components.
+To resolve a subtree selector, take the entries under the selected path from the current :ref:`component-list`
+and keep those whose ``type`` is listed in the message's ``targets.subtree`` declaration.
+Use the order received in the list (see :ref:`component_ordering`). A collection may contain zero, one or
+several components. The site assigns the component IDs independently of the SXL prefix and component types.
 
-These selectors are not component IDs and must not be used as IDs in
-ComponentList. Their use in a message depends on that message's addressing rules.
+Each entry in ComponentList must use an exact component ID.
 
 .. _component-name:
 
