@@ -3,7 +3,7 @@
   "description" :  "Command request",
   "properties" : {
     "mId" : { "$ref": "definitions.json#/message_id" },
-    "cId" : { "$ref": "definitions.json#/component_id" },
+    "cId" : { "$ref": "definitions.json#/component_id_selector" },
     "arg" : {
       "description" : "Command arguments",
       "type" : "array",

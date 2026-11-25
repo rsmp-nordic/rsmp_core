@@ -111,7 +111,7 @@ The following table describes attributes used by messages that refer to a compon
    ============ ================================================
    ntsOId       *deprecated (empty string)*
    xNId         *deprecated (empty string)*
-   cId          :ref:`Component-id`
+   cId          Target as specified for the message type. See :ref:`addressing-components`.
    ============ ================================================
 
 .. _alarm-messages:
@@ -1242,9 +1242,13 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-A command request is sent to a specific component on a site to execute a command.
+A CommandRequest must include a ``cId`` selector. Core permits an exact component ID
+(e.g. ``"north/1"``), a subtree (e.g. ``"north/"`` or the root ``"/"``), or the site
+(``null``). The selector must be allowed by the command's :ref:`targets <sxl-targets>`.
+For example, a command declaring ``subtree: [dl]`` can address all detector logics
+below ``north/`` with one request. See :ref:`addressing-components`.
 
-If all required arguments are present and valid, the site immediately sends a MessageAck
+If the target and all required arguments are valid, the site immediately sends a MessageAck
 and starts executing the command. Once the execution completes, fails or times
 out the site sends a CommandResponse.
 
@@ -1264,9 +1268,7 @@ Message structure
 Structure of a command request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A command request message has the structure according to the example
-below. A command request message with the intent to change a value of the
-requested component.
+The following example addresses one component by its exact ID.
 
 .. code-block:: json
    :name: json-command-req
@@ -1341,13 +1343,12 @@ defined by the SXL.
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A command response message has the structure according to the example
-below. A command response message informs about the updated value of the
-requested component.
+A CommandResponse must include the same ``cId`` value as the corresponding CommandRequest.
+For a subtree, the site sends one response with the original selector, even if only one component
+matched. If the SXL defines positional return values, their positions refer to the same components
+in the same order as when the site accepted the command.
 
-The command code (``cCI``) and name (``n``) are placed in an array
-(``rvs``) in order to enable support for responding to multiple commands at
-once.
+Each entry in ``rvs`` gives a named return value (``n``) for the requested command (``cCI``).
 
 .. code-block:: json
    :name: json-command-response
