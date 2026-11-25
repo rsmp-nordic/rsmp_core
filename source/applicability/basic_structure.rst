@@ -121,6 +121,10 @@ Alarm messages
 
 Alarm message exchange is subject to :ref:`alarm-exchange`.
 
+Every Alarm message must carry the exact ID of one component in ``cId``, including when
+requesting, acknowledging, suspending or resuming an alarm. The component's type must be
+listed in the alarm code's SXL :ref:`targets.component <sxl-targets>` declaration.
+
 An alarm message is sent to the supervision system when:
 
 - An alarm becomes active / inactive

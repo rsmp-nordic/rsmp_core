@@ -86,7 +86,8 @@ types of all components, e.g. ``tlc/sg`` for signal group component.
 Addressing Components
 ^^^^^^^^^^^^^^^^^^^^^
 In SXL-defined messages, ``cId`` selects a target for the command, status or alarm.
-The SXL declares the accepted forms and component types in :ref:`sxl-targets`.
+Alarms accept only the single-component form. The SXL declares the accepted component types
+for each code and the target forms for commands and statuses in :ref:`sxl-targets`.
 
 .. list-table:: Component selectors
    :header-rows: 1
