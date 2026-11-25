@@ -1,0 +1,41 @@
+{
+  "title" :  "StatusSubscribe",
+  "description" :  "Status subscribe",
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "cId" : { "$ref": "definitions.json#/component_id" },
+    "sS" : {
+      "description" : "Status request arguments",
+      "type" : "array",
+      "minItems": 1,
+      "items" : {
+        "type" : "object",
+        "properties": {
+          "sCI" : { "$ref": "definitions.json#/status_code" },
+          "n" : { "description" : "Unique reference of the value", "type" : "string" },
+          "uRt" : {
+            "allOf" : [
+              { "$ref": "definitions.json#/number_as_string" },
+              { "not": { "pattern": "^-" } }
+            ],
+            "description" : "Nonnegative update interval in seconds; zero disables periodic updates and requires sOc to be true"
+          },
+          "sOc" : {
+            "type": "boolean",
+            "description" : "Whether to send an update as soon as the value changes"
+          }
+        },
+        "required" : [ "sCI", "n", "uRt", "sOc" ],
+        "additionalProperties": false,
+        "if": {
+          "properties": { "uRt": { "pattern": "^0(?:\\.0+)?$" } },
+          "required": [ "uRt" ]
+        },
+        "then": {
+          "properties": { "sOc": { "const": true } }
+        }
+      }
+    }
+  },
+  "required" : [ "mId", "cId", "sS"]
+}

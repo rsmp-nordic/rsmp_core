@@ -1,0 +1,31 @@
+{
+  "title" :  "Aggregated Status",
+  "description" :  "Aggregated status of the site",
+  "properties" : {
+    "mId" : { "$ref": "definitions.json#/message_id" },
+    "aSTS" : { "$ref": "definitions.json#/timestamp" },
+    "cId" : false,
+    "fP" : false,
+    "fS" : false,
+    "se" : {
+      "description" : "State bits 1 through 8. Bits 2, 6 and 8 must be cleared in messages sent by sites.",
+      "type" : "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "prefixItems" : [
+        { "type" : "boolean" },
+        { "const" : false },
+        { "type" : "boolean" },
+        { "type" : "boolean" },
+        { "type" : "boolean" },
+        { "const" : false },
+        { "type" : "boolean" },
+        { "const" : false }
+      ],
+      "items" : {
+        "type" : "boolean"
+      }
+    }
+  },
+  "required" : [ "mId", "aSTS", "se" ]
+}

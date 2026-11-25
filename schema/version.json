@@ -1,0 +1,164 @@
+{
+  "title" :  "Version",
+  "description" :  "Version message",
+  "oneOf" : [
+    {
+      "description" : "Version request",
+      "properties" : {
+        "mId" : { "$ref": "definitions.json#/message_id" },
+        "step" : {
+          "type" : "string",
+          "const" : "Request"
+        },
+        "RSMP" : {
+          "$ref" : "#/$defs/rsmp_versions",
+          "description" : "Supported RSMP versions"
+        },
+        "SXL" : {
+          "anyOf" : [
+            { "$ref": "definitions.json#/version" },
+            { "const": "" }
+          ],
+          "description" : "Primary SXL version, for backward compatibility"
+        },
+        "SXLS" : {
+          "description" : "Supported SXLs",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/sxl_request" },
+          "minItems" : 0,
+          "uniqueItems" : true
+        },
+        "siteId" : {
+          "description" : "Site ids",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/site_id" },
+          "minItems" : 1,
+          "maxItems" : 1,
+          "uniqueItems" : true
+        }
+      },
+      "required" : [ "mId", "step", "RSMP", "SXLS", "siteId" ],
+      "if" : {
+        "properties" : { "SXLS" : { "maxItems" : 0 } },
+        "required" : [ "SXLS" ]
+      },
+      "then" : {
+        "properties" : { "SXL" : { "const" : "" } },
+        "required" : [ "SXL" ]
+      }
+    },
+    {
+      "description" : "Version response",
+      "properties" : {
+        "mId" : { "$ref": "definitions.json#/message_id" },
+        "step" : {
+          "type" : "string",
+          "const" : "Response"
+        },
+        "RSMP" : {
+          "description" : "Selected RSMP version",
+          "allOf" : [
+            { "$ref" : "#/$defs/rsmp_versions" },
+            {
+              "minItems" : 1,
+              "maxItems" : 1
+            }
+          ]
+        },
+        "supervisorId" : {
+          "description" : "Supervisor id",
+          "type" : "string",
+          "minLength" : 1
+        },
+        "SXLS" : {
+          "description" : "SXLs to use, or not use",
+          "type" : "array",
+          "items" : { "$ref" : "#/$defs/sxl_response" },
+          "minItems" : 0,
+          "uniqueItems" : true
+        },
+        "useAlarms" : {
+          "description" : "Whether Alarm messages may be exchanged on the connection",
+          "type" : "boolean",
+          "default" : true
+        }
+      },
+      "required" : [ "mId", "step", "RSMP", "supervisorId", "SXLS" ]
+    }
+  ],
+  "$defs" : {
+    "rsmp_versions" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "vers" : {
+            "$ref": "definitions.json#/version",
+            "description" : "RSMP version"
+          }
+        },
+        "required" : [ "vers" ]
+      },
+      "minItems" : 1,
+      "uniqueItems" : true
+    },
+    "site_id" : {
+      "type" : "object",
+      "properties" : {
+        "sId" : {
+          "type" : "string",
+          "minLength": 1
+        }
+      },
+      "required" : [ "sId" ]
+    },
+    "sxl_request" : {
+      "type" : "object",
+      "properties" : {
+        "name" : { "$ref" : "definitions.json#/sxl_name" },
+        "version" : { "$ref" : "definitions.json#/version" },
+        "prefix" : { "$ref" : "definitions.json#/sxl_prefix" }
+      },
+      "required" : [ "name", "version" ]
+    },
+    "sxl_response" : {
+      "type" : "object",
+      "properties" : {
+        "name" : { "$ref" : "definitions.json#/sxl_name" },
+        "status" : {
+          "type" : "string",
+          "enum" : [ "ok", "unsupported", "mismatch", "expected" ]
+        },
+        "version" : { "$ref" : "definitions.json#/version" },
+        "supported" : {
+          "type" : "array",
+          "items" : { "$ref" : "definitions.json#/version" }
+        }
+      },
+      "required" : [ "name", "status" ],
+      "oneOf" : [
+        {
+          "properties" : {
+            "status" : { "const" : "ok" },
+            "supported" : false
+          },
+          "required" : [ "version" ]
+        },
+        {
+          "properties" : {
+            "status" : { "const" : "mismatch" },
+            "version" : false
+          },
+          "required" : [ "supported" ]
+        },
+        {
+          "properties" : {
+            "status" : { "enum" : [ "unsupported", "expected" ] },
+            "version" : false,
+            "supported" : false
+          }
+        }
+      ]
+    }
+  }
+}
