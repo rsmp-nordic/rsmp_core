@@ -197,8 +197,13 @@ An SXL defines its message codes under the top-level ``alarms``, ``statuses`` an
 
 Targets
 ^^^^^^^
-Each alarm, status or command definition must include a ``targets`` mapping with at least one of the
-following entries. Omitting an entry means that the code does not accept that target form.
+Each alarm, status or command definition must include a ``targets`` mapping. For an alarm,
+the mapping must contain only ``component``, listing one or more allowed component types.
+For example, ``targets: {component: [sg, dl]}`` allows the alarm to address one signal group
+or one detector logic per message.
+
+A status or command must declare at least one of the following target forms. Omitting an
+entry means that the code does not accept that target form.
 
 .. code-block:: yaml
 
