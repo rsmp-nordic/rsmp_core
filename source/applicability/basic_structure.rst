@@ -111,7 +111,7 @@ The following table describes attributes used by messages that refer to a compon
    ============ ================================================
    ntsOId       *deprecated (empty string)*
    xNId         *deprecated (empty string)*
-   cId          :ref:`Component-id`
+   cId          Target as specified for the message type. See :ref:`addressing-components`.
    ============ ================================================
 
 .. _alarm-messages:
@@ -120,6 +120,10 @@ Alarm messages
 ^^^^^^^^^^^^^^
 
 Alarm message exchange is subject to :ref:`alarm-exchange`.
+
+Every Alarm message must carry the exact ID of one component in ``cId``, including when
+requesting, acknowledging, suspending or resuming an alarm. The component's type must be
+listed in the alarm code's SXL :ref:`targets.component <sxl-targets>` declaration.
 
 An alarm message is sent to the supervision system when:
 
@@ -788,7 +792,7 @@ Status Messages
 
 The status message is a type of message that is sent to the supervision
 system or other equipment with the value of one or more requested
-statuses, for the referenced component.
+statuses, for the target selected by ``cId``.
 
 The status message can both be interaction driven or event driven and
 can be sent during the following prerequisites:
@@ -796,6 +800,15 @@ can be sent during the following prerequisites:
 - When status is requested from the supervision system or other equipment.
 - According to subscription – either by using a fixed time interval or
   when the status changes.
+
+Each status message must include a ``cId``. It can select an exact component ID (e.g. ``"north/1"``),
+a subtree (e.g. ``"north/"`` or the root ``"/"``), or the site (``null``). Every status code in
+``sS`` must allow the selector in its SXL :ref:`targets <sxl-targets>` declaration.
+
+For a subtree, apply each status code's type filter independently. For example, with ``"cId": "north/"``,
+a status declaring ``subtree: [sg]`` reports on signal groups under ``north/``, while a status declaring
+``subtree: [dl]`` in the same message reports on detector logics there. Positional values follow the
+:ref:`order of the selected components <component_ordering>`. See :ref:`addressing-components`.
 
 Message structure
 """""""""""""""""
@@ -853,6 +866,7 @@ Structure for a status response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A status response message has the structure according to the example below.
+Its ``cId`` must have the same value as in the corresponding StatusRequest.
 
 The status code id (``sCI``) and name (``n``) are placed in an array
 (``sS``) in order to enable support for responding to multiple statuses at once.
@@ -953,7 +967,7 @@ The following table describes additional variable content of the message.
    |                 | unknown            | The value is unknown                          |
    +-----------------+--------------------+-----------------------------------------------+
 
-If the component does not exist or the value ``s`` is unknown then:
+If an exact component selector refers to a missing component, or the value ``s`` is unknown:
 
 * Subscription will not be performed
 * ``q`` is set according to the table above
@@ -973,6 +987,11 @@ It's allowed to change **updateRate** and **sendOnChange** by sending a new
 StatusSubscribe during an active subscription.
 
 The site must not establish a new subscription but use the existing one.
+On a connection, the selector (``cId``), status code (``sCI``) and attribute name (``n``)
+together identify the subscription item.
+
+A subtree subscription follows the current :ref:`component-list` and remains active even when
+no components match. The SXL defines the attribute value for an empty selection.
 
 .. code-block:: json
    :name: json-status-subscribe
@@ -1072,6 +1091,7 @@ Structure for a status update message
 
 The status update message is an answer to a request for status subscription.
 It has the structure according to the example below.
+Its ``cId`` must have the same value as in the corresponding StatusSubscribe.
 
 In addition to being sent according to **updateRate** and **sendOnChange**,
 it is also always sent immediately after subscription request (even if the
@@ -1079,6 +1099,15 @@ subscription is already active). The reason for sending the response
 immediately is because subscriptions usually are established shortly after
 RSMP connection establishment and the supervision system needs to update with
 the current statuses.
+
+For each subtree subscription item, a change to its selected components counts as a change
+even if the encoded value is the same. This applies when a component enters or leaves the
+selection, a selected component's entry changes, or the order of the selected components changes.
+The site must send the updated :ref:`component-list` before any StatusUpdate based on that list.
+
+* With ``sOc`` set to true, the site sends the affected item's current value immediately after
+  the ComponentList. If ``uRt`` is positive, this update restarts the item's interval timer.
+* With ``sOc`` set to false, the site sends the current value at the next scheduled interval.
 
 .. code-block:: json
    :name: json-status-update
@@ -1122,8 +1151,10 @@ The allowed content is described in Table
 :ref:`Status response<table-statusresponse>` and
 :ref:`Return values<table-statusresponse-returnvalues>`.
 
-Since different UpdateRate can be defined for different components it means that
-partial StatusUpdates can be sent.
+Since different update rates can be defined for different subscription items,
+partial StatusUpdates can be sent. The site includes only the items due in ``sS``
+and keeps the subscription's ``cId``. For a subtree, an item whose SXL value encodes
+one entry per selected component still carries the full value in :ref:`component list order <component_ordering>`.
 
 .. code-block:: json
    :name: json-status-request-partial
@@ -1184,6 +1215,9 @@ according to the example below. The request unsubscribes on one or several
 statuses. No particular answer is sent for this request, other than the
 usual message acknowledgement.
 
+The StatusUnsubscribe must use the same ``cId`` value as the original StatusSubscribe
+for the listed status codes and attribute names.
+
 .. code-block:: json
    :name: json-status-unsubscribe
 
@@ -1242,9 +1276,13 @@ Example of message exchange with subscription, status updates and unsubscription
 Command messages
 ^^^^^^^^^^^^^^^^
 
-A command request is sent to a specific component on a site to execute a command.
+A CommandRequest must include a ``cId`` selector. Core permits an exact component ID
+(e.g. ``"north/1"``), a subtree (e.g. ``"north/"`` or the root ``"/"``), or the site
+(``null``). The selector must be allowed by the command's :ref:`targets <sxl-targets>`.
+For example, a command declaring ``subtree: [dl]`` can address all detector logics
+below ``north/`` with one request. See :ref:`addressing-components`.
 
-If all required arguments are present and valid, the site immediately sends a MessageAck
+If the target and all required arguments are valid, the site immediately sends a MessageAck
 and starts executing the command. Once the execution completes, fails or times
 out the site sends a CommandResponse.
 
@@ -1264,9 +1302,7 @@ Message structure
 Structure of a command request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A command request message has the structure according to the example
-below. A command request message with the intent to change a value of the
-requested component.
+The following example addresses one component by its exact ID.
 
 .. code-block:: json
    :name: json-command-req
@@ -1341,13 +1377,12 @@ defined by the SXL.
 Structure of a command response message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A command response message has the structure according to the example
-below. A command response message informs about the updated value of the
-requested component.
+A CommandResponse must include the same ``cId`` value as the corresponding CommandRequest.
+For a subtree, the site sends one response with the original selector, even if only one component
+matched. If the SXL defines positional return values, their positions refer to the same components
+in the same order as when the site accepted the command.
 
-The command code (``cCI``) and name (``n``) are placed in an array
-(``rvs``) in order to enable support for responding to multiple commands at
-once.
+Each entry in ``rvs`` gives a named return value (``n``) for the requested command (``cCI``).
 
 .. code-block:: json
    :name: json-command-response

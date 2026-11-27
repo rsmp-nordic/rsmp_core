@@ -13,7 +13,7 @@
     "sS" : {
       "description" : "Suspend status",
       "type" : "string",
-      "enum" : [ "suspended", "notSuspended" ]
+      "enum" : [ "Suspended", "notSuspended" ]
     },
     "aTs" : { "$ref": "definitions.json#/timestamp" },
     "cat" : {

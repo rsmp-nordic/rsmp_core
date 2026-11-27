@@ -3,7 +3,7 @@
   "description" :  "Status subscribe",
   "properties" : {
     "mId" : { "$ref": "definitions.json#/message_id" },
-    "cId" : { "$ref": "definitions.json#/component_id" },
+    "cId" : { "$ref": "definitions.json#/component_id_selector" },
     "sS" : {
       "description" : "Status request arguments",
       "type" : "array",

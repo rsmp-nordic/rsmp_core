@@ -3,7 +3,7 @@
   "description" :  "Status response",
   "properties" : {
     "mId" : { "$ref": "definitions.json#/message_id" },
-    "cId" : { "$ref": "definitions.json#/component_id" },
+    "cId" : { "$ref": "definitions.json#/component_id_selector" },
     "sTs" : { "$ref": "definitions.json#/timestamp" },
     "sS" : {
       "description" : "Status response arguments",

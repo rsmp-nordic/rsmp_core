@@ -108,15 +108,19 @@ For example, this SXL defines everything by manually using ``tlc/`` as a prefix 
 
   components:
     tlc/tc:
-      alarms:
-        tlc/deadlock:
-          description: Signal plan causes deadlock
-      statuses:
-        tlc/plan/current:
-          description: Get the current signal plan
-      commands:
-        tlc/plan/set:
-          description: Set signal plan
+      description: Traffic light controller
+  alarms:
+    tlc/deadlock:
+      description: Signal plan causes deadlock
+      targets: {component: [tlc/tc]}
+  statuses:
+    tlc/plan/current:
+      description: Get the current signal plan
+      targets: {component: [tlc/tc]}
+  commands:
+    tlc/plan/set:
+      description: Set signal plan
+      targets: {component: [tlc/tc]}
 
 Using a prefix, the SXL can be defined like this:
 
@@ -125,15 +129,19 @@ Using a prefix, the SXL can be defined like this:
   prefix: tlc/
   components:
     tc:
-      alarms:
-        deadlock:
-          description: Signal plan causes deadlock
-      statuses:
-        plan/current:
-          description: Get the current signal plan
-      commands:
-        plan/set:
-          description: Set signal plan
+      description: Traffic light controller
+  alarms:
+    deadlock:
+      description: Signal plan causes deadlock
+      targets: {component: [tlc/tc]}
+  statuses:
+    plan/current:
+      description: Get the current signal plan
+      targets: {component: [tlc/tc]}
+  commands:
+    plan/set:
+      description: Set signal plan
+      targets: {component: [tlc/tc]}
 
 The result is the same and you still need to use the full paths, e.g. "tlc/plan/set" when changing the signal plan,
 or ``tlc/deadlock`` when sending a deadlock alarm.
@@ -183,39 +191,76 @@ trailing slashes or empty segments. The full code ID includes any
 :ref:`SXL prefix <sxl-prefix>`, e.g. ``tlc/plan/set``.
 The message type determines whether a code identifies an alarm, status or command.
 
-Each message type is defined like this:
+An SXL defines its message codes under the top-level ``alarms``, ``statuses`` and ``commands`` keys.
+
+.. _sxl-targets:
+
+Targets
+^^^^^^^
+Each alarm, status or command definition must include a ``targets`` mapping. For an alarm,
+the mapping must contain only ``component``, listing one or more allowed component types.
+For example, ``targets: {component: [sg, dl]}`` allows the alarm to address one signal group
+or one detector logic per message.
+
+A status or command must declare at least one of the following target forms. Omitting an
+entry means that the code does not accept that target form.
+
+.. code-block:: yaml
+
+  targets:
+    component: [sg, dl]
+    subtree: [sg, dl]
+    site: true
+
+* ``component`` lists the types accepted for a single component.
+* ``subtree`` lists the component types selected within a subtree. The resulting collection can include
+  a mix of the listed types. The SXL defines what the message means for that collection.
+* ``site: true`` accepts the site itself as a target.
+
+Use the full component type ID in ``targets``, including any :ref:`SXL prefix <sxl-prefix>`.
+For example, a type defined as ``sg`` with prefix ``tlc/`` is referenced as ``tlc/sg``.
+See :ref:`addressing-components` for the corresponding ``cId`` selectors and
+:ref:`component_ordering` for the order of selected components.
+
+Message definitions
+^^^^^^^^^^^^^^^^^^^
+The following example defines messages without a prefix:
 
 .. code-block:: yaml
 
   components:
-    <component-type>:
-      alarms:
-        A0001:
-          description: alarm description text
-          priority: 1
-          category: D
-          externalAlarmCodeId: manufacturer specific alarm text
-          arguments:
-            <argument-1>:
-              type: integer
-              min: 0
-              max: 10
-              description: A0001 argument 1
-      statuses:
-        S0001:
-          description: status description text
-          arguments:
-            <argument-1>:
-              type: string
-              description: S0001 argument 1
-      commands:
-        M0001:
-          description: command description text
-          command: setStatus
-          arguments:
-            <argument-1>:
-              type: boolean
-              description: M0001 argument 1
+    tc:
+      description: Traffic light controller
+  alarms:
+    A0001:
+      description: alarm description text
+      targets: {component: [tc]}
+      priority: 1
+      category: D
+      externalAlarmCodeId: manufacturer specific alarm text
+      arguments:
+        <argument-1>:
+          type: integer
+          min: 0
+          max: 10
+          description: A0001 argument 1
+  statuses:
+    S0001:
+      description: status description text
+      targets: {component: [tc]}
+      arguments:
+        <argument-1>:
+          type: string
+          description: S0001 argument 1
+  commands:
+    M0001:
+      description: command description text
+      targets: {component: [tc]}
+      command: setStatus
+      arguments:
+        <argument-1>:
+          type: boolean
+          description: M0001 argument 1
 
   ..
 

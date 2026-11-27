@@ -55,7 +55,21 @@ describe 'CommandResponse' do
     end
   end
 
-  it 'catches missing component id' do
+  it 'accepts component, subtree and site selectors' do
+    ['north/1', 'north/', '/', nil].each do |selector|
+      message['cId'] = selector
+      expect( validate(message) ).to be_nil
+    end
+  end
+
+  it 'rejects invalid selectors' do
+    ['', '/north', 'north//', ['north/1']].each do |selector|
+      message['cId'] = selector
+      expect( validate(message) ).not.to be_nil
+    end
+  end
+
+  it 'catches a missing target selector' do
     message.delete 'cId'
     expect( validate(message) ).to be == (
       [["", "required", {"missing_keys"=>["cId"]}]]
